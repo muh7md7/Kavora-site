@@ -1,0 +1,4 @@
+data/waitlist.csv
+.DS_Store
+__pycache__/
+data/ratelimit.json
