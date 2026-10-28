@@ -16,7 +16,6 @@
     "short_text": "Founder price: $19 for the first 2,000",
     "button": "Claim it",
     "link": "/desk/#pricing",
-    "ends_at": "",
     "style": "Gradient"
   },
   "offer": {
@@ -44,18 +43,36 @@
   },
   "visitors": {
     "enabled": true,
-    "source": "Real live count",
-    "simulated_min": 8,
-    "simulated_max": 24,
+    "source": "Simulated (labelled)",
+    "simulated_min": 40,
+    "simulated_max": 223,
     "show_when_at_least": 3,
     "text": "{n} people are viewing Kavora right now"
   },
   "activity": {
     "enabled": false,
     "items": [
-      { "text": "Ayesha in Karachi started a free trial", "when": "4 minutes ago", "kind": "Simulated example", "icon": "Trial", "link": "/desk/" },
-      { "text": "A studio in Dubai bought Kavora Desk", "when": "12 minutes ago", "kind": "Simulated example", "icon": "Purchase", "link": "/desk/#pricing" },
-      { "text": "Omar in Lahore joined the drop list", "when": "20 minutes ago", "kind": "Simulated example", "icon": "Signup", "link": "/drops/" }
+      {
+        "text": "Ayesha in Karachi started a free trial",
+        "when": "4 minutes ago",
+        "kind": "Simulated example",
+        "icon": "Trial",
+        "link": "/desk/"
+      },
+      {
+        "text": "A studio in Dubai bought Kavora Desk",
+        "when": "12 minutes ago",
+        "kind": "Simulated example",
+        "icon": "Purchase",
+        "link": "/desk/#pricing"
+      },
+      {
+        "text": "Omar in Lahore joined the drop list",
+        "when": "20 minutes ago",
+        "kind": "Simulated example",
+        "icon": "Signup",
+        "link": "/drops/"
+      }
     ]
   }
 }
