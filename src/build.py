@@ -3,14 +3,26 @@
 Outputs plain HTML into the repo root, which Hostinger serves."""
 from pathlib import Path
 import html as H
+import re
 
 ROOT = Path(__file__).resolve().parent.parent
 
+import json, datetime
+
+def load(name, fallback):
+    try:
+        return json.loads((ROOT / "content" / name).read_text(encoding="utf-8"))
+    except Exception as e:
+        print("warning: could not read", name, e)
+        return fallback
+
+CFG = load("settings.json", {})
 SITE = {
-    "domain": "kavora.com",           # change after buying the domain
-    "email": "hello@kavora.com",      # support inbox shown everywhere
-    "city": "Lahore, Pakistan",
-    "founder": 19, "regular": 29, "trial": 7, "refund_days": 14,
+    "domain": CFG.get("domain") or "kavora.com",
+    "email": CFG.get("email") or "hello@kavora.com",
+    "city": CFG.get("city") or "Lahore, Pakistan",
+    "founder": CFG.get("founder_price", 19), "regular": CFG.get("regular_price", 29),
+    "trial": CFG.get("trial_days", 7), "refund_days": CFG.get("refund_days", 14),
     "updated": "28 October 2026",
 }
 E = SITE["email"]
@@ -93,7 +105,7 @@ def footer(mbar=True):
         <p class="soft" style="max-width:34ch;margin-top:16px;font-size:15.5px">Apps, automations and kits that take busywork off your plate. Made in {SITE['city']}.</p>
         <p style="margin-top:14px;font-size:15px"><a class="link" href="mailto:{E}">{E}</a></p>
       </div>
-      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#flows">Kavora Flows</a><a href="/store/#ads">Kavora Ads</a><a href="/store/">Full catalog</a></div>
+      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#kavora-flows">Kavora Flows</a><a href="/store/#kavora-ads">Kavora Ads</a><a href="/store/">Full catalog</a></div>
       <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/account/">Your account</a></div>
       <div><h4>Policies</h4><a href="/legal/terms/">Terms of service</a><a href="/legal/privacy/">Privacy policy</a><a href="/legal/refunds/">Refund policy</a><a href="/legal/license/">Licence agreement</a></div>
     </div>
@@ -107,6 +119,7 @@ def footer(mbar=True):
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
+<script src="/assets/js/settings.js" defer></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/auth-config.js" defer></script>
 <script src="/assets/js/auth.js" type="module"></script>
@@ -160,32 +173,37 @@ ART = {
  "all": '<div class="art-all">K+</div>',
 }
 
-PRODUCTS = [
-    # key, category, tint, tint2, name, line, price html, status, href
-    ("desk", "apps", "#c49bff", "#5fe3cf", "Kavora Desk", "80+ desktop widgets for macOS with live data, AI and social launchers, Smart Zones and a widget builder.",
-     f'<span class="price">${SITE["founder"]}<s>${SITE["regular"]}</s></span>', '<span class="status live">Available now</span>', "/desk/"),
-    ("flows", "automation", "#5fe3cf", "#7fb3ff", "Kavora Flows", "Ready-to-import n8n automations for lead capture, WhatsApp follow-ups, invoices and social posting.",
-     '<span class="price soft" style="font-size:18px">From $29</span>', '<span class="status">In the works</span>', "/drops/"),
-    ("ads", "marketing", "#ffbc8f", "#ff7fb5", "Kavora Ads", "Meta and TikTok ad packs with tested hooks, scripts and editable creatives for service businesses.",
-     '<span class="price soft" style="font-size:18px">From $24</span>', '<span class="status">In the works</span>', "/drops/"),
-    ("kits", "branding", "#ffd27f", "#c49bff", "Kavora Kits", "Brand identity kits: logo system, guidelines, social templates and pitch deck, ready to make your own.",
-     '<span class="price soft" style="font-size:18px">From $39</span>', '<span class="status">In the works</span>', "/drops/"),
-    ("studio", "templates", "#ff9ccf", "#5fe3cf", "Kavora Studio", "Notion and Canva systems: business OS, CRM board, content calendar, proposals and SOP library.",
-     '<span class="price soft" style="font-size:18px">From $19</span>', '<span class="status">In the works</span>', "/drops/"),
-    ("all", "memberships", "#c49bff", "#ffbc8f", "Kavora All-Access", "Every Kavora product and every future drop in one membership.",
-     '<span class="price soft" style="font-size:18px">Waitlist</span>', '<span class="status">Opening later</span>', "/drops/#waitlist"),
-]
+ART_BY_LABEL = {
+    "Kavora Desk icon": "desk", "Automation flow": "flows", "Ad mockup": "ads",
+    "Brand palette": "kits", "Task board": "studio", "K+ letters": "all",
+}
+
+def esc(v): return H.escape(str(v or ""))
+
+PRODUCTS = [p for p in load("products.json", {"products": []}).get("products", []) if p.get("show_on_website", True)]
+
+def slug(name): return re.sub(r"[^a-z0-9]+", "-", str(name).lower()).strip("-") or "product"
 
 def prod(p):
-    key, cat, t1, t2, name, line, price, status, href = p
-    return f"""<article class="prod" id="{key}" data-cat="{cat}" style="--tint:{t1};--tint2:{t2}">
-  <div class="prod-art">{ART[key]}</div>
+    key = slug(p.get("name"))
+    if p.get("picture"):
+        art = f'<img class="art-photo" src="{esc(p["picture"])}" alt="" loading="lazy" decoding="async">'
+    else:
+        art = ART.get(ART_BY_LABEL.get(p.get("built_in_art"), ""), f'<div class="art-all">{esc(str(p.get("name","K"))[:1])}</div>')
+    status = esc(p.get("status"))
+    live = " live" if status.lower().startswith("available") else ""
+    old = f'<s>{esc(p["old_price"])}</s>' if p.get("old_price") else ""
+    price_cls = "price" if old or live else "price soft"
+    cat = esc(p.get("category", "")).lower()
+    link = esc(p.get("link") or "/store/")
+    return f"""<article class="prod" id="{key}" data-cat="{cat}" style="--tint:{esc(p.get('color_1') or '#c49bff')};--tint2:{esc(p.get('color_2') or '#5fe3cf')}">
+  <div class="prod-art">{art}</div>
   <div class="prod-body">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h3>{name}</h3>{status}</div>
-    <p>{line}</p>
-    <div class="prod-foot">{price}<span class="soft" style="font-size:15px;font-weight:600">View details</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h3>{esc(p.get('name'))}</h3><span class="status{live}">{status}</span></div>
+    <p>{esc(p.get('description'))}</p>
+    <div class="prod-foot"><span class="{price_cls}"{'' if old or live else ' style="font-size:18px"'}>{esc(p.get('price'))}{old}</span><span class="soft" style="font-size:15px;font-weight:600">View details</span></div>
   </div>
-  <a class="prod-link" href="{href}" aria-label="{name}: view details"></a>
+  <a class="prod-link" href="{link}" aria-label="{esc(p.get('name'))}: view details"></a>
 </article>"""
 
 def trust():
@@ -238,7 +256,7 @@ def home():
     <div class="sec-head"><div><h2 class="d-lg split" id="how-h">How buying works</h2><p class="lede fade">No subscriptions to untangle. Try it, pay once, keep getting better versions.</p></div></div>
     <div class="steps">
       <div class="step"><span class="step-line"></span><span class="step-n">Step 1</span><h3>Try it free</h3><p>Download and use every feature for {SITE['trial']} days. No card needed.</p></div>
-      <div class="step"><span class="step-line"></span><span class="step-n">Step 2</span><h3>Pay once</h3><p>${SITE['founder']} for the first 100 customers, then ${SITE['regular']}. Your licence key arrives by email in seconds.</p></div>
+      <div class="step"><span class="step-line"></span><span class="step-n">Step 2</span><h3>Pay once</h3><p>${SITE['founder']} for the first {CFG.get('founder_seats', 100)} customers, then ${SITE['regular']}. Your licence key arrives by email in seconds.</p></div>
       <div class="step"><span class="step-line"></span><span class="step-n">Step 3</span><h3>Get every drop</h3><p>New widgets and features install automatically every Friday for a full year.</p></div>
     </div>
   </div>
@@ -253,7 +271,7 @@ def home():
 
 <section class="sec" style="padding-top:0" aria-labelledby="drop-h">
   <div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:center">
-    <div><h2 class="d-lg split" id="drop-h">Next drop: Markets &amp; Gold</h2><p class="lede fade" style="margin-top:18px">Live gold, crypto and stock tickers for Kavora Desk, with price alerts. Arrives <span data-drop-date>this Friday</span>.</p>
+    <div><h2 class="d-lg split" id="drop-h">Next drop: {esc(CFG.get('next_drop_title', 'Something new'))}</h2><p class="lede fade" style="margin-top:18px">{esc(CFG.get('next_drop_text', ''))} Arrives <span data-drop-date>this Friday</span>.</p>
       <a class="btn btn-quiet fade" href="/drops/" style="margin-top:28px">See the roadmap</a></div>
     <div class="fade">{clock()}</div>
   </div>
@@ -270,7 +288,11 @@ def home():
     page("", "Kavora | Premium apps, automations and business kits", "Kavora makes premium Mac apps, n8n automations, ad templates and brand kits for founders and teams. Start with Kavora Desk: 80+ desktop widgets for macOS.", "", body, "home")
 
 def store():
-    groups = [("Apps", "apps"), ("Automations", "automation"), ("Marketing", "marketing"), ("Branding", "branding"), ("Templates", "templates"), ("Memberships", "memberships")]
+    seen = []
+    for p in PRODUCTS:
+        c = p.get("category")
+        if c and c not in seen: seen.append(c)
+    groups = [(c, c.lower()) for c in seen]
     cards = "".join(prod(p) for p in PRODUCTS)
     cats = "".join(f'<span class="chip">{g}</span>' for g, _ in groups)
     body = f"""
@@ -344,7 +366,7 @@ def desk():
       <div class="plan fade"><h3>Free trial</h3><div class="amt">$0</div><div class="dim">{SITE['trial']} days, every feature</div>
         <ul><li>All 80+ widgets</li><li>Ready-made desktops</li><li>Widget builder</li><li>No card needed</li></ul>
         <a class="btn btn-quiet" data-download href="#waitlist">Download the trial</a></div>
-      <div class="plan star fade"><h3>Founder licence</h3><div class="amt">${SITE['founder']} <small>one time</small></div><div class="dim">${SITE['regular']} after the first 100 customers</div>
+      <div class="plan star fade"><h3>Founder licence</h3><div class="amt">${SITE['founder']} <small>one time</small></div><div class="dim">${SITE['regular']} after the first {CFG.get('founder_seats', 100)} customers</div>
         <ul><li>Use on 2 Macs, for life</li><li>A year of Friday drops</li><li>Early access to new products</li><li>{SITE['refund_days']}-day money-back guarantee</li></ul>
         <a class="btn btn-main" data-buy href="#waitlist">Buy Kavora Desk</a>
         <div class="seats" data-seats><b data-left>100</b> founder licences left<div class="bar"><i></i></div></div></div>
@@ -364,15 +386,8 @@ def desk():
     page("desk", "Kavora Desk | Premium desktop widgets for macOS", "80+ premium Mac desktop widgets with live weather, battery, system stats, music, AI and social launchers, ready-made layouts and a widget builder. One-time purchase.", "desk", body)
 
 def drops():
-    road = [
-        ("This Friday", "Markets & Gold", "Live gold, crypto and stock tickers with sparklines and price alerts.", True),
-        ("Next week", "Live wallpapers", "Moving glass and aurora wallpapers that match your widget colours.", False),
-        ("In 3 weeks", "Calendar and mail", "Your real events and unread email on the desktop.", False),
-        ("In 4 weeks", "Kavora Flows, first pack", "n8n automations for leads, WhatsApp follow-ups and invoices.", False),
-        ("In 5 weeks", "Widget store", "Download new widget designs and themes from creators.", False),
-        ("In 6 weeks", "Desktop assistant", "Describe the desktop you want and it gets built and arranged for you.", False),
-    ]
-    rows = "".join(f"""<div class="road-item{' next' if n else ''} fade"><span class="pin"></span><span class="when">{w}</span><div><h3>{t}</h3><p>{d}</p></div></div>""" for w, t, d, n in road)
+    road = [(d.get("when", ""), d.get("title", ""), d.get("description", ""), bool(d.get("is_next"))) for d in load("roadmap.json", {"drops": []}).get("drops", [])]
+    rows = "".join(f"""<div class="road-item{' next' if n else ''} fade"><span class="pin"></span><span class="when">{esc(w)}</span><div><h3>{esc(t)}</h3><p>{esc(d)}</p></div></div>""" for w, t, d, n in road)
     body = f"""
 <section class="sec" style="padding-top:150px">
   <div class="wrap">
@@ -518,5 +533,13 @@ def seo():
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://{SITE['domain']}/{p + '/' if p else ''}</loc></url>" for p in pages) + "</urlset>", encoding="utf-8")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /account/\nDisallow: /data/\nSitemap: https://{SITE['domain']}/sitemap.xml\n", encoding="utf-8")
 
+def browser_settings():
+    js = {
+        "deskCheckout": CFG.get("desk_checkout_link", ""), "deskDownload": CFG.get("desk_download_link", ""),
+        "founderSeats": CFG.get("founder_seats", 100), "founderSold": CFG.get("founder_sold", 0),
+    }
+    (ROOT / "assets/js/settings.js").write_text("/* Generated from content/settings.json — edit there, not here. */\nwindow.KAVORA_SETTINGS = " + json.dumps(js) + ";\n", encoding="utf-8")
+
 if __name__ == "__main__":
+    browser_settings()
     home(); store(); desk(); drops(); about(); contact(); login(); signup_page(); account(); legal_pages(); notfound(); seo()

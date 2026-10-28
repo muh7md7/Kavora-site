@@ -1,0 +1,88 @@
+{
+  "products": [
+    {
+      "name": "Kavora Desk",
+      "description": "80+ desktop widgets for macOS with live data, AI and social launchers, Smart Zones and a widget builder.",
+      "category": "Apps",
+      "status": "Available now",
+      "price": "$19",
+      "old_price": "$29",
+      "link": "/desk/",
+      "picture": "",
+      "built_in_art": "Kavora Desk icon",
+      "color_1": "#c49bff",
+      "color_2": "#5fe3cf",
+      "show_on_website": true
+    },
+    {
+      "name": "Kavora Flows",
+      "description": "Ready-to-import n8n automations for lead capture, WhatsApp follow-ups, invoices and social posting.",
+      "category": "Automations",
+      "status": "In the works",
+      "price": "From $29",
+      "old_price": "",
+      "link": "/drops/",
+      "picture": "",
+      "built_in_art": "Automation flow",
+      "color_1": "#5fe3cf",
+      "color_2": "#7fb3ff",
+      "show_on_website": true
+    },
+    {
+      "name": "Kavora Ads",
+      "description": "Meta and TikTok ad packs with tested hooks, scripts and editable creatives for service businesses.",
+      "category": "Marketing",
+      "status": "In the works",
+      "price": "From $24",
+      "old_price": "",
+      "link": "/drops/",
+      "picture": "",
+      "built_in_art": "Ad mockup",
+      "color_1": "#ffbc8f",
+      "color_2": "#ff7fb5",
+      "show_on_website": true
+    },
+    {
+      "name": "Kavora Kits",
+      "description": "Brand identity kits: logo system, guidelines, social templates and pitch deck, ready to make your own.",
+      "category": "Branding",
+      "status": "In the works",
+      "price": "From $39",
+      "old_price": "",
+      "link": "/drops/",
+      "picture": "",
+      "built_in_art": "Brand palette",
+      "color_1": "#ffd27f",
+      "color_2": "#c49bff",
+      "show_on_website": true
+    },
+    {
+      "name": "Kavora Studio",
+      "description": "Notion and Canva systems: business OS, CRM board, content calendar, proposals and SOP library.",
+      "category": "Templates",
+      "status": "In the works",
+      "price": "From $19",
+      "old_price": "",
+      "link": "/drops/",
+      "picture": "",
+      "built_in_art": "Task board",
+      "color_1": "#ff9ccf",
+      "color_2": "#5fe3cf",
+      "show_on_website": true
+    },
+    {
+      "name": "Kavora All-Access",
+      "description": "Every Kavora product and every future drop in one membership.",
+      "category": "Memberships",
+      "status": "Opening later",
+      "price": "Waitlist",
+      "old_price": "",
+      "link": "/drops/#waitlist",
+      "picture": "",
+      "built_in_art": "K+ letters",
+      "color_1": "#c49bff",
+      "color_2": "#ffbc8f",
+      "show_on_website": true
+    }
+  ]
+}

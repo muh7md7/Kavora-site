@@ -1,0 +1,10 @@
+{
+  "drops": [
+    { "when": "This Friday", "title": "Markets & Gold", "description": "Live gold, crypto and stock tickers with sparklines and price alerts.", "is_next": true },
+    { "when": "Next week", "title": "Live wallpapers", "description": "Moving glass and aurora wallpapers that match your widget colours.", "is_next": false },
+    { "when": "In 3 weeks", "title": "Calendar and mail", "description": "Your real events and unread email on the desktop.", "is_next": false },
+    { "when": "In 4 weeks", "title": "Kavora Flows, first pack", "description": "n8n automations for leads, WhatsApp follow-ups and invoices.", "is_next": false },
+    { "when": "In 5 weeks", "title": "Widget store", "description": "Download new widget designs and themes from creators.", "is_next": false },
+    { "when": "In 6 weeks", "title": "Desktop assistant", "description": "Describe the desktop you want and it gets built and arranged for you.", "is_next": false }
+  ]
+}

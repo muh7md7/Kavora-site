@@ -1,0 +1,27 @@
+# Rebuilds the website whenever content or the builder changes (e.g. after editing in Pages CMS).
+name: Build website
+on:
+  push:
+    branches: [main]
+    paths: ["content/**", "src/**", "assets/uploads/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: build, cancel-in-progress: true }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Build pages
+        run: python3 src/build.py
+      - name: Save the built pages
+        run: |
+          git config user.name "Kavora builder"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "Nothing changed" && exit 0
+          git commit -m "Rebuild website from content"
+          git push

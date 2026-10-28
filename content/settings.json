@@ -1,0 +1,15 @@
+{
+  "domain": "kavora.com",
+  "email": "hello@kavora.com",
+  "city": "Lahore, Pakistan",
+  "founder_price": 19,
+  "regular_price": 29,
+  "trial_days": 7,
+  "refund_days": 14,
+  "founder_seats": 100,
+  "founder_sold": 0,
+  "desk_checkout_link": "",
+  "desk_download_link": "",
+  "next_drop_title": "Markets & Gold",
+  "next_drop_text": "Live gold, crypto and stock tickers for Kavora Desk, with price alerts."
+}

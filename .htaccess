@@ -12,7 +12,7 @@ RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
 # 2. Never serve source, docs, git or private data
 RewriteRule (^|/)\.(?!well-known/) - [F,L]
-RewriteRule ^(src|data|node_modules)(/|$) - [F,L]
+RewriteRule ^(src|data|content|node_modules)(/|$) - [F,L]
 RewriteRule ^(README\.md|.*\.py|.*\.log|.*\.csv)$ - [F,L]
 
 # 3. Clean URLs: /store -> store.html

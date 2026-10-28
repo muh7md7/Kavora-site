@@ -1,0 +1,78 @@
+# Kavora admin panel (Pages CMS). Open https://app.pagescms.org and pick this repo.
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  categories: [image]
+
+content:
+  - name: products
+    label: Products
+    description: Add, edit, hide or reorder the products on your website.
+    type: file
+    path: content/products.json
+    fields:
+      - name: products
+        label: Products
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Product name, type: string, required: true }
+          - { name: description, label: Short description (1–2 sentences), type: text }
+          - name: category
+            label: Category
+            type: select
+            options:
+              values: [Apps, Automations, Marketing, Branding, Templates, Memberships, Courses, Bundles]
+          - name: status
+            label: Status
+            type: select
+            options:
+              values: [Available now, In the works, Opening later, Sold out]
+          - { name: price, label: "Price (e.g. $19 or From $29)", type: string }
+          - { name: old_price, label: "Old price, shown crossed out (optional)", type: string }
+          - { name: link, label: "Page or checkout link (e.g. /desk/ or https://...)", type: string }
+          - { name: picture, label: Product picture (optional — replaces the built-in art), type: image }
+          - name: built_in_art
+            label: Built-in art (used when there is no picture)
+            type: select
+            options:
+              values: [Kavora Desk icon, Automation flow, Ad mockup, Brand palette, Task board, K+ letters, First letter]
+          - { name: color_1, label: "Glow colour 1 (e.g. #c49bff)", type: string }
+          - { name: color_2, label: "Glow colour 2 (e.g. #5fe3cf)", type: string }
+          - { name: show_on_website, label: Show on website, type: boolean }
+
+  - name: roadmap
+    label: Weekly drops roadmap
+    description: The list on the Drops page. Tick "Next drop" on the one arriving this Friday.
+    type: file
+    path: content/roadmap.json
+    fields:
+      - name: drops
+        label: Drops
+        type: object
+        list: true
+        fields:
+          - { name: when, label: "When (e.g. This Friday, Next week)", type: string }
+          - { name: title, label: Title, type: string }
+          - { name: description, label: Description, type: text }
+          - { name: is_next, label: Next drop, type: boolean }
+
+  - name: settings
+    label: Settings
+    description: Prices, links, contact details and the founder counter.
+    type: file
+    path: content/settings.json
+    fields:
+      - { name: domain, label: "Website domain (e.g. kavora.com)", type: string }
+      - { name: email, label: Support email, type: string }
+      - { name: city, label: City and country, type: string }
+      - { name: founder_price, label: Founder price (USD), type: number }
+      - { name: regular_price, label: Regular price (USD), type: number }
+      - { name: trial_days, label: Free trial days, type: number }
+      - { name: refund_days, label: Refund window (days), type: number }
+      - { name: founder_seats, label: Founder licences available, type: number }
+      - { name: founder_sold, label: Founder licences sold so far, type: number }
+      - { name: desk_checkout_link, label: Kavora Desk checkout link (Lemon Squeezy), type: string }
+      - { name: desk_download_link, label: Kavora Desk free trial download link, type: string }
+      - { name: next_drop_title, label: Next drop title (home page), type: string }
+      - { name: next_drop_text, label: Next drop description (home page), type: text }

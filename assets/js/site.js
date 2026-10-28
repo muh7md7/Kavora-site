@@ -1,12 +1,9 @@
-/* Kavora site — settings + motion. Change values in KAVORA only; nothing else needs editing. */
-window.KAVORA = {
-  deskCheckout: "",       // Lemon Squeezy checkout link for Kavora Desk
-  deskDownload: "",       // trial .dmg link
-  founderSeats: 100,
-  founderSold: 0,
+/* Kavora site motion and behaviour. Settings live in content/settings.json. */
+window.KAVORA = Object.assign({
+  deskCheckout: "", deskDownload: "", founderSeats: 100, founderSold: 0,
   dropDayUTC: 5,          // Friday
   dropHourUTC: 15         // 20:00 Pakistan time
-};
+}, window.KAVORA_SETTINGS || {});   // values come from content/settings.json
 
 (function () {
   const K = window.KAVORA;
