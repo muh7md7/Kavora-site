@@ -46,7 +46,7 @@
     "source": "Simulated (labelled)",
     "simulated_min": 40,
     "simulated_max": 223,
-    "show_when_at_least": 3,
+    "show_when_at_least": 60,
     "text": "{n} people are viewing Kavora right now"
   },
   "activity": {
