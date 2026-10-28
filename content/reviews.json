@@ -1,3 +1,11 @@
 {
-  "reviews": []
+  "reviews": [
+    {
+      "name": "ibrahim omar",
+      "quote": "i have purchased widget app for mac, its very amazing and useful for my daily use, satisfied",
+      "rating": "5",
+      "kind": "Real customer review",
+      "show_on_website": true
+    }
+  ]
 }
