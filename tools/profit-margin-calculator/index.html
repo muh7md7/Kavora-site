@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profit Margin &amp; Markup Calculator — Find Your Selling Price | Kavora Tools</title>
+<meta name="description" content="Free profit margin calculator. Enter cost and price to see margin and markup, or set a target margin to get the right selling price. Supports PKR, AED, SAR, USD.">
+<link rel="canonical" href="https://kavora.com/tools/profit-margin-calculator/">
+<meta property="og:site_name" content="Kavora">
+<meta property="og:title" content="Profit Margin &amp; Markup Calculator — Find Your Selling Price | Kavora Tools">
+<meta property="og:description" content="Free profit margin calculator. Enter cost and price to see margin and markup, or set a target margin to get the right selling price. Supports PKR, AED, SAR, USD.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kavora.com/tools/profit-margin-calculator/">
+<meta property="og:image" content="https://kavora.com/assets/img/kavora-desk-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#272b42">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=c179e3dc">
+<script src="/assets/js/head.js?v=36d1adb7"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Kavora","url":"https://kavora.com","logo":"https://kavora.com/assets/img/kavora-desk-icon.png","email":"hello@kavora.com","address":{"@type":"PostalAddress","addressLocality":"Lahore","addressCountry":"PK"}}</script>
+
+</head>
+<body data-page="tool" class="tools-theme" data-tool="profit">
+<div class="ambient" aria-hidden="true"></div>
+<div class="cursor-light" aria-hidden="true"></div>
+<header class="nav">
+  <div class="wrap">
+    <div class="nav-bar">
+      <a class="logo" href="/" aria-label="Kavora home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fe3cf"/><stop offset=".55" stop-color="#c49bff"/><stop offset="1" stop-color="#ffbc8f"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><rect x="7" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".95"/><rect x="17" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".55"/><rect x="7" y="17" width="18" height="8" rx="2.4" fill="#fff" opacity=".8"/></svg>Kavora</a>
+      <nav class="nav-links" aria-label="Main"><a href="/store/">Catalog</a><a href="/desk/">Kavora Desk</a><a href="/tools/" aria-current="page">Free tools</a><a href="/drops/">Drops</a><a href="/about/">About</a></nav>
+      <div class="nav-acct">
+        <a class="btn btn-quiet btn-sm" href="/login/" data-guest>Sign in</a>
+        <a class="btn btn-main btn-sm" href="/signup/" data-guest>Create account</a>
+        <a class="avatar" href="/account/" data-user hidden aria-label="Your account"></a>
+      </div>
+      <button class="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<section class="tools-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Kavora</a><span>/</span><a href="/tools/">Free tools</a><span>/</span><span>Profit Margin Calculator</span></nav>
+  <h1 class="t-h1">Profit margin and markup calculator</h1>
+  <p class="t-lede">Work out margin, markup and the right selling price from your costs. Free, no sign-up, and private: everything runs in your browser.</p>
+</div></section>
+<section class="wrap tool-ui tool-profit-margin-calculator">
+<form id="pm" class="tool-card" onsubmit="return false">
+  <label class="tl">I want to<select class="tf" name="mode"><option value="price">Check my price</option><option value="margin">Price for a target margin</option><option value="markup">Price from a markup</option></select></label>
+  <div class="tgrid2">
+    <label class="tl">Cost per item<input class="tf" name="cost" type="number" min="0" step="any" value="1200"></label>
+    <label class="tl">Currency<select class="tf" name="currency" aria-label="Currency"><option selected>PKR</option><option>AED</option><option>SAR</option><option>USD</option><option>GBP</option><option>EUR</option><option>INR</option><option>QAR</option><option>KWD</option><option>OMR</option><option>BHD</option><option>CAD</option><option>AUD</option></select></label>
+  </div>
+  <label class="tl" id="pm-price-row">Selling price<input class="tf" name="price" type="number" min="0" step="any" value="2000"></label>
+  <label class="tl" id="pm-target-row" hidden><span id="pm-target-label">Target margin (%)</span><input class="tf" name="target" type="number" min="0" step="any" value="40"></label>
+  <label class="tl">Expected sales<input class="tf" name="qty" type="number" min="1" step="1" value="100"></label>
+</form>
+<div class="tool-card results" id="pm-out" aria-live="polite"></div></section>
+<div class="wrap"></div>
+<article class="wrap tool-guide">
+<h2>Margin and markup are not the same thing</h2>
+<p>This is the most common pricing mistake in small businesses. Both start from the same profit, but they divide it by different numbers.</p>
+<ul>
+<li><b>Markup</b> is profit divided by <b>cost</b>. Buy at 1,000, sell at 1,500: profit 500, markup 50%.</li>
+<li><b>Margin</b> is profit divided by <b>selling price</b>. Same example: 500 ÷ 1,500 = 33.3% margin.</li>
+</ul>
+<p>If you want a 50% margin and add 50% to your cost, you only get 33%. To reach a 50% margin, you need a 100% markup. The "price for a target margin" mode does this maths for you.</p>
+<h3>What to include in your cost</h3>
+<p>Your real cost per item is more than the purchase price. Add packaging, delivery you pay for, payment gateway or card fees, marketplace commission, returns and a share of ad spend. If you spend 50,000 on ads to sell 100 units, add 500 to each unit's cost before you check your margin.</p>
+<h3>What is a good margin?</h3>
+<p>It depends on the industry. Groceries often run on thin single-digit margins and rely on volume; fashion, beauty and handmade products often aim for 50% or more because returns and ad costs are high; digital products and software can reach 80–90% because each extra sale costs almost nothing. Compare yourself with businesses like yours, not with averages.</p>
+<h3>Three ways to improve your margin</h3>
+<ol>
+<li><b>Raise prices slightly</b> and test. A 5% price rise often loses fewer customers than you fear.</li>
+<li><b>Bundle</b> items so the average order is larger while delivery and payment costs stay the same.</li>
+<li><b>Cut the hidden costs</b>: cheaper packaging, fewer returns through better product photos and descriptions, and ads aimed at buyers who already know what they want.</li>
+</ol>
+  <h2>Frequently asked questions</h2>
+  <div class="faq t-faq"><details><summary>How do I calculate profit margin?<i aria-hidden="true"></i></summary><p>Profit margin = (selling price − cost) ÷ selling price × 100.</p></details><details><summary>How do I calculate markup?<i aria-hidden="true"></i></summary><p>Markup = (selling price − cost) ÷ cost × 100.</p></details><details><summary>How do I price for a 40% margin?<i aria-hidden="true"></i></summary><p>Divide your cost by 0.6 (that is, 1 − 0.40). A cost of 1,200 needs a price of 2,000.</p></details><details><summary>Should I include tax in the selling price?<i aria-hidden="true"></i></summary><p>No. Calculate margin on the price before VAT or sales tax, because the tax is not your money.</p></details></div>
+  <aside class="t-related"><div><small>From the makers of this tool</small><b>Kavora Desk</b><p>Keep sales, tasks and goals on your Mac desktop with live widgets.</p></div><a class="tbtn" href="/desk/">See Kavora Desk</a></aside>
+</article>
+<section class="wrap"><h2 class="t-h2">More free tools</h2><div class="tools-list"><a class="tcard" href="/tools/invoice-generator/"><span class="tcard-ico">🧾</span><span><b>Invoice Generator</b><small>Make a clean, professional invoice and save it as a PDF in under a minute.</small></span></a><a class="tcard" href="/tools/whatsapp-link-generator/"><span class="tcard-ico">💬</span><span><b>WhatsApp Link &amp; QR Generator</b><small>Create a click-to-chat WhatsApp link and QR code with a ready-typed message.</small></span></a><a class="tcard" href="/tools/vat-gst-calculator/"><span class="tcard-ico">🧮</span><span><b>VAT &amp; GST Calculator</b><small>Add or remove VAT and sales tax with presets for the UAE, Saudi Arabia and Pakistan.</small></span></a><a class="tcard" href="/tools/utm-link-builder/"><span class="tcard-ico">🔗</span><span><b>UTM Link Builder</b><small>Tag your campaign links so you know exactly which post or ad brought each visitor.</small></span></a></div></section>
+<div class="wrap"></div>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Profit Margin Calculator", "url": "https://kavora.com/tools/profit-margin-calculator/", "description": "Free profit margin calculator. Enter cost and price to see margin and markup, or set a target margin to get the right selling price. Supports PKR, AED, SAR, USD.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Kavora"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate profit margin?", "acceptedAnswer": {"@type": "Answer", "text": "Profit margin = (selling price \u2212 cost) \u00f7 selling price \u00d7 100."}}, {"@type": "Question", "name": "How do I calculate markup?", "acceptedAnswer": {"@type": "Answer", "text": "Markup = (selling price \u2212 cost) \u00f7 cost \u00d7 100."}}, {"@type": "Question", "name": "How do I price for a 40% margin?", "acceptedAnswer": {"@type": "Answer", "text": "Divide your cost by 0.6 (that is, 1 \u2212 0.40). A cost of 1,200 needs a price of 2,000."}}, {"@type": "Question", "name": "Should I include tax in the selling price?", "acceptedAnswer": {"@type": "Answer", "text": "No. Calculate margin on the price before VAT or sales tax, because the tax is not your money."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Kavora", "item": "https://kavora.com/"}, {"@type": "ListItem", "position": 2, "name": "Free tools", "item": "https://kavora.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "Profit Margin Calculator", "item": "https://kavora.com/tools/profit-margin-calculator/"}]}]</script></main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fe3cf"/><stop offset=".55" stop-color="#c49bff"/><stop offset="1" stop-color="#ffbc8f"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><rect x="7" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".95"/><rect x="17" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".55"/><rect x="7" y="17" width="18" height="8" rx="2.4" fill="#fff" opacity=".8"/></svg>Kavora</a>
+        <p class="soft" style="max-width:34ch;margin-top:16px;font-size:15.5px">Apps, automations and kits that take busywork off your plate. Made in Lahore, Pakistan.</p>
+        <p style="margin-top:14px;font-size:15px"><a class="link" href="mailto:hello@kavora.com">hello@kavora.com</a></p>
+      </div>
+      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#kavora-flows">Kavora Flows</a><a href="/store/#kavora-ads">Kavora Ads</a><a href="/store/">Full catalog</a><a href="/tools/">Free business tools</a></div>
+      <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/earn/">Earn with Kavora</a><a href="/account/">Your account</a></div>
+      <div><h4>Policies</h4><a href="/legal/terms/">Terms of service</a><a href="/legal/privacy/">Privacy policy</a><a href="/legal/refunds/">Refund policy</a><a href="/legal/license/">Licence agreement</a></div>
+    </div>
+    <div class="foot-word" aria-hidden="true">Kavora</div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> Kavora. All rights reserved. <span style="opacity:.5">Build 19f6ec</span></span>
+      <span>Checkout and payments are handled by Lemon Squeezy, our authorised reseller.</span>
+    </div>
+  </div>
+</footer>
+<script src="/assets/vendor/gsap.min.js?v=47da594c" defer></script>
+<script src="/assets/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
+<script src="/assets/vendor/lenis.min.js?v=79e3a064" defer></script>
+<script src="/assets/js/settings.js?v=cb87d481" defer></script>
+<script src="/assets/js/site.js?v=4b80cb32" defer></script>
+<script src="/assets/js/marketing.js?v=0884b1a3" defer></script>
+<script src="/assets/js/promo.js?v=ef323a74" defer></script>
+<script src="/assets/js/auth-config.js?v=cdf6768f" defer></script>
+<script src="/assets/js/auth.js?v=68c192dc" type="module"></script>
+<script src="/assets/js/tools.js?v=3d0a9777" defer></script>
+</body>
+</html>

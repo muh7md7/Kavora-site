@@ -212,3 +212,8 @@ content:
       - { name: desk_download_link, label: Kavora Desk free trial download link, type: string }
       - { name: next_drop_title, label: Next drop title (home page), type: string }
       - { name: next_drop_text, label: Next drop description (home page), type: text }
+      - { name: google_site_verification, label: "Google Search Console verification code (the content=\"...\" value)", type: string }
+      - { name: bing_site_verification, label: Bing Webmaster verification code, type: string }
+      - { name: adsense_client_id, label: "Google AdSense publisher ID (ca-pub-...). Ads appear only on free tools pages.", type: string }
+      - { name: affiliate_signup_link, label: Lemon Squeezy affiliate sign-up link, type: string }
+      - { name: affiliate_commission, label: "Affiliate commission (%)", type: number }

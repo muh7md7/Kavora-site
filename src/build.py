@@ -52,7 +52,7 @@ def bust(html_text):
     return re.sub(r'"(/assets/(?:css|js|vendor)/[^"?]+\.(?:css|js))"', fp, html_text)
 
 # ---------- shell ----------
-def head(title, desc, path, page):
+def head(title, desc, path, page, body_attrs="", extra_head=""):
     url = f"https://{SITE['domain']}/" + (f"{path}/" if path else "")
     return f"""<!doctype html>
 <html lang="en">
@@ -77,13 +77,24 @@ def head(title, desc, path, page):
 <link rel="stylesheet" href="/assets/css/site.css">
 <script src="/assets/js/head.js"></script>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"Kavora","url":"https://{SITE['domain']}","logo":"https://{SITE['domain']}/assets/img/kavora-desk-icon.png","email":"{E}","address":{{"@type":"PostalAddress","addressLocality":"Lahore","addressCountry":"PK"}}}}</script>
+{extra_head}{verify_tags()}
 </head>
-<body data-page="{page}">
+<body data-page="{page}"{body_attrs}>
 <div class="ambient" aria-hidden="true"></div>
 <div class="cursor-light" aria-hidden="true"></div>
 """
 
-LINKS = [("Catalog", "store"), ("Kavora Desk", "desk"), ("Drops", "drops"), ("About", "about")]
+LINKS = [("Catalog", "store"), ("Kavora Desk", "desk"), ("Free tools", "tools"), ("Drops", "drops"), ("About", "about")]
+
+ADSENSE = str(CFG.get("adsense_client_id", "") or "").strip()
+if ADSENSE and not ADSENSE.startswith("ca-pub-"): ADSENSE = "ca-pub-" + ADSENSE.replace("pub-", "")
+
+def verify_tags():
+    t = ""
+    if CFG.get("google_site_verification"): t += f'<meta name="google-site-verification" content="{H.escape(str(CFG["google_site_verification"]))}">\n'
+    if CFG.get("bing_site_verification"): t += f'<meta name="msvalidate.01" content="{H.escape(str(CFG["bing_site_verification"]))}">\n'
+    if ADSENSE: t += f'<meta name="google-adsense-account" content="{ADSENSE}">\n'
+    return t
 
 def nav(active):
     cur = ' aria-current="page"'
@@ -121,8 +132,8 @@ def footer(mbar=True):
         <p class="soft" style="max-width:34ch;margin-top:16px;font-size:15.5px">Apps, automations and kits that take busywork off your plate. Made in {SITE['city']}.</p>
         <p style="margin-top:14px;font-size:15px"><a class="link" href="mailto:{E}">{E}</a></p>
       </div>
-      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#kavora-flows">Kavora Flows</a><a href="/store/#kavora-ads">Kavora Ads</a><a href="/store/">Full catalog</a></div>
-      <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/account/">Your account</a></div>
+      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#kavora-flows">Kavora Flows</a><a href="/store/#kavora-ads">Kavora Ads</a><a href="/store/">Full catalog</a><a href="/tools/">Free business tools</a></div>
+      <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/earn/">Earn with Kavora</a><a href="/account/">Your account</a></div>
       <div><h4>Policies</h4><a href="/legal/terms/">Terms of service</a><a href="/legal/privacy/">Privacy policy</a><a href="/legal/refunds/">Refund policy</a><a href="/legal/license/">Licence agreement</a></div>
     </div>
     <div class="foot-word" aria-hidden="true">Kavora</div>
@@ -145,8 +156,10 @@ def footer(mbar=True):
 </html>
 """
 
-def page(path, title, desc, active, body, page_id=None, chrome=True):
-    out = bust(head(title, desc, path, page_id or (path or "home")) + nav(active) + body + footer(path in ("", "store", "desk", "drops")))
+def page(path, title, desc, active, body, page_id=None, chrome=True, body_attrs="", extra_head="", extra_scripts=""):
+    out = head(title, desc, path, page_id or (path or "home"), body_attrs, extra_head) + nav(active) + body + footer(path in ("", "store", "desk", "drops"))
+    if extra_scripts: out = out.replace("</body>", extra_scripts + "\n</body>")
+    out = bust(out)
     t = ROOT / ("index.html" if not path else ("404.html" if path == "404" else f"{path}/index.html"))
     t.parent.mkdir(parents=True, exist_ok=True)
     t.write_text(out, encoding="utf-8")
@@ -461,6 +474,11 @@ def desk():
   <div class="final"><h2 class="d-lg split">Get Kavora Desk on launch day.</h2><p class="lede fade">We'll send the download link and hold a founder price for you.</p><div class="fade">{signup('desk')}</div></div>
 </section>
 """
+    schema = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Kavora Desk", "operatingSystem": "macOS 14 or later",
+              "applicationCategory": "UtilitiesApplication", "description": "80+ premium desktop widgets for macOS with live data, AI and social launchers, ready-made layouts and a widget builder.",
+              "image": f"https://{SITE['domain']}/assets/img/kavora-desk-icon.png",
+              "offers": {"@type": "Offer", "price": str(SITE["founder"]), "priceCurrency": "USD", "url": f"https://{SITE['domain']}/desk/"}}
+    body = body.replace("</section>\n", "</section>\n", 1) + f'<script type="application/ld+json">{json.dumps(schema)}</script>'
     page("desk", "Kavora Desk | Premium desktop widgets for macOS", "80+ premium Mac desktop widgets with live weather, battery, system stats, music, AI and social launchers, ready-made layouts and a widget builder. One-time purchase.", "desk", body)
 
 def drops():
@@ -582,12 +600,15 @@ def legal_pages():
         ("Contact", [f'Questions about these terms: <a href="mailto:{E}">{E}</a>.']),
     ])
     legal("legal/privacy", "Privacy policy", [
-        ("In short", ["We collect as little as possible, never sell your data and run no advertising trackers."]),
+        ("In short", ["We collect as little as possible and never sell your data. Our store and product pages carry no ads. Our free tools pages may show ads from Google."]),
         ("Accounts", ["If you create an account we store your name, email and sign-in method with Google Firebase Authentication. If you sign in with Google we receive your name, email and profile picture from Google. Passwords are handled by Firebase and never stored by us."]),
         ("Waitlist", ["If you join the list we store your email address and the page you joined from, only to send product news. A hashed version of your IP address is kept for ten minutes to stop spam."]),
         ("Purchases", ["Payments are processed by Lemon Squeezy, which receives your name, email, billing country and payment details under its own privacy policy. We receive your name, email and order details. Licence checks send your licence key and an anonymous device name to Lemon Squeezy."]),
         ("Inside the app", ["Kavora Desk keeps widgets, notes, tasks and statistics on your Mac. Weather (Open-Meteo) and prayer times (AlAdhan) are requested using only the city and country you choose."]),
-        ("Cookies", ["We use only the storage needed to keep you signed in. No analytics or advertising cookies."]),
+        ("Cookies", ["The store uses only the storage needed to keep you signed in and to remember popups you closed. Free tools remember what you typed only in your own browser."]),
+        ("Advertising on free tools pages", ['Our free tools pages may show ads served by Google AdSense. Third-party vendors, including Google, use cookies to serve ads based on your previous visits to this and other websites. Google\'s use of advertising cookies enables it and its partners to serve ads based on your visits to our sites and other sites on the internet.',
+            'You can opt out of personalised advertising in <a href="https://adssettings.google.com" rel="noopener" target="_blank">Google Ads Settings</a>, or opt out of some third-party vendors at <a href="https://www.aboutads.info/choices/" rel="noopener" target="_blank">aboutads.info</a>. Learn how Google uses data at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener" target="_blank">policies.google.com/technologies/partner-sites</a>.',
+            'Visitors in the European Economic Area, the UK and Switzerland are asked for consent through a Google-certified consent message before personalised ads are shown.']),
         ("Your rights", [f'Ask for a copy of your data, a correction or deletion at <a href="mailto:{E}">{E}</a>. Unsubscribe from emails in one click. You can delete your account at any time by emailing us.']),
     ])
     legal("legal/refunds", "Refund policy", [
@@ -606,8 +627,130 @@ def legal_pages():
 def notfound():
     page("404", "Page not found | Kavora", "Page not found.", "", f'<section class="prose" style="text-align:center;padding-top:200px"><h1 class="d-lg">This page doesn\'t exist.</h1><p class="lede" style="margin:18px auto 30px">The link may be old or mistyped.</p><div class="btn-row" style="justify-content:center"><a class="btn btn-main" href="/">Go to the home page</a><a class="btn btn-quiet" href="/store/">Browse the catalog</a></div></section>')
 
+
+# ---------- Free tools library ----------
+import sys as _sys
+_sys.path.insert(0, str(ROOT / "src"))
+from tools_pages import TOOLS
+
+def ad_slot(label="Advertisement"):
+    if not ADSENSE: return ""
+    return f'<div class="ad-wrap" aria-label="{label}"><span class="ad-label">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="{ADSENSE}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>'
+
+def tool_card(t, small=False):
+    return f'<a class="tcard" href="/tools/{t["slug"]}/"><span class="tcard-ico">{t["icon"]}</span><span><b>{esc(t["name"])}</b><small>{esc(t["short"])}</small></span></a>'
+
+def tools_head_extra():
+    return (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE}" crossorigin="anonymous"></script>' if ADSENSE else "")
+
+def tools_pages():
+    others_all = TOOLS
+    hub_cards = "".join(tool_card(t) for t in TOOLS)
+    hub_schema = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Free business tools by Kavora",
+                  "url": f"https://{SITE['domain']}/tools/", "hasPart": [{"@type": "WebApplication", "name": t["name"], "url": f"https://{SITE['domain']}/tools/{t['slug']}/"} for t in TOOLS]}
+    hub = f"""
+<section class="tools-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Kavora</a><span>/</span><span>Free tools</span></nav>
+  <h1 class="t-h1">Free tools for small businesses</h1>
+  <p class="t-lede">Simple, fast tools for the small jobs that eat your day: invoices, prices, tax, WhatsApp links and campaign tracking. No sign-up, and nothing you type leaves your browser.</p>
+</div></section>
+<section class="wrap tools-list">{hub_cards}</section>
+<div class="wrap">{ad_slot()}</div>
+<section class="wrap tool-guide">
+  <h2>Why we made these tools</h2>
+  <p>Kavora builds premium apps and kits for business owners. Along the way we kept needing the same small utilities, so we made clean versions without ads in your face, account walls or data collection, and put them here for everyone. New tools are added regularly.</p>
+  <p>Want more than a quick calculation? See the <a href="/store/">Kavora catalog</a> for full apps, automations and business kits.</p>
+</section>
+<script type="application/ld+json">{json.dumps(hub_schema)}</script>"""
+    page("tools", "Free Business Tools: Invoice, VAT, Profit, WhatsApp & UTM | Kavora", "Free online tools for small businesses: invoice generator, VAT and GST calculator, profit margin calculator, WhatsApp link and QR generator, and UTM link builder. No sign-up.", "tools", hub,
+         body_attrs=' class="tools-theme"', extra_head=tools_head_extra(), extra_scripts='<script src="/assets/js/tools.js" defer></script>')
+
+    for t in TOOLS:
+        others = "".join(tool_card(o) for o in TOOLS if o is not t)
+        faq_html = "".join(f'<details><summary>{esc(q)}<i aria-hidden="true"></i></summary><p>{esc(a)}</p></details>' for q, a in t["faqs"])
+        rn, rd, rl = t["related"]
+        url = f"https://{SITE['domain']}/tools/{t['slug']}/"
+        schema = [
+            {"@context": "https://schema.org", "@type": "WebApplication", "name": t["name"], "url": url, "description": t["desc"],
+             "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+             "publisher": {"@type": "Organization", "name": "Kavora"}},
+            {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faqs"]]},
+            {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Kavora", "item": f"https://{SITE['domain']}/"},
+                {"@type": "ListItem", "position": 2, "name": "Free tools", "item": f"https://{SITE['domain']}/tools/"},
+                {"@type": "ListItem", "position": 3, "name": t["name"], "item": url}]},
+        ]
+        body = f"""
+<section class="tools-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Kavora</a><span>/</span><a href="/tools/">Free tools</a><span>/</span><span>{esc(t["name"])}</span></nav>
+  <h1 class="t-h1">{esc(t["h1"])}</h1>
+  <p class="t-lede">{esc(t["short"])} Free, no sign-up, and private: everything runs in your browser.</p>
+</div></section>
+<section class="wrap tool-ui tool-{t["slug"]}">{t["ui"]}</section>
+<div class="wrap">{ad_slot()}</div>
+<article class="wrap tool-guide">{t["guide"]}
+  <h2>Frequently asked questions</h2>
+  <div class="faq t-faq">{faq_html}</div>
+  <aside class="t-related"><div><small>From the makers of this tool</small><b>{esc(rn)}</b><p>{esc(rd)}</p></div><a class="tbtn" href="{rl}">See {esc(rn)}</a></aside>
+</article>
+<section class="wrap"><h2 class="t-h2">More free tools</h2><div class="tools-list">{others}</div></section>
+<div class="wrap">{ad_slot()}</div>
+<script type="application/ld+json">{json.dumps(schema)}</script>"""
+        qr = '<script src="/assets/vendor/qrcode.js" defer></script>' if t["slug"] in ("whatsapp-link-generator", "utm-link-builder") else ""
+        page(f"tools/{t['slug']}", t["title"], t["desc"], "tools", body,
+             page_id="tool", body_attrs=f' class="tools-theme" data-tool="{ {"invoice-generator":"invoice","whatsapp-link-generator":"whatsapp","profit-margin-calculator":"profit","vat-gst-calculator":"vat","utm-link-builder":"utm"}[t["slug"]] }"',
+             extra_head=tools_head_extra(), extra_scripts=qr + '<script src="/assets/js/tools.js" defer></script>')
+
+    ads_txt = ROOT / "ads.txt"
+    if ADSENSE:
+        ads_txt.write_text(f"google.com, {ADSENSE.replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n", encoding="utf-8")
+    elif ads_txt.exists():
+        ads_txt.unlink()
+
+# ---------- Earn with Kavora (affiliates) ----------
+def earn():
+    rate = int(CFG.get("affiliate_commission", 30) or 30)
+    link = str(CFG.get("affiliate_signup_link", "") or "").strip()
+    per = SITE["regular"] * rate / 100
+    cta = f'<a class="btn btn-main" href="{esc(link)}" target="_blank" rel="noopener">Become a partner</a>' if link else '<a class="btn btn-main" href="#waitlist">Get notified when it opens</a>'
+    faqs = [
+        ("Who can join?", "Customers, creators, agencies, freelancers and anyone with an audience of business owners or Mac users. You don't need to be a customer first."),
+        ("How much can I earn?", f"{rate}% of every sale you refer. On a ${SITE['regular']} Kavora Desk licence that is ${per:.2f} per sale. Commission applies to every product in the program."),
+        ("How are sales tracked?", "You get a personal link. When someone clicks it and buys, the sale is credited to you automatically by Lemon Squeezy, our payment partner."),
+        ("When and how do I get paid?", "Lemon Squeezy pays partners by bank transfer or PayPal on the 14th and 28th of each month, after a 30-day hold for refunds. Lemon Squeezy keeps a 2% fee from each commission."),
+        ("Can I run ads with my link?", "Yes, as long as you don't bid on the Kavora brand name or make claims we can't back up. Always disclose that you earn a commission."),
+    ]
+    fq = "".join(f'<details class="fade"><summary>{q}<i aria-hidden="true"></i></summary><p>{a}</p></details>' for q, a in faqs)
+    body = f"""
+<section class="sec" style="padding-top:150px"><div class="wrap">
+  <h1 class="d-xl split" style="max-width:13ch">Earn {rate}% sharing Kavora.</h1>
+  <p class="lede fade" style="margin:24px 0 32px">Recommend Kavora's apps, automations and kits to your audience, clients or friends, and earn {rate}% of every sale you bring. Tracking and payouts are handled for you.</p>
+  <div class="btn-row fade">{cta}<a class="btn btn-quiet" href="/store/">See what you'd promote</a></div>
+</div></section>
+<section class="sec pearl"><div class="wrap">
+  <div class="sec-head"><div><h2 class="d-lg split">How it works</h2></div></div>
+  <div class="steps">
+    <div class="step"><span class="step-line"></span><span class="step-n">Step 1</span><h3>Join free</h3><p>Sign up in two minutes and get your personal link.</p></div>
+    <div class="step"><span class="step-line"></span><span class="step-n">Step 2</span><h3>Share it</h3><p>Post it in videos, newsletters, client proposals, your bio or a review.</p></div>
+    <div class="step"><span class="step-line"></span><span class="step-n">Step 3</span><h3>Get paid</h3><p>{rate}% of every sale lands in your bank or PayPal twice a month.</p></div>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><div><h2 class="d-lg split">What partners get</h2></div></div>
+  <div class="feat-grid">
+    <div class="feat half fade"><h3>{rate}% on every sale</h3><p>${per:.2f} per Kavora Desk licence, and the same rate on future products in the program.</p></div>
+    <div class="feat half fade"><h3>A partner kit</h3><p>Logos, screenshots, demo clips and ready-made captions, so you can post in minutes.</p></div>
+    <div class="feat half fade"><h3>Live dashboard</h3><p>See clicks, sales and earnings in real time in your Lemon Squeezy partner dashboard.</p></div>
+    <div class="feat half fade"><h3>New things to share every week</h3><p>Friday drops give you fresh reasons to post, all year.</p></div>
+  </div>
+</div></section>
+<section class="sec" style="padding-top:20px"><div class="wrap"><div class="sec-head"><div><h2 class="d-lg split">Questions</h2></div></div><div class="faq">{fq}</div></div></section>
+<section class="wrap" id="waitlist"><div class="final"><h2 class="d-lg split">Want in early?</h2><p class="lede fade">Join the list and we'll send your partner invite as soon as the program opens.</p><div class="fade">{signup('earn')}</div></div></section>
+"""
+    page("earn", f"Earn {rate}% Commission: Kavora Partner & Affiliate Program", f"Join the Kavora partner program and earn {rate}% commission on every sale of our apps, automations and business kits. Free to join, paid twice a month.", "", body)
+
 def seo():
-    pages = ["", "store", "desk", "drops", "about", "contact", "legal/terms", "legal/privacy", "legal/refunds", "legal/license"]
+    pages = ["", "store", "desk", "tools"] + [f"tools/{t['slug']}" for t in TOOLS] + ["drops", "earn", "about", "contact", "legal/terms", "legal/privacy", "legal/refunds", "legal/license"]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://{SITE['domain']}/{p + '/' if p else ''}</loc></url>" for p in pages) + "</urlset>", encoding="utf-8")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /account/\nDisallow: /data/\nSitemap: https://{SITE['domain']}/sitemap.xml\n", encoding="utf-8")
 
@@ -622,4 +765,5 @@ def browser_settings():
 
 if __name__ == "__main__":
     browser_settings()
-    home(); store(); desk(); drops(); about(); contact(); login(); signup_page(); account(); legal_pages(); notfound(); seo()
+    home(); store(); desk(); drops(); about(); contact(); login(); signup_page(); account(); legal_pages(); notfound()
+    tools_pages(); earn(); seo()

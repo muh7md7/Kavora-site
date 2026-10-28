@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VAT &amp; GST Calculator — UAE 5%, Saudi 15%, Pakistan | Kavora Tools</title>
+<meta name="description" content="Free VAT and sales tax calculator. Add tax to a price or extract it from a total, with quick presets for the UAE, Saudi Arabia, Pakistan and the UK. Works in any currency.">
+<link rel="canonical" href="https://kavora.com/tools/vat-gst-calculator/">
+<meta property="og:site_name" content="Kavora">
+<meta property="og:title" content="VAT &amp; GST Calculator — UAE 5%, Saudi 15%, Pakistan | Kavora Tools">
+<meta property="og:description" content="Free VAT and sales tax calculator. Add tax to a price or extract it from a total, with quick presets for the UAE, Saudi Arabia, Pakistan and the UK. Works in any currency.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kavora.com/tools/vat-gst-calculator/">
+<meta property="og:image" content="https://kavora.com/assets/img/kavora-desk-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#272b42">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=c179e3dc">
+<script src="/assets/js/head.js?v=36d1adb7"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Kavora","url":"https://kavora.com","logo":"https://kavora.com/assets/img/kavora-desk-icon.png","email":"hello@kavora.com","address":{"@type":"PostalAddress","addressLocality":"Lahore","addressCountry":"PK"}}</script>
+
+</head>
+<body data-page="tool" class="tools-theme" data-tool="vat">
+<div class="ambient" aria-hidden="true"></div>
+<div class="cursor-light" aria-hidden="true"></div>
+<header class="nav">
+  <div class="wrap">
+    <div class="nav-bar">
+      <a class="logo" href="/" aria-label="Kavora home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fe3cf"/><stop offset=".55" stop-color="#c49bff"/><stop offset="1" stop-color="#ffbc8f"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><rect x="7" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".95"/><rect x="17" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".55"/><rect x="7" y="17" width="18" height="8" rx="2.4" fill="#fff" opacity=".8"/></svg>Kavora</a>
+      <nav class="nav-links" aria-label="Main"><a href="/store/">Catalog</a><a href="/desk/">Kavora Desk</a><a href="/tools/" aria-current="page">Free tools</a><a href="/drops/">Drops</a><a href="/about/">About</a></nav>
+      <div class="nav-acct">
+        <a class="btn btn-quiet btn-sm" href="/login/" data-guest>Sign in</a>
+        <a class="btn btn-main btn-sm" href="/signup/" data-guest>Create account</a>
+        <a class="avatar" href="/account/" data-user hidden aria-label="Your account"></a>
+      </div>
+      <button class="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<section class="tools-hero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Kavora</a><span>/</span><a href="/tools/">Free tools</a><span>/</span><span>VAT &amp; GST Calculator</span></nav>
+  <h1 class="t-h1">VAT and GST calculator</h1>
+  <p class="t-lede">Add or remove VAT and sales tax with presets for the UAE, Saudi Arabia and Pakistan. Free, no sign-up, and private: everything runs in your browser.</p>
+</div></section>
+<section class="wrap tool-ui tool-vat-gst-calculator">
+<form id="vat" class="tool-card" onsubmit="return false">
+  <div class="presets" role="group" aria-label="Tax rate presets">
+    <button type="button" class="chipb on" data-rate="5" data-cur="AED">UAE 5%</button>
+    <button type="button" class="chipb" data-rate="15" data-cur="SAR">Saudi 15%</button>
+    <button type="button" class="chipb" data-rate="18" data-cur="PKR">Pakistan 18%</button>
+    <button type="button" class="chipb" data-rate="20" data-cur="GBP">UK 20%</button>
+  </div>
+  <label class="tl">Calculation<select class="tf" name="mode"><option value="add">Add tax to a price</option><option value="remove">Remove tax from a total</option></select></label>
+  <div class="tgrid2">
+    <label class="tl">Amount<input class="tf" name="amount" type="number" min="0" step="any" value="1000"></label>
+    <label class="tl">Currency<select class="tf" name="currency" aria-label="Currency"><option>PKR</option><option selected>AED</option><option>SAR</option><option>USD</option><option>GBP</option><option>EUR</option><option>INR</option><option>QAR</option><option>KWD</option><option>OMR</option><option>BHD</option><option>CAD</option><option>AUD</option></select></label>
+  </div>
+  <label class="tl">Tax rate (%)<input class="tf" name="rate" type="number" min="0" step="any" value="5"></label>
+  <p class="muted-s">Rates change. Check the current rate with your tax authority before filing.</p>
+</form>
+<div class="tool-card results" id="vat-out" aria-live="polite"></div></section>
+<div class="wrap"></div>
+<article class="wrap tool-guide">
+<h2>Adding tax and removing tax</h2>
+<p>There are two everyday questions. <b>"What should I charge including tax?"</b> Multiply the price by (1 + rate). A 1,000 AED service with 5% UAE VAT becomes 1,050 AED. <b>"How much tax is inside this total?"</b> Divide the total by (1 + rate) to get the amount before tax, and the difference is the tax. A 1,050 AED receipt contains 1,000 AED plus 50 AED VAT.</p>
+<p>A common mistake is to take 5% off a tax-inclusive total. 5% of 1,050 is 52.50, not 50, so your records would be wrong by 2.50 on every sale. Always divide, never subtract a percentage.</p>
+<h3>Quick reference</h3>
+<ul>
+<li><b>United Arab Emirates:</b> standard VAT rate 5%.</li>
+<li><b>Saudi Arabia:</b> standard VAT rate 15%.</li>
+<li><b>Pakistan:</b> general sales tax on goods is commonly 18%; services are taxed by the provinces at their own rates, so check which applies to you.</li>
+<li><b>United Kingdom:</b> standard VAT rate 20%.</li>
+</ul>
+<p>Rates and rules change, and some goods and services are zero-rated or exempt. Use this calculator for quick numbers and quotes, and confirm the rate for your product with your tax authority or accountant.</p>
+<h3>Showing tax on invoices and price lists</h3>
+<p>Business customers usually want to see the price before tax, the tax amount and the total on separate lines, together with your tax registration number. Consumers usually expect the final price including tax. If you sell to both, show the tax-inclusive price prominently and the breakdown on the invoice. Our free invoice generator does this for you.</p>
+  <h2>Frequently asked questions</h2>
+  <div class="faq t-faq"><details><summary>How do I add 5% VAT to a price?<i aria-hidden="true"></i></summary><p>Multiply the price by 1.05. For example, 200 × 1.05 = 210.</p></details><details><summary>How do I remove VAT from a total?<i aria-hidden="true"></i></summary><p>Divide the total by 1 plus the rate. For 5% VAT, divide by 1.05; the difference is the VAT.</p></details><details><summary>What is the VAT rate in the UAE?<i aria-hidden="true"></i></summary><p>The standard rate is 5%. Some supplies are zero-rated or exempt.</p></details><details><summary>Is this calculator accurate for filing tax returns?<i aria-hidden="true"></i></summary><p>It gives exact arithmetic, but you&#x27;re responsible for using the correct rate for your product. Check with your tax authority or accountant.</p></details></div>
+  <aside class="t-related"><div><small>From the makers of this tool</small><b>Kavora Kits</b><p>Brand kits with ready-made invoice, quote and proposal designs.</p></div><a class="tbtn" href="/store/#kavora-kits">See Kavora Kits</a></aside>
+</article>
+<section class="wrap"><h2 class="t-h2">More free tools</h2><div class="tools-list"><a class="tcard" href="/tools/invoice-generator/"><span class="tcard-ico">🧾</span><span><b>Invoice Generator</b><small>Make a clean, professional invoice and save it as a PDF in under a minute.</small></span></a><a class="tcard" href="/tools/whatsapp-link-generator/"><span class="tcard-ico">💬</span><span><b>WhatsApp Link &amp; QR Generator</b><small>Create a click-to-chat WhatsApp link and QR code with a ready-typed message.</small></span></a><a class="tcard" href="/tools/profit-margin-calculator/"><span class="tcard-ico">📈</span><span><b>Profit Margin Calculator</b><small>Work out margin, markup and the right selling price from your costs.</small></span></a><a class="tcard" href="/tools/utm-link-builder/"><span class="tcard-ico">🔗</span><span><b>UTM Link Builder</b><small>Tag your campaign links so you know exactly which post or ad brought each visitor.</small></span></a></div></section>
+<div class="wrap"></div>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "VAT & GST Calculator", "url": "https://kavora.com/tools/vat-gst-calculator/", "description": "Free VAT and sales tax calculator. Add tax to a price or extract it from a total, with quick presets for the UAE, Saudi Arabia, Pakistan and the UK. Works in any currency.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Kavora"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I add 5% VAT to a price?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply the price by 1.05. For example, 200 \u00d7 1.05 = 210."}}, {"@type": "Question", "name": "How do I remove VAT from a total?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the total by 1 plus the rate. For 5% VAT, divide by 1.05; the difference is the VAT."}}, {"@type": "Question", "name": "What is the VAT rate in the UAE?", "acceptedAnswer": {"@type": "Answer", "text": "The standard rate is 5%. Some supplies are zero-rated or exempt."}}, {"@type": "Question", "name": "Is this calculator accurate for filing tax returns?", "acceptedAnswer": {"@type": "Answer", "text": "It gives exact arithmetic, but you're responsible for using the correct rate for your product. Check with your tax authority or accountant."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Kavora", "item": "https://kavora.com/"}, {"@type": "ListItem", "position": 2, "name": "Free tools", "item": "https://kavora.com/tools/"}, {"@type": "ListItem", "position": 3, "name": "VAT & GST Calculator", "item": "https://kavora.com/tools/vat-gst-calculator/"}]}]</script></main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fe3cf"/><stop offset=".55" stop-color="#c49bff"/><stop offset="1" stop-color="#ffbc8f"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><rect x="7" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".95"/><rect x="17" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".55"/><rect x="7" y="17" width="18" height="8" rx="2.4" fill="#fff" opacity=".8"/></svg>Kavora</a>
+        <p class="soft" style="max-width:34ch;margin-top:16px;font-size:15.5px">Apps, automations and kits that take busywork off your plate. Made in Lahore, Pakistan.</p>
+        <p style="margin-top:14px;font-size:15px"><a class="link" href="mailto:hello@kavora.com">hello@kavora.com</a></p>
+      </div>
+      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#kavora-flows">Kavora Flows</a><a href="/store/#kavora-ads">Kavora Ads</a><a href="/store/">Full catalog</a><a href="/tools/">Free business tools</a></div>
+      <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/earn/">Earn with Kavora</a><a href="/account/">Your account</a></div>
+      <div><h4>Policies</h4><a href="/legal/terms/">Terms of service</a><a href="/legal/privacy/">Privacy policy</a><a href="/legal/refunds/">Refund policy</a><a href="/legal/license/">Licence agreement</a></div>
+    </div>
+    <div class="foot-word" aria-hidden="true">Kavora</div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> Kavora. All rights reserved. <span style="opacity:.5">Build 19f6ec</span></span>
+      <span>Checkout and payments are handled by Lemon Squeezy, our authorised reseller.</span>
+    </div>
+  </div>
+</footer>
+<script src="/assets/vendor/gsap.min.js?v=47da594c" defer></script>
+<script src="/assets/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
+<script src="/assets/vendor/lenis.min.js?v=79e3a064" defer></script>
+<script src="/assets/js/settings.js?v=cb87d481" defer></script>
+<script src="/assets/js/site.js?v=4b80cb32" defer></script>
+<script src="/assets/js/marketing.js?v=0884b1a3" defer></script>
+<script src="/assets/js/promo.js?v=ef323a74" defer></script>
+<script src="/assets/js/auth-config.js?v=cdf6768f" defer></script>
+<script src="/assets/js/auth.js?v=68c192dc" type="module"></script>
+<script src="/assets/js/tools.js?v=3d0a9777" defer></script>
+</body>
+</html>
