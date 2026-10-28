@@ -112,7 +112,7 @@ BUILD = hashlib.md5((ROOT / "assets/js/site.js").read_bytes() + (ROOT / "assets/
 LIVE = '<div class="live-pill" data-live hidden aria-live="off"><i></i><span></span></div>'
 
 def footer(mbar=True):
-    return (MBAR + LIVE if mbar else "") + f"""</main>
+    return (MBAR if mbar else "") + f"""</main>
 <footer>
   <div class="wrap">
     <div class="foot">
@@ -137,6 +137,8 @@ def footer(mbar=True):
 <script src="/assets/vendor/lenis.min.js" defer></script>
 <script src="/assets/js/settings.js" defer></script>
 <script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/marketing.js" defer></script>
+<script src="/assets/js/promo.js" defer></script>
 <script src="/assets/js/auth-config.js" defer></script>
 <script src="/assets/js/auth.js" type="module"></script>
 </body>
@@ -238,7 +240,8 @@ def reviews_html():
     cards = ""
     for r in REVIEWS:
         pic = f'<img src="{esc(r["photo"])}" alt="" width="44" height="44" loading="lazy">' if r.get("photo") else f'<span class="rv-init">{esc(str(r.get("name","?"))[:1])}</span>'
-        cards += f'''<figure class="rv fade">{stars(r.get("rating", 5))}<blockquote>{esc(r["quote"])}</blockquote>
+        tag = '<em class="kv-tag rv-tag">Example review</em>' if "simulat" in str(r.get("kind", "")).lower() else ""
+        cards += f'''<figure class="rv fade">{tag}{stars(r.get("rating", 5))}<blockquote>{esc(r["quote"])}</blockquote>
   <figcaption>{pic}<span><b>{esc(r.get("name"))}</b><small>{esc(r.get("role"))}</small></span></figcaption></figure>'''
     return f'''<section class="sec" aria-labelledby="rv-h"><div class="wrap">
   <div class="sec-head"><div><h2 class="d-lg split" id="rv-h">What customers say</h2><p class="lede fade">Real reviews from people using Kavora every day.</p></div></div>
@@ -613,6 +616,8 @@ def browser_settings():
         "deskCheckout": CFG.get("desk_checkout_link", ""), "deskDownload": CFG.get("desk_download_link", ""),
         "founderSeats": CFG.get("founder_seats", 100), "founderSold": CFG.get("founder_sold", 0),
     }
+    mkt = load("marketing.json", {"enabled": False})
+    (ROOT / "assets/js/marketing.js").write_text("/* Generated from content/marketing.json — edit in the admin panel. */\nwindow.KAVORA_MKT = " + json.dumps(mkt) + ";\n", encoding="utf-8")
     (ROOT / "assets/js/settings.js").write_text("/* Generated from content/settings.json — edit there, not here. */\nwindow.KAVORA_SETTINGS = " + json.dumps(js) + ";\n", encoding="utf-8")
 
 if __name__ == "__main__":

@@ -57,9 +57,119 @@ content:
           - { name: description, label: Description, type: text }
           - { name: is_next, label: Next drop, type: boolean }
 
+  - name: marketing
+    label: Marketing
+    description: Banner, offers, popups, visitor counter and activity notifications. Simulated items always show a visible label.
+    type: file
+    path: content/marketing.json
+    fields:
+      - { name: enabled, label: Marketing tools switched on, type: boolean }
+      - name: rules
+        label: Display rules
+        type: object
+        fields:
+          - name: pages
+            label: Show on
+            type: select
+            options: { values: [All pages, Home only, Home and Kavora Desk, Product pages only] }
+          - { name: show_on_mobile, label: Show on phones, type: boolean }
+          - { name: first_popup_after_seconds, label: First popup after (seconds), type: number }
+          - { name: seconds_between_popups, label: Seconds between activity popups, type: number }
+          - { name: max_popups_per_visit, label: Max activity popups per visit, type: number }
+          - { name: hide_for_days_after_close, label: "When someone closes a popup, hide it for (days)", type: number }
+          - name: animation
+            label: Animation
+            type: select
+            options: { values: [Slide up, Fade, Pop, Slide from side] }
+          - name: position
+            label: Popup position on desktop
+            type: select
+            options: { values: [Bottom left, Bottom right, Bottom centre] }
+      - name: banner
+        label: Top banner
+        type: object
+        fields:
+          - { name: enabled, label: Show banner, type: boolean }
+          - { name: text, label: Banner text (desktop), type: string }
+          - { name: short_text, label: Short text (phones), type: string }
+          - { name: button, label: Button text, type: string }
+          - { name: link, label: Button link, type: string }
+          - { name: ends_at, label: "Ends at — Pakistan time, e.g. 2026-11-06T20:00 (optional; adds a countdown and hides the banner when it ends)", type: string }
+          - name: style
+            label: Style
+            type: select
+            options: { values: [Gradient, Glass, Pearl] }
+      - name: offer
+        label: Limited-time offer popup
+        type: object
+        fields:
+          - { name: enabled, label: Show offer, type: boolean }
+          - { name: badge, label: "Small badge (e.g. Launch week)", type: string }
+          - { name: title, label: Headline, type: string }
+          - { name: text, label: Description, type: text }
+          - { name: code, label: Discount code (optional), type: string }
+          - { name: button, label: Button text, type: string }
+          - { name: link, label: Button link, type: string }
+          - { name: ends_at, label: "Real end date — Pakistan time, e.g. 2026-11-06T20:00. The popup disappears when it ends.", type: string }
+          - name: trigger
+            label: When to show
+            type: select
+            options: { values: [After delay, On scroll, Exit intent, Immediately] }
+          - { name: delay_seconds, label: Delay (seconds), type: number }
+          - { name: scroll_percent, label: "Scroll depth (%)", type: number }
+      - name: lead
+        label: Email popup
+        type: object
+        fields:
+          - { name: enabled, label: Show email popup, type: boolean }
+          - { name: title, label: Headline, type: string }
+          - { name: text, label: Description, type: text }
+          - { name: button, label: Button text, type: string }
+          - { name: success, label: Message after joining, type: string }
+          - name: trigger
+            label: When to show
+            type: select
+            options: { values: [Exit intent, After delay, On scroll, Immediately] }
+          - { name: delay_seconds, label: Delay (seconds), type: number }
+          - { name: scroll_percent, label: "Scroll depth (%)", type: number }
+      - name: visitors
+        label: Visitor counter
+        type: object
+        fields:
+          - { name: enabled, label: Show visitor counter, type: boolean }
+          - name: source
+            label: Number source
+            type: select
+            options: { values: [Real live count, Simulated (labelled)] }
+          - { name: simulated_min, label: Simulated range minimum, type: number }
+          - { name: simulated_max, label: Simulated range maximum, type: number }
+          - { name: show_when_at_least, label: Only show when the number is at least, type: number }
+          - { name: text, label: "Text ({n} becomes the number)", type: string }
+      - name: activity
+        label: Activity popups
+        type: object
+        fields:
+          - { name: enabled, label: Show activity popups, type: boolean }
+          - name: items
+            label: Activity items
+            type: object
+            list: true
+            fields:
+              - { name: text, label: "Text (e.g. Ayesha in Karachi started a free trial)", type: string }
+              - { name: when, label: "When (e.g. 4 minutes ago)", type: string }
+              - name: kind
+                label: Real or simulated
+                type: select
+                options: { values: [Simulated example, Real event (this actually happened)] }
+              - name: icon
+                label: Icon
+                type: select
+                options: { values: [Purchase, Trial, Signup, Review, Download] }
+              - { name: link, label: Link when tapped (optional), type: string }
+
   - name: reviews
     label: Customer reviews
-    description: Real reviews only (from customers or testers who agreed to be quoted). The section appears once you add one.
+    description: Reviews from customers or testers who agreed to be quoted. Simulated examples show an Example label. The section appears once you add one.
     type: file
     path: content/reviews.json
     fields:
@@ -77,6 +187,10 @@ content:
             options:
               values: ["5", "4", "3"]
           - { name: photo, label: Photo (optional, with their permission), type: image }
+          - name: kind
+            label: Real or example
+            type: select
+            options: { values: [Real customer review, Simulated example] }
           - { name: show_on_website, label: Show on website, type: boolean }
 
   - name: settings
