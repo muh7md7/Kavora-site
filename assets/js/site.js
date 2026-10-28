@@ -30,6 +30,14 @@ window.KAVORA = Object.assign({
     }));
   }
 
+  /* ---------- Reading progress line (always shows the page is moving) ---------- */
+  const prog = document.createElement("div"); prog.className = "read-prog"; prog.setAttribute("aria-hidden", "true");
+  document.body.appendChild(prog);
+  let pq = false;
+  const setProg = () => { pq = false; const max = document.documentElement.scrollHeight - innerHeight; prog.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`; };
+  addEventListener("scroll", () => { if (!pq) { pq = true; requestAnimationFrame(setProg); } }, { passive: true });
+  setProg();
+
   /* ---------- Nav ---------- */
   const nav = $(".nav");
   const burger = $(".burger");
@@ -121,7 +129,7 @@ window.KAVORA = Object.assign({
 
         // Scroll: the desktop arranges itself into Smart Zones
         const tl = gsap.timeline({
-          scrollTrigger: { trigger: ".hero", start: "top top", end: "+=85%", scrub: 0.5, pin: ".hero-pin", anticipatePin: 1 }
+          scrollTrigger: { trigger: ".hero", start: "top top", end: "+=55%", scrub: 0.4, pin: ".hero-pin", anticipatePin: 1 }
         });
         tl.to(".scroll-hint", { opacity: 0, duration: 0.15 }, 0)
           .to(".screen-grid", { opacity: 1, duration: 0.25 }, 0.05)
@@ -174,8 +182,15 @@ window.KAVORA = Object.assign({
         const li = themeItems[i]; if (li && li.parentElement.scrollWidth > li.parentElement.clientWidth) li.parentElement.scrollTo({ left: li.offsetLeft - 20, behavior: "smooth" });
         gsap.fromTo(showScreen.querySelectorAll(".wd"), { scale: 0.94 }, { scale: 1, duration: 0.6, stagger: 0.03, ease: "back.out(2)" });
       };
-      ScrollTrigger.create({ trigger: show, start: wide() ? "top top" : "top 12%", end: "+=" + (wide() ? 220 : 170) + "%", pin: wide() ? ".show-pin" : show, pinSpacing: true,
-        onUpdate: (st) => apply(Math.min(3, Math.floor(st.progress * 4))) });
+      if (wide()) {
+        // Desktop: a short hold while the four looks play
+        ScrollTrigger.create({ trigger: show, start: "top top", end: "+=110%", pin: ".show-pin", pinSpacing: true,
+          onUpdate: (st) => apply(Math.min(3, Math.floor(st.progress * 4))) });
+      } else {
+        // Phones: never hold the page; the looks change while the screen scrolls past
+        ScrollTrigger.create({ trigger: showScreen, start: "top 80%", end: "bottom 25%",
+          onUpdate: (st) => apply(Math.min(3, Math.floor(st.progress * 4))) });
+      }
       gsap.from(".show-screen .screen", { y: 60, rotateX: 10, opacity: 0, transformPerspective: 1200, ease: "power3.out", duration: 1,
         scrollTrigger: { trigger: show, start: "top 75%" } });
     }

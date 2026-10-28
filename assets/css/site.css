@@ -603,3 +603,5 @@ footer { background: var(--dusk-deep); margin-top: clamp(80px, 10vw, 140px); pad
   .themes li b { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .roll-track { animation: none; } }
+
+.read-prog { position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 80; background: var(--sheen); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
