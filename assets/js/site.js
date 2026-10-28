@@ -104,7 +104,7 @@ window.KAVORA = Object.assign({
   });
 
   /* ---------- GSAP choreography ---------- */
-  if (hasG && !reduce) {
+  if (hasG) {   // scroll motion always runs; Reduce Motion only switches off smooth-scroll and the cursor effects
     gsap.registerPlugin(ScrollTrigger);
     if (lenis) lenis.on("scroll", ScrollTrigger.update);
 
@@ -311,7 +311,6 @@ window.KAVORA = Object.assign({
       bar.forEach((el) => (el.textContent = now.toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" })));
     };
     tick(); setInterval(tick, 15000);
-    if (reduce) return;
     // Battery ring fills up, then gently charges
     const rings = $$("[data-ring]"), vals = $$("[data-ring-v]");
     let p = 0, target = 72;
@@ -431,6 +430,27 @@ window.KAVORA = Object.assign({
       if (note) note.textContent = err.message === "slow" ? "Too many tries. Wait a minute and try again." : "That didn't save. Check your connection and try again.";
     }
   }));
+
+  /* ---------- Diagnostics: add ?debug to the address to see this ---------- */
+  if (/[?&]debug/.test(location.search)) {
+    const box = document.createElement("pre");
+    box.style.cssText = "position:fixed;left:10px;right:10px;bottom:90px;z-index:99;background:#111a;color:#fff;font:12px/1.5 monospace;padding:12px;border-radius:12px;white-space:pre-wrap;backdrop-filter:blur(8px)";
+    const ver = (document.querySelector('script[src*="site.js"]') || {}).src || "";
+    const report = () => {
+      box.textContent = [
+        "site.js: " + (ver.split("v=")[1] || "no version"),
+        "GSAP loaded: " + hasG + (window.ScrollTrigger ? " + ScrollTrigger" : " (no ScrollTrigger)"),
+        "Reduce Motion: " + reduce,
+        "Screen: " + innerWidth + "×" + innerHeight + (wide() ? " (desktop layout)" : " (phone layout)"),
+        "Animations running: " + (window.gsap ? gsap.globalTimeline.getChildren(true, true, true).length : 0),
+        "Scroll triggers: " + (window.ScrollTrigger ? ScrollTrigger.getAll().length : 0),
+        "Scrolled: " + Math.round(scrollY) + "px",
+        "Browser: " + navigator.userAgent.slice(0, 120)
+      ].join("\n");
+    };
+    document.body.appendChild(box); report(); addEventListener("scroll", report, { passive: true });
+    addEventListener("error", (e) => (box.textContent += "\nERROR: " + e.message));
+  }
 
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();

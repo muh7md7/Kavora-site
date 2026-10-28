@@ -399,9 +399,10 @@ footer { background: var(--dusk-deep); margin-top: clamp(80px, 10vw, 140px); pad
 .hero .lede { animation-delay: .12s; } .hero .btn-row { animation-delay: .22s; } .hero .hero-note { animation-delay: .32s; }
 .hero .screen { animation: rise 1s var(--ease) .15s both; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .js .fade { opacity: 1 !important; transform: none !important; }
+  /* Keep the experience alive but calmer: no looping background drift */
+  .hero .screen-wrap::before, .hero .screen-wrap::after { animation: none; }
 }
+
 :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 10px; }
 
 [hidden] { display: none !important; }
@@ -602,6 +603,5 @@ footer { background: var(--dusk-deep); margin-top: clamp(80px, 10vw, 140px); pad
   .themes li span { display: none; }
   .themes li b { font-size: 16px; }
 }
-@media (prefers-reduced-motion: reduce) { .roll-track { animation: none; } }
 
 .read-prog { position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 80; background: var(--sheen); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }

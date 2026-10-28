@@ -107,6 +107,8 @@ def nav(active):
 
 MBAR = f"""<div class="mbar" aria-label="Kavora Desk"><img src="/assets/img/kavora-desk-icon-sm.webp" alt="" width="40" height="40"><div><b>Kavora Desk</b><span>${SITE['founder']} once, {SITE['trial']}-day free trial</span></div><a class="btn btn-main" data-buy href="/desk/#pricing">Get it</a></div>"""
 
+BUILD = hashlib.md5((ROOT / "assets/js/site.js").read_bytes() + (ROOT / "assets/css/site.css").read_bytes()).hexdigest()[:6]
+
 def footer(mbar=True):
     return (MBAR if mbar else "") + f"""</main>
 <footer>
@@ -123,7 +125,7 @@ def footer(mbar=True):
     </div>
     <div class="foot-word" aria-hidden="true">Kavora</div>
     <div class="foot-bot">
-      <span>© <span data-year>2026</span> Kavora. All rights reserved.</span>
+      <span>© <span data-year>2026</span> Kavora. All rights reserved. <span style="opacity:.5">Build {BUILD}</span></span>
       <span>Checkout and payments are handled by Lemon Squeezy, our authorised reseller.</span>
     </div>
   </div>
