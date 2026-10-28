@@ -5,20 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kavora Desk | Premium desktop widgets for macOS</title>
 <meta name="description" content="80+ premium Mac desktop widgets with live weather, battery, system stats, music, AI and social launchers, ready-made layouts and a widget builder. One-time purchase.">
-<link rel="canonical" href="https://kavora.com/desk">
+<link rel="canonical" href="https://kavora.com/desk/">
 <meta property="og:site_name" content="Kavora">
 <meta property="og:title" content="Kavora Desk | Premium desktop widgets for macOS">
 <meta property="og:description" content="80+ premium Mac desktop widgets with live weather, battery, system stats, music, AI and social launchers, ready-made layouts and a widget builder. One-time purchase.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kavora.com/desk">
+<meta property="og:url" content="https://kavora.com/desk/">
 <meta property="og:image" content="https://kavora.com/assets/img/kavora-desk-icon.png">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#272b42">
 <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
 <script src="/assets/js/head.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Kavora","url":"https://kavora.com","logo":"https://kavora.com/assets/img/kavora-desk-icon.png","email":"hello@kavora.com","address":{"@type":"PostalAddress","addressLocality":"Lahore","addressCountry":"PK"}}</script>
@@ -30,11 +29,11 @@
   <div class="wrap">
     <div class="nav-bar">
       <a class="logo" href="/" aria-label="Kavora home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fe3cf"/><stop offset=".55" stop-color="#c49bff"/><stop offset="1" stop-color="#ffbc8f"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><rect x="7" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".95"/><rect x="17" y="7" width="8" height="8" rx="2.4" fill="#fff" opacity=".55"/><rect x="7" y="17" width="18" height="8" rx="2.4" fill="#fff" opacity=".8"/></svg>Kavora</a>
-      <nav class="nav-links" aria-label="Main"><a href="/store">Catalog</a><a href="/desk" aria-current="page">Kavora Desk</a><a href="/drops">Drops</a><a href="/about">About</a></nav>
+      <nav class="nav-links" aria-label="Main"><a href="/store/">Catalog</a><a href="/desk/" aria-current="page">Kavora Desk</a><a href="/drops/">Drops</a><a href="/about/">About</a></nav>
       <div class="nav-acct">
-        <a class="btn btn-quiet btn-sm" href="/login" data-guest>Sign in</a>
-        <a class="btn btn-main btn-sm" href="/signup" data-guest>Create account</a>
-        <a class="avatar" href="/account" data-user hidden aria-label="Your account"></a>
+        <a class="btn btn-quiet btn-sm" href="/login/" data-guest>Sign in</a>
+        <a class="btn btn-main btn-sm" href="/signup/" data-guest>Create account</a>
+        <a class="avatar" href="/account/" data-user hidden aria-label="Your account"></a>
       </div>
       <button class="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
@@ -45,7 +44,7 @@
 <section class="sec" style="padding-top:150px">
   <div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:56px;align-items:center">
     <div>
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px" class="fade"><img src="/assets/img/kavora-desk-icon.png" alt="Kavora Desk app icon" width="72" height="72" style="filter:drop-shadow(0 14px 26px rgba(196,155,255,.5))"><div><b style="font:650 19px var(--display)">Kavora Desk</b><div class="dim" style="font-size:15px">For macOS 14 and newer</div></div></div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px" class="fade"><img src="/assets/img/kavora-desk-icon-sm.webp" alt="Kavora Desk app icon" width="72" height="72" style="filter:drop-shadow(0 14px 26px rgba(196,155,255,.5))"><div><b style="font:650 19px var(--display)">Kavora Desk</b><div class="dim" style="font-size:15px">For macOS 14 and newer</div></div></div>
       <h1 class="d-xl split" style="font-size:clamp(44px,6.4vw,92px)">Your desktop, arranged.</h1>
       <p class="lede fade" style="margin:24px 0 32px">80+ widgets with live data, one-click AI and social launchers, ready-made layouts and a builder for your own designs. Pick a setup and Kavora Desk places everything for you.</p>
       <div class="btn-row fade"><a class="btn btn-main" href="#pricing">Buy for $19</a><a class="btn btn-quiet" data-download href="#waitlist">Try free for 7 days</a></div>
@@ -99,7 +98,7 @@
         <div class="seats" data-seats><b data-left>100</b> founder licences left<div class="bar"><i></i></div></div></div>
       <div class="plan fade"><h3>All-Access</h3><div class="amt">Soon</div><div class="dim">Every Kavora product in one membership</div>
         <ul><li>Kavora Desk and future apps</li><li>Flows, Ads, Kits and Studio</li><li>Every drop, every year</li><li>Member-only extras</li></ul>
-        <a class="btn btn-quiet" href="/drops#waitlist">Join the waitlist</a></div>
+        <a class="btn btn-quiet" href="/drops/#waitlist">Join the waitlist</a></div>
     </div>
   </div>
 </section>
@@ -115,7 +114,7 @@
 </form>
 <p class="note">One email per drop. Unsubscribe in one click.</p></div></div>
 </section>
-</main>
+<div class="mbar" aria-label="Kavora Desk"><img src="/assets/img/kavora-desk-icon-sm.webp" alt="" width="40" height="40"><div><b>Kavora Desk</b><span>$19 once, 7-day free trial</span></div><a class="btn btn-main" data-buy href="/desk/#pricing">Get it</a></div></main>
 <footer>
   <div class="wrap">
     <div class="foot">
@@ -124,9 +123,9 @@
         <p class="soft" style="max-width:34ch;margin-top:16px;font-size:15.5px">Apps, automations and kits that take busywork off your plate. Made in Lahore, Pakistan.</p>
         <p style="margin-top:14px;font-size:15px"><a class="link" href="mailto:hello@kavora.com">hello@kavora.com</a></p>
       </div>
-      <div><h4>Products</h4><a href="/desk">Kavora Desk</a><a href="/store#flows">Kavora Flows</a><a href="/store#ads">Kavora Ads</a><a href="/store">Full catalog</a></div>
-      <div><h4>Company</h4><a href="/about">About</a><a href="/drops">Weekly drops</a><a href="/contact">Contact</a><a href="/account">Your account</a></div>
-      <div><h4>Policies</h4><a href="/legal/terms">Terms of service</a><a href="/legal/privacy">Privacy policy</a><a href="/legal/refunds">Refund policy</a><a href="/legal/license">Licence agreement</a></div>
+      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#flows">Kavora Flows</a><a href="/store/#ads">Kavora Ads</a><a href="/store/">Full catalog</a></div>
+      <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/account/">Your account</a></div>
+      <div><h4>Policies</h4><a href="/legal/terms/">Terms of service</a><a href="/legal/privacy/">Privacy policy</a><a href="/legal/refunds/">Refund policy</a><a href="/legal/license/">Licence agreement</a></div>
     </div>
     <div class="foot-word" aria-hidden="true">Kavora</div>
     <div class="foot-bot">

@@ -18,8 +18,8 @@ window.KAVORA = {
 
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
-  if (!reduce && window.Lenis) {
-    lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 3.2), smoothWheel: true });
+  if (!reduce && window.Lenis && matchMedia("(pointer: fine)").matches) {
+    lenis = new Lenis({ lerp: 0.14, smoothWheel: true, wheelMultiplier: 1.05 });
     if (hasG) {
       gsap.ticker.add((t) => lenis.raf(t * 1000));
       gsap.ticker.lagSmoothing(0);
@@ -51,7 +51,11 @@ window.KAVORA = {
   /* ---------- Cursor light + magnetic buttons ---------- */
   const light = $(".cursor-light");
   if (light && !reduce && matchMedia("(hover: hover)").matches) {
-    addEventListener("pointermove", (e) => { light.style.left = e.clientX + "px"; light.style.top = e.clientY + "px"; }, { passive: true });
+    let lx = -900, ly = -900, raf = 0;
+    addEventListener("pointermove", (e) => {
+      lx = e.clientX; ly = e.clientY;
+      if (!raf) raf = requestAnimationFrame(() => { light.style.transform = `translate3d(${lx}px, ${ly}px, 0)`; raf = 0; });
+    }, { passive: true });
   }
   if (!reduce && matchMedia("(hover: hover)").matches) {
     $$(".btn").forEach((b) => {
@@ -99,11 +103,8 @@ window.KAVORA = {
     gsap.registerPlugin(ScrollTrigger);
     if (lenis) lenis.on("scroll", ScrollTrigger.update);
 
-    // Page-load moment: hero words rise, then the desktop assembles
-    const heroWords = $$(".hero .split .w > span");
+    // Page-load moment (hero text is already animated by CSS, so nothing waits for this file)
     const load = gsap.timeline({ defaults: { ease: "expo.out" } });
-    if (heroWords.length) load.from(heroWords, { yPercent: 110, duration: 1.2, stagger: 0.06 }, 0.1);
-    load.fromTo(".hero .fade", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1 }, 0.5);
 
     // Other pages: widgets drift in once, gently
     const calm = $$(".screen .wd").filter((w) => !w.closest(".hero"));
@@ -114,27 +115,35 @@ window.KAVORA = {
       // scattered "messy desktop" positions
       const mess = [[-26, 22, -7], [40, 54, 9], [-22, -14, 5], [54, -26, -5], [-46, 28, 7], [22, 40, -8], [-34, -40, 5]];
       if (wide()) {
-        gsap.set(".screen", { transformPerspective: 1400 });
-        load.from(".screen", { y: 80, rotateX: 14, opacity: 0, duration: 1.4 }, 0.25);
+        gsap.set(".hero .screen", { transformPerspective: 1400 });
         widgets.forEach((w, i) => {
           const [x, y, r] = mess[i % mess.length];
           gsap.set(w, { x, y, rotate: r, scale: 0.86 });
         });
-        load.from(widgets, { opacity: 0, scale: 0.5, duration: 1, stagger: 0.07, ease: "back.out(1.6)" }, 0.6);
+        load.from(widgets, { opacity: 0, scale: 0.7, duration: 0.8, stagger: 0.05, ease: "back.out(1.5)" }, 0);
 
         // Scroll: the desktop arranges itself into Smart Zones
         const tl = gsap.timeline({
-          scrollTrigger: { trigger: ".hero", start: "top top", end: "+=130%", scrub: 0.8, pin: ".hero-pin", anticipatePin: 1 }
+          scrollTrigger: { trigger: ".hero", start: "top top", end: "+=85%", scrub: 0.5, pin: ".hero-pin", anticipatePin: 1 }
         });
         tl.to(".scroll-hint", { opacity: 0, duration: 0.15 }, 0)
           .to(".screen-grid", { opacity: 1, duration: 0.25 }, 0.05)
           .to(widgets, { x: 0, y: 0, rotate: 0, scale: 1, duration: 0.6, stagger: 0.04, ease: "power3.inOut" }, 0.1)
           .to(".screen-grid", { opacity: 0, duration: 0.25 }, 0.75)
           .to(".hero-copy", { opacity: 0.25, x: -30, duration: 0.4 }, 0.6)
-          .to(".screen", { scale: 1.06, duration: 0.5 }, 0.55)
+          .to(".hero .screen", { scale: 1.06, duration: 0.5 }, 0.55)
           .to(".hero-caption", { opacity: 1, y: -10, duration: 0.3 }, 0.8);
       } else {
-        load.from(widgets, { opacity: 0, y: 20, scale: 0.9, duration: 0.9, stagger: 0.06 }, 0.5);
+        // Phones: the desktop starts messy and tidies itself as you scroll past it
+        widgets.forEach((w, i) => {
+          const [x, y, r] = mess[i % mess.length];
+          gsap.set(w, { x: x * 0.45, y: y * 0.45, rotate: r * 0.8, scale: 0.9 });
+        });
+        load.from(widgets, { opacity: 0, scale: 0.75, duration: 0.7, stagger: 0.05, ease: "back.out(1.5)" }, 0.1);
+        gsap.timeline({ scrollTrigger: { trigger: ".hero .screen", start: "top 88%", end: "top 28%", scrub: 0.4 } })
+          .to(".screen-grid", { opacity: 1, duration: 0.3 }, 0)
+          .to(widgets, { x: 0, y: 0, rotate: 0, scale: 1, duration: 0.7, stagger: 0.03, ease: "power2.inOut" }, 0.05)
+          .to(".screen-grid", { opacity: 0, duration: 0.3 }, 0.75);
       }
     }
 
@@ -187,12 +196,54 @@ window.KAVORA = {
     document.documentElement.classList.remove("js");
   }
 
+  /* ---------- Mobile: swipe depth on the catalog shelf ---------- */
+  const shelfWrap = $(".shelf-wrap");
+  if (shelfWrap && !wide()) {
+    const cards = $$(".shelf-track > *", shelfWrap);
+    const bar = $(".shelf-progress i");
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const w = shelfWrap.clientWidth, c = shelfWrap.scrollLeft + w / 2;
+      cards.forEach((el) => {
+        const mid = el.offsetLeft + el.offsetWidth / 2;
+        const d = Math.min(1, Math.abs(mid - c) / (w * 0.9));
+        el.style.setProperty("--s", (1 - d * 0.08).toFixed(3));
+        el.style.setProperty("--o", (1 - d * 0.4).toFixed(3));
+        el.style.setProperty("--px", (((mid - c) / w) * -26).toFixed(1) + "px");
+      });
+      if (bar) {
+        const max = shelfWrap.scrollWidth - w;
+        bar.style.transform = `translate3d(${(max ? shelfWrap.scrollLeft / max : 0) * 400}%,0,0)`;
+      }
+    };
+    shelfWrap.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update); update();
+  }
+
+  /* ---------- Mobile: sticky buy bar ---------- */
+  const mbar = $(".mbar");
+  if (mbar) {
+    let pastHero = false, nearEnd = false;
+    const sync = () => mbar.classList.toggle("show", pastHero && !nearEnd);
+    addEventListener("scroll", () => { pastHero = scrollY > innerHeight * 0.75; sync(); }, { passive: true });
+    const ends = $$("#waitlist, footer");
+    if (ends.length && "IntersectionObserver" in window) {
+      const seen = new Set();
+      const io = new IntersectionObserver((es) => {
+        es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+        nearEnd = seen.size > 0; sync();
+      });
+      ends.forEach((el) => io.observe(el));
+    }
+  }
+
   /* ---------- Buy / download ---------- */
   $$("[data-buy]").forEach((a) => {
     if (K.deskCheckout) { a.href = K.deskCheckout; a.classList.add("lemonsqueezy-button"); }
-    else a.href = "/desk#waitlist";
+    else a.href = "/desk/#waitlist";
   });
-  $$("[data-download]").forEach((a) => (a.href = K.deskDownload || "/desk#waitlist"));
+  $$("[data-download]").forEach((a) => (a.href = K.deskDownload || "/desk/#waitlist"));
   if (K.deskCheckout) { const s = document.createElement("script"); s.src = "https://app.lemonsqueezy.com/js/lemon.js"; s.defer = true; document.head.appendChild(s); }
 
   /* ---------- Founder seats ---------- */

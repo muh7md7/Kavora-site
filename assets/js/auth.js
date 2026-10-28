@@ -3,7 +3,7 @@ const cfg = window.KAVORA_FIREBASE;
 const $ = (s, r = document) => r.querySelector(s);
 const page = document.body.dataset.page;
 const params = new URLSearchParams(location.search);
-const safeNext = (() => { const n = params.get("next") || "/account"; return n.startsWith("/") && !n.startsWith("//") ? n : "/account"; })();
+const safeNext = (() => { const n = params.get("next") || "/account/"; return n.startsWith("/") && !n.startsWith("//") ? n : "/account/"; })();
 
 function say(msg, kind = "err") {
   const el = $(".auth-msg"); if (!el) return;
@@ -56,7 +56,7 @@ if (!cfg) {
         document.querySelector(".acct").hidden = false;
       }
     } else if (page === "account") {
-      location.replace("/login?next=/account");
+      location.replace("/login/?next=/account/");
     }
   });
 

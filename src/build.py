@@ -29,7 +29,7 @@ GOOGLE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M2
 
 # ---------- shell ----------
 def head(title, desc, path, page):
-    url = f"https://{SITE['domain']}/{path}".rstrip("/")
+    url = f"https://{SITE['domain']}/" + (f"{path}/" if path else "")
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -48,9 +48,8 @@ def head(title, desc, path, page):
 <meta name="theme-color" content="#272b42">
 <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
 <script src="/assets/js/head.js"></script>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"Kavora","url":"https://{SITE['domain']}","logo":"https://{SITE['domain']}/assets/img/kavora-desk-icon.png","email":"{E}","address":{{"@type":"PostalAddress","addressLocality":"Lahore","addressCountry":"PK"}}}}</script>
@@ -64,16 +63,16 @@ LINKS = [("Catalog", "store"), ("Kavora Desk", "desk"), ("Drops", "drops"), ("Ab
 
 def nav(active):
     cur = ' aria-current="page"'
-    links = "".join(f'<a href="/{h}"{cur if h == active else ""}>{t}</a>' for t, h in LINKS)
+    links = "".join(f'<a href="/{h}/"{cur if h == active else ""}>{t}</a>' for t, h in LINKS)
     return f"""<header class="nav">
   <div class="wrap">
     <div class="nav-bar">
       <a class="logo" href="/" aria-label="Kavora home">{LOGO}Kavora</a>
       <nav class="nav-links" aria-label="Main">{links}</nav>
       <div class="nav-acct">
-        <a class="btn btn-quiet btn-sm" href="/login" data-guest>Sign in</a>
-        <a class="btn btn-main btn-sm" href="/signup" data-guest>Create account</a>
-        <a class="avatar" href="/account" data-user hidden aria-label="Your account"></a>
+        <a class="btn btn-quiet btn-sm" href="/login/" data-guest>Sign in</a>
+        <a class="btn btn-main btn-sm" href="/signup/" data-guest>Create account</a>
+        <a class="avatar" href="/account/" data-user hidden aria-label="Your account"></a>
       </div>
       <button class="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
@@ -82,8 +81,10 @@ def nav(active):
 <main id="main">
 """
 
-def footer():
-    return f"""</main>
+MBAR = f"""<div class="mbar" aria-label="Kavora Desk"><img src="/assets/img/kavora-desk-icon-sm.webp" alt="" width="40" height="40"><div><b>Kavora Desk</b><span>${SITE['founder']} once, {SITE['trial']}-day free trial</span></div><a class="btn btn-main" data-buy href="/desk/#pricing">Get it</a></div>"""
+
+def footer(mbar=True):
+    return (MBAR if mbar else "") + f"""</main>
 <footer>
   <div class="wrap">
     <div class="foot">
@@ -92,9 +93,9 @@ def footer():
         <p class="soft" style="max-width:34ch;margin-top:16px;font-size:15.5px">Apps, automations and kits that take busywork off your plate. Made in {SITE['city']}.</p>
         <p style="margin-top:14px;font-size:15px"><a class="link" href="mailto:{E}">{E}</a></p>
       </div>
-      <div><h4>Products</h4><a href="/desk">Kavora Desk</a><a href="/store#flows">Kavora Flows</a><a href="/store#ads">Kavora Ads</a><a href="/store">Full catalog</a></div>
-      <div><h4>Company</h4><a href="/about">About</a><a href="/drops">Weekly drops</a><a href="/contact">Contact</a><a href="/account">Your account</a></div>
-      <div><h4>Policies</h4><a href="/legal/terms">Terms of service</a><a href="/legal/privacy">Privacy policy</a><a href="/legal/refunds">Refund policy</a><a href="/legal/license">Licence agreement</a></div>
+      <div><h4>Products</h4><a href="/desk/">Kavora Desk</a><a href="/store/#flows">Kavora Flows</a><a href="/store/#ads">Kavora Ads</a><a href="/store/">Full catalog</a></div>
+      <div><h4>Company</h4><a href="/about/">About</a><a href="/drops/">Weekly drops</a><a href="/contact/">Contact</a><a href="/account/">Your account</a></div>
+      <div><h4>Policies</h4><a href="/legal/terms/">Terms of service</a><a href="/legal/privacy/">Privacy policy</a><a href="/legal/refunds/">Refund policy</a><a href="/legal/license/">Licence agreement</a></div>
     </div>
     <div class="foot-word" aria-hidden="true">Kavora</div>
     <div class="foot-bot">
@@ -114,8 +115,8 @@ def footer():
 """
 
 def page(path, title, desc, active, body, page_id=None, chrome=True):
-    out = head(title, desc, path, page_id or (path or "home")) + nav(active) + body + footer()
-    t = ROOT / ((path or "index") + ".html")
+    out = head(title, desc, path, page_id or (path or "home")) + nav(active) + body + footer(path in ("", "store", "desk", "drops"))
+    t = ROOT / ("index.html" if not path else ("404.html" if path == "404" else f"{path}/index.html"))
     t.parent.mkdir(parents=True, exist_ok=True)
     t.write_text(out, encoding="utf-8")
     print("built", t.relative_to(ROOT))
@@ -150,7 +151,7 @@ def signup(source, cta="Join the list"):
 
 # Product art (each product gets its own object, not a shared template)
 ART = {
- "desk": '<img class="art-icon" src="/assets/img/kavora-desk-icon.png" alt="" width="190" height="190">',
+ "desk": '<img class="art-icon" src="/assets/img/kavora-desk-icon.webp" alt="" width="190" height="190" loading="lazy" decoding="async">',
  "flows": '''<div class="art-flow"><svg viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true"><path d="M60 40 C140 40 120 100 200 100"/><path d="M60 160 C140 160 120 100 200 100"/></svg>
    <div class="node" style="left:0;top:8%"><b></b>New lead</div><div class="node" style="left:0;bottom:8%"><b style="background:#ffbc8f"></b>Invoice paid</div><div class="node" style="right:0;top:40%"><b style="background:#c49bff"></b>WhatsApp reply</div></div>''',
  "ads": '<div class="art-ad"><div class="ph"></div><div class="ln"></div><div class="ln s"></div><div class="cta-f"></div></div>',
@@ -162,17 +163,17 @@ ART = {
 PRODUCTS = [
     # key, category, tint, tint2, name, line, price html, status, href
     ("desk", "apps", "#c49bff", "#5fe3cf", "Kavora Desk", "80+ desktop widgets for macOS with live data, AI and social launchers, Smart Zones and a widget builder.",
-     f'<span class="price">${SITE["founder"]}<s>${SITE["regular"]}</s></span>', '<span class="status live">Available now</span>', "/desk"),
+     f'<span class="price">${SITE["founder"]}<s>${SITE["regular"]}</s></span>', '<span class="status live">Available now</span>', "/desk/"),
     ("flows", "automation", "#5fe3cf", "#7fb3ff", "Kavora Flows", "Ready-to-import n8n automations for lead capture, WhatsApp follow-ups, invoices and social posting.",
-     '<span class="price soft" style="font-size:18px">From $29</span>', '<span class="status">In the works</span>', "/drops"),
+     '<span class="price soft" style="font-size:18px">From $29</span>', '<span class="status">In the works</span>', "/drops/"),
     ("ads", "marketing", "#ffbc8f", "#ff7fb5", "Kavora Ads", "Meta and TikTok ad packs with tested hooks, scripts and editable creatives for service businesses.",
-     '<span class="price soft" style="font-size:18px">From $24</span>', '<span class="status">In the works</span>', "/drops"),
+     '<span class="price soft" style="font-size:18px">From $24</span>', '<span class="status">In the works</span>', "/drops/"),
     ("kits", "branding", "#ffd27f", "#c49bff", "Kavora Kits", "Brand identity kits: logo system, guidelines, social templates and pitch deck, ready to make your own.",
-     '<span class="price soft" style="font-size:18px">From $39</span>', '<span class="status">In the works</span>', "/drops"),
+     '<span class="price soft" style="font-size:18px">From $39</span>', '<span class="status">In the works</span>', "/drops/"),
     ("studio", "templates", "#ff9ccf", "#5fe3cf", "Kavora Studio", "Notion and Canva systems: business OS, CRM board, content calendar, proposals and SOP library.",
-     '<span class="price soft" style="font-size:18px">From $19</span>', '<span class="status">In the works</span>', "/drops"),
+     '<span class="price soft" style="font-size:18px">From $19</span>', '<span class="status">In the works</span>', "/drops/"),
     ("all", "memberships", "#c49bff", "#ffbc8f", "Kavora All-Access", "Every Kavora product and every future drop in one membership.",
-     '<span class="price soft" style="font-size:18px">Waitlist</span>', '<span class="status">Opening later</span>', "/drops#waitlist"),
+     '<span class="price soft" style="font-size:18px">Waitlist</span>', '<span class="status">Opening later</span>', "/drops/#waitlist"),
 ]
 
 def prod(p):
@@ -209,8 +210,8 @@ def home():
         <h1 class="d-xl split">Business tools, made beautifully.</h1>
         <p class="lede fade">Kavora makes apps, automations and ready-to-use kits for founders and teams. Less busywork, more of the work that grows your business.</p>
         <div class="btn-row fade">
-          <a class="btn btn-main" href="/desk">See Kavora Desk</a>
-          <a class="btn btn-quiet" href="/store">Browse the catalog</a>
+          <a class="btn btn-main" href="/desk/">See Kavora Desk</a>
+          <a class="btn btn-quiet" href="/store/">Browse the catalog</a>
         </div>
         <p class="hero-note fade">Kavora Desk is out now for macOS. Try it free for {SITE['trial']} days.</p>
       </div>
@@ -224,11 +225,12 @@ def home():
 <section class="sec shelf" aria-labelledby="cat-h">
   <div class="wrap sec-head">
     <div><h2 class="d-lg split" id="cat-h">The catalog</h2><p class="lede fade">One Mac app today. A new product or feature every Friday until every part of your business has a tool.</p></div>
-    <a class="btn btn-quiet fade" href="/store">View all products</a>
+    <a class="btn btn-quiet fade" href="/store/">View all products</a>
   </div>
   <div class="shelf-wrap"><div class="shelf-track">{shelf}
     <div class="end-card"><h3 class="d-md">More every Friday.</h3><p class="soft">Join the list and get each new product the day it drops, at the launch price.</p><a class="btn btn-main" href="#waitlist">Join the list</a></div>
   </div></div>
+  <div class="shelf-progress" aria-hidden="true"><i></i></div>
 </section>
 
 <section class="sec pearl" aria-labelledby="how-h">
@@ -252,7 +254,7 @@ def home():
 <section class="sec" style="padding-top:0" aria-labelledby="drop-h">
   <div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:center">
     <div><h2 class="d-lg split" id="drop-h">Next drop: Markets &amp; Gold</h2><p class="lede fade" style="margin-top:18px">Live gold, crypto and stock tickers for Kavora Desk, with price alerts. Arrives <span data-drop-date>this Friday</span>.</p>
-      <a class="btn btn-quiet fade" href="/drops" style="margin-top:28px">See the roadmap</a></div>
+      <a class="btn btn-quiet fade" href="/drops/" style="margin-top:28px">See the roadmap</a></div>
     <div class="fade">{clock()}</div>
   </div>
 </section>
@@ -304,7 +306,7 @@ def desk():
 <section class="sec" style="padding-top:150px">
   <div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:56px;align-items:center">
     <div>
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px" class="fade"><img src="/assets/img/kavora-desk-icon.png" alt="Kavora Desk app icon" width="72" height="72" style="filter:drop-shadow(0 14px 26px rgba(196,155,255,.5))"><div><b style="font:650 19px var(--display)">Kavora Desk</b><div class="dim" style="font-size:15px">For macOS 14 and newer</div></div></div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px" class="fade"><img src="/assets/img/kavora-desk-icon-sm.webp" alt="Kavora Desk app icon" width="72" height="72" style="filter:drop-shadow(0 14px 26px rgba(196,155,255,.5))"><div><b style="font:650 19px var(--display)">Kavora Desk</b><div class="dim" style="font-size:15px">For macOS 14 and newer</div></div></div>
       <h1 class="d-xl split" style="font-size:clamp(44px,6.4vw,92px)">Your desktop, arranged.</h1>
       <p class="lede fade" style="margin:24px 0 32px">80+ widgets with live data, one-click AI and social launchers, ready-made layouts and a builder for your own designs. Pick a setup and Kavora Desk places everything for you.</p>
       <div class="btn-row fade"><a class="btn btn-main" href="#pricing">Buy for ${SITE['founder']}</a><a class="btn btn-quiet" data-download href="#waitlist">Try free for {SITE['trial']} days</a></div>
@@ -348,7 +350,7 @@ def desk():
         <div class="seats" data-seats><b data-left>100</b> founder licences left<div class="bar"><i></i></div></div></div>
       <div class="plan fade"><h3>All-Access</h3><div class="amt">Soon</div><div class="dim">Every Kavora product in one membership</div>
         <ul><li>Kavora Desk and future apps</li><li>Flows, Ads, Kits and Studio</li><li>Every drop, every year</li><li>Member-only extras</li></ul>
-        <a class="btn btn-quiet" href="/drops#waitlist">Join the waitlist</a></div>
+        <a class="btn btn-quiet" href="/drops/#waitlist">Join the waitlist</a></div>
     </div>
   </div>
 </section>
@@ -426,7 +428,7 @@ def auth_side(title, text):
 def login():
     body = f"""<section class="auth">{auth_side('Welcome back.', 'Your licences, downloads and drops in one place.')}
 <div class="auth-main"><div class="auth-card">
-  <h1>Sign in</h1><p class="soft">New here? <a class="link" href="/signup">Create an account</a></p>
+  <h1>Sign in</h1><p class="soft">New here? <a class="link" href="/signup/">Create an account</a></p>
   <button class="btn google" type="button" data-google>{GOOGLE}Continue with Google</button>
   <div class="or">or use your email</div>
   <form data-login novalidate>
@@ -442,7 +444,7 @@ def login():
 def signup_page():
     body = f"""<section class="auth">{auth_side('Make it yours.', 'Save your products, get licence keys faster and hear about drops first.')}
 <div class="auth-main"><div class="auth-card">
-  <h1>Create account</h1><p class="soft">Already have one? <a class="link" href="/login">Sign in</a></p>
+  <h1>Create account</h1><p class="soft">Already have one? <a class="link" href="/login/">Sign in</a></p>
   <button class="btn google" type="button" data-google>{GOOGLE}Sign up with Google</button>
   <div class="or">or use your email</div>
   <form data-signup novalidate>
@@ -452,7 +454,7 @@ def signup_page():
     <button class="btn btn-main" type="submit">Create account</button>
   </form>
   <p class="auth-msg" role="status" aria-live="polite"></p>
-  <p class="auth-alt dim" style="font-size:14px">By creating an account you agree to our <a href="/legal/terms">terms</a> and <a href="/legal/privacy">privacy policy</a>.</p>
+  <p class="auth-alt dim" style="font-size:14px">By creating an account you agree to our <a href="/legal/terms/">terms</a> and <a href="/legal/privacy/">privacy policy</a>.</p>
 </div></div></section>"""
     page("signup", "Create account | Kavora", "Create your Kavora account with Google or email.", "", body)
 
@@ -464,7 +466,7 @@ def account():
     <p class="lede" style="margin:12px 0 34px">Signed in as <span data-email></span></p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
       <div class="acct-card"><h3>Your licences and receipts</h3><p class="soft" style="margin:10px 0 20px">Licence keys and invoices live in Lemon Squeezy under the email you bought with.</p><a class="btn btn-main btn-sm" href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener">Open my orders</a></div>
-      <div class="acct-card"><h3>Kavora Desk</h3><p class="soft" style="margin:10px 0 20px">Download the latest version or start your free trial.</p><a class="btn btn-quiet btn-sm" data-download href="/desk">Download</a></div>
+      <div class="acct-card"><h3>Kavora Desk</h3><p class="soft" style="margin:10px 0 20px">Download the latest version or start your free trial.</p><a class="btn btn-quiet btn-sm" data-download href="/desk/">Download</a></div>
       <div class="acct-card"><h3>Account</h3><p class="soft" style="margin:10px 0 6px">Email status: <span data-verified></span></p><p class="soft" style="margin-bottom:20px">Member since <span data-since></span></p><button class="btn btn-quiet btn-sm" data-signout type="button">Sign out</button></div>
     </div>
   </div>
@@ -478,7 +480,7 @@ def legal(path, title, sections):
 def legal_pages():
     legal("legal/terms", "Terms of service", [
         ("Who we are", [f"Kavora is an independent studio based in {SITE['city']}. Our order process is conducted by our online reseller Lemon Squeezy, the Merchant of Record for all orders. Lemon Squeezy handles payment, tax, invoicing and returns."]),
-        ("Your purchase", ['Buying a product gives you a personal, non-transferable licence to use it as described in our <a href="/legal/license">licence agreement</a>. Prices are in US dollars; local taxes are calculated at checkout.']),
+        ("Your purchase", ['Buying a product gives you a personal, non-transferable licence to use it as described in our <a href="/legal/license/">licence agreement</a>. Prices are in US dollars; local taxes are calculated at checkout.']),
         ("Accounts", ["You are responsible for keeping your login secure. Tell us straight away if you think someone else has used your account. We may suspend accounts used for fraud or abuse."]),
         ("Free trials", ["Trials let you evaluate a product before buying. Trial features stop when the trial ends until you enter a valid licence."]),
         ("Updates and drops", ["We release new features regularly, including weekly drops. Roadmap items are plans and may change."]),
@@ -509,12 +511,12 @@ def legal_pages():
     ])
 
 def notfound():
-    page("404", "Page not found | Kavora", "Page not found.", "", f'<section class="prose" style="text-align:center;padding-top:200px"><h1 class="d-lg">This page doesn\'t exist.</h1><p class="lede" style="margin:18px auto 30px">The link may be old or mistyped.</p><div class="btn-row" style="justify-content:center"><a class="btn btn-main" href="/">Go to the home page</a><a class="btn btn-quiet" href="/store">Browse the catalog</a></div></section>')
+    page("404", "Page not found | Kavora", "Page not found.", "", f'<section class="prose" style="text-align:center;padding-top:200px"><h1 class="d-lg">This page doesn\'t exist.</h1><p class="lede" style="margin:18px auto 30px">The link may be old or mistyped.</p><div class="btn-row" style="justify-content:center"><a class="btn btn-main" href="/">Go to the home page</a><a class="btn btn-quiet" href="/store/">Browse the catalog</a></div></section>')
 
 def seo():
     pages = ["", "store", "desk", "drops", "about", "contact", "legal/terms", "legal/privacy", "legal/refunds", "legal/license"]
-    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://{SITE['domain']}/{p}</loc></url>" for p in pages) + "</urlset>", encoding="utf-8")
-    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /account\nDisallow: /data/\nSitemap: https://{SITE['domain']}/sitemap.xml\n", encoding="utf-8")
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://{SITE['domain']}/{p + '/' if p else ''}</loc></url>" for p in pages) + "</urlset>", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /account/\nDisallow: /data/\nSitemap: https://{SITE['domain']}/sitemap.xml\n", encoding="utf-8")
 
 if __name__ == "__main__":
     home(); store(); desk(); drops(); about(); contact(); login(); signup_page(); account(); legal_pages(); notfound(); seo()

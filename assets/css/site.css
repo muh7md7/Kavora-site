@@ -1,4 +1,8 @@
 /* Kavora v2 — "dusk" palette: between dark and light, calm and premium. */
+@font-face { font-family: "Bricolage Grotesque"; src: url("/assets/fonts/bricolage.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("/assets/fonts/instrument-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("/assets/fonts/instrument-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("/assets/fonts/instrument-600.woff2") format("woff2"); font-weight: 600 700; font-display: swap; }
 
 :root {
   --dusk: #272b42;          /* page base */
@@ -40,20 +44,19 @@ button { font: inherit; color: inherit; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* Soft ambient light behind the whole page */
-.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; transform: translateZ(0);
   background:
     radial-gradient(60vw 50vw at 8% -10%, rgba(95, 227, 207, 0.20), transparent 60%),
     radial-gradient(55vw 50vw at 100% 10%, rgba(196, 155, 255, 0.24), transparent 62%),
     radial-gradient(50vw 40vw at 60% 110%, rgba(255, 188, 143, 0.14), transparent 60%),
     var(--dusk); }
-.cursor-light { position: fixed; z-index: 0; width: 520px; height: 520px; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(196, 155, 255, 0.13), transparent); transform: translate(-50%, -50%);
-  left: -600px; top: -600px; transition: opacity .4s; mix-blend-mode: screen; }
+.cursor-light { position: fixed; z-index: 0; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(196, 155, 255, 0.12), transparent); transform: translate3d(-900px, -900px, 0); will-change: transform; }
 @media (hover: none) { .cursor-light { display: none; } }
 
 /* ---------- Type ---------- */
 h1, h2, h3, h4 { font-family: var(--display); margin: 0; letter-spacing: -0.035em; font-weight: 650; }
-.d-xl { font-size: clamp(44px, 6.4vw, 94px); line-height: 0.94; font-weight: 700; font-variation-settings: "wdth" 88; }
+.d-xl { font-size: clamp(44px, 6.4vw, 94px); line-height: 0.96; font-weight: 700; }
 .d-lg { font-size: clamp(36px, 5.4vw, 72px); line-height: 1.0; }
 .d-md { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.08; }
 h3 { font-size: 22px; line-height: 1.2; letter-spacing: -0.02em; }
@@ -138,9 +141,8 @@ p { margin: 0; }
   background-image: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
   background-size: 8.333% 12.5%; }
 .wd { position: absolute; border-radius: 14px; padding: 11px 12px; color: #fff; font-size: 11px; line-height: 1.35;
-  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3);
-  backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
-  box-shadow: 0 18px 34px -16px rgba(20, 16, 50, .6); will-change: transform; }
+  background: linear-gradient(160deg, rgba(255,255,255,.26), rgba(255,255,255,.12)); border: 1px solid rgba(255,255,255,.32);
+  box-shadow: 0 18px 34px -16px rgba(20, 16, 50, .55); }
 .wd small { display: block; font-size: 9.5px; opacity: .75; font-weight: 600; }
 .wd .num { font: 300 clamp(20px, 2.6vw, 36px)/1 var(--display); letter-spacing: -0.04em; }
 .wd-clock { left: 4%; top: 11%; width: 29%; height: 27%; }
@@ -391,6 +393,11 @@ footer { background: var(--dusk-deep); margin-top: clamp(80px, 10vw, 140px); pad
 
 /* ---------- Motion fallbacks ---------- */
 .js .fade { opacity: 0; }
+/* Hero never waits for scripts: it animates in with CSS straight away */
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+.hero h1, .hero .fade { opacity: 1 !important; animation: rise .9s var(--ease) both; }
+.hero .lede { animation-delay: .12s; } .hero .btn-row { animation-delay: .22s; } .hero .hero-note { animation-delay: .32s; }
+.hero .screen { animation: rise 1s var(--ease) .15s both; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .fade { opacity: 1 !important; transform: none !important; }
@@ -409,4 +416,46 @@ footer { background: var(--dusk-deep); margin-top: clamp(80px, 10vw, 140px); pad
   .shelf .prod { min-height: 0; height: min(500px, calc(100vh - 320px)); }
   .shelf .prod-art { height: 52%; }
   .shelf .end-card { min-height: 0; height: min(500px, calc(100vh - 320px)); }
+}
+
+/* ---------- Performance: blur only where it earns its cost ---------- */
+.btn-quiet { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255,255,255,0.08); }
+.shelf-wrap { position: relative; }
+
+/* ---------- Mobile: swipe shelf with depth ---------- */
+.shelf-progress { display: none; width: min(220px, 56%); height: 3px; border-radius: 3px; background: var(--hair); margin: 24px auto 0; overflow: hidden; }
+.shelf-progress i { display: block; width: 20%; height: 100%; border-radius: 3px; background: var(--sheen); will-change: transform; }
+@media (max-width: 960px) {
+  .shelf-track { gap: 14px; padding-block: 8px; }
+  .shelf .prod, .shelf .end-card { width: 80vw; max-width: 380px; min-height: 470px; transform: scale(var(--s, 1)); opacity: var(--o, 1); will-change: transform, opacity; }
+  .shelf .prod-art { height: 250px; }
+  .shelf .prod-art > * { transform: translate3d(var(--px, 0px), 0, 0); }
+  .shelf-progress { display: block; }
+  .store-grid .prod { min-height: 0; }
+}
+
+/* ---------- Mobile: sticky buy bar ---------- */
+.mbar { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 55; display: none; align-items: center; gap: 12px;
+  padding: 9px 9px 9px 12px; border-radius: 22px; background: rgba(39, 43, 66, .86); border: 1px solid var(--hair-2);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 24px 40px -18px rgba(10, 10, 30, .8);
+  transform: translate3d(0, 150%, 0); transition: transform .55s var(--ease); }
+.mbar.show { transform: none; }
+.mbar img { width: 40px; height: 40px; flex: none; }
+.mbar b { display: block; font: 650 15px/1.2 var(--display); }
+.mbar span { font-size: 13px; color: var(--dim); }
+.mbar .btn { margin-left: auto; height: 44px; padding: 0 18px; }
+@media (max-width: 960px) { .mbar { display: flex; } footer { padding-bottom: 110px; } }
+
+/* ---------- Touch feedback & menu choreography ---------- */
+@media (hover: none) {
+  .btn { transition: transform .18s var(--ease); }
+  .btn:active { transform: scale(.95); }
+  .prod:active { transform: scale(.985) !important; }
+}
+@media (max-width: 900px) {
+  .nav.open .nav-links a, .nav.open .nav-acct { animation: rise .5s var(--ease) both; }
+  .nav.open .nav-links a:nth-child(2) { animation-delay: .04s; }
+  .nav.open .nav-links a:nth-child(3) { animation-delay: .08s; }
+  .nav.open .nav-links a:nth-child(4) { animation-delay: .12s; }
+  .nav.open .nav-acct { animation-delay: .16s; }
 }
