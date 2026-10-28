@@ -144,6 +144,54 @@ window.KAVORA = Object.assign({
       }
     }
 
+    // Giant word band: drifts on its own and speeds up with your scroll
+    const tracks = $$(".mq-track");
+    if (tracks.length) {
+      const pos = tracks.map(() => 0);
+      let boost = 0;
+      ScrollTrigger.create({ trigger: ".mq", start: "top bottom", end: "bottom top", onUpdate: (st) => { boost = Math.min(18, Math.abs(st.getVelocity()) / 220); } });
+      gsap.ticker.add(() => {
+        boost *= 0.92;
+        tracks.forEach((tr, i) => {
+          const half = tr.scrollWidth / 2; if (!half) return;
+          const dir = i % 2 ? 1 : -1;
+          pos[i] = (pos[i] + dir * (0.6 + boost)) % half;
+          if (dir > 0 && pos[i] > 0) pos[i] -= half;
+          tr.style.transform = `translate3d(${pos[i]}px,0,0)`;
+        });
+      });
+    }
+
+    // "Make it yours": the desktop restyles itself as you scroll
+    const show = $(".show"), showScreen = $(".show-screen"), themeItems = $$(".themes li");
+    if (show && showScreen) {
+      const looks = ["t-glass", "t-midnight", "t-pearl", "t-sunset"];
+      let cur = 0;
+      const apply = (i) => {
+        if (i === cur) return; cur = i;
+        showScreen.classList.remove(...looks); showScreen.classList.add(looks[i]);
+        themeItems.forEach((li, k) => li.classList.toggle("on", k === i));
+        const li = themeItems[i]; if (li && li.parentElement.scrollWidth > li.parentElement.clientWidth) li.parentElement.scrollTo({ left: li.offsetLeft - 20, behavior: "smooth" });
+        gsap.fromTo(showScreen.querySelectorAll(".wd"), { scale: 0.94 }, { scale: 1, duration: 0.6, stagger: 0.03, ease: "back.out(2)" });
+      };
+      ScrollTrigger.create({ trigger: show, start: wide() ? "top top" : "top 12%", end: "+=" + (wide() ? 220 : 170) + "%", pin: wide() ? ".show-pin" : show, pinSpacing: true,
+        onUpdate: (st) => apply(Math.min(3, Math.floor(st.progress * 4))) });
+      gsap.from(".show-screen .screen", { y: 60, rotateX: 10, opacity: 0, transformPerspective: 1200, ease: "power3.out", duration: 1,
+        scrollTrigger: { trigger: show, start: "top 75%" } });
+    }
+
+    // Hero desktop tilts toward your mouse
+    const hs = $(".hero .screen");
+    if (hs && wide() && matchMedia("(hover: hover)").matches) {
+      const ry = gsap.quickTo(hs, "rotationY", { duration: 0.8, ease: "power3" });
+      const rx = gsap.quickTo(hs, "rotationX", { duration: 0.8, ease: "power3" });
+      $(".hero").addEventListener("pointermove", (e) => {
+        ry(((e.clientX / innerWidth) - 0.5) * 12);
+        rx(((e.clientY / innerHeight) - 0.5) * -9);
+      });
+      $(".hero").addEventListener("pointerleave", () => { ry(0); rx(0); });
+    }
+
     // Section headings: words rise as they enter
     $$(".split").forEach((el) => {
       if (el.closest(".hero")) return;
@@ -234,6 +282,40 @@ window.KAVORA = Object.assign({
   } else {
     document.documentElement.classList.remove("js");
   }
+
+  /* ---------- Living widgets: real time, charging ring, ticking tasks ---------- */
+  (() => {
+    const t = $$("[data-live-time]"), d = $$("[data-live-day]"), dt = $$("[data-live-date]"), bar = $$("[data-live-bar]");
+    if (!t.length) return;
+    const tick = () => {
+      const now = new Date();
+      const hm = now.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }).replace(/\s?[AP]M$/i, "");
+      t.forEach((el) => (el.textContent = hm));
+      d.forEach((el) => (el.textContent = now.toLocaleDateString(undefined, { weekday: "long" })));
+      dt.forEach((el) => (el.textContent = now.toLocaleDateString(undefined, { day: "numeric", month: "long" })));
+      bar.forEach((el) => (el.textContent = now.toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" })));
+    };
+    tick(); setInterval(tick, 15000);
+    if (reduce) return;
+    // Battery ring fills up, then gently charges
+    const rings = $$("[data-ring]"), vals = $$("[data-ring-v]");
+    let p = 0, target = 72;
+    const setRing = (v) => { rings.forEach((r) => r.style.setProperty("--p", v)); vals.forEach((x) => (x.textContent = Math.round(v) + "%")); };
+    const fill = () => { p += (target - p) * 0.06; setRing(p); if (Math.abs(target - p) > 0.3) requestAnimationFrame(fill); else setRing(target); };
+    setTimeout(fill, 500);
+    setInterval(() => { target = target >= 100 ? 64 : target + 1; requestAnimationFrame(fill); }, 2600);
+    // CPU drifts like the real thing
+    const cpu = $$("[data-cpu]"); let c = 18;
+    setInterval(() => { c = Math.max(6, Math.min(48, c + (Math.random() - 0.5) * 9)); cpu.forEach((el) => (el.textContent = Math.round(c) + "%")); }, 1400);
+    // Tasks tick themselves off one by one, then reset
+    $$(".wd-tasks").forEach((box) => {
+      const items = $$(".todo", box); let i = 1;
+      setInterval(() => {
+        if (i >= items.length) { items.forEach((x, k) => x.classList.toggle("done", k === 0)); i = 1; return; }
+        items[i].classList.add("done", "just"); setTimeout(() => items[i - 1] && items[i - 1].classList.remove("just"), 500); i++;
+      }, 2400);
+    });
+  })();
 
   /* ---------- Mobile: swipe depth on the catalog shelf ---------- */
   const shelfWrap = $(".shelf-wrap");
