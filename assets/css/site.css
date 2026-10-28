@@ -605,3 +605,27 @@ footer { background: var(--dusk-deep); margin-top: clamp(80px, 10vw, 140px); pad
 }
 
 .read-prog { position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 80; background: var(--sheen); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
+
+/* ---------- Social proof (real data only) ---------- */
+.offer { max-width: 460px; margin: 0 auto 26px; }
+.offer .seats { margin: 0; text-align: left; }
+.proof { margin-top: 10px; font-size: 14.5px; color: var(--soft); text-align: left; }
+.proof::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); margin-right: 8px; vertical-align: 1px; }
+.live-pill { position: fixed; left: 18px; bottom: 18px; z-index: 54; display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 13px; border-radius: 999px;
+  background: rgba(39, 43, 66, .86); border: 1px solid var(--hair-2); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); font-size: 14px; color: var(--soft);
+  box-shadow: 0 16px 32px -16px rgba(10, 10, 30, .7); opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.live-pill.in { opacity: 1; transform: none; }
+.live-pill i { width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 0 rgba(95,227,207,.6); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(95,227,207,.55); } 70% { box-shadow: 0 0 0 10px rgba(95,227,207,0); } 100% { box-shadow: 0 0 0 0 rgba(95,227,207,0); } }
+@media (max-width: 960px) { .live-pill { left: 50%; bottom: calc(86px + env(safe-area-inset-bottom)); transform: translate(-50%, 14px); font-size: 13px; white-space: nowrap; } .live-pill.in { transform: translate(-50%, 0); } }
+
+.rv-grid { columns: 3 300px; column-gap: 18px; }
+.rv { break-inside: avoid; margin: 0 0 18px; padding: 26px; border-radius: var(--r-lg); background: rgba(255,255,255,.055); border: 1px solid var(--hair); }
+.rv blockquote { margin: 14px 0 20px; font-size: 17px; line-height: 1.55; color: var(--text); }
+.rv figcaption { display: flex; align-items: center; gap: 12px; }
+.rv figcaption img, .rv-init { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
+.rv-init { display: grid; place-items: center; background: var(--sheen); color: #1d1f33; font: 700 18px var(--display); }
+.rv figcaption b { display: block; font-weight: 600; }
+.rv figcaption small { color: var(--dim); font-size: 14px; }
+.stars { color: var(--apricot); letter-spacing: 2px; font-size: 16px; }
+.stars i { font-style: normal; color: rgba(255,255,255,.2); }

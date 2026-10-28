@@ -381,15 +381,42 @@ window.KAVORA = Object.assign({
   $$("[data-download]").forEach((a) => (a.href = K.deskDownload || "/desk/#waitlist"));
   if (K.deskCheckout) { const s = document.createElement("script"); s.src = "https://app.lemonsqueezy.com/js/lemon.js"; s.defer = true; document.head.appendChild(s); }
 
-  /* ---------- Founder seats ---------- */
+  /* ---------- Founder seats (real number from settings) ---------- */
   $$("[data-seats]").forEach((el) => {
-    const left = Math.max(0, K.founderSeats - K.founderSold);
-    const n = $("[data-left]", el); if (n) n.textContent = left;
     const bar = $(".bar i", el);
     if (bar && "IntersectionObserver" in window) {
       new IntersectionObserver((es, o) => es.forEach((e) => { if (e.isIntersecting) { bar.style.width = Math.max(3, K.founderSold / K.founderSeats * 100) + "%"; o.disconnect(); } })).observe(el);
     }
   });
+
+  /* ---------- Honest live proof: real visitors now + real waitlist joins ---------- */
+  (() => {
+    const pill = $("[data-live]"), weekEls = $$("[data-week]");
+    if (!pill && !weekEls.length) return;
+    let sid = "";
+    try { sid = sessionStorage.getItem("kv-sid") || ""; if (!sid) { sid = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem("kv-sid", sid); } }
+    catch { sid = Math.random().toString(36).slice(2) + Date.now().toString(36); }
+    const ping = async () => {
+      if (document.hidden) return;
+      try {
+        const r = await fetch("/stats.php?sid=" + sid, { cache: "no-store" });
+        const ct = r.headers.get("content-type") || "";
+        if (!r.ok || !ct.includes("json")) return;
+        const d = await r.json();
+        if (pill) {
+          const show = d.live >= 3;
+          pill.hidden = !show;
+          if (show) { $("span", pill).textContent = `${d.live} people are looking at Kavora right now`; requestAnimationFrame(() => pill.classList.add("in")); }
+        }
+        weekEls.forEach((el) => {
+          if (d.week >= 10) { el.hidden = false; el.textContent = `${d.week.toLocaleString()} people joined the list this week`; }
+          else if (d.total >= 25) { el.hidden = false; el.textContent = `${d.total.toLocaleString()} people are on the list`; }
+        });
+      } catch {}
+    };
+    ping(); setInterval(ping, 30000);
+    document.addEventListener("visibilitychange", ping);
+  })();
 
   /* ---------- Countdown ---------- */
   const nextDrop = (now) => {
@@ -445,9 +472,16 @@ window.KAVORA = Object.assign({
         "Animations running: " + (window.gsap ? gsap.globalTimeline.getChildren(true, true, true).length : 0),
         "Scroll triggers: " + (window.ScrollTrigger ? ScrollTrigger.getAll().length : 0),
         "Scrolled: " + Math.round(scrollY) + "px",
-        "Browser: " + navigator.userAgent.slice(0, 120)
+        "Browser: " + navigator.userAgent.slice(0, 120),
+        "PHP (waitlist + live counter): " + phpState
       ].join("\n");
     };
+    let phpState = "checking…";
+    fetch("/stats.php?sid=debugcheck00", { cache: "no-store" }).then(async (r) => {
+      const ct = r.headers.get("content-type") || "";
+      phpState = r.ok && ct.includes("json") ? "working " + JSON.stringify(await r.json()) : "NOT running (status " + r.status + ")";
+      report();
+    }).catch(() => { phpState = "NOT reachable"; report(); });
     document.body.appendChild(box); report(); addEventListener("scroll", report, { passive: true });
     addEventListener("error", (e) => (box.textContent += "\nERROR: " + e.message));
   }

@@ -109,8 +109,10 @@ MBAR = f"""<div class="mbar" aria-label="Kavora Desk"><img src="/assets/img/kavo
 
 BUILD = hashlib.md5((ROOT / "assets/js/site.js").read_bytes() + (ROOT / "assets/css/site.css").read_bytes()).hexdigest()[:6]
 
+LIVE = '<div class="live-pill" data-live hidden aria-live="off"><i></i><span></span></div>'
+
 def footer(mbar=True):
-    return (MBAR if mbar else "") + f"""</main>
+    return (MBAR + LIVE if mbar else "") + f"""</main>
 <footer>
   <div class="wrap">
     <div class="foot">
@@ -220,6 +222,28 @@ def prod(p):
   <a class="prod-link" href="{link}" aria-label="{esc(p.get('name'))}: view details"></a>
 </article>"""
 
+def seats_html():
+    seats = int(CFG.get("founder_seats", 2000) or 0); sold = int(CFG.get("founder_sold", 0) or 0)
+    if sold > 0:
+        return f'''<div class="seats" data-seats><span><b>{sold:,}</b> of {seats:,} founder licences claimed</span><div class="bar"><i></i></div></div>'''
+    return f'''<div class="seats"><span>Founder price for the first <b>{seats:,}</b> customers</span><div class="bar"><i style="width:3%"></i></div></div>'''
+
+REVIEWS = [r for r in load("reviews.json", {"reviews": []}).get("reviews", []) if r.get("show_on_website", True) and r.get("quote")]
+
+def reviews_html():
+    if not REVIEWS: return ""
+    def stars(n):
+        n = max(0, min(5, int(n or 5)))
+        return f'<span class="stars" aria-label="{n} out of 5 stars">' + "★" * n + '<i>' + "★" * (5 - n) + "</i></span>"
+    cards = ""
+    for r in REVIEWS:
+        pic = f'<img src="{esc(r["photo"])}" alt="" width="44" height="44" loading="lazy">' if r.get("photo") else f'<span class="rv-init">{esc(str(r.get("name","?"))[:1])}</span>'
+        cards += f'''<figure class="rv fade">{stars(r.get("rating", 5))}<blockquote>{esc(r["quote"])}</blockquote>
+  <figcaption>{pic}<span><b>{esc(r.get("name"))}</b><small>{esc(r.get("role"))}</small></span></figcaption></figure>'''
+    return f'''<section class="sec" aria-labelledby="rv-h"><div class="wrap">
+  <div class="sec-head"><div><h2 class="d-lg split" id="rv-h">What customers say</h2><p class="lede fade">Real reviews from people using Kavora every day.</p></div></div>
+  <div class="rv-grid">{cards}</div></div></section>'''
+
 def trust():
     return f"""<div class="trust-grid">
   <div class="fade">{ico('lock')}<h3>Secure checkout</h3><p>Payments run through Lemon Squeezy with encrypted card processing. We never see your card details.</p></div>
@@ -304,12 +328,13 @@ def home():
     <div class="sec-head"><div><h2 class="d-lg split" id="how-h">How buying works</h2><p class="lede fade">No subscriptions to untangle. Try it, pay once, keep getting better versions.</p></div></div>
     <div class="steps">
       <div class="step"><span class="step-line"></span><span class="step-n">Step 1</span><h3>Try it free</h3><p>Download and use every feature for {SITE['trial']} days. No card needed.</p></div>
-      <div class="step"><span class="step-line"></span><span class="step-n">Step 2</span><h3>Pay once</h3><p>${SITE['founder']} for the first {CFG.get('founder_seats', 100)} customers, then ${SITE['regular']}. Your licence key arrives by email in seconds.</p></div>
+      <div class="step"><span class="step-line"></span><span class="step-n">Step 2</span><h3>Pay once</h3><p>${SITE['founder']} for the first {int(CFG.get('founder_seats', 2000)):,} customers, then ${SITE['regular']}. Your licence key arrives by email in seconds.</p></div>
       <div class="step"><span class="step-line"></span><span class="step-n">Step 3</span><h3>Get every drop</h3><p>New widgets and features install automatically every Friday for a full year.</p></div>
     </div>
   </div>
 </section>
 
+{reviews_html()}
 <section class="sec" aria-labelledby="trust-h">
   <div class="wrap">
     <div class="sec-head"><div><h2 class="d-lg split" id="trust-h">Buy with confidence</h2></div></div>
@@ -329,6 +354,7 @@ def home():
   <div class="final">
     <h2 class="d-lg split">Get each drop first.</h2>
     <p class="lede fade">Early customers get launch prices. One short email when something new is ready.</p>
+    <div class="fade offer">{seats_html()}<p class="proof" data-week hidden></p></div>
     <div class="fade">{signup('home')}</div>
   </div>
 </section>
@@ -414,10 +440,10 @@ def desk():
       <div class="plan fade"><h3>Free trial</h3><div class="amt">$0</div><div class="dim">{SITE['trial']} days, every feature</div>
         <ul><li>All 80+ widgets</li><li>Ready-made desktops</li><li>Widget builder</li><li>No card needed</li></ul>
         <a class="btn btn-quiet" data-download href="#waitlist">Download the trial</a></div>
-      <div class="plan star fade"><h3>Founder licence</h3><div class="amt">${SITE['founder']} <small>one time</small></div><div class="dim">${SITE['regular']} after the first {CFG.get('founder_seats', 100)} customers</div>
+      <div class="plan star fade"><h3>Founder licence</h3><div class="amt">${SITE['founder']} <small>one time</small></div><div class="dim">${SITE['regular']} after the first {int(CFG.get('founder_seats', 2000)):,} customers</div>
         <ul><li>Use on 2 Macs, for life</li><li>A year of Friday drops</li><li>Early access to new products</li><li>{SITE['refund_days']}-day money-back guarantee</li></ul>
         <a class="btn btn-main" data-buy href="#waitlist">Buy Kavora Desk</a>
-        <div class="seats" data-seats><b data-left>100</b> founder licences left<div class="bar"><i></i></div></div></div>
+        {seats_html()}</div>
       <div class="plan fade"><h3>All-Access</h3><div class="amt">Soon</div><div class="dim">Every Kavora product in one membership</div>
         <ul><li>Kavora Desk and future apps</li><li>Flows, Ads, Kits and Studio</li><li>Every drop, every year</li><li>Member-only extras</li></ul>
         <a class="btn btn-quiet" href="/drops/#waitlist">Join the waitlist</a></div>
@@ -425,6 +451,7 @@ def desk():
   </div>
 </section>
 
+{reviews_html()}
 <section class="sec" style="padding-top:20px"><div class="wrap"><div class="sec-head"><div><h2 class="d-lg split">Questions</h2></div></div>{faq(faqs)}</div></section>
 
 <section class="wrap" id="waitlist">

@@ -57,6 +57,28 @@ content:
           - { name: description, label: Description, type: text }
           - { name: is_next, label: Next drop, type: boolean }
 
+  - name: reviews
+    label: Customer reviews
+    description: Real reviews only (from customers or testers who agreed to be quoted). The section appears once you add one.
+    type: file
+    path: content/reviews.json
+    fields:
+      - name: reviews
+        label: Reviews
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Customer name, type: string, required: true }
+          - { name: role, label: "Role or business (e.g. Founder, Lahore)", type: string }
+          - { name: quote, label: What they said (their words), type: text, required: true }
+          - name: rating
+            label: Stars
+            type: select
+            options:
+              values: ["5", "4", "3"]
+          - { name: photo, label: Photo (optional, with their permission), type: image }
+          - { name: show_on_website, label: Show on website, type: boolean }
+
   - name: settings
     label: Settings
     description: Prices, links, contact details and the founder counter.
@@ -70,8 +92,8 @@ content:
       - { name: regular_price, label: Regular price (USD), type: number }
       - { name: trial_days, label: Free trial days, type: number }
       - { name: refund_days, label: Refund window (days), type: number }
-      - { name: founder_seats, label: Founder licences available, type: number }
-      - { name: founder_sold, label: Founder licences sold so far, type: number }
+      - { name: founder_seats, label: Founder licences available (e.g. 2000), type: number }
+      - { name: founder_sold, label: "Founder licences sold so far — use your real sales number from Lemon Squeezy", type: number }
       - { name: desk_checkout_link, label: Kavora Desk checkout link (Lemon Squeezy), type: string }
       - { name: desk_download_link, label: Kavora Desk free trial download link, type: string }
       - { name: next_drop_title, label: Next drop title (home page), type: string }
