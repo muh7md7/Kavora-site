@@ -152,12 +152,54 @@ window.KAVORA = Object.assign({
         scrollTrigger: { trigger: el, start: "top 86%" }
       });
     });
-    // Gentle fade for supporting content
-    $$(".fade").forEach((el) => {
-      if (el.closest(".hero")) return;
-      gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 90%" } });
-    });
+    if (wide()) {
+      // Desktop: gentle fade for supporting content
+      $$(".fade").forEach((el) => {
+        if (el.closest(".hero")) return;
+        gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 90%" } });
+      });
+    } else {
+      /* ---------- Phones: everything moves with your finger ---------- */
+      const scrub = (el, from, start = "top 96%", end = "top 62%") =>
+        gsap.fromTo(el, from, { opacity: 1, x: 0, y: 0, scale: 1, rotateX: 0, rotate: 0, ease: "none",
+          scrollTrigger: { trigger: el, start, end, scrub: 0.35 } });
+
+      $$(".fade").forEach((el) => {
+        if (el.closest(".hero") || el.closest(".trust-grid") || el.closest(".road")) return;
+        scrub(el, { opacity: 0, y: 46, scale: 0.97 });
+      });
+      // Hero text drifts up and softens as the desktop takes over
+      gsap.to(".hero-copy", { y: -60, opacity: 0.35, ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 30%", scrub: true } });
+      // Catalog cards on the store page tilt up into place
+      $$(".store-grid .prod").forEach((c) => {
+        gsap.set(c, { transformPerspective: 900 });
+        scrub(c, { opacity: 0, y: 70, rotateX: 14, scale: 0.94 }, "top 100%", "top 60%");
+      });
+      // Light section grows out of the page
+      $$(".pearl").forEach((p) => gsap.fromTo(p, { scale: 0.9, borderRadius: 56 }, { scale: 1, borderRadius: 30, ease: "none",
+        scrollTrigger: { trigger: p, start: "top bottom", end: "top 35%", scrub: 0.35 } }));
+      // Buying steps slide in from the left, one after another
+      $$(".step").forEach((st) => scrub(st, { opacity: 0, x: -50 }, "top 95%", "top 70%"));
+      // Trust items arrive from alternating sides
+      $$(".trust-grid > div").forEach((t, i) => scrub(t, { opacity: 0, x: i % 2 ? 50 : -50 }, "top 98%", "top 72%"));
+      // Roadmap items
+      $$(".road-item").forEach((r) => scrub(r, { opacity: 0, x: 40 }, "top 96%", "top 74%"));
+      // Feature, plan and FAQ blocks rise with a slight scale
+      $$(".feat, .plan, .faq details").forEach((f) => scrub(f, { opacity: 0, y: 50, scale: 0.95 }));
+      // Big call-to-action blooms open
+      $$(".final").forEach((f) => gsap.fromTo(f, { scale: 0.88, opacity: 0.4 }, { scale: 1, opacity: 1, ease: "none",
+        scrollTrigger: { trigger: f, start: "top bottom", end: "top 45%", scrub: 0.35 } }));
+      // Catalog shelf: a small nudge shows it can be swiped
+      const sw = $(".shelf-wrap");
+      if (sw) ScrollTrigger.create({ trigger: sw, start: "top 75%", once: true, onEnter: () => {
+        const o = { x: 0 };
+        sw.style.scrollSnapType = "none";
+        gsap.timeline({ onComplete: () => (sw.style.scrollSnapType = "") }).to(o, { x: 90, duration: 0.6, ease: "power2.out", onUpdate: () => (sw.scrollLeft = o.x) })
+          .to(o, { x: 0, duration: 0.7, ease: "power3.inOut", onUpdate: () => (sw.scrollLeft = o.x) }, "+=0.15");
+      } });
+    }
 
     // Catalog shelf slides sideways while you scroll down
     const track = $(".shelf-track");

@@ -39,6 +39,18 @@ def ico(n): return f'<div class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="tr
 
 GOOGLE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.6 12.3c0-.8-.1-1.6-.2-2.3H12v4.3h5.9a5 5 0 01-2.2 3.3v2.8h3.6c2.1-1.9 3.3-4.8 3.3-8.1z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.8c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.9A11 11 0 0012 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 010-4.2V7H2.1a11 11 0 000 10l3.7-2.9z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 002.1 7l3.7 2.9C6.7 7.3 9.1 5.4 12 5.4z"/></svg>'
 
+# ---------- cache busting: every CSS/JS link carries a fingerprint, so phones never keep old files ----------
+import hashlib
+_fp = {}
+def bust(html_text):
+    def fp(m):
+        rel = m.group(1)
+        if rel not in _fp:
+            f = ROOT / rel.lstrip("/")
+            _fp[rel] = hashlib.md5(f.read_bytes()).hexdigest()[:8] if f.exists() else "0"
+        return f'"{rel}?v={_fp[rel]}"'
+    return re.sub(r'"(/assets/(?:css|js|vendor)/[^"?]+\.(?:css|js))"', fp, html_text)
+
 # ---------- shell ----------
 def head(title, desc, path, page):
     url = f"https://{SITE['domain']}/" + (f"{path}/" if path else "")
@@ -128,7 +140,7 @@ def footer(mbar=True):
 """
 
 def page(path, title, desc, active, body, page_id=None, chrome=True):
-    out = head(title, desc, path, page_id or (path or "home")) + nav(active) + body + footer(path in ("", "store", "desk", "drops"))
+    out = bust(head(title, desc, path, page_id or (path or "home")) + nav(active) + body + footer(path in ("", "store", "desk", "drops")))
     t = ROOT / ("index.html" if not path else ("404.html" if path == "404" else f"{path}/index.html"))
     t.parent.mkdir(parents=True, exist_ok=True)
     t.write_text(out, encoding="utf-8")
