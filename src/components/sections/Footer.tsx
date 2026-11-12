@@ -1,57 +1,67 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { isConfirmed, nav, services, site } from "@/content/site";
-import { Button } from "@/components/glass/Button";
+import { LogoMark } from "@/components/brand/Logo";
 
-/** Final CTA (midnight band, single midnight-glass panel) + footer. The only deep-toned moment. */
+/** Closing CTA + footer — charcoal, the final dark band. */
 export function Footer() {
   const email = site.contact.email;
   const wa = site.contact.whatsapp;
   return (
-    <footer className="bg-midnight on-midnight text-ivory">
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/backdrops/dusk-1.svg')] bg-cover bg-center opacity-70" aria-hidden />
-        <div className="container section relative">
-          <div className="glass-smoke rounded-lg p-8 md:p-14 max-w-3xl">
-            <h2 className="display">Let&apos;s Build <span className="accent">What&apos;s Next.</span></h2>
-            <p className="lead !text-ivory/80 mt-4">Tell us what you&apos;re building. We&apos;ll reply with questions, options and a clear next step.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact/" variant="premium">Start a Conversation</Button>
-              <Button href="/services/" variant="ghost">Explore services</Button>
-            </div>
+    <footer data-theme="dark" className="tone tone-grad overflow-hidden">
+      <section className="container pt-[clamp(96px,12vw,180px)] pb-20" aria-labelledby="cta-h">
+        <p className="eyebrow">Start a project</p>
+        <h2 id="cta-h" className="display mt-6 max-w-[14ch]">Let&apos;s build what&apos;s <span className="accent">next.</span></h2>
+        <div className="mt-12 grid gap-10 lg:grid-cols-12 items-end">
+          <p className="lead lg:col-span-6">Tell us what you&apos;re building. We reply with questions, options and a clear next step — no pressure, no guarantees.</p>
+          <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
+            <Link href="/contact/" className="btn btn-premium !min-h-14 !px-7" data-cursor="Start">Start a conversation <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></Link>
+            <Link href="/services/" className="btn btn-glass !min-h-14 !px-7">Explore services</Link>
           </div>
         </div>
       </section>
 
-      <div className="container py-12 grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr] border-t border-white/10">
-        <div>
-          <div className="font-display font-bold text-2xl flex items-center gap-2"><span className="inline-block size-2.5 rounded-full bg-champagne-light" aria-hidden />{site.brand}</div>
-          <p className="text-sm text-ivory/75 mt-3 max-w-xs">{site.positioning}</p>
-          <p className="text-xs text-ivory/50 mt-3">{site.market}</p>
-        </div>
-        <nav aria-label="Services">
-          <h3 className="text-sm font-semibold !font-sans text-champagne-light mb-3">Services</h3>
-          <ul className="space-y-2 text-sm">{services.map((s) => <li key={s.id}><Link href={`/services/${s.slug}/`} className="hover:text-champagne-light">{s.name}</Link></li>)}</ul>
-        </nav>
-        <nav aria-label="Pages">
-          <h3 className="text-sm font-semibold !font-sans text-champagne-light mb-3">Pages</h3>
-          <ul className="space-y-2 text-sm">{nav.map((l) => <li key={l.href}><Link href={l.href} className="hover:text-champagne-light">{l.label}</Link></li>)}</ul>
-        </nav>
-        <div>
-          <h3 className="text-sm font-semibold !font-sans text-champagne-light mb-3">Contact</h3>
-          <ul className="space-y-2 text-sm">
-            <li>{isConfirmed(email) ? <a href={`mailto:${email}`} className="hover:text-champagne-light" data-event="email_click">{email}</a> : <span className="text-ivory/50">Email: {email}</span>}</li>
-            <li>{isConfirmed(wa) ? <a href={`https://wa.me/${wa.replace(/\D/g, "")}`} className="hover:text-champagne-light" data-event="whatsapp_click">WhatsApp</a> : <span className="text-ivory/50">WhatsApp: {wa}</span>}</li>
-            {Object.entries(site.socials).map(([k, v]) => (
-              <li key={k}>{isConfirmed(v) ? <a href={v} rel="me noopener" className="hover:text-champagne-light capitalize">{k}</a> : <span className="text-ivory/50 capitalize">{k}: {v}</span>}</li>
-            ))}
-          </ul>
+      <div className="container">
+        <div className="grid gap-12 md:grid-cols-12 py-16 border-t border-line">
+          <div className="md:col-span-4">
+            <LogoMark className="size-10 text-[#EEF0F2] [--logo-ink:#17191C] [--logo-keel:#4C6680]" />
+            <p className="text-[0.95rem] text-text-2 mt-6 max-w-xs">{site.positioning}</p>
+            <p className="num mt-4">UAE · GCC · Pakistan · Worldwide</p>
+          </div>
+          <nav aria-label="Services" className="md:col-span-3">
+            <h3 className="num mb-5">Services</h3>
+            <ul className="space-y-3 text-[0.95rem]">{services.map((s) => <li key={s.id}><Link href={`/services/${s.slug}/`} className="text-text-2 hover:text-text transition-colors">{s.name}</Link></li>)}</ul>
+          </nav>
+          <nav aria-label="Company" className="md:col-span-2">
+            <h3 className="num mb-5">Company</h3>
+            <ul className="space-y-3 text-[0.95rem]">{nav.filter((l) => l.href !== "/services/").map((l) => <li key={l.href}><Link href={l.href} className="text-text-2 hover:text-text transition-colors">{l.label}</Link></li>)}</ul>
+          </nav>
+          <div className="md:col-span-3">
+            <h3 className="num mb-5">Contact</h3>
+            <ul className="space-y-3 text-[0.95rem]">
+              <li>{isConfirmed(email) ? <a href={`mailto:${email}`} className="hover:text-accent" data-event="email_click">{email}</a> : <span className="text-text-2">Email {email}</span>}</li>
+              <li>{isConfirmed(wa) ? <a href={`https://wa.me/${wa.replace(/\D/g, "")}`} className="hover:text-accent" data-event="whatsapp_click">WhatsApp</a> : <span className="text-text-2">WhatsApp {wa}</span>}</li>
+              {Object.entries(site.socials).map(([k, v]) => (
+                <li key={k}>{isConfirmed(v) ? <a href={v} rel="me noopener" className="capitalize hover:text-accent">{k}</a> : <span className="text-text-2 capitalize">{k} {v}</span>}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="container py-6 border-t border-white/10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-ivory/60">
-        <span>© {new Date().getFullYear()} {site.brand}. All rights reserved.</span>
-        <Link href="/legal/privacy/" className="hover:text-champagne-light">Privacy</Link>
-        <Link href="/legal/terms/" className="hover:text-champagne-light">Terms</Link>
-        <Link href="/legal/cookies/" className="hover:text-champagne-light">Cookies</Link>
+
+      {/* Oversized wordmark */}
+      <div className="container select-none" aria-hidden>
+        <div className="font-[620] tracking-[-0.07em] leading-[0.8] text-[clamp(5rem,22vw,20rem)] text-transparent [-webkit-text-stroke:1px_rgba(238,240,242,.14)] translate-y-[18%]">keelbiz</div>
+      </div>
+
+      <div className="border-t border-line relative bg-bg">
+        <div className="container py-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.8rem] text-text-2">
+          <span>© {new Date().getFullYear()} {site.brand}. All rights reserved.</span>
+          <Link href="/legal/privacy/" className="hover:text-text">Privacy</Link>
+          <Link href="/legal/terms/" className="hover:text-text">Terms</Link>
+          <Link href="/legal/cookies/" className="hover:text-text">Cookies</Link>
+          <a href="#main" className="ml-auto hover:text-text">Back to top ↑</a>
+        </div>
       </div>
     </footer>
   );

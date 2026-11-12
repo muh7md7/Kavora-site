@@ -26,9 +26,9 @@ export function GoalGauge({ value = 72, label = "Goal progress · Sample", class
           animate={{ strokeDashoffset: inView ? arc * (1 - v / 100) : arc }}
           transition={{ duration: reduce ? 0 : 1.2, ease: [0.22, 1, 0.36, 1] }}
         />
-        <motion.g initial={{ rotate: -180 }} animate={{ rotate: inView ? angle : -180 }} transition={{ duration: reduce ? 0 : 1.2, ease: [0.22, 1, 0.36, 1] }} style={{ originX: `${cx}px`, originY: `${cy}px` }}>
+        <g style={{ transformOrigin: `${cx}px ${cy}px`, transformBox: "view-box", transform: `rotate(${inView ? angle : -180}deg)`, transition: reduce ? "none" : "transform 1.2s cubic-bezier(.22,1,.36,1)" }}>
           <line x1={cx} y1={cy} x2={cx + r - 18} y2={cy} stroke="var(--navy)" strokeWidth="3" strokeLinecap="round" />
-        </motion.g>
+        </g>
         <circle cx={cx} cy={cy} r="6" fill="var(--navy)" />
         <text x={cx} y={cy - 22} textAnchor="middle" fontSize="28" fontWeight="700" fill="var(--ink)" fontFamily="var(--font-display)">{v}%</text>
       </svg>

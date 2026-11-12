@@ -21,12 +21,12 @@ export default async function LabEntryPage({ params }: { params: Promise<{ compo
   const code = readSource(e.file);
   return (
     <>
-      <section className="bg-ivory section pt-36">
+      <section data-theme="light" className="tone tone-grad section !pt-[170px]">
         <div className="container">
           <nav aria-label="Breadcrumb" className="text-sm text-slate"><Link href="/lab/" className="hover:text-navy">Lab</Link> / {e.title}</nav>
           <h1 className="mt-3">{e.title} <span className="accent">{e.version}</span></h1>
           <p className="lead mt-4">{e.description}</p>
-          <div className="mt-8 rounded-lg bg-[url('/backdrops/interior-1.svg')] bg-cover p-6 md:p-12 min-h-[320px] flex items-center justify-center"><LabDemo slug={e.slug} /></div>
+          <div className="mt-12 rounded-[28px] p-6 md:p-12 min-h-[360px] flex items-center justify-center tone tone-grad border border-line" data-theme="dark"><LabDemo slug={e.slug} /></div>
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.4fr]">
             <div className="flex flex-col gap-8">
               <div><h2 className="!text-xl">Props &amp; variants</h2><ul className="mt-3 space-y-1 text-sm font-mono text-slate">{e.props.map((p) => <li key={p}>{p}</li>)}</ul></div>

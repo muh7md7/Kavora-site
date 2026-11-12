@@ -1,13 +1,15 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 export default function NotFound() {
   return (
-    <section className="relative min-h-[80svh] flex items-center overflow-hidden pt-24">
-      <div className="absolute inset-0 bg-[url('/backdrops/interior-1.svg')] bg-cover bg-center" aria-hidden /><div className="absolute inset-0 scrim-ivory" aria-hidden />
-      <div className="container relative"><div className="glass rounded-lg p-8 md:p-12 max-w-lg bloom">
-        <p className="chip chip-slate">404</p><h1 className="mt-4">Page not <span className="accent">found.</span></h1>
-        <p className="lead mt-4">The link may be old or mistyped.</p>
-        <Link href="/" className="btn btn-primary mt-8">Take me home</Link>
-      </div></div>
+    <section data-theme="dark" className="tone tone-grad relative min-h-[100svh] flex items-center overflow-hidden">
+      <div className="grid-lines absolute inset-0 -z-10" aria-hidden />
+      <div className="container relative">
+        <p className="eyebrow">Error 404</p>
+        <h1 className="display mt-6">Lost at <span className="accent">sea.</span></h1>
+        <p className="lead mt-6">The page you&apos;re looking for has moved or never existed.</p>
+        <Link href="/" className="btn btn-premium mt-10">Take me home <ArrowUpRight size={17} className="btn-arrow" aria-hidden /></Link>
+      </div>
     </section>
   );
 }

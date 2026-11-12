@@ -28,15 +28,14 @@ export const site = {
 
 export const isConfirmed = (v: string) => !v.startsWith("[TO CONFIRM");
 
-export const nav: readonly { label: string; href: string; mega?: boolean }[] = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services/", mega: true },
+export const nav: readonly { label: string; href: string; mega?: "services" | "lab" }[] = [
+  { label: "Services", href: "/services/", mega: "services" },
   { label: "Work", href: "/work/" },
-  { label: "Lab", href: "/lab/" },
+  { label: "Lab", href: "/lab/", mega: "lab" },
   { label: "About", href: "/about/" },
   { label: "Insights", href: "/insights/" },
   { label: "Contact", href: "/contact/" },
-] as const;
+];
 
 export type ServiceId = "websites" | "social" | "ads" | "automation" | "dashboards";
 

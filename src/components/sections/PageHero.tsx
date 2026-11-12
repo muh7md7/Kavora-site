@@ -1,16 +1,16 @@
 import { cn } from "@/lib/cn";
 
-/** Page hero — ivory wash over a backdrop; one accent word per headline. */
-export function PageHero({ eyebrow, title, accent, lead, bg = "interior-1", children, className }: { eyebrow?: string; title: string; accent?: string; lead?: string; bg?: "interior-1" | "abstract-1"; children?: React.ReactNode; className?: string }) {
+/** Inner-page hero (v2) — light paper with steel gradient + architectural grid; one serif-italic accent. */
+export function PageHero({ eyebrow, title, accent, lead, children, className, tone = "light" }:
+  { eyebrow?: string; title: string; accent?: string; lead?: string; bg?: string; children?: React.ReactNode; className?: string; tone?: "light" | "dark" }) {
   return (
-    <section className={cn("relative overflow-hidden pt-36 pb-16", className)}>
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(/backdrops/${bg}.svg)` }} aria-hidden />
-      <div className="absolute inset-0 scrim-ivory" aria-hidden />
-      <div className="container relative">
-        {eyebrow && <p className="chip chip-navy">{eyebrow}</p>}
-        <h1 className="mt-4 max-w-3xl">{title} {accent && <span className="accent accent-underline">{accent}</span>}</h1>
-        {lead && <p className="lead mt-5">{lead}</p>}
-        {children}
+    <section data-theme={tone} className={cn("tone tone-grad relative overflow-hidden pt-[150px] md:pt-[190px] pb-20 md:pb-28", className)}>
+      <div className="grid-lines absolute inset-0 -z-10" aria-hidden />
+      <div className="container">
+        {eyebrow && <p className="eyebrow reveal-fade">{eyebrow}</p>}
+        <h1 className="mt-6 max-w-[18ch]">{title} {accent && <span className="accent">{accent}</span>}</h1>
+        {lead && <p className="lead mt-7 reveal-fade" style={{ animationDelay: "180ms" }}>{lead}</p>}
+        {children && <div className="reveal-fade" style={{ animationDelay: "260ms" }}>{children}</div>}
       </div>
     </section>
   );

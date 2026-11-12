@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { AutomationShowcase, FromTheLab, HomeFaq, Intro, Process, SelectedWork, Services, WhyUs } from "@/components/sections/HomeSections";
+import { AutomationShowcase, FromTheLab, HomeFaq, Intro, Process, Services, WhyUs } from "@/components/sections/HomeSections";
 import { FaqJsonLd } from "@/components/seo/JsonLd";
 import { homeFaq } from "@/content/site";
 
@@ -10,17 +10,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+// Rhythm: light hero → dark loop → light services → dark automation → light process → dark lab → light why → light-alt FAQ → dark CTA/footer
 export default function Home() {
   return (
     <>
       <Hero />
       <Intro />
       <Services />
-      <SelectedWork />
-      <Process />
-      <WhyUs />
       <AutomationShowcase />
+      <Process />
       <FromTheLab />
+      <WhyUs />
       <HomeFaq />
       <FaqJsonLd faq={homeFaq} />
     </>

@@ -33,7 +33,7 @@ export function LabDemo({ slug, autoplay }: { slug: string; autoplay?: boolean }
         <Tabs ariaLabel="Dock" variant="dock" items={demoTabs} />
       </div>
     );
-    case "stat-card": return <KpiRow />;
+    case "stat-card": return <KpiRow className="!grid-cols-2 w-full max-w-md" />;
     case "gauge": return <div className="grid md:grid-cols-[260px_1fr] gap-4 w-full max-w-3xl"><GoalGauge /><AreaChart /></div>;
     case "checkout": return <CheckoutDemo autoplay={o.autoplay} />;
     case "code-window": return <CodeWindow filename="Button.tsx" code={`export function Button({ variant = "primary" }) {\n  return <button className={\`btn btn-\${variant}\`} />;\n}`} />;
@@ -41,6 +41,12 @@ export function LabDemo({ slug, autoplay }: { slug: string; autoplay?: boolean }
     case "buttons": return (
       <div className="flex flex-wrap gap-3 items-center">
         <Button>Primary</Button><Button variant="premium">Premium plan</Button><Button variant="glass">Glass</Button><Button variant="ghost">Ghost link</Button>
+      </div>
+    );
+    case "cursor": return (
+      <div className="grid grid-cols-3 gap-3 w-full max-w-lg">
+        {["View", "Drag", "Open"].map((l) => <div key={l} data-cursor={l} className="glass rounded-[16px] h-28 flex items-end p-3 text-sm text-text-2">Hover · {l}</div>)}
+        <a href="#" onClick={(e) => e.preventDefault()} className="col-span-3 btn btn-glass">A link grows the ring</a>
       </div>
     );
     default: return null;

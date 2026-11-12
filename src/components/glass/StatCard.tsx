@@ -19,7 +19,7 @@ export function StatCard({ label, value, delta, icon: Icon = Inbox, tone = "navy
         )}
       </div>
       <div>
-        <div className="font-display font-bold text-3xl leading-none text-ink">{value}</div>
+        <div className="font-display font-[560] tracking-[-0.04em] text-3xl leading-none text-ink">{value}</div>
         <div className="text-xs text-slate mt-1">{label}</div>
       </div>
     </div>

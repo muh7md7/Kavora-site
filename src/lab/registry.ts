@@ -16,14 +16,14 @@ export type LabEntry = {
 export const lab: LabEntry[] = [
   {
     slug: "navbar", title: "Glass Navbar", version: "V1",
-    description: "Centred floating pill with a sliding active indicator and a glass mega-panel for services. Gets denser after 24px of scroll.",
+    description: "Floating full-glass header: every primary link visible, sliding hover indicator, Services and Lab mega menus with hover intent, tone that adapts to light and dark sections, hide-on-scroll and a scroll-progress hairline.",
     file: "src/components/glass/GlassNavbar.tsx",
     props: ["links: NavLink[]", "brand: string", "ctaLabel / ctaHref", "inline: boolean (Lab)", "onOpenMobile()"],
     a11y: ["Menu-button pattern: aria-haspopup, aria-expanded, aria-controls", "Esc and outside click close the panel", "aria-current on the active page", "44px targets, navy focus ring"],
     usedOn: "Global header", timeline: "navbar", wide: true,  },
   {
     slug: "mobile-sheet", title: "Mobile Glass Sheet", version: "V1",
-    description: "Bottom sheet for navigation under 1024px. Focus trap, Esc to close, body scroll lock, CTA pinned at the bottom with safe-area padding.",
+    description: "Full-screen charcoal menu under 1024px with staggered links. Focus trap, Esc to close, body scroll lock, CTA pinned with safe-area padding.",
     file: "src/components/glass/MobileSheet.tsx",
     props: ["open: boolean", "onClose()", "ctaLabel / ctaHref"],
     a11y: ["role=dialog + aria-modal", "Focus trapped and restored on close", "Escape closes", "Scroll lock while open"],
@@ -79,11 +79,19 @@ export const lab: LabEntry[] = [
     usedOn: "Automation section and page", timeline: "workflow", wide: true,  },
   {
     slug: "buttons", title: "Button Set", version: "V1",
-    description: "Primary (navy), premium (champagne, midnight text — plans only), glass secondary and a ghost link whose arrow nudges 3px.",
+    description: "Primary (charcoal, turns steel on hover), premium (steel), glass secondary and a ghost link with a drawn underline. Arrows nudge on hover.",
     file: "src/components/glass/Button.tsx",
     props: ["variant: 'primary' | 'premium' | 'glass' | 'ghost'", "href → Link, otherwise button", "disabled, type"],
     a11y: ["Min height 44px", "Visible focus ring", "Arrow icon is aria-hidden"],
     usedOn: "Global", timeline: "buttons",  },
+  {
+    slug: "cursor", title: "Cursor System", version: "V1",
+    description: "A precise dot with an eased ring. Grows over links and buttons, shows a label over anything marked data-cursor, and inverts over dark sections. Fine pointers only.",
+    file: "src/components/sections/Cursor.tsx",
+    props: ["data-cursor=\"Label\" on any element", "Auto: a, button, [role=tab], summary"],
+    a11y: ["Disabled for touch and prefers-reduced-motion", "Native caret kept in form fields", "Purely decorative: aria-hidden, no focus impact"],
+    usedOn: "Global (desktop)", timeline: "cursor",
+  },
 ];
 
 export const findLab = (slug: string) => lab.find((e) => e.slug === slug);

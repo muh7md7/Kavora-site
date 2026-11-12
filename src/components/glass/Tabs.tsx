@@ -72,7 +72,7 @@ export function Tabs({ items, value, onChange, variant = "segmented", ariaLabel,
               )}
               aria-label={variant === "dock" ? t.label : undefined}
             >
-              {on && <motion.span layoutId={layoutId} transition={spring} className={cn("absolute inset-0 -z-10 bg-white/80 shadow-sm", variant === "dock" ? "rounded-md" : "rounded-pill")} aria-hidden />}
+              {on && <motion.span layoutId={layoutId} transition={spring} className={cn("absolute inset-0 -z-10 bg-surface-strong shadow-sm", variant === "dock" ? "rounded-md" : "rounded-pill")} aria-hidden />}
               {Icon && <Icon size={16} aria-hidden />}
               {variant !== "dock" && t.label}
               {t.badge && <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-pill bg-sage text-white text-[10px] leading-4 text-center">{t.badge}</span>}

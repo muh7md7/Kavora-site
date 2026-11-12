@@ -35,7 +35,7 @@ export function CodeWindow({ code, filename, lang = "tsx", className, autoScroll
 
   return (
     <figure className={cn("code-window glass-solid rounded-md overflow-hidden text-sm", className)}>
-      <figcaption className="flex items-center gap-2 px-3 py-2 border-b border-mist bg-pearl/70">
+      <figcaption className="flex items-center gap-2 px-3 py-2 border-b border-mist bg-bg-2">
         <span className="flex gap-1.5" aria-hidden><i className="size-3 rounded-full bg-[#ff5f57]" /><i className="size-3 rounded-full bg-[#febc2e]" /><i className="size-3 rounded-full bg-[#28c840]" /></span>
         <span className="font-mono text-xs text-slate ml-2">{filename}</span>
         <span className="chip chip-navy ml-1">{lang}</span>
@@ -43,7 +43,7 @@ export function CodeWindow({ code, filename, lang = "tsx", className, autoScroll
           {copied ? <><Check size={14} aria-hidden /> Copied</> : <><Copy size={14} aria-hidden /> Copy</>}
         </button>
       </figcaption>
-      <pre ref={preRef} className="p-4 overflow-auto bg-white/60" style={{ maxHeight }}>
+      <pre ref={preRef} className="p-4 overflow-auto bg-surface" style={{ maxHeight }}>
         <code dangerouslySetInnerHTML={{ __html: highlight(code) }} />
       </pre>
     </figure>

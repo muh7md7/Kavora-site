@@ -8,16 +8,16 @@ import { Header } from "@/components/sections/Header";
 import { Footer } from "@/components/sections/Footer";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 
-// Self-hosted WOFF2 (OFL / Geist licence). Display face preloaded only; size-adjusted fallback.
-const barlow = localFont({
+// Self-hosted WOFF2 (SIL OFL). Geist = display + UI; Instrument Serif italic = single accent word.
+const serif = localFont({
   src: [
-    { path: "../fonts/barlow-condensed-latin-600-normal.woff2", weight: "600", style: "normal" },
-    { path: "../fonts/barlow-condensed-latin-700-normal.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
+    { path: "../fonts/instrument-serif-latin-400-normal.woff2", weight: "400", style: "normal" },
   ],
-  variable: "--font-barlow", display: "swap", preload: true, adjustFontFallback: "Arial",
+  variable: "--font-serif-accent", display: "swap", preload: true, adjustFontFallback: "Times New Roman",
 });
-const geist = GeistSans; // variable --font-geist-sans
-const geistMono = GeistMono; // variable --font-geist-mono
+const geist = GeistSans; // --font-geist-sans
+const geistMono = GeistMono; // --font-geist-mono
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
 };
 
-export const viewport: Viewport = { themeColor: "#F8F7F3", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#F4F3EF", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${barlow.variable} ${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${serif.variable} ${geist.variable} ${geistMono.variable}`}>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <Header />

@@ -78,7 +78,7 @@ export function CaptureFrame({ title, version, code, file, timeline, brandHandle
         {/* Title */}
         <div className="px-20 pt-24">
           <div className="flex items-center gap-3 text-2xl text-slate"><Instagram size={28} aria-hidden /><span className={dark ? "text-ivory/80" : ""}>{brandHandle}</span></div>
-          <h1 className="font-display font-bold mt-8 leading-[0.95]" style={{ fontSize: 112, color: dark ? "var(--ivory)" : "var(--navy)" }}>
+          <h1 className="font-display font-[560] tracking-[-0.04em] mt-8 leading-[0.95]" style={{ fontSize: 112, color: dark ? "var(--ivory)" : "var(--navy)" }}>
             {t} <span className={dark ? "text-champagne-light" : "text-champagne"}>{tag}</span>
           </h1>
         </div>
@@ -112,7 +112,7 @@ export function CaptureFrame({ title, version, code, file, timeline, brandHandle
             <motion.div className={cn("absolute inset-0 z-30 flex flex-col items-center justify-center gap-6", dark ? "bg-midnight" : "bg-ivory")} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-col items-center gap-4">
                 <span className={cn("size-20 rounded-pill inline-flex items-center justify-center", dark ? "bg-champagne-light" : "bg-navy")}><span className={cn("size-5 rounded-pill", dark ? "bg-midnight" : "bg-champagne-light")} /></span>
-                <span className="font-display font-bold" style={{ fontSize: 96 }}>Keelbiz</span>
+                <span className="font-display font-[560] tracking-[-0.04em]" style={{ fontSize: 96 }}>Keelbiz</span>
                 <span className="text-3xl text-slate">{brandHandle}</span>
               </motion.div>
             </motion.div>

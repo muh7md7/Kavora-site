@@ -1,165 +1,195 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { flywheel, homeFaq, steps, services, whyUs } from "@/content/site";
-import { Button } from "@/components/glass/Button";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
 import { LazyLabGauge, LazyLabStat, LazyLabTabs, LazyWorkflow } from "./Lazy";
-import { ServiceTile } from "./ServiceTile";
+import { ServiceRow } from "./ServiceTile";
 import { Faq } from "./Faq";
 import { Reveal } from "./Reveal";
+import { ProcessSteps } from "./ProcessSteps";
+import { SectionHead, Tone } from "./Tone";
 import { cn } from "@/lib/cn";
 
-/** Flywheel diagram — Attract/Convert sage, Automate/Manage navy, hub champagne. */
+/** The loop diagram — four stations on a slow orbit with one travelling light. */
 export function Flywheel({ className }: { className?: string }) {
-  const pos = [[150, 28], [272, 150], [150, 272], [28, 150]];
+  const pos = [[200, 40], [360, 200], [200, 360], [40, 200]];
   return (
-    <svg viewBox="0 0 300 300" className={cn("w-full max-w-sm", className)} role="img" aria-label="Flywheel: Attract (Social + Ads) → Convert (Website) → Automate (AI Agents) → Manage (Dashboards) → back to Attract">
-      <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="var(--mist)" /></marker></defs>
-      <circle cx="150" cy="150" r="122" fill="none" stroke="var(--mist)" strokeWidth="2" strokeDasharray="6 8" />
-      {[0, 90, 180, 270].map((a) => (
-        <path key={a} d="M 150 28 A 122 122 0 0 1 272 150" fill="none" stroke="var(--mist)" strokeWidth="2" transform={`rotate(${a} 150 150)`} markerEnd="url(#arr)" />
-      ))}
-      <circle cx="150" cy="150" r="34" fill="var(--champagne)" />
-      <text x="150" y="146" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--midnight)" fontFamily="var(--font-sans)">ONE</text>
-      <text x="150" y="160" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--midnight)" fontFamily="var(--font-sans)">LOOP</text>
+    <svg viewBox="-24 -8 448 416" className={cn("w-full max-w-[440px]", className)} role="img"
+      aria-label="The Keelbiz loop: Attract (Social and Ads), Convert (Website), Automate (AI agents), Manage (Dashboards), then back to Attract">
+      <circle cx="200" cy="200" r="160" fill="none" stroke="var(--line-strong)" strokeWidth="1" />
+      <g className="orbit">
+        <circle cx="200" cy="200" r="160" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="2 10" opacity=".7" />
+        <circle cx="200" cy="40" r="4" fill="var(--accent)" />
+      </g>
+      <circle cx="200" cy="200" r="96" fill="none" stroke="var(--line)" strokeWidth="1" />
+      <text x="200" y="192" textAnchor="middle" fontSize="13" fill="var(--text-2)" fontFamily="var(--font-mono)" letterSpacing="2">ONE</text>
+      <text x="200" y="216" textAnchor="middle" fontSize="26" fill="var(--text)" fontFamily="var(--font-serif)" fontStyle="italic">system</text>
       {flywheel.map((f, i) => (
         <g key={f.step} transform={`translate(${pos[i][0]} ${pos[i][1]})`}>
-          <rect x="-46" y="-22" width="92" height="44" rx="22" fill={f.tone === "sage" ? "var(--sage-tint)" : "var(--navy-tint)"} stroke={f.tone === "sage" ? "var(--sage)" : "var(--navy)"} />
-          <text y="-3" textAnchor="middle" fontSize="12" fontWeight="700" fill={f.tone === "sage" ? "var(--sage)" : "var(--navy)"} fontFamily="var(--font-sans)">{f.step}</text>
-          <text y="12" textAnchor="middle" fontSize="9" fill="var(--slate)" fontFamily="var(--font-sans)">{f.detail}</text>
+          <rect x="-58" y="-24" width="116" height="48" rx="24" fill="var(--bg-2)" stroke="var(--line-strong)" />
+          <text y="-2" textAnchor="middle" fontSize="14" fontWeight="600" fill="var(--text)" fontFamily="var(--font-sans)">{f.step}</text>
+          <text y="14" textAnchor="middle" fontSize="10" fill="var(--text-2)" fontFamily="var(--font-mono)">{f.detail}</text>
         </g>
       ))}
     </svg>
   );
 }
 
+const loopCopy: Record<string, string> = {
+  Attract: "Social content and Meta ads bring the right people to you.",
+  Convert: "A fast, credible website turns attention into enquiries.",
+  Automate: "AI agents qualify, reply and follow up — around the clock.",
+  Manage: "Dashboards show what's working, and feed the next campaign.",
+};
+
 export function Intro() {
   return (
-    <section className="bg-pearl section">
-      <div className="container grid gap-12 lg:grid-cols-[1.2fr_1fr] items-center">
-        <Reveal>
-          <p className="chip chip-sage">One connected growth loop</p>
-          <h2 className="mt-4">Not five services. <span className="accent-navy">One system.</span></h2>
-          <p className="lead mt-5">Social and ads bring people in. The website turns them into enquiries. AI agents handle the follow-up. Dashboards show you what&apos;s working — and feed the next campaign. Each part works alone; together they compound.</p>
+    <Tone tone="dark" grad className="section overflow-hidden" aria-labelledby="loop-h">
+      <div className="container grid gap-16 lg:grid-cols-12 items-center">
+        <Reveal className="lg:col-span-6">
+          <p className="eyebrow">How Keelbiz works</p>
+          <h2 id="loop-h" className="mt-5">Not five services. <br className="hidden sm:block" />One <span className="accent">system.</span></h2>
+          <p className="lead mt-6">Most businesses buy marketing, websites and automation from people who never talk to each other. We run them as one loop — each part feeding the next. Every service also works on its own.</p>
         </Reveal>
-        <Reveal className="flex justify-center"><Flywheel /></Reveal>
+        <Reveal className="lg:col-span-6 flex justify-center lg:justify-end" index={1}><Flywheel /></Reveal>
       </div>
-    </section>
+      <div className="container mt-20">
+        <ol className="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-line">
+          {flywheel.map((f, i) => (
+            <Reveal as="li" key={f.step} index={i} className={cn("pt-8 pb-2 sm:pr-8", i > 0 && "lg:pl-8 lg:border-l border-line")}>
+              <span className="num">0{i + 1} — {f.detail}</span>
+              <h3 className="mt-4 !text-2xl">{f.step}</h3>
+              <p className="text-text-2 mt-2 text-[0.95rem]">{loopCopy[f.step]}</p>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
+    </Tone>
   );
 }
 
 export function Services() {
   return (
-    <section className="bg-ivory section" id="services">
+    <Tone tone="light" className="section" id="services" aria-labelledby="svc-h">
       <div className="container">
-        <Reveal className="max-w-2xl">
-          <h2>Services built to <span className="accent-navy">connect.</span></h2>
-          <p className="lead mt-4">Each tile previews the kind of interface we build. Every one links to its own page with demos, deliverables and FAQs.</p>
-        </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-6">
-          {services.map((s, i) => <ServiceTile key={s.id} s={s} index={i} />)}
+        <div className="grid gap-10 lg:grid-cols-12 items-end">
+          <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5">Five disciplines, <span className="accent">one</span> standard.</h2></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">Start with one or connect them all. Each page shows what we deliver, who it&apos;s for and a live interface demo.</p></Reveal>
         </div>
+        <ul className="mt-16">{services.map((s, i) => <ServiceRow key={s.id} s={s} index={i} />)}</ul>
       </div>
-    </section>
+    </Tone>
   );
 }
 
-export function SelectedWork() {
+export function AutomationShowcase() {
+  const points = ["Replies to new enquiries in seconds — web, WhatsApp or email", "Qualifies leads against your own criteria", "Writes everything to your CRM or sheet", "Hands hot leads to a person, with full context"];
   return (
-    <section className="bg-ivory section pt-0">
-      <div className="container">
-        <Reveal className="flex items-end justify-between gap-4 flex-wrap">
-          <div><h2>Selected work</h2><p className="lead mt-3">Real projects will appear here once permissions are confirmed.</p></div>
-          <Button href="/work/" variant="ghost">View all work</Button>
+    <Tone tone="dark" grad className="section overflow-hidden" aria-labelledby="auto-h">
+      <div className="container grid gap-14 lg:grid-cols-12 items-center">
+        <Reveal className="lg:col-span-5">
+          <p className="eyebrow">AI agents &amp; automation</p>
+          <h2 id="auto-h" className="mt-5">Automation you can <span className="accent">see.</span></h2>
+          <p className="lead mt-6">A typical enquiry-to-CRM flow. Hover or focus each step — yours is designed around your process.</p>
+          <ul className="mt-8 grid gap-3">
+            {points.map((p) => <li key={p} className="flex gap-3 text-[0.98rem]"><Check size={18} className="mt-0.5 shrink-0 text-accent" aria-hidden />{p}</li>)}
+          </ul>
+          <Link href="/services/ai-agents-automation/" className="btn btn-glass mt-10">Explore automation <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
         </Reveal>
-        <Reveal className="mt-8 glass rounded-lg p-8 md:p-12 bg-[url('/backdrops/abstract-1.svg')] bg-cover">
-          <span className="chip chip-slate">Selected work coming soon</span>
-          <p className="mt-4 max-w-xl text-slate">Case studies are published only with client permission and verified results. Until then, the <Link href="/lab/" className="text-navy font-semibold underline underline-offset-4">Lab</Link> shows the craft directly.</p>
-        </Reveal>
+        <Reveal className="lg:col-span-7 bloom" index={1}><LazyWorkflow /></Reveal>
       </div>
-    </section>
+    </Tone>
   );
 }
 
 export function Process() {
   return (
-    <section className="bg-pearl section">
-      <div className="container grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-        <div className="lg:sticky lg:top-28 self-start">
-          <Reveal><h2>How we <span className="accent-navy">work.</span></h2><p className="lead mt-4">Five steps, repeated for every project. Clear scope before creative, measurement before claims.</p></Reveal>
+    <Tone tone="light" alt className="section" aria-labelledby="proc-h">
+      <div className="container grid gap-14 lg:grid-cols-12">
+        <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
+          <Reveal>
+            <p className="eyebrow">Process</p>
+            <h2 id="proc-h" className="mt-5">Clear steps. <span className="accent">No</span> surprises.</h2>
+            <p className="lead mt-6">The same five steps for every project. Scope before creative, measurement before claims.</p>
+          </Reveal>
         </div>
-        <ol className="flex flex-col">
-          {steps.map((p, i) => (
-            <Reveal key={p.n} index={i} as="li" className="grid grid-cols-[64px_1fr] gap-4 py-6 border-t border-mist">
-              <span className="font-display font-bold text-3xl text-champagne leading-none">{p.n}</span>
-              <div><h3 className="!text-xl">{p.name}</h3><p className="text-slate mt-1">{p.text}</p></div>
+        <div className="lg:col-span-7"><ProcessSteps items={steps} /></div>
+      </div>
+    </Tone>
+  );
+}
+
+export function FromTheLab() {
+  const cards = [
+    { href: "/lab/tabs/", title: "Navigation Tabs", tag: "V7", node: <LazyLabTabs /> },
+    { href: "/lab/stat-card/", title: "Stat Card", tag: "V7", node: <LazyLabStat /> },
+    { href: "/lab/gauge/", title: "Goal Gauge", tag: "V7", node: <LazyLabGauge /> },
+  ];
+  return (
+    <Tone tone="dark" className="section" aria-labelledby="lab-h">
+      <div className="container">
+        <div className="flex items-end justify-between gap-6 flex-wrap">
+          <Reveal><SectionHead eyebrow="The Lab" title="The craft," accent="in the open." lead="Live components from this site's own interface — each with its real source code." /></Reveal>
+          <Reveal index={1}><Link href="/lab/" className="btn btn-glass">Enter the Lab <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link></Reveal>
+        </div>
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          {cards.map((c, i) => (
+            <Reveal key={c.href} index={i}>
+              <Link href={c.href} data-cursor="Code" className="group block rounded-[24px] border border-line bg-bg-2 overflow-hidden transition-colors hover:border-line-strong">
+                <div className="h-[260px] flex items-center justify-center p-6 tone-grad relative">{c.node}</div>
+                <div className="flex items-center justify-between px-6 py-5 border-t border-line">
+                  <span className="font-[550] tracking-[-0.015em]">{c.title} <span className="accent">{c.tag}</span></span>
+                  <span className="num inline-flex items-center gap-1 group-hover:text-text transition-colors">View code <ArrowUpRight size={14} aria-hidden /></span>
+                </div>
+              </Link>
             </Reveal>
           ))}
-        </ol>
+        </div>
       </div>
-    </section>
+    </Tone>
   );
 }
 
 export function WhyUs() {
   return (
-    <section className="bg-ivory section">
-      <div className="container">
-        <Reveal className="max-w-2xl"><h2>Why Keelbiz</h2><p className="lead mt-4">Only claims we can stand behind.</p></Reveal>
-        <ul className="mt-10 grid gap-x-10 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
-          {whyUs.map((w, i) => (
-            <Reveal key={w.t} index={i} as="li" className="border-t border-champagne pt-4"><h3 className="!text-lg">{w.t}</h3><p className="text-slate mt-1 text-sm">{w.d}</p></Reveal>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-export function AutomationShowcase() {
-  return (
-    <section className="bg-ivory section pt-0">
-      <div className="container">
-        <Reveal className="max-w-2xl"><h2>Automation you can <span className="accent-navy">see.</span></h2><p className="lead mt-4">Hover or focus each step. This is a typical enquiry-to-CRM flow — yours is designed around your steps.</p></Reveal>
-        <Reveal className="mt-8"><LazyWorkflow /></Reveal>
-      </div>
-    </section>
-  );
-}
-
-export function FromTheLab() {
-  return (
-    <section className="bg-pearl section">
-      <div className="container">
-        <Reveal className="flex items-end justify-between gap-4 flex-wrap">
-          <div><h2>From the <span className="accent-navy">Lab.</span></h2><p className="lead mt-3">Live components from the site&apos;s own interface — with the real source.</p></div>
-          <Button href="/lab/" variant="ghost">Open the Lab</Button>
+    <Tone tone="light" className="section" aria-labelledby="why-h">
+      <div className="container grid gap-14 lg:grid-cols-12">
+        <Reveal className="lg:col-span-4">
+          <p className="eyebrow">Why Keelbiz</p>
+          <h2 id="why-h" className="mt-5">Only claims we can <span className="accent">stand</span> behind.</h2>
         </Reveal>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {[
-            { href: "/lab/tabs/", title: "Navigation Tabs", node: <LazyLabTabs /> },
-            { href: "/lab/stat-card/", title: "Stat Card", node: <LazyLabStat /> },
-            { href: "/lab/gauge/", title: "Goal Gauge", node: <LazyLabGauge /> },
-          ].map((c, i) => (
-            <Reveal key={c.href} index={i} className="flex flex-col gap-3">
-              <div className="min-h-[200px] flex items-center justify-center rounded-lg bg-[url('/backdrops/interior-1.svg')] bg-cover p-6">{c.node}</div>
-              <Link href={c.href} className="inline-flex items-center gap-2 font-semibold text-navy text-sm">{c.title} · View code <ArrowRight size={14} aria-hidden /></Link>
+        <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-x-10">
+          {whyUs.map((w, i) => (
+            <Reveal as="li" key={w.t} index={i} className="py-7 border-t border-line">
+              <span className="num">0{i + 1}</span>
+              <h3 className="mt-3 !text-xl">{w.t}</h3>
+              <p className="text-text-2 mt-2 text-[0.95rem]">{w.d}</p>
             </Reveal>
           ))}
-        </div>
+          <Reveal as="li" index={whyUs.length} className="py-7 border-t border-line flex flex-col justify-between">
+            <p className="text-text-2 text-[0.95rem]">Selected case studies are published only with client permission and verified results.</p>
+            <Link href="/work/" className="btn btn-ghost !justify-start mt-4">See our work <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
+          </Reveal>
+        </ul>
       </div>
-    </section>
+    </Tone>
   );
 }
+
+export function SelectedWork() { return null; } // merged into WhyUs (no approved case studies yet)
 
 export function HomeFaq() {
   return (
-    <section className="bg-pearl section pt-0">
-      <div className="container grid gap-10 lg:grid-cols-[1fr_1.6fr]">
-        <Reveal><h2>Questions</h2><p className="lead mt-3">Short answers. No invented prices, timelines or guarantees.</p></Reveal>
-        <Reveal><Faq items={homeFaq} /></Reveal>
+    <Tone tone="light" alt className="section" aria-labelledby="faq-h">
+      <div className="container grid gap-14 lg:grid-cols-12">
+        <Reveal className="lg:col-span-4">
+          <p className="eyebrow">FAQ</p>
+          <h2 id="faq-h" className="mt-5">Straight <span className="accent">answers.</span></h2>
+          <p className="lead mt-6">No invented prices, timelines or guarantees.</p>
+        </Reveal>
+        <Reveal className="lg:col-span-8" index={1}><Faq items={homeFaq} /></Reveal>
       </div>
-    </section>
+    </Tone>
   );
 }
 

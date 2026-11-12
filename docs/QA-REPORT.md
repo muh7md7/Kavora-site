@@ -1,4 +1,4 @@
-# QA report — 2026-11-12 (build 2)
+# QA report — 2026-11-12 (build 3 — v2 redesign)
 
 Measured in this build environment (Chromium via Playwright, static `out/` served locally). Lighthouse/WebPageTest not run yet.
 
@@ -24,6 +24,17 @@ Measured in this build environment (Chromium via Playwright, static `out/` serve
 - No horizontal overflow at 1440 / 390 on Home, Lab, Contact (checked `scrollWidth`). Dashboards page: transient overflow seen once during sidebar width animation; not reproducible at rest — `overflow-x: clip` added as guard.
 - Form: endpoint unset → "Enquiries temporarily unavailable" state renders. Success/failure/duplicate/spam paths: **not yet tested** (needs live endpoint).
 
+## Lighthouse 12 — v2 redesign, mobile emulation (slow 4G, Moto G Power), static `out/`, headless Chromium
+| Page | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| / | 100 | 100 | 100 | 100 | 0.9 s | 0 | 50 ms |
+| /services/ai-agents-automation/ | 100 | 100 | 100 | 100 | 0.8 s | 0 | 50 ms |
+| /lab/ | 99 | 100 | 100 | 100 | 0.8 s | 0 | 100 ms |
+| /contact/ | 100 | 100 | 100 | 100 | 0.8 s | 0.034 | 80 ms |
+Home JS: 195 KB gz. No console errors; no horizontal overflow at 1440 and 390 on Home, Lab, Contact, About, service pages.
+Interaction checks (Playwright): Services and Lab mega menus open on hover; header flips to dark over dark sections; mobile menu opens full-screen.
+
+## Previous build (v1)
 ## Lighthouse 12 — mobile emulation (Moto G Power, slow 4G throttling), static `out/` on localhost, headless Chromium
 | Page | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |
 |---|---|---|---|---|---|---|---|
