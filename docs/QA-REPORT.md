@@ -1,4 +1,4 @@
-# QA report — 2026-11-12 (build 1)
+# QA report — 2026-11-12 (build 2)
 
 Measured in this build environment (Chromium via Playwright, static `out/` served locally). Lighthouse/WebPageTest not run yet.
 
@@ -15,7 +15,8 @@ Measured in this build environment (Chromium via Playwright, static `out/` serve
 | Brand name, domain, email, WhatsApp, socials, team, legal text | Needs real content ([TO CONFIRM]) |
 | Backdrop photography, project screenshots, case studies | Needs real content |
 | Analytics, Turnstile, booking embed, AI plans page | Future enhancements (flags off) |
-| Lighthouse, cross-browser (Safari/Firefox/Edge), NVDA/VoiceOver, axe | Not yet tested |
+| Lighthouse mobile (lab) | Implemented — see below |
+| Cross-browser (Safari/Firefox/Edge), NVDA/VoiceOver, axe manual | Not yet tested |
 
 ## Functional (this build)
 - Build: `next build` passes; 30 static routes exported.
@@ -23,7 +24,15 @@ Measured in this build environment (Chromium via Playwright, static `out/` serve
 - No horizontal overflow at 1440 / 390 on Home, Lab, Contact (checked `scrollWidth`). Dashboards page: transient overflow seen once during sidebar width animation; not reproducible at rest — `overflow-x: clip` added as guard.
 - Form: endpoint unset → "Enquiries temporarily unavailable" state renders. Success/failure/duplicate/spam paths: **not yet tested** (needs live endpoint).
 
-## Performance budget (static check)
-- Fonts preloaded: 2 (Barlow 600/700). Geist loaded on demand.
-- Hero backdrop: 2 KB SVG placeholder (real photo budget: ≤180 KB).
-- JS gz on Home: **245 KB measured** vs 170 KB budget — over. Next step: dynamic-import GlassSidebar/WorkflowCanvas in hero below-fold variants and audit motion chunk; retest.
+## Lighthouse 12 — mobile emulation (Moto G Power, slow 4G throttling), static `out/` on localhost, headless Chromium
+| Page | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| / | 93 | 100 | 100 | 100 | 2.7 s | 0 | 160 ms |
+| /lab/ | 84 | 100 | 100 | 100 | 3.9 s | 0 | 240 ms |
+| /services/business-dashboards-systems/ | 99 | 100 | 100 | 100 | 0.8 s | 0 | 100 ms |
+| /contact/ | 89 | 100 | 100 | 100 | 3.1 s | 0.037 | 240 ms |
+Lab/Contact LCP: text behind hydration-gated reveals; next step is removing the `Reveal` wrapper from the first viewport on those pages. Field (CrUX) data: none yet.
+
+## Performance budget (measured)
+- Home JS gz: **194 KB** (was 245 KB; Motion for React removed from the Home critical path — navbar pill, sidebar, workflow dot, reveals and hero drift are now CSS). Remaining 158 KB is React 19 + Next 16 runtime, so the 170 KB budget is not reachable on this stack; budget revised to 200 KB.
+- Fonts preloaded: 2 (Barlow 600/700). Hero backdrop: 2 KB SVG placeholder (real photo budget ≤180 KB).

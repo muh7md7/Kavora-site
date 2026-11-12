@@ -2,10 +2,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Menu, Search } from "lucide-react";
 import { nav, services } from "@/content/site";
-import { spring, dur, easeOut } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 import { ServiceGlyph } from "./ServiceGlyph";
 
@@ -32,6 +30,8 @@ export function GlassNavbar({ links = nav, brand = "Keelbiz", ctaLabel = "Let's 
   const [megaOpen, setMegaOpen] = useState(false);
   const megaId = useId();
   const wrapRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const [ind, setInd] = useState<{ left: number; width: number } | null>(null);
 
   useEffect(() => {
     if (inline) return;
@@ -53,28 +53,33 @@ export function GlassNavbar({ links = nav, brand = "Keelbiz", ctaLabel = "Let's 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
   const indicatorOn = hover ?? links.find((l) => isActive(l.href))?.href ?? null;
 
+  // Sliding pill: measure the target item, CSS transitions left/width.
+  useEffect(() => {
+    const ul = listRef.current; if (!ul) return;
+    const li = indicatorOn ? ul.querySelector<HTMLElement>(`[data-href="${indicatorOn}"]`) : null;
+    if (!li) { setInd(null); return; }
+    setInd({ left: li.offsetLeft, width: li.offsetWidth });
+  }, [indicatorOn, links]);
+
   return (
     <div ref={wrapRef} className={cn(inline ? "relative" : "fixed inset-x-0 top-0 z-50", "flex justify-center px-4 pt-3 pointer-events-none")}>
-      <motion.nav
+      <nav
         aria-label="Primary"
-        className="glass pointer-events-auto rounded-pill flex items-center gap-2 pl-4 pr-2"
-        animate={{ paddingTop: dense ? 4 : 8, paddingBottom: dense ? 4 : 8 }}
-        transition={{ duration: dur.comp, ease: easeOut }}
+        className="glass pointer-events-auto rounded-pill flex items-center gap-2 pl-4 pr-2 transition-[padding] duration-[280ms]"
+        style={{ paddingTop: dense ? 4 : 8, paddingBottom: dense ? 4 : 8 }}
       >
         <Link href="/" className="font-display font-bold text-lg tracking-tight text-ink flex items-center gap-2 mr-2" aria-label={`${brand} home`}>
           <span className="inline-block size-2.5 rounded-full bg-navy ring-2 ring-champagne/60" aria-hidden />
           {brand}
         </Link>
 
-        <ul className="hidden lg:flex items-center relative" onMouseLeave={() => setHover(null)}>
+        <ul ref={listRef} className="hidden lg:flex items-center relative" onMouseLeave={() => setHover(null)}>
+          <span className="pill-indicator" aria-hidden style={{ left: ind?.left ?? 0, width: ind?.width ?? 0, opacity: ind ? 1 : 0 }} />
           {links.map((l) => {
             const active = isActive(l.href);
             const common = "relative z-10 px-3.5 py-2 text-sm font-medium rounded-pill flex items-center gap-1 transition-colors";
             return (
-              <li key={l.href} className="relative" onMouseEnter={() => setHover(l.href)}>
-                {indicatorOn === l.href && (
-                  <motion.span layoutId="nav-pill" transition={spring} className="absolute inset-0 rounded-pill bg-navy-tint" aria-hidden />
-                )}
+              <li key={l.href} data-href={l.href} className="relative" onMouseEnter={() => setHover(l.href)}>
                 {l.mega ? (
                   <button
                     type="button"
@@ -107,19 +112,14 @@ export function GlassNavbar({ links = nav, brand = "Keelbiz", ctaLabel = "Let's 
             <Menu size={20} aria-hidden />
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {megaOpen && (
-          <motion.div
+      {megaOpen && (
+          <div
             id={megaId}
             role="region"
             aria-label="Services"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: dur.comp, ease: easeOut }}
-            className="glass pointer-events-auto absolute top-[72px] w-[min(920px,calc(100vw-32px))] rounded-lg p-3 grid grid-cols-5 gap-2"
+            className="panel-enter glass pointer-events-auto absolute top-[72px] w-[min(920px,calc(100vw-32px))] rounded-lg p-3 grid grid-cols-5 gap-2"
           >
             {services.map((s) => (
               <Link
@@ -133,9 +133,8 @@ export function GlassNavbar({ links = nav, brand = "Keelbiz", ctaLabel = "Let's 
                 <span className="chip chip-sage self-start">{s.flywheel}</span>
               </Link>
             ))}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

@@ -1,24 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/glass/Button";
 import { StatCard, sampleStats } from "@/components/glass/StatCard";
 import { WorkflowCanvas } from "@/components/glass/WorkflowCanvas";
 import { GlassSidebar } from "@/components/glass/GlassSidebar";
-import { easeOut } from "@/lib/motion";
 
 const lines = ["Digital Experiences.", "Smarter Growth."];
 
 /** Hero — sunlit interior backdrop + ivory wash; layered glass composition with slow pointer parallax (desktop only). */
 export function Hero() {
-  const reduce = useReducedMotion();
+  const [reduce, setReduce] = useState(false);
   const [p, setP] = useState({ x: 0, y: 0 });
   const [pointerFine, setPointerFine] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(pointer: fine) and (min-width: 1024px)");
-    const upd = () => setPointerFine(mq.matches); upd(); mq.addEventListener("change", upd);
-    return () => mq.removeEventListener("change", upd);
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const upd = () => { setPointerFine(mq.matches); setReduce(rm.matches); }; upd(); mq.addEventListener("change", upd); rm.addEventListener("change", upd);
+    return () => { mq.removeEventListener("change", upd); rm.removeEventListener("change", upd); };
   }, []);
 
   const onMove = (e: React.PointerEvent) => {
@@ -26,8 +25,7 @@ export function Hero() {
     setP({ x: (e.clientX / window.innerWidth - 0.5) * 2, y: (e.clientY / window.innerHeight - 0.5) * 2 });
   };
 
-  const drift = (depth: number) => ({ x: p.x * depth, y: p.y * depth });
-  const slow = { type: "tween" as const, duration: reduce ? 0 : 7, ease: easeOut };
+  const drift = (depth: number) => ({ transform: `translate3d(${p.x * depth}px, ${p.y * depth}px, 0)` });
 
   return (
     <section className="relative overflow-hidden min-h-[92svh] flex items-center" onPointerMove={onMove}>
@@ -58,12 +56,12 @@ export function Hero() {
         <div className="relative bloom" aria-label="Concept interface — sample data">
           <span className="chip chip-slate absolute -top-3 left-2 z-10">Concept interface · Sample data</span>
           <div className="hidden lg:grid grid-cols-[72px_1fr] gap-4 items-start">
-            <motion.div animate={drift(-6)} transition={slow}><GlassSidebar defaultOpen={false} /></motion.div>
+            <div className="drift" style={drift(-6)}><GlassSidebar defaultOpen={false} /></div>
             <div className="flex flex-col gap-4">
-              <motion.div animate={drift(8)} transition={slow} className="grid grid-cols-3 gap-3">
+              <div className="drift grid grid-cols-3 gap-3" style={drift(8)}>
                 {sampleStats.slice(0, 3).map((s) => <StatCard key={s.label} {...s} />)}
-              </motion.div>
-              <motion.div animate={drift(4)} transition={slow}><WorkflowCanvas compact /></motion.div>
+              </div>
+              <div className="drift" style={drift(4)}><WorkflowCanvas compact /></div>
             </div>
           </div>
           <div className="lg:hidden flex flex-col gap-3 pt-3">

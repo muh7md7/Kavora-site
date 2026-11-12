@@ -3,10 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { flywheel, homeFaq, steps, services, whyUs } from "@/content/site";
 import { Button } from "@/components/glass/Button";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
-import { WorkflowCanvas } from "@/components/glass/WorkflowCanvas";
-import { Tabs } from "@/components/glass/Tabs";
-import { StatCard, sampleStats } from "@/components/glass/StatCard";
-import { GoalGauge } from "@/components/glass/GaugeChart";
+import { LazyLabGauge, LazyLabStat, LazyLabTabs, LazyWorkflow } from "./Lazy";
 import { ServiceTile } from "./ServiceTile";
 import { Faq } from "./Faq";
 import { Reveal } from "./Reveal";
@@ -124,7 +121,7 @@ export function AutomationShowcase() {
     <section className="bg-ivory section pt-0">
       <div className="container">
         <Reveal className="max-w-2xl"><h2>Automation you can <span className="accent-navy">see.</span></h2><p className="lead mt-4">Hover or focus each step. This is a typical enquiry-to-CRM flow — yours is designed around your steps.</p></Reveal>
-        <Reveal className="mt-8"><WorkflowCanvas /></Reveal>
+        <Reveal className="mt-8"><LazyWorkflow /></Reveal>
       </div>
     </section>
   );
@@ -140,9 +137,9 @@ export function FromTheLab() {
         </Reveal>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {[
-            { href: "/lab/tabs/", title: "Navigation Tabs", node: <Tabs ariaLabel="Demo tabs" variant="segmented" items={[{ id: "a", label: "Overview" }, { id: "b", label: "Leads" }, { id: "c", label: "Reports" }]} /> },
-            { href: "/lab/stat-card/", title: "Stat Card", node: <StatCard {...sampleStats[0]} /> },
-            { href: "/lab/gauge/", title: "Goal Gauge", node: <GoalGauge /> },
+            { href: "/lab/tabs/", title: "Navigation Tabs", node: <LazyLabTabs /> },
+            { href: "/lab/stat-card/", title: "Stat Card", node: <LazyLabStat /> },
+            { href: "/lab/gauge/", title: "Goal Gauge", node: <LazyLabGauge /> },
           ].map((c, i) => (
             <Reveal key={c.href} index={i} className="flex flex-col gap-3">
               <div className="min-h-[200px] flex items-center justify-center rounded-lg bg-[url('/backdrops/interior-1.svg')] bg-cover p-6">{c.node}</div>

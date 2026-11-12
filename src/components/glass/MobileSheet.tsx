@@ -1,10 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { nav, services } from "@/content/site";
-import { dur, easeOut } from "@/lib/motion";
 
 type Props = { open: boolean; onClose: () => void; ctaHref?: string; ctaLabel?: string };
 
@@ -37,20 +35,16 @@ export function MobileSheet({ open, onClose, ctaHref = "/contact/", ctaLabel = "
   }, [open, onClose]);
 
   return (
-    <AnimatePresence>
+    <>
       {open && (
-        <motion.div className="fixed inset-0 z-[60] lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: dur.comp }}>
+        <div className="fixed inset-0 z-[60] lg:hidden">
           <button type="button" className="absolute inset-0 bg-ink/20" aria-label="Close menu" onClick={onClose} />
-          <motion.div
+          <div
             ref={ref}
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            initial={{ y: 24, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 24, opacity: 0 }}
-            transition={{ duration: dur.comp, ease: easeOut }}
-            className="glass absolute inset-x-3 bottom-3 rounded-lg p-4 flex flex-col max-h-[88dvh] safe-bottom"
+            className="sheet-enter glass absolute inset-x-3 bottom-3 rounded-lg p-4 flex flex-col max-h-[88dvh] safe-bottom"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="font-display font-bold text-lg">Keelbiz</span>
@@ -73,9 +67,9 @@ export function MobileSheet({ open, onClose, ctaHref = "/contact/", ctaLabel = "
               </ul>
             </nav>
             <Link href={ctaHref} onClick={onClose} className="btn btn-primary mt-4 w-full">{ctaLabel}</Link>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

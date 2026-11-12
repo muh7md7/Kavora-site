@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { BarChart3, ChevronRight, FolderKanban, Inbox, Moon, PanelLeft, Settings, Sun, Users } from "lucide-react";
-import { dur, easeOut } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 type Item = { icon: React.ElementType; label: string; badge?: number; children?: { label: string; dot: string }[] };
@@ -28,17 +26,13 @@ export function GlassSidebar({ defaultOpen = true, className }: { defaultOpen?: 
   const [dark, setDark] = useState(false);
 
   return (
-    <motion.aside
+    <aside
       aria-label="Sample sidebar"
-      className={cn("glass rounded-lg p-2 flex flex-col overflow-hidden select-none", dark && "glass-smoke", className)}
-      animate={{ width: open ? 280 : 72 }}
-      transition={{ duration: dur.comp, ease: easeOut }}
-      style={{ height: 420 }}
+      className={cn("sidebar-w glass rounded-lg p-2 flex flex-col overflow-hidden select-none", dark && "glass-smoke", open && "is-open", className)}
+      style={{ height: 420, width: open ? 280 : 72 }}
     >
       <div className="flex items-center justify-between px-2 py-1">
-        <AnimatePresence>{open && (
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.08 } }} exit={{ opacity: 0 }} className="font-display font-bold text-base">Keelbiz Desk</motion.span>
-        )}</AnimatePresence>
+        {open && <span className="fade-late font-display font-bold text-base">Keelbiz Desk</span>}
         <button type="button" onClick={() => setOpen((v) => !v)} aria-label={open ? "Collapse sidebar" : "Expand sidebar"} aria-expanded={open} className="size-11 inline-flex items-center justify-center rounded-sm hover:bg-navy-tint/60">
           <PanelLeft size={18} aria-hidden />
         </button>
@@ -60,9 +54,7 @@ export function GlassSidebar({ defaultOpen = true, className }: { defaultOpen?: 
                 <span className="relative shrink-0"><Icon size={18} aria-hidden />
                   {badge && !open && <span className="absolute -top-1.5 -right-2 min-w-4 h-4 px-1 rounded-pill bg-sage text-white text-[10px] leading-4 text-center">{badge}</span>}
                 </span>
-                <AnimatePresence>{open && (
-                  <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.08 } }} exit={{ opacity: 0 }} className="flex-1 text-left whitespace-nowrap">{label}</motion.span>
-                )}</AnimatePresence>
+                {open && <span className="fade-late flex-1 text-left whitespace-nowrap">{label}</span>}
                 {open && badge && <span className="chip chip-sage !normal-case !tracking-normal">{badge}</span>}
                 {open && children && <ChevronRight size={14} className={cn("transition-transform", tree && "rotate-90")} aria-hidden />}
               </button>
@@ -93,6 +85,6 @@ export function GlassSidebar({ defaultOpen = true, className }: { defaultOpen?: 
           {open && <span className="text-sm leading-tight"><span className="block font-semibold">Sample user</span><span className="block text-xs text-slate">Admin · Sample data</span></span>}
         </div>
       </div>
-    </motion.aside>
+    </aside>
   );
 }

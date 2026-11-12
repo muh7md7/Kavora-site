@@ -1,6 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { Bot, Database, Inbox, Send, Users } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -19,8 +18,12 @@ const nodes = [
 export function WorkflowCanvas({ className, compact = false }: { className?: string; compact?: boolean }) {
   const [active, setActive] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { amount: 0.3 });
-  const reduce = useReducedMotion();
+  const [inView, setInView] = useState(false);
+  useEffect(() => { // pause the loop when off-screen
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.3 });
+    io.observe(el); return () => io.disconnect();
+  }, []);
   const current = nodes.find((n) => n.id === active);
 
   return (
@@ -35,14 +38,7 @@ export function WorkflowCanvas({ className, compact = false }: { className?: str
         <svg className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2 w-full hidden md:block" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden>
           <line x1="0" y1="1" x2="100" y2="1" stroke="var(--mist)" strokeWidth="0.4" />
         </svg>
-        {!reduce && (
-          <motion.span
-            className="absolute top-1/2 -translate-y-1/2 size-2.5 rounded-pill bg-champagne shadow hidden md:block"
-            aria-hidden
-            animate={inView ? { left: ["4%", "96%"] } : { left: "4%" }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
-          />
-        )}
+        <span className={cn("wf-dot absolute top-1/2 -translate-y-1/2 size-2.5 rounded-pill bg-champagne shadow hidden md:block", inView && "is-in")} aria-hidden />
         <ol className={cn("relative grid gap-3", compact ? "grid-cols-5" : "grid-cols-2 md:grid-cols-5")}>
           {nodes.map(({ id, label, icon: Icon, tone }) => (
             <li key={id}>

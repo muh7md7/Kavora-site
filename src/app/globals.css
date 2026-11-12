@@ -201,3 +201,18 @@ p { max-width: 68ch; }
 /* Code window */
 .code-window pre { font-family: var(--font-mono); font-size: 13px; line-height: 1.55; tab-size: 2; }
 .tok-k { color: #7c4dbd; } .tok-s { color: #2f7a4f; } .tok-f { color: #1f3a6e; } .tok-c { color: #8a8f9c; font-style: italic; } .tok-t { color: #a8874e; }
+
+/* ---------- CSS-driven motion for the critical path (no JS motion lib on Home) ---------- */
+.io-reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-section) var(--ease-out), transform var(--dur-section) var(--ease-out); transition-delay: var(--reveal-delay, 0ms); }
+.io-reveal.is-in { opacity: 1; transform: none; }
+.pill-indicator { position: absolute; top: 0; height: 100%; border-radius: var(--r-pill); background: var(--navy-tint);
+  transition: left 280ms cubic-bezier(.22,1,.36,1), width 280ms cubic-bezier(.22,1,.36,1), opacity var(--dur-micro); }
+.panel-enter { animation: fade-up var(--dur-comp) var(--ease-out) both; }
+@keyframes travel { from { left: 4%; } to { left: 96%; } }
+.wf-dot { animation: travel 2.4s linear infinite; animation-play-state: paused; }
+.wf-dot.is-in { animation-play-state: running; }
+.drift { transition: transform 7s var(--ease-out); will-change: transform; }
+.sidebar-w { transition: width var(--dur-comp) var(--ease-out); }
+.fade-late { opacity: 0; transition: opacity var(--dur-micro) var(--ease-out) 80ms; } .is-open .fade-late { opacity: 1; }
+@keyframes sheet-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+.sheet-enter { animation: sheet-up var(--dur-comp) var(--ease-out) both; }
