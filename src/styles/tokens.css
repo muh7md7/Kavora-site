@@ -1,0 +1,77 @@
+/* Keelbiz — "Light Glass" / "Royal Estate" design tokens
+   Purpose: single source of truth for color, glass, radius, spacing, motion.
+   Every value is referenced by Tailwind (@theme in globals.css) and components. */
+
+:root {
+  /* Neutrals (ivory base — never pure white) */
+  --ivory: #f8f7f3;
+  --pearl: #efeee8;
+  --mist: #dedcd3;
+  --ink: #141b2d;
+  --slate: #5a6275;
+
+  /* Brand trio */
+  --navy: #1f3a6e;
+  --navy-hover: #172c55;
+  --navy-tint: #e3e8f2;
+  --sage: #3f6b54;
+  --sage-tint: #e1eae4;
+  --champagne: #a8874e; /* large text (>=24px) + decoration only */
+  --champagne-light: #d9c39a; /* accent on midnight */
+  --champagne-tint: #f2eadb;
+  --midnight: #14254a; /* only deep surface: final CTA + footer */
+
+  /* Data */
+  --data-up: var(--sage);
+  --data-down: #b4232a;
+  --data-neutral: var(--slate);
+  --data-series-2: var(--champagne);
+
+  /* Glass — primary light frosted */
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-edge: rgba(28, 26, 23, 0.06);
+  --glass-blur: 20px;
+  --glass-saturate: 150%;
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --glass-shadow: 0 24px 60px -24px rgba(20, 37, 74, 0.14);
+  /* Glass — smoked, only over darker photo areas */
+  --glass-smoke-bg: rgba(20, 37, 74, 0.55);
+  --glass-smoke-border: rgba(255, 255, 255, 0.12);
+
+  /* Nur light bloom */
+  --bloom: rgba(242, 234, 219, 0.5);
+
+  /* Radius */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-pill: 999px;
+
+  /* Layout */
+  --content-max: 1280px;
+  --text-max: 680px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  /* Motion */
+  --dur-micro: 140ms;
+  --dur-comp: 280ms;
+  --dur-section: 560ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Type scale (fluid) */
+  --fs-display: clamp(2.6rem, 2rem + 4.2vw, 6rem);
+  --fs-h1: clamp(2.25rem, 1.7rem + 3vw, 4.25rem);
+  --fs-h2: clamp(1.9rem, 1.4rem + 2.2vw, 3.25rem);
+  --fs-h3: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.2vw, 1.125rem);
+  --fs-small: 0.875rem;
+  --fs-caption: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --glass-blur: 12px;
+  }
+}

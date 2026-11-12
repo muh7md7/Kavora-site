@@ -12,8 +12,8 @@ Every decision needs a stated purpose. Flag missing information. Never invent it
 
 1. BUSINESS INPUTS (configurable — mark anything missing)
 Field	Value
-Brand name	[FINAL BRAND NAME — candidates: Nurbizz / Nurbuz]
-Domain	[.com domain]
+Brand name	Keelbiz
+Domain	[TO CONFIRM — not purchased yet]
 Type	Global digital growth & business technology agency
 Market	Startups, founders, SMEs and established brands worldwide; strong presence in UAE / GCC and Pakistan
 Positioning line	"We build your online presence, grow your business, and automate the work behind it."
