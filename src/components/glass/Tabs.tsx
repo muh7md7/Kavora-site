@@ -61,7 +61,7 @@ export function Tabs({ items, value, onChange, variant = "segmented", ariaLabel,
               role="tab"
               id={`${id}-tab-${t.id}`}
               aria-selected={on}
-              aria-controls={`${id}-panel-${t.id}`}
+              aria-controls={children ? `${id}-panel-${t.id}` : undefined}
               tabIndex={on ? 0 : -1}
               onClick={() => set(t.id)}
               onKeyDown={(e) => onKey(e, i)}

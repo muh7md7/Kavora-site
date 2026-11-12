@@ -5,7 +5,7 @@ import { Button } from "@/components/glass/Button";
 import { StatCard, sampleStats } from "@/components/glass/StatCard";
 import { WorkflowCanvas } from "@/components/glass/WorkflowCanvas";
 import { GlassSidebar } from "@/components/glass/GlassSidebar";
-import { easeOut, dur } from "@/lib/motion";
+import { easeOut } from "@/lib/motion";
 
 const lines = ["Digital Experiences.", "Smarter Growth."];
 
@@ -35,22 +35,23 @@ export function Hero() {
       <div className="absolute inset-0 scrim-ivory" aria-hidden />
       <div className="container relative grid gap-12 lg:grid-cols-[1.05fr_1fr] items-center pt-28 pb-16">
         <div>
+          {/* Headline reveal is CSS-only (per-line mask slide-up) so the LCP text paints before hydration. */}
           <h1 className="display">
             {lines.map((l, i) => (
               <span key={l} className="block overflow-hidden">
-                <motion.span className="block" initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: reduce ? 0 : dur.section, ease: easeOut, delay: i * 0.08 }}>
+                <span className="block reveal-line" style={{ animationDelay: `${i * 80}ms` }}>
                   {i === 1 ? <>Smarter <span className="accent accent-underline">Growth.</span></> : l}
-                </motion.span>
+                </span>
               </span>
             ))}
           </h1>
-          <motion.p className="lead mt-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: dur.section, ease: easeOut }}>
+          <p className="lead mt-6 reveal-fade" style={{ animationDelay: "250ms" }}>
             We build your online presence, grow your business, and automate the work behind it. One connected team for web, social, ads, AI agents and dashboards — for businesses worldwide, with a strong base in the UAE / GCC and Pakistan.
-          </motion.p>
-          <motion.div className="mt-8 flex flex-wrap gap-3" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: dur.section, ease: easeOut }}>
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3 reveal-fade" style={{ animationDelay: "350ms" }}>
             <Button href="/services/" variant="primary" ariaLabel="Explore services">Explore Services</Button>
             <Button href="/contact/" variant="glass">Start a Project</Button>
-          </motion.div>
+          </div>
         </div>
 
         {/* Glass composition — desktop: sidebar rail + stat trio + workflow strip. Mobile: one stat + strip. */}

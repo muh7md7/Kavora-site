@@ -151,8 +151,8 @@ p { max-width: 68ch; }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--navy); color: #fff; }
 .btn-primary:hover { background: var(--navy-hover); }
-.btn-premium { background: var(--champagne); color: var(--midnight); }
-.btn-premium:hover { background: #b8955a; }
+.btn-premium { background: var(--champagne-light); color: var(--midnight); } /* 8.8:1; plain champagne is 4.47:1 at 15px */
+.btn-premium:hover { background: #e3d1ae; }
 .btn-glass { color: var(--ink); background: var(--glass-bg); border: 1px solid var(--glass-border);
   box-shadow: var(--glass-highlight), 0 0 0 1px var(--glass-edge);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
@@ -182,6 +182,12 @@ p { max-width: 68ch; }
   background: #fff; border: 1px solid var(--mist); color: var(--ink); font: inherit; }
 .input:focus { outline: 2px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
 .input[aria-invalid="true"] { border-color: var(--data-down); }
+
+/* Headline reveal (CSS, no JS dependency) */
+@keyframes line-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.reveal-line { animation: line-up var(--dur-section) var(--ease-out) both; }
+.reveal-fade { animation: fade-up var(--dur-section) var(--ease-out) both; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {

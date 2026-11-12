@@ -93,11 +93,9 @@ export function Process() {
         </div>
         <ol className="flex flex-col">
           {steps.map((p, i) => (
-            <Reveal key={p.n} index={i}>
-              <li className="grid grid-cols-[64px_1fr] gap-4 py-6 border-t border-mist">
-                <span className="font-display font-bold text-3xl text-champagne leading-none">{p.n}</span>
-                <div><h3 className="!text-xl">{p.name}</h3><p className="text-slate mt-1">{p.text}</p></div>
-              </li>
+            <Reveal key={p.n} index={i} as="li" className="grid grid-cols-[64px_1fr] gap-4 py-6 border-t border-mist">
+              <span className="font-display font-bold text-3xl text-champagne leading-none">{p.n}</span>
+              <div><h3 className="!text-xl">{p.name}</h3><p className="text-slate mt-1">{p.text}</p></div>
             </Reveal>
           ))}
         </ol>
@@ -113,9 +111,7 @@ export function WhyUs() {
         <Reveal className="max-w-2xl"><h2>Why Keelbiz</h2><p className="lead mt-4">Only claims we can stand behind.</p></Reveal>
         <ul className="mt-10 grid gap-x-10 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
           {whyUs.map((w, i) => (
-            <Reveal key={w.t} index={i}>
-              <li className="border-t border-champagne pt-4"><h3 className="!text-lg">{w.t}</h3><p className="text-slate mt-1 text-sm">{w.d}</p></li>
-            </Reveal>
+            <Reveal key={w.t} index={i} as="li" className="border-t border-champagne pt-4"><h3 className="!text-lg">{w.t}</h3><p className="text-slate mt-1 text-sm">{w.d}</p></Reveal>
           ))}
         </ul>
       </div>
