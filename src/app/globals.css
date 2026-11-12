@@ -31,6 +31,7 @@
 }
 
 /* ---------- Base ---------- */
+html, body { overflow-x: clip; }
 html {
   color-scheme: light;
   scroll-behavior: auto; /* no smooth-scroll libraries, no hijack */
@@ -84,7 +85,7 @@ p { max-width: 68ch; }
 
 /* Skip link */
 .skip-link {
-  position: absolute; left: 12px; top: -48px; z-index: 100;
+  position: absolute; left: 12px; top: -80px; z-index: 100;
   background: var(--navy); color: #fff; padding: 10px 14px;
   border-radius: var(--r-sm); transition: top var(--dur-micro) var(--ease-out);
 }

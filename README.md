@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Keelbiz — agency website (Light Glass)
 
-## Getting Started
+Next.js 16 (App Router, static export) · TypeScript strict · Tailwind 4 (tokens in `src/styles/tokens.css`) · Motion for React · lucide-react.
+Brief: `docs/AGENCY-SITE-BRIEF.md`. Design rationale: `docs/DESIGN.md`. QA + status matrix: `docs/QA-REPORT.md`.
 
-First, run the development server:
-
+## Run
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # set NEXT_PUBLIC_ENQUIRY_ENDPOINT once the PHP endpoint is live
+npm run dev                  # http://localhost:3000
+npm run build                # static export -> /out
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy to Hostinger Business (shared, no Node)
+1. `npm run build` → upload the contents of `out/` to `public_html/` (keep `out/.htaccess` — it carries the security headers).
+2. Enquiry endpoint: upload `server/api/enquiry.php` to `public_html/api/enquiry.php`.
+   Copy `server/keelbiz-config.example.php` to `/home/USER/keelbiz-config.php` (outside `public_html`) and fill DB, SMTP, allowed origins.
+   Install PHPMailer outside web root: `composer require phpmailer/phpmailer` in `/home/USER`.
+   Create a MySQL DB in hPanel; the endpoint creates the `enquiries` table on first run.
+3. Set `NEXT_PUBLIC_ENQUIRY_ENDPOINT=https://DOMAIN/api/enquiry.php` and rebuild. Until then the form shows "Enquiries temporarily unavailable".
+4. Replace `site.url` in `src/content/site.ts` with the real domain (sitemap, canonicals, JSON-LD depend on it).
+5. Enable HSTS in `.htaccess` only after HTTPS is verified on all hosts.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
+`src/app` pages · `src/components/glass` Glass Kit (10) · `src/components/sections` page sections · `src/content` typed content · `src/lab` Lab registry + cursor timelines · `src/styles/tokens.css` · `server/` PHP endpoint · `docs/`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Lab + reel capture
+`/lab` — all components with real source. `/lab/capture/<slug>/?theme=light|dark&bg=interior-1|abstract-1&title=&tag=` — 1080×1920 recording frame with scripted cursor (`src/lab/timelines/*.json`) and end card. See `docs/CONTENT-ENGINE.md`.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Previous Kavora site
+Preserved on branch `kavora-archive`.
