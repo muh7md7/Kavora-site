@@ -26,4 +26,4 @@ Measured in this build environment (Chromium via Playwright, static `out/` serve
 ## Performance budget (static check)
 - Fonts preloaded: 2 (Barlow 600/700). Geist loaded on demand.
 - Hero backdrop: 2 KB SVG placeholder (real photo budget: ≤180 KB).
-- JS budget ≤170 KB gz on Home: **not yet measured**.
+- JS gz on Home: **245 KB measured** vs 170 KB budget — over. Next step: dynamic-import GlassSidebar/WorkflowCanvas in hero below-fold variants and audit motion chunk; retest.
