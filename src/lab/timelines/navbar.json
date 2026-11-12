@@ -1,0 +1,43 @@
+{
+  "duration": 14000,
+  "steps": [
+    {
+      "t": "wait",
+      "ms": 800
+    },
+    {
+      "t": "hover",
+      "on": "nav a[href='/work/']",
+      "ms": 900
+    },
+    {
+      "t": "hover",
+      "on": "nav a[href='/lab/']",
+      "ms": 900
+    },
+    {
+      "t": "click",
+      "on": "nav button[aria-haspopup]",
+      "ms": 900
+    },
+    {
+      "t": "hover",
+      "on": "a[href*='automation']",
+      "ms": 1200
+    },
+    {
+      "t": "hover",
+      "on": "a[href*='dashboards']",
+      "ms": 1200
+    },
+    {
+      "t": "click",
+      "on": "nav button[aria-haspopup]",
+      "ms": 800
+    },
+    {
+      "t": "wait",
+      "ms": 1500
+    }
+  ]
+}
