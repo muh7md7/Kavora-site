@@ -21,14 +21,14 @@ const geistMono = GeistMono; // --font-geist-mono
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.brand} — Digital Experiences. Smarter Growth.`, template: `%s · ${site.brand}` },
-  description: site.positioning,
+  title: { default: `${site.brand} — Build, grow and automate your business`, template: `%s · ${site.brand}` },
+  description: site.supporting,
   openGraph: { type: "website", siteName: site.brand, images: ["/og/default.png"] },
   twitter: { card: "summary_large_image" },
   icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
 };
 
-export const viewport: Viewport = { themeColor: "#F4F3EF", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#F7F8F6", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

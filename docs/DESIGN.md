@@ -1,24 +1,19 @@
-# Keelbiz design system — v2 "Steel & Paper"
+# Keelbiz design system — v3 (approved five-colour palette)
 
 v1 ("Light Glass", navy/sage/champagne, Barlow Condensed) is preserved on branch `legacy-light-glass-v1`; v1 brand assets in `public/brand/legacy/`.
 
 ## Direction
 Premium minimalist luxury. Off-white paper, charcoal, muted steel-blue. Light and dark sections alternate; subtle radial gradients only. No neon, purple, shine or futuristic effects.
 
-## Palette (`src/styles/tokens.css`)
-| Token | HEX | Role | Contrast |
-|---|---|---|---|
-| paper | #F4F3EF | Light base | — |
-| paper-2 | #EBEAE5 | Alt light section | — |
-| charcoal | #17191C | Dark sections, primary button | — |
-| text (light) | #1B1D21 | Body/headings | 15.6:1 on paper |
-| text-2 (light) | #565B64 | Secondary | 6.4:1 on paper |
-| steel | #4C6680 | Accent word, premium button, focus | white 5.9:1 |
-| steel-deep | #3A5068 | Hover | white 8.1:1 |
-| steel-light | #A3B6C8 | Accent on charcoal | 8.6:1 on charcoal |
-| text (dark) | #EEF0F2 | On charcoal | 16:1 |
-| text-2 (dark) | #A4ABB4 | On charcoal | 7.9:1 |
-| moss / rust | #4E7A63 / #A8473F | Data up / down only | — |
+## Palette (`src/styles/tokens.css`) — five approved colours + derived tones
+| Colour | HEX | Role |
+|---|---|---|
+| Off-white | #F7F8F6 | Main light backgrounds |
+| Mist grey | #E9EDF0 | Secondary surfaces, alt sections |
+| Steel blue | #B8C9D2 | Accents and gradients (decoration on light; accent text on dark, 10.4:1 on charcoal) |
+| Graphite | #28353D | Primary buttons, logo, dark components (soft white on graphite 11.8:1) |
+| Deep charcoal | #11191E | Dark sections |
+Derived: text #1B252C (14.6:1 on off-white), text-2 #5A6A73 (5.3:1 off-white / 4.8:1 mist), steel accent text #4F6673 (5.7:1), dark text-2 #9AA8B0 (7.3:1). Errors only: #9B4A42.
 
 Theming: every section sets `data-theme="light|dark"`; tokens re-map, so components need no variants. The header reads the theme under it and flips.
 
@@ -32,4 +27,7 @@ Floating full-glass header (all links visible, Services + Lab mega menus, adapti
 `src/components/brand/Logo.tsx` + `public/brand/keelbiz-mark.svg`: a K whose lower arm sweeps like a keel line, anchored by a short steel baseline. Wordmark: lowercase "keelbiz", Geist 620, −0.045em.
 
 ## Rhythm (Home)
-light hero → dark loop → light services → dark automation → light process → dark lab → light why → light-alt FAQ → dark CTA/footer.
+light hero → light services → dark "one service or a complete solution" → mist process → dark AI offer → light why → dark Lab → mist FAQ → dark CTA/footer.
+
+## Content rules
+Location-neutral (no countries/cities/regions in copy, metadata or JSON-LD). Services offered individually or combined; AI offered three ways (ready-made, custom, automation) with enquiry/quote — no checkout, no public prices, no invented availability.

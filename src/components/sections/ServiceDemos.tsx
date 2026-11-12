@@ -47,7 +47,7 @@ function CampaignStructure() {
       <div className="flex items-center justify-between mb-3"><span className="font-semibold text-sm">Campaign structure</span><Label t="Illustrative" /></div>
       <ul className="text-sm space-y-2">
         <li className="rounded-sm bg-navy-tint p-2 font-semibold text-navy">Campaign · Leads</li>
-        <li className="ml-4 rounded-sm bg-surface-strong hairline p-2">Ad set · UAE, 25–54, interests</li>
+        <li className="ml-4 rounded-sm bg-surface-strong hairline p-2">Ad set · 25–54, interests</li>
         <li className="ml-8 rounded-sm bg-surface-strong hairline p-2 flex justify-between"><span>Ad · Video A</span><span className="chip chip-sage">Learning</span></li>
         <li className="ml-8 rounded-sm bg-surface-strong hairline p-2 flex justify-between"><span>Ad · Static B</span><span className="chip chip-slate">Paused</span></li>
       </ul>

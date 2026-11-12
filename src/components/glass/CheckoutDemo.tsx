@@ -45,7 +45,7 @@ export function CheckoutDemo({ className, autoplay = false }: { className?: stri
           transition={{ type: "spring", stiffness: 160, damping: 20 }}
           style={{ transformStyle: "preserve-3d" }}
         >
-          <div className="absolute inset-0 rounded-md bg-[linear-gradient(135deg,#4c6680,#1f2226_70%)] text-[#eef0f2] p-4 flex flex-col justify-between on-midnight" style={{ backfaceVisibility: "hidden" }}>
+          <div className="absolute inset-0 rounded-md bg-[linear-gradient(135deg,#4f6673,#18232a_70%)] text-[#f7f8f6] p-4 flex flex-col justify-between on-midnight" style={{ backfaceVisibility: "hidden" }}>
             <div className="flex justify-between text-xs"><span className="font-semibold tracking-wider">KEELBIZ PAY</span><span className="text-champagne-light">DEMO</span></div>
             <div className="font-mono tracking-[.18em] text-lg">•••• •••• •••• 0000</div>
             <div className="flex justify-between text-xs"><span>SAMPLE NAME</span><span>00/00</span></div>

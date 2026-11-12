@@ -3,7 +3,8 @@ import { useEffect, useRef } from "react";
 
 /**
  * Cursor system — a precise dot plus an eased ring.
- * — Ring grows over interactive elements; shows a label for any element with data-cursor="Label".
+ * — Ring follows tightly (no disconnected lag); grows over interactive elements; shows a label for data-cursor="Label".
+ * — Gentle magnetic pull (≤4px) on elements with data-magnetic. Never blocks clicks, selection or dragging.
  * — Inverts over dark sections ([data-theme="dark"]).
  * — Fine pointers only; disabled for touch, reduced motion and while typing in form fields (native caret kept).
  */
@@ -21,7 +22,7 @@ export function Cursor() {
 
     let x = -100, y = -100, rx = -100, ry = -100, raf = 0;
     const loop = () => {
-      rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
+      rx += (x - rx) * 0.32; ry += (y - ry) * 0.32;
       d.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       r.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.1 ? requestAnimationFrame(loop) : 0;
@@ -40,8 +41,17 @@ export function Cursor() {
       r.textContent = labelEl?.dataset.cursor ?? "";
       root.classList.toggle("cursor-hidden", !!field);
       root.classList.toggle("cursor-on-dark", t?.closest("[data-theme]")?.getAttribute("data-theme") === "dark");
+      // Gentle magnetic pull (max 4px) on primary CTAs marked data-magnetic.
+      const mag = t?.closest<HTMLElement>("[data-magnetic]");
+      if (mag !== magEl) { if (magEl) magEl.style.translate = ""; magEl = mag ?? null; }
+      if (magEl) {
+        const b = magEl.getBoundingClientRect();
+        const dx = (x - (b.left + b.width / 2)) / (b.width / 2), dy = (y - (b.top + b.height / 2)) / (b.height / 2);
+        magEl.style.translate = `${(dx * 4).toFixed(2)}px ${(dy * 3).toFixed(2)}px`;
+      }
     };
-    const onLeave = () => root.classList.add("cursor-hidden");
+    let magEl: HTMLElement | null = null;
+    const onLeave = () => { root.classList.add("cursor-hidden"); if (magEl) { magEl.style.translate = ""; magEl = null; } };
     const onDown = () => r.classList.add("is-down");
     const onUp = () => r.classList.remove("is-down");
 

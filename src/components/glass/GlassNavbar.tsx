@@ -34,7 +34,7 @@ type Props = {
  * — Adapts its tone to the section beneath it (reads [data-theme] under the header line).
  * — Hides on scroll down, returns on scroll up; hairline scroll-progress along the bottom edge.
  */
-export function GlassNavbar({ links = nav, ctaLabel = "Start a project", ctaHref = "/contact/", onOpenMobile, inline }: Props) {
+export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref = "/contact/", onOpenMobile, inline }: Props) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState<null | "services" | "lab">(null);
   const [hover, setHover] = useState<string | null>(null);
@@ -81,7 +81,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a project", ctaHref
   }, [open]);
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
-  const target = hover ?? links.find((l) => l.href !== "/" && isActive(l.href))?.href ?? null;
+  const target = hover ?? links.find((l) => isActive(l.href))?.href ?? null;
   useEffect(() => {
     const ul = listRef.current; if (!ul) return;
     const li = target ? ul.querySelector<HTMLElement>(`[data-href="${target}"]`) : null;
@@ -102,29 +102,29 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a project", ctaHref
       data-theme={tone}
       className={cn(
         inline ? "relative w-full" : "fixed inset-x-0 top-0 z-50",
-        "pointer-events-none px-3 sm:px-4 pt-3 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] !bg-transparent",
+        "header-enter pointer-events-none px-3 sm:px-4 pt-3 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] !bg-transparent",
         hidden && !open && !inline && "-translate-y-[130%]",
       )}
       onMouseLeave={() => intent(null, 180)}
     >
-      <div className="mx-auto max-w-[var(--content-max)] relative">
+      <div className={cn("mx-auto relative transition-[max-width] duration-500 ease-[cubic-bezier(.22,1,.36,1)]", scrolled && !inline ? "max-w-[1180px]" : "max-w-[var(--content-max)]")}>
         <nav
           aria-label="Primary"
           className={cn(
-            "glass pointer-events-auto relative flex items-center h-16 pl-4 pr-2 sm:pl-5 rounded-[20px] transition-[box-shadow,background] duration-300",
-            !scrolled && !inline && "shadow-none",
+            "header-glass pointer-events-auto relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center px-2 rounded-[18px] transition-[height,box-shadow,background] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
+            scrolled && !inline ? "h-[58px] is-scrolled" : "h-16",
           )}
         >
-          <Link href="/" className="mr-6 shrink-0 rounded-sm" aria-label="Keelbiz — home">
+          <Link href="/" className="justify-self-start shrink-0 rounded-sm pl-2.5 sm:pl-3" aria-label="Keelbiz — home">
             <Logo />
           </Link>
 
-          <ul ref={listRef} className="hidden lg:flex items-center relative mx-auto" onMouseLeave={() => setHover(null)}>
+          <ul ref={listRef} className="hidden lg:flex items-center relative justify-self-center" onMouseLeave={() => setHover(null)}>
             <span className="pill-indicator" aria-hidden style={{ left: ind?.left ?? 0, width: ind?.width ?? 0, opacity: ind ? 1 : 0 }} />
             {links.map((l) => {
               const mega = megaOf(l);
               const active = isActive(l.href);
-              const base = "relative z-10 h-11 px-4 inline-flex items-center gap-1.5 text-[0.92rem] font-[500] tracking-[-0.01em] rounded-pill transition-colors";
+              const base = "nav-link relative z-10 h-10 px-3.5 xl:px-4 inline-flex items-center gap-1.5 text-[0.9rem] font-[500] tracking-[-0.01em] rounded-pill transition-colors duration-200";
               return (
                 <li key={l.href} data-href={l.href} onMouseEnter={() => { setHover(l.href); intent(mega, mega ? 90 : 160); }}>
                   {mega ? (
@@ -152,22 +152,22 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a project", ctaHref
             })}
           </ul>
 
-          <div className="ml-auto lg:ml-6 flex items-center gap-1.5">
-            <Link href={ctaHref} className="btn btn-primary !min-h-11 !px-5 !text-[0.875rem] hidden sm:inline-flex" data-cursor="Talk">
-              {ctaLabel}<ArrowUpRight size={16} className="btn-arrow" aria-hidden />
+          <div className="justify-self-end flex items-center gap-1.5">
+            <Link href={ctaHref} className="btn btn-primary !min-h-10 !h-10 !pl-4 !pr-3.5 !text-[0.86rem] !gap-2 hidden sm:inline-flex" data-magnetic>
+              {ctaLabel}<span className="size-5 -mr-1 rounded-full bg-white/12 inline-flex items-center justify-center"><ArrowUpRight size={13} strokeWidth={2.2} className="btn-arrow" aria-hidden /></span>
             </Link>
             <button type="button" className="lg:hidden size-11 inline-flex items-center justify-center rounded-pill text-text hover:bg-surface-strong" aria-label="Open menu" onClick={onOpenMobile}>
               <Menu size={20} aria-hidden />
             </button>
           </div>
 
-          {!inline && <span ref={progressRef} className="absolute left-5 right-5 bottom-0 h-px origin-left bg-accent/70" style={{ transform: "scaleX(0)" }} aria-hidden />}
+          {!inline && <span ref={progressRef} className="absolute left-6 right-6 bottom-0 h-px origin-left bg-accent/60" style={{ transform: "scaleX(0)" }} aria-hidden />}
         </nav>
 
         {/* Mega panels */}
         {open === "services" && (
           <div id={`${panelId}-services`} role="region" aria-label="Services" onMouseEnter={() => intent("services", 0)}
-            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 top-[76px] rounded-[20px] p-3 grid lg:grid-cols-12 gap-3">
+            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 top-[calc(100%+10px)] rounded-[18px] p-2.5 grid lg:grid-cols-12 gap-2.5">
             <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-1">
               {services.map((s, i) => (
                 <li key={s.id}>
@@ -183,23 +183,26 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a project", ctaHref
               ))}
               <li>
                 <Link href="/services/" className="group flex items-center justify-between rounded-[14px] p-4 h-full border border-dashed border-line hover:border-text-2 transition-colors">
-                  <span className="text-[0.9rem] font-[550]">All services</span><ArrowUpRight size={16} aria-hidden />
+                  <span className="text-[0.9rem] font-[550]">All services <span className="text-text-2 font-normal">· one or combined</span></span><ArrowUpRight size={16} aria-hidden />
                 </Link>
               </li>
             </ul>
             <div data-theme="dark" className="lg:col-span-4 rounded-[14px] p-6 flex flex-col justify-between overflow-hidden relative tone-grad min-h-[260px]">
               <div>
-                <span className="eyebrow">The Keelbiz loop</span>
-                <p className="mt-4 text-[1.35rem] leading-tight tracking-[-0.03em] font-[550] text-text">Attract. Convert. Automate. <span className="accent">Manage.</span></p>
-                <p className="text-sm text-text-2 mt-3">Five services designed to work as one system — or on their own.</p>
+                <span className="eyebrow">AI solutions</span>
+                <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">Ready-made or <span className="accent">custom-built</span> AI agents.</p>
+                <p className="text-sm text-text-2 mt-3">Support, sales, booking and workflow automation — set up for your business.</p>
               </div>
-              <Link href="/services/" className="btn btn-glass !min-h-10 self-start mt-6 !text-sm">How it connects <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
+              <div className="mt-6 flex flex-col gap-2">
+                <Link href="/ai-solutions/" className="btn btn-primary !min-h-10 !text-sm !justify-between">Explore AI solutions <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
+                <Link href="/contact/?type=solution" className="btn btn-glass !min-h-10 !text-sm !justify-between">Build your solution <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
+              </div>
             </div>
           </div>
         )}
         {open === "lab" && (
           <div id={`${panelId}-lab`} role="region" aria-label="Lab" onMouseEnter={() => intent("lab", 0)}
-            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 lg:left-auto lg:w-[720px] top-[76px] rounded-[20px] p-3 grid sm:grid-cols-12 gap-3">
+            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 lg:left-1/2 lg:-translate-x-1/2 lg:w-[720px] top-[calc(100%+10px)] rounded-[18px] p-3 grid sm:grid-cols-12 gap-3">
             <ul className="sm:col-span-7 grid gap-0.5">
               {labLinks.map((l) => (
                 <li key={l.href}><Link href={l.href} className="group flex items-center gap-4 rounded-[12px] px-4 py-3 hover:bg-surface-strong transition-colors">

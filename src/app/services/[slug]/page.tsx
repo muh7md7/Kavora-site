@@ -9,6 +9,7 @@ import { Button } from "@/components/glass/Button";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { SectionHead, Tone } from "@/components/sections/Tone";
 import Link from "next/link";
+import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
 import { ArrowUpRight } from "lucide-react";
 import { BreadcrumbJsonLd, FaqJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
 import { steps } from "@/content/site";
@@ -31,16 +32,35 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <>
       <PageHero eyebrow={`Service 0${idx + 1} · ${s.flywheel}`} title={s.name.split(" ").slice(0, -1).join(" ")} accent={s.name.split(" ").slice(-1)[0]} lead={s.definition}>
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button href={`/contact/?service=${s.id}`}>Start a {s.flywheel === "Attract" ? "campaign" : "project"}</Button>
+          <Button href={`/contact/?services=${s.id}`}>Get a quote for {s.name.toLowerCase()}</Button>
           <Button href="#demo" variant="ghost">See the live demo</Button>
         </div>
       </PageHero>
 
       <Tone tone="light" className="section !pt-0">
-        <div className="container grid gap-x-10 gap-y-14 lg:grid-cols-12 border-t border-line pt-16">
-          <Reveal className="lg:col-span-4"><p className="eyebrow">Who it&apos;s for</p><p className="mt-5 text-[1.15rem] leading-relaxed text-text">{s.definition.split(". ").slice(1).join(". ")}</p></Reveal>
-          <Reveal className="lg:col-span-4" index={1}><p className="eyebrow">Capabilities</p><ul className="mt-5 divide-y divide-line border-y border-line">{s.capabilities.map((c) => <li key={c} className="py-3 text-[0.98rem]">{c}</li>)}</ul></Reveal>
-          <Reveal className="lg:col-span-4" index={2}><p className="eyebrow">Deliverables</p><ul className="mt-5 divide-y divide-line border-y border-line">{s.deliverables.map((c) => <li key={c} className="py-3 text-[0.98rem]">{c}</li>)}</ul></Reveal>
+        <div className="container border-t border-line pt-16">
+          <ul className="grid sm:grid-cols-3 gap-3">
+            {s.benefits.map((b, i) => (
+              <Reveal as="li" key={b} index={i} className="rounded-[20px] border border-line bg-surface p-6">
+                <span className="num">0{i + 1}</span>
+                <p className="mt-4 text-[1.2rem] leading-snug tracking-[-0.02em] font-[550]">{b}</p>
+              </Reveal>
+            ))}
+          </ul>
+          <div className="mt-16 grid gap-x-10 gap-y-14 lg:grid-cols-12">
+            <Reveal className="lg:col-span-4"><p className="eyebrow">Who it&apos;s for</p><p className="mt-5 text-[1.15rem] leading-relaxed text-text">{s.forWho}</p>
+              <p className="text-text-2 mt-5 text-[0.95rem]">Available on its own. No other service required.</p></Reveal>
+            <Reveal className="lg:col-span-4" index={1}><p className="eyebrow">What we offer</p><ul className="mt-5 divide-y divide-line border-y border-line">{s.capabilities.map((c) => <li key={c} className="py-3 text-[0.98rem]">{c}</li>)}</ul></Reveal>
+            <Reveal className="lg:col-span-4" index={2}><p className="eyebrow">What you get</p><ul className="mt-5 divide-y divide-line border-y border-line">{s.deliverables.map((c) => <li key={c} className="py-3 text-[0.98rem]">{c}</li>)}</ul></Reveal>
+          </div>
+          {s.id === "automation" && (
+            <Reveal className="mt-16">
+              <Link href="/ai-solutions/" data-cursor="Explore" className="group flex flex-wrap items-center justify-between gap-6 rounded-[24px] border border-line-strong bg-[linear-gradient(120deg,var(--steel-soft),transparent_70%)] p-7 md:p-9">
+                <span><span className="eyebrow">AI Solutions</span><span className="block mt-3 text-[clamp(1.3rem,1.1rem+0.8vw,1.8rem)] font-[560] tracking-[-0.03em]">Ready-made agents, custom agents or workflow automation — see your options.</span></span>
+                <span className="btn btn-primary">Explore AI Solutions <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></span>
+              </Link>
+            </Reveal>
+          )}
         </div>
       </Tone>
 
@@ -59,6 +79,21 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </Tone>
 
       <Tone tone="light" alt className="section">
+        <div className="container grid gap-14 lg:grid-cols-12 mb-24">
+          <Reveal className="lg:col-span-4"><p className="eyebrow">Works well with</p><h2 className="mt-5">Optional <span className="accent">extras.</span></h2>
+            <p className="text-text-2 mt-5">Only if they help. {s.name} is available on its own.</p></Reveal>
+          <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3">
+            {s.pairsWith.map((p, i) => { const o = services.find((x) => x.id === p.id)!; return (
+              <Reveal as="li" key={p.id} index={i}>
+                <Link href={`/services/${o.slug}/`} className="group flex h-full gap-4 rounded-[20px] border border-line bg-surface p-6 hover:bg-surface-strong transition-colors">
+                  <ServiceGlyph id={o.id} />
+                  <span><span className="block font-[550]">{s.name} + {o.name}</span><span className="block text-text-2 text-[0.92rem] mt-1.5">{p.why}</span></span>
+                  <ArrowUpRight size={16} className="ml-auto shrink-0 text-text-2 group-hover:text-text transition-colors" aria-hidden />
+                </Link>
+              </Reveal>
+            ); })}
+          </ul>
+        </div>
         <div className="container grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-4"><p className="eyebrow">FAQ</p><h2 className="mt-5">Good <span className="accent">questions.</span></h2></Reveal>
           <Reveal className="lg:col-span-8" index={1}><Faq items={s.faq} name={`faq-${s.id}`} /></Reveal>

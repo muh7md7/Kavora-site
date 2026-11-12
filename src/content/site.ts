@@ -1,17 +1,18 @@
 // Business inputs. Anything in [TO CONFIRM] is missing — never invented.
+// Brand rule: location-neutral. No countries, cities, regions or nationalities in promotional copy.
 export const site = {
   brand: "Keelbiz",
   domain: "[TO CONFIRM]", // not purchased yet
   url: "https://keelbiz.example", // replace with real domain before launch
-  type: "Global digital growth & business technology agency",
-  positioning:
-    "We build your online presence, grow your business, and automate the work behind it.",
-  market:
-    "Startups, founders, SMEs and established brands worldwide — with a strong presence in the UAE / GCC and Pakistan.",
+  type: "Digital growth & business technology agency",
+  positioning: "Build your presence. Grow your business. Automate what comes next.",
+  supporting:
+    "From websites and digital marketing to ready-made AI solutions and custom business automation, Keelbiz helps businesses work smarter and grow.",
+  market: "Digital solutions for ambitious businesses.",
   contact: {
     email: "[TO CONFIRM]",
     phone: "[TO CONFIRM]",
-    whatsapp: "[TO CONFIRM]", // E.164, e.g. +9715xxxxxxx
+    whatsapp: "[TO CONFIRM]", // E.164 format
   },
   socials: {
     instagram: "[TO CONFIRM]",
@@ -22,6 +23,7 @@ export const site = {
     aiPlansPage: false, // optional module, off until offer + terms confirmed
     bookingEmbed: false,
     analytics: false, // cookieless (Plausible/Umami) — see ANALYTICS.md
+    checkout: false, // no payment processing configured — enquiries/quotes only
   },
   enquiryEndpoint: process.env.NEXT_PUBLIC_ENQUIRY_ENDPOINT ?? "", // "" => unavailable state
 } as const;
@@ -29,6 +31,7 @@ export const site = {
 export const isConfirmed = (v: string) => !v.startsWith("[TO CONFIRM");
 
 export const nav: readonly { label: string; href: string; mega?: "services" | "lab" }[] = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services/", mega: "services" },
   { label: "Work", href: "/work/" },
   { label: "Lab", href: "/lab/", mega: "lab" },
@@ -45,11 +48,14 @@ export interface Service {
   name: string;
   short: string;
   definition: string; // plain 2–3 sentence definition (AI-answer readiness)
+  forWho: string;
   flywheel: "Attract" | "Convert" | "Automate" | "Manage";
   tone: "sage" | "navy";
+  benefits: string[];
   capabilities: string[];
   deliverables: string[];
   useCases: string[];
+  pairsWith: { id: ServiceId; why: string }[];
   faq: { q: string; a: string }[];
 }
 
@@ -57,103 +63,172 @@ export const services: Service[] = [
   {
     id: "websites",
     slug: "website-design-development",
-    name: "Website Design & Development",
-    short: "Business sites, landing pages and redesigns built to convert.",
+    name: "Website Development",
+    short: "Business websites, landing pages, redesigns and custom web solutions.",
     definition:
-      "Website design and development is the planning, design and engineering of a business website or landing page. It is for founders, SMEs and established brands that need a fast, credible, conversion-focused site they can grow with.",
+      "We design and build fast, credible websites that turn visitors into enquiries — from a single landing page to a complete business site.",
+    forWho: "Businesses launching, rebranding, or replacing a site that no longer reflects them or brings in enquiries.",
     flywheel: "Convert",
     tone: "sage",
-    capabilities: [
-      "Business and corporate websites",
-      "Landing pages and campaign pages",
-      "Redesigns and migrations",
-      "Responsive, mobile-first builds",
-      "CRO-led UX and page structure",
-      "Ongoing maintenance",
+    benefits: ["Look credible from the first second", "Turn visitors into enquiries", "Easy to grow and maintain"],
+    capabilities: ["Business and corporate websites", "Landing pages for campaigns", "Website redesigns", "Custom web solutions", "SEO-ready structure", "Ongoing maintenance"],
+    deliverables: ["Page designs and content structure", "A fast, responsive build", "Enquiry forms connected to your inbox or CRM", "SEO foundations: titles, sitemap, structured data", "Handover notes"],
+    useCases: ["A new business going online", "A redesign of an outdated site", "A landing page for an ad campaign", "A site that needs to bring in more enquiries"],
+    pairsWith: [
+      { id: "ads", why: "Send paid traffic to pages built to convert." },
+      { id: "automation", why: "Reply to every new enquiry instantly." },
     ],
-    deliverables: [
-      "Design system and page designs",
-      "Production build (static or server-rendered, per hosting)",
-      "Enquiry/lead forms wired to your inbox or CRM",
-      "SEO foundations: metadata, sitemap, structured data",
-      "Handover notes and maintenance plan",
-    ],
-    useCases: ["New brand launch", "Lead-generation site for a service business", "Landing page for a paid campaign", "Redesign of an outdated site"],
     faq: [
-      { q: "Do you work with international businesses?", a: "Yes. We work remotely with clients worldwide, with a strong presence in the UAE/GCC and Pakistan." },
-      { q: "Can you host the site?", a: "We build for your hosting and can advise on options. Hosting is set up in your name so you keep ownership." },
-      { q: "What about performance and accessibility?", a: "We follow Core Web Vitals and WCAG 2.2 AA practices. We measure before launch and report real numbers rather than promising scores." },
+      { q: "Do you work with businesses in other countries?", a: "Yes. We work remotely with businesses in different markets." },
+      { q: "Who owns the website?", a: "You do. Hosting, domain and code are set up in your name." },
+      { q: "Can you just redesign one page?", a: "Yes. We can take on a single page, a landing page or a full site." },
     ],
   },
   {
     id: "social",
     slug: "social-media-management",
     name: "Social Media Management",
-    short: "Strategy, creative, Reels and scheduling with consistent branding.",
+    short: "Content, posts, reels, captions, scheduling and account management.",
     definition:
-      "Social media management is the ongoing planning, creation, scheduling and reporting of a brand's social content. It is for businesses that want a consistent, professional presence without running it in-house.",
+      "We plan, create and publish your social content — posts, reels and captions — so your accounts stay active, consistent and on-brand.",
+    forWho: "Businesses that know social matters but don't have the time or team to run it well.",
     flywheel: "Attract",
     tone: "sage",
-    capabilities: ["Channel strategy and content planning", "Creative design and templates", "Reels and short-form video", "Captions, alt text and hashtags", "Scheduling and publishing", "Monthly reporting"],
-    deliverables: ["Content calendar", "Designed posts, carousels and Reels", "Brand-consistent caption set", "Scheduled publishing", "Monthly performance report"],
-    useCases: ["Hospitality and events brands", "Service businesses building trust", "Product launches", "Founder-led brands"],
+    benefits: ["A consistent, professional presence", "Content made for your audience", "Time back in your week"],
+    capabilities: ["Content planning", "Post and carousel design", "Reels and short-form video", "Captions and hashtags", "Scheduling and publishing", "Monthly reporting"],
+    deliverables: ["A monthly content calendar", "Designed posts and reels", "On-brand captions", "Scheduled publishing", "A simple monthly report"],
+    useCases: ["Restaurants, hospitality and events", "Service businesses building trust", "Product launches", "Founder-led brands"],
+    pairsWith: [
+      { id: "ads", why: "Boost your best content to the right audience." },
+      { id: "automation", why: "Answer DMs and comments faster." },
+    ],
     faq: [
-      { q: "Which platforms?", a: "Instagram, Facebook and LinkedIn by default; others on request." },
-      { q: "Do you need access to our accounts?", a: "We work through Meta Business Suite access that you grant and can revoke at any time." },
+      { q: "Which platforms do you manage?", a: "Instagram, Facebook and LinkedIn by default. Others on request." },
+      { q: "Do you need our passwords?", a: "No. You grant access through the platform's business tools and can remove it any time." },
     ],
   },
   {
     id: "ads",
     slug: "digital-advertising",
-    name: "Digital Advertising (Meta)",
-    short: "Facebook and Instagram campaigns: setup, creative, audiences, optimisation.",
+    name: "Digital Advertising",
+    short: "Meta Ads and Google Ads — setup, management and optimisation.",
     definition:
-      "Digital advertising on Meta is the planning, setup and optimisation of paid campaigns on Facebook and Instagram. It is for businesses that want qualified enquiries and sales from paid reach, with clear reporting.",
+      "We plan, launch and manage ad campaigns on Meta (Facebook and Instagram) and Google — on one platform or both — to bring you leads and customers.",
+    forWho: "Businesses that want more enquiries or sales from paid advertising, with clear reporting.",
     flywheel: "Attract",
     tone: "sage",
-    capabilities: ["Campaign planning and account structure", "Ad creative (static and video)", "Audience and targeting setup", "Pixel and conversion tracking", "Ongoing optimisation", "Reporting"],
-    deliverables: ["Campaign → ad set → ad structure", "Creative set", "Tracking setup", "Weekly/monthly reporting"],
-    useCases: ["Lead generation for services", "Event and seasonal promotions", "Local awareness in UAE/GCC", "E-commerce sales"],
+    benefits: ["Reach people ready to buy", "Choose Meta, Google or both", "Clear reporting on what's working"],
+    capabilities: ["Facebook and Instagram ads", "Google Search ads", "Other suitable Google Ads campaigns", "Campaign setup and tracking", "Ongoing management and optimisation", "Lead generation campaigns"],
+    deliverables: ["Campaign plan and structure", "Ad creative and copy", "Conversion tracking setup", "Regular optimisation", "Simple performance reports"],
+    useCases: ["Lead generation for service businesses", "Search ads for people already looking for you", "Seasonal and event promotions", "Online store sales"],
+    pairsWith: [
+      { id: "websites", why: "Landing pages that convert your ad clicks." },
+      { id: "automation", why: "Follow up every lead from your ads automatically." },
+    ],
     faq: [
-      { q: "Do you guarantee results?", a: "No. We never promise guaranteed results, revenue or ROI. We set up correctly, test, and report what actually happens." },
-      { q: "Who pays the ad spend?", a: "Ad spend is paid directly to Meta from your own ad account. Our fee is separate." },
+      { q: "Meta or Google — which do I need?", a: "It depends on how your customers find you. Meta reaches people while they scroll; Google reaches people while they search. You can choose one or both." },
+      { q: "Do you guarantee results?", a: "No. Nobody honest can. We set campaigns up properly, test, optimise and report what actually happens." },
+      { q: "Who pays for the ad spend?", a: "Ad spend is paid directly to Meta or Google from your own account. Our management fee is separate." },
     ],
   },
   {
     id: "automation",
     slug: "ai-agents-automation",
-    name: "AI Agents & Business Automation",
-    short: "AI enquiry handling, lead qualification and automated follow-ups.",
+    name: "AI Agents & Automation",
+    short: "Ready-made AI solutions, custom AI agents and business automation.",
     definition:
-      "AI agents and business automation connect your enquiries, CRM and follow-ups into workflows that run on their own. It is for businesses that lose time or leads to manual admin and want reliable, auditable processes.",
+      "We build AI agents and automations that answer enquiries, follow up leads, book appointments and connect your business tools — ready-made where available, or custom-built around your needs.",
+    forWho: "Businesses losing time or leads to repetitive work — replying, following up, copying data between apps.",
     flywheel: "Automate",
     tone: "navy",
-    capabilities: ["AI enquiry handling (web, WhatsApp, email)", "Lead qualification and routing", "Automated follow-ups", "Sales and customer-service workflows", "Process automation (n8n where suitable)", "Custom AI integrations"],
-    deliverables: ["Workflow map", "Built and tested automations", "CRM/sheet connections", "Monitoring and error alerts", "Documentation"],
-    useCases: ["Enquiry → qualified lead → CRM", "Missed-call and WhatsApp auto-replies", "Quote and booking follow-ups", "Internal approvals and reporting"],
+    benefits: ["Reply to customers instantly", "Never forget a follow-up", "Less manual admin"],
+    capabilities: ["AI customer support agents", "AI sales and lead follow-up", "AI appointment booking", "Website and WhatsApp assistants", "Workflow automation", "Connecting your business apps"],
+    deliverables: ["A clear proposal for your use case", "A built and tested AI agent or workflow", "Connections to your tools", "Monitoring and error alerts", "Simple documentation"],
+    useCases: ["Answering common customer questions", "Qualifying and following up new leads", "Booking appointments automatically", "Moving data between apps without copy-paste"],
+    pairsWith: [
+      { id: "websites", why: "Put an AI assistant on your website." },
+      { id: "dashboards", why: "See every automated lead and task in one place." },
+    ],
     faq: [
-      { q: "Which tools do you use?", a: "n8n where suitable, plus the AI models and apps that fit your stack. We avoid lock-in where we can." },
-      { q: "Is customer data safe?", a: "We design for data minimisation and keep secrets out of client-side code. Compliance requirements (GDPR, UAE PDPL) are flagged for your legal review." },
+      { q: "Can you build something that isn't on your list?", a: "Yes. Tell us what you need. If it's technically feasible, we'll propose a solution." },
+      { q: "Do you sell ready-made AI agents?", a: "Yes, where a ready-made solution fits your needs. Ask us what's currently available for your use case." },
+      { q: "Is our customer data safe?", a: "We design for minimal data use and keep credentials out of public code. Specific compliance needs are reviewed per project." },
     ],
   },
   {
     id: "dashboards",
     slug: "business-dashboards-systems",
-    name: "Business Dashboards & Digital Systems",
-    short: "Management dashboards, CRMs, tracking and internal tools.",
+    name: "Business Dashboards",
+    short: "Custom dashboards, management systems, client tools and reporting.",
     definition:
-      "Business dashboards and digital systems are custom internal tools — dashboards, CRMs, order and project tracking, invoicing — built around how your business actually works. They are for owners and managers who need one clear view and fewer spreadsheets.",
+      "We build custom dashboards and internal systems — reporting, client management, order and project tracking — so you can run your business from one clear view.",
+    forWho: "Owners and managers juggling spreadsheets, apps and messages to see what's going on.",
     flywheel: "Manage",
     tone: "navy",
-    capabilities: ["Management dashboards and KPIs", "Lightweight CRMs", "Order and project tracking", "Invoicing and approvals", "Internal tools and portals", "Integrations with existing systems"],
-    deliverables: ["Requirements and data map", "Working system with roles", "Dashboards with real data connections", "Training and documentation"],
-    useCases: ["Agency or studio operations", "Hospitality and events bookings", "Logistics and fleet tracking", "Sales pipeline visibility"],
+    benefits: ["One clear view of your business", "Fewer spreadsheets", "Decisions based on real numbers"],
+    capabilities: ["Management dashboards", "Client management tools", "Order and project tracking", "Reporting solutions", "Internal tools and portals", "Connections to existing systems"],
+    deliverables: ["A requirements and data map", "A working system with user roles", "Dashboards connected to your data", "Training and documentation"],
+    useCases: ["Agency and studio operations", "Bookings and events", "Sales pipeline visibility", "Field and delivery tracking"],
+    pairsWith: [
+      { id: "automation", why: "Feed the dashboard automatically." },
+      { id: "ads", why: "See advertising results next to sales." },
+    ],
     faq: [
       { q: "Do we own the system?", a: "Yes. Code, data and accounts are set up in your name." },
-      { q: "Can it connect to our existing tools?", a: "Usually, yes — via APIs or exports. We confirm feasibility in discovery." },
+      { q: "Can it connect to the tools we already use?", a: "Usually, yes. We confirm what's possible before we start." },
     ],
   },
 ];
+
+export const serviceById = (id: ServiceId) => services.find((s) => s.id === id)!;
+export const shortName: Record<ServiceId, string> = { websites: "Website", social: "Social", ads: "Ads", automation: "AI", dashboards: "Dashboards" };
+
+/** Example combinations — illustrations, not fixed packages. */
+export const combinations: { title: string; ids: ServiceId[]; note: string }[] = [
+  { title: "Launch online", ids: ["websites"], note: "Website with an SEO-ready structure." },
+  { title: "Grow your audience", ids: ["social", "ads"], note: "Social media management with Meta advertising." },
+  { title: "Never miss a lead", ids: ["websites", "automation"], note: "A website with an AI assistant and instant follow-up." },
+  { title: "Ads that follow up", ids: ["ads", "automation"], note: "Campaigns with automated lead follow-up." },
+  { title: "Full presence", ids: ["websites", "social", "ads"], note: "Website, social media and advertising together." },
+  { title: "Complete growth system", ids: ["websites", "social", "ads", "automation", "dashboards"], note: "Digital growth and business automation, end to end." },
+];
+
+/** AI offer — three ways to buy. Nothing here claims a specific product is built or priced. */
+export const aiOffer = {
+  paths: [
+    {
+      id: "ready",
+      title: "Ready-made AI solutions",
+      lead: "Proven agents and workflows, set up for your business.",
+      points: ["Faster to launch", "Configured with your details and tools", "Ask us what's currently available for your use case"],
+      cta: { label: "Ask what's available", href: "/contact/?type=ai-ready&services=automation" },
+    },
+    {
+      id: "custom",
+      title: "Custom AI agents",
+      lead: "Tell us what you need. We propose and build it.",
+      points: ["Designed around your process", "Built for your specific tasks", "Scoped and quoted before we start"],
+      cta: { label: "Request a custom agent", href: "/contact/?type=ai-custom&services=automation" },
+    },
+    {
+      id: "automation",
+      title: "Business automation",
+      lead: "Connect your tools and remove repetitive work.",
+      points: ["Link the apps you already use", "Automate follow-ups, data entry and reports", "Monitored, with alerts if something fails"],
+      cta: { label: "Automate a workflow", href: "/contact/?type=automation&services=automation" },
+    },
+  ],
+  examples: [
+    { title: "Customer support agent", does: "Answers common questions on your website or chat, day and night.", solves: "Slow replies and repeated questions." },
+    { title: "Sales & lead follow-up agent", does: "Qualifies new leads and follows up until they respond.", solves: "Leads that go cold." },
+    { title: "Appointment booking agent", does: "Offers available times and books meetings for you.", solves: "Back-and-forth scheduling." },
+    { title: "Website & WhatsApp assistant", does: "Chats with visitors and passes hot leads to your team.", solves: "Missed enquiries out of hours." },
+    { title: "Email & message automation", does: "Sends the right message at the right time, automatically.", solves: "Manual reminders and updates." },
+    { title: "Social media workflows", does: "Moves content from idea to scheduled post with fewer steps.", solves: "Time lost to posting admin." },
+    { title: "CRM & process automation", does: "Keeps your CRM and apps in sync without copy-paste.", solves: "Data entry and missed updates." },
+    { title: "Reporting automation", does: "Builds and sends your regular reports automatically.", solves: "Hours spent on weekly reports." },
+  ],
+};
 
 export const flywheel = [
   { step: "Attract", detail: "Social + Ads", tone: "sage" as const },
@@ -164,26 +239,26 @@ export const flywheel = [
 
 export const steps = [
   { n: "01", name: "Discover", text: "We learn your business, goals, audience and constraints." },
-  { n: "02", name: "Strategize", text: "We define scope, priorities and a plan you can see." },
+  { n: "02", name: "Propose", text: "We recommend what you actually need — one service or several — with a clear quote." },
   { n: "03", name: "Create", text: "Design and engineering in one team, reviewed with you." },
   { n: "04", name: "Launch", text: "Tested, measured and handed over with documentation." },
-  { n: "05", name: "Optimize", text: "We review real results and improve what matters." },
+  { n: "05", name: "Improve", text: "We review real results and improve what matters." },
 ];
 
 export const whyUs = [
-  { t: "Integrated delivery", d: "Marketing, web and automation from one connected team." },
+  { t: "Flexible by design", d: "Hire us for one service or several. You never have to buy a bundle." },
   { t: "Design + engineering together", d: "No handoff gap between how it looks and how it works." },
-  { t: "Connected growth", d: "Social and ads feed a site that feeds automation that feeds management." },
-  { t: "Transparent scope", d: "Clear deliverables, clear pricing per project, no surprises." },
+  { t: "AI that's practical", d: "Ready-made where it fits, custom-built where it doesn't." },
+  { t: "Transparent quotes", d: "Clear scope and a custom quote before any work starts." },
   { t: "Clear communication", d: "One point of contact, plain language, regular updates." },
 ];
 
 export const homeFaq = [
-  { q: "What services do you offer?", a: "Website design & development, social media management, Meta advertising, AI agents & automation, and business dashboards & systems — as one connected growth loop." },
-  { q: "Do you work with international clients?", a: "Yes. We work remotely with businesses worldwide and have a strong presence in the UAE/GCC and Pakistan." },
-  { q: "Can I buy a single service?", a: "Yes. Each service stands on its own. Many clients start with one and connect the others later." },
-  { q: "Do you offer ongoing support?", a: "Yes. Maintenance, content and optimisation plans are available after launch." },
-  { q: "Can automation be customised to our process?", a: "Yes. Every workflow is designed around your process; the examples on this site are illustrations." },
-  { q: "How do we start?", a: "Send an enquiry with a short description of what you're building. We reply with questions and next steps." },
-  { q: "How does pricing work?", a: "Pricing is scoped per project after discovery. We don't publish fixed prices because every scope is different." },
+  { q: "Do I have to buy more than one service?", a: "No. You can hire us for one service, several, or a complete solution. We'll only recommend what you need." },
+  { q: "Do you work with businesses in other countries?", a: "Yes. We work remotely with businesses in different markets." },
+  { q: "Do you sell ready-made AI agents or only build custom ones?", a: "Both. Where a ready-made solution fits, we set it up for you. Otherwise we design and build a custom agent." },
+  { q: "Which advertising platforms do you manage?", a: "Meta (Facebook and Instagram) and Google Ads. You can choose one or both." },
+  { q: "Do you offer ongoing support?", a: "Yes. Maintenance, content and optimisation can continue after launch." },
+  { q: "How does pricing work?", a: "Every project gets a custom quote after a short discovery conversation. We don't publish fixed prices because every scope is different." },
+  { q: "How do we start?", a: "Send an enquiry with a short description of what you need. We reply with questions and next steps." },
 ];

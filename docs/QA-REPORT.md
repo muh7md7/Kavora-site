@@ -1,4 +1,4 @@
-# QA report — 2026-11-12 (build 3 — v2 redesign)
+# QA report — 2026-11-12 (build 4 — v3 refinement)
 
 Measured in this build environment (Chromium via Playwright, static `out/` served locally). Lighthouse/WebPageTest not run yet.
 
@@ -23,6 +23,19 @@ Measured in this build environment (Chromium via Playwright, static `out/` serve
 - Pages load with zero console errors at 1440×900 and 390×844: Home, Lab, Dashboards service, Contact.
 - No horizontal overflow at 1440 / 390 on Home, Lab, Contact (checked `scrollWidth`). Dashboards page: transient overflow seen once during sidebar width animation; not reproducible at rest — `overflow-x: clip` added as guard.
 - Form: endpoint unset → "Enquiries temporarily unavailable" state renders. Success/failure/duplicate/spam paths: **not yet tested** (needs live endpoint).
+
+## Build 4 checks (Playwright + Lighthouse 12 mobile, static `out/`)
+| Page | Perf | A11y | BP | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| / | 97 | 100 | 100 | 100 | 0.9 s | 0 | 200 ms |
+| /ai-solutions/ | 99 | 100 | 100 | 100 | 0.9 s | 0 | 120 ms |
+| /contact/ | 99 | 100 | 100 | 100 | — | 0 | — |
+| /services/digital-advertising/ | 99 | 100 | 100 | 100 | 0.9 s | 0 | 110 ms |
+- No horizontal overflow at 1440/390 on Home, Services, AI Solutions, Lab, Work, About, Contact, Insights, 404. No console errors.
+- Header: nav centred exactly (720px at 1440 viewport); compacts 64→58px on scroll; Services mega opens on hover and via ArrowDown (focus moves to first item); Esc closes.
+- Contact form: `?services=ads,automation` preselects both + shows ad-platform field; `?type=solution` preselects all five; empty submit shows 6 inline errors; valid submit without endpoint shows an honest "not connected, nothing sent" message (no fake success).
+- Built HTML contains no country/region names.
+- Not tested: live PHP endpoint (needs Hostinger config), Safari/Firefox, screen readers.
 
 ## Lighthouse 12 — v2 redesign, mobile emulation (slow 4G, Moto G Power), static `out/`, headless Chromium
 | Page | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |

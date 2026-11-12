@@ -10,7 +10,6 @@ export function OrganizationJsonLd() {
     <Script data={{
       "@context": "https://schema.org", "@type": "Organization", name: site.brand, url: site.url, description: site.positioning,
       ...(isConfirmed(site.contact.email) ? { email: site.contact.email } : {}), ...(sameAs.length ? { sameAs } : {}),
-      areaServed: ["Worldwide", "United Arab Emirates", "Pakistan"],
     }} />
   );
 }

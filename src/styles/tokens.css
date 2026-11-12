@@ -4,49 +4,56 @@
    flips automatically. Legacy v1 names (ivory, navy, sage, champagne…) are kept as aliases. */
 
 :root {
-  /* Core palette */
-  --paper: #f4f3ef;
-  --paper-2: #ebeae5;
-  --paper-3: #e2e0da;
-  --charcoal: #17191c;
-  --charcoal-2: #1f2226;
-  --charcoal-3: #2a2e33;
-  --steel: #4c6680;         /* primary action — white on it 5.9:1 */
-  --steel-deep: #3a5068;    /* hover — white 8.1:1 */
-  --steel-soft: #dde4ea;
-  --steel-light: #a3b6c8;   /* accent on charcoal — 8.6:1 */
-  --stone: #8b877e;         /* hairline / decorative only */
-  --moss: #4e7a63;          /* positive data, muted */
-  --moss-soft: #e0e8e2;
-  --rust: #a8473f;          /* negative data, muted */
+  /* Core palette — the five approved brand colours */
+  --offwhite: #f7f8f6;      /* main light backgrounds */
+  --mist-grey: #e9edf0;     /* secondary surfaces */
+  --steel-blue: #b8c9d2;    /* muted accents, gradients (decoration on light; text on dark) */
+  --graphite: #28353d;      /* typography, buttons, dark components */
+  --deep-charcoal: #11191e; /* dark sections */
+
+  /* Derived tones (all built from the five above) */
+  --paper: var(--offwhite);
+  --paper-2: var(--mist-grey);
+  --paper-3: #dde3e7;
+  --charcoal: var(--deep-charcoal);
+  --charcoal-2: #18232a;
+  --charcoal-3: #22303a;
+  --steel: #4f6673;         /* steel deepened for text accents on light — 5.7:1 on off-white */
+  --steel-deep: var(--graphite);
+  --steel-soft: #dfe7ec;    /* steel-blue tint surface */
+  --steel-light: var(--steel-blue);
+  --stone: #8e9aa1;
+  --moss: #4f6673;          /* data "up" — steel, not a new hue */
+  --moss-soft: #dfe7ec;
+  --rust: #9b4a42;          /* errors only (WCAG legibility) */
 
   /* Semantic (light) */
-  --bg: var(--paper);
-  --bg-2: var(--paper-2);
-  --text: #1b1d21;          /* 15.6:1 on paper */
-  --text-2: #565b64;        /* 6.4:1 on paper */
-  --line: #d8d6cf;
-  --line-strong: #c4c1b8;
-  --surface: rgba(255, 255, 255, 0.62);
-  --surface-strong: rgba(255, 255, 255, 0.85);
+  --bg: var(--offwhite);
+  --bg-2: var(--mist-grey);
+  --text: #1b252c;          /* 14.6:1 on off-white */
+  --text-2: #5a6a73;        /* 5.3:1 off-white, 4.8:1 mist */
+  --line: #dbe1e5;
+  --line-strong: #c5cfd5;
+  --surface: rgba(255, 255, 255, 0.55);
+  --surface-strong: rgba(255, 255, 255, 0.82);
   --accent: var(--steel);
-  --accent-text: var(--steel-deep);
+  --accent-text: var(--steel);
   --on-accent: #ffffff;
 
   /* Glass */
-  --glass-bg: rgba(250, 249, 246, 0.66);
-  --glass-border: rgba(255, 255, 255, 0.7);
-  --glass-edge: rgba(23, 25, 28, 0.08);
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 248, 246, 0.56));
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-edge: rgba(40, 53, 61, 0.09);
   --glass-blur: 22px;
-  --glass-saturate: 140%;
+  --glass-saturate: 135%;
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  --glass-shadow: 0 30px 60px -30px rgba(23, 25, 28, 0.22), 0 8px 20px -12px rgba(23, 25, 28, 0.08);
+  --glass-shadow: 0 24px 48px -28px rgba(17, 25, 30, 0.28), 0 6px 16px -10px rgba(17, 25, 30, 0.10);
 
   /* Gradients (subtle) */
-  --grad-light: radial-gradient(80% 60% at 85% 0%, rgba(76, 102, 128, 0.10), transparent 60%),
-                radial-gradient(60% 50% at 0% 100%, rgba(139, 135, 126, 0.10), transparent 60%);
-  --grad-dark: radial-gradient(70% 60% at 80% 0%, rgba(76, 102, 128, 0.28), transparent 60%),
-               radial-gradient(50% 50% at 0% 100%, rgba(163, 182, 200, 0.08), transparent 60%);
+  --grad-light: radial-gradient(70% 60% at 88% -5%, rgba(184, 201, 210, 0.55), transparent 62%),
+                radial-gradient(55% 45% at -5% 105%, rgba(233, 237, 240, 0.9), transparent 60%);
+  --grad-dark: radial-gradient(65% 55% at 85% -10%, rgba(184, 201, 210, 0.16), transparent 60%),
+               radial-gradient(50% 50% at 0% 110%, rgba(40, 53, 61, 0.55), transparent 60%);
 
   /* Radius */
   --r-xs: 6px;
@@ -101,39 +108,39 @@
   --data-down: var(--rust);
   --data-neutral: var(--text-2);
   --data-series-2: var(--steel-light);
-  --bloom: rgba(76, 102, 128, 0.12);
-  --glass-smoke-bg: rgba(23, 25, 28, 0.6);
+  --bloom: rgba(184, 201, 210, 0.35);
+  --glass-smoke-bg: rgba(17, 25, 30, 0.62);
   --glass-smoke-border: rgba(255, 255, 255, 0.1);
 
   --bg-grad: var(--grad-light);
+  --logo-fill: var(--graphite);
 }
-[data-theme="dark"] { --bg-grad: var(--grad-dark); }
-
-/* Dark sections: same names, inverted values. */
 [data-theme="dark"] {
-  --bg: var(--charcoal);
+  --bg: var(--deep-charcoal);
   --bg-2: var(--charcoal-2);
-  --text: #eef0f2;          /* 16:1 on charcoal */
-  --text-2: #a4abb4;        /* 7.9:1 */
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.18);
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-strong: rgba(255, 255, 255, 0.08);
-  --accent: var(--steel-light);
-  --accent-text: var(--steel-light);
-  --on-accent: var(--charcoal);
-  --steel-soft: rgba(163, 182, 200, 0.14);
-  --moss: #8fb8a0;
-  --moss-soft: rgba(143, 184, 160, 0.14);
-  --rust: #e08a80;
-  --glass-bg: rgba(31, 34, 38, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --text: #f7f8f6;          /* 16.7:1 */
+  --text-2: #9aa8b0;        /* 7.3:1 */
+  --line: rgba(184, 201, 210, 0.12);
+  --line-strong: rgba(184, 201, 210, 0.24);
+  --surface: rgba(184, 201, 210, 0.05);
+  --surface-strong: rgba(184, 201, 210, 0.09);
+  --accent: var(--steel-blue);
+  --accent-text: var(--steel-blue);
+  --on-accent: var(--deep-charcoal);
+  --steel-soft: rgba(184, 201, 210, 0.12);
+  --moss: var(--steel-blue);
+  --moss-soft: rgba(184, 201, 210, 0.12);
+  --rust: #d9a39c;
+  --glass-bg: linear-gradient(180deg, rgba(40, 53, 61, 0.62), rgba(24, 35, 42, 0.5));
+  --glass-border: rgba(184, 201, 210, 0.12);
   --glass-edge: rgba(0, 0, 0, 0.35);
-  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  --glass-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
-  --bloom: rgba(76, 102, 128, 0.3);
-  --logo-ink: #17191c;
-  --logo-keel: #4c6680;
+  --glass-highlight: inset 0 1px 0 rgba(247, 248, 246, 0.07);
+  --glass-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  --bloom: rgba(184, 201, 210, 0.14);
+  --logo-ink: #11191e;
+  --logo-keel: #4f6673;
+  --logo-fill: #f7f8f6;
+  --bg-grad: var(--grad-dark);
   color: var(--text);
   background-color: var(--bg);
 }

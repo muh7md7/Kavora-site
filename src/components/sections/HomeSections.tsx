@@ -73,8 +73,8 @@ export function Services() {
     <Tone tone="light" className="section" id="services" aria-labelledby="svc-h">
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-12 items-end">
-          <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5">Five disciplines, <span className="accent">one</span> standard.</h2></Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">Start with one or connect them all. Each page shows what we deliver, who it&apos;s for and a live interface demo.</p></Reveal>
+          <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5">Five services. Hire <span className="accent">one,</span> or combine them.</h2></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">Each service stands on its own — with its own team, scope and quote. Add others only if they help.</p></Reveal>
         </div>
         <ul className="mt-16">{services.map((s, i) => <ServiceRow key={s.id} s={s} index={i} />)}</ul>
       </div>

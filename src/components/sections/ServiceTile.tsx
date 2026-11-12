@@ -60,7 +60,6 @@ export function ServiceRow({ s, index }: { s: Service; index: number }) {
         </div>
         <div className="hidden md:flex md:col-span-4 justify-end opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500" aria-hidden><Preview id={s.id} /></div>
         <span className={cn("col-start-3 md:col-start-auto col-span-10 md:col-span-1 flex md:justify-end items-center gap-3")}>
-          <span className="chip chip-slate md:hidden">{s.flywheel}</span>
           <span className="size-12 rounded-full border border-line-strong inline-flex items-center justify-center transition-all duration-500 group-hover:bg-text group-hover:text-bg group-hover:rotate-45" aria-hidden>
             <ArrowUpRight size={18} />
           </span>

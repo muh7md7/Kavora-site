@@ -10,12 +10,12 @@ export function Footer() {
   return (
     <footer data-theme="dark" className="tone tone-grad overflow-hidden">
       <section className="container pt-[clamp(96px,12vw,180px)] pb-20" aria-labelledby="cta-h">
-        <p className="eyebrow">Start a project</p>
+        <p className="eyebrow">Start a Project</p>
         <h2 id="cta-h" className="display mt-6 max-w-[14ch]">Let&apos;s build what&apos;s <span className="accent">next.</span></h2>
         <div className="mt-12 grid gap-10 lg:grid-cols-12 items-end">
-          <p className="lead lg:col-span-6">Tell us what you&apos;re building. We reply with questions, options and a clear next step — no pressure, no guarantees.</p>
+          <p className="lead lg:col-span-6">One service or a complete solution — tell us what you need and we&apos;ll reply with options and a custom quote.</p>
           <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
-            <Link href="/contact/" className="btn btn-premium !min-h-14 !px-7" data-cursor="Start">Start a conversation <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></Link>
+            <Link href="/contact/" className="btn btn-premium !min-h-14 !px-7" data-magnetic>Start a conversation <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></Link>
             <Link href="/services/" className="btn btn-glass !min-h-14 !px-7">Explore services</Link>
           </div>
         </div>
@@ -24,17 +24,19 @@ export function Footer() {
       <div className="container">
         <div className="grid gap-12 md:grid-cols-12 py-16 border-t border-line">
           <div className="md:col-span-4">
-            <LogoMark className="size-10 text-[#EEF0F2] [--logo-ink:#17191C] [--logo-keel:#4C6680]" />
+            <LogoMark className="size-10 text-[#F7F8F6] [--logo-ink:#11191E] [--logo-keel:#4F6673]" />
             <p className="text-[0.95rem] text-text-2 mt-6 max-w-xs">{site.positioning}</p>
-            <p className="num mt-4">UAE · GCC · Pakistan · Worldwide</p>
+            <p className="num mt-4">{site.market}</p>
           </div>
           <nav aria-label="Services" className="md:col-span-3">
             <h3 className="num mb-5">Services</h3>
-            <ul className="space-y-3 text-[0.95rem]">{services.map((s) => <li key={s.id}><Link href={`/services/${s.slug}/`} className="text-text-2 hover:text-text transition-colors">{s.name}</Link></li>)}</ul>
+            <ul className="space-y-3 text-[0.95rem]">{services.map((s) => <li key={s.id}><Link href={`/services/${s.slug}/`} className="text-text-2 hover:text-text transition-colors">{s.name}</Link></li>)}
+              <li><Link href="/ai-solutions/" className="text-text-2 hover:text-text transition-colors">AI Solutions</Link></li>
+              <li><Link href="/contact/?type=solution" className="text-text-2 hover:text-text transition-colors">Build your solution</Link></li></ul>
           </nav>
           <nav aria-label="Company" className="md:col-span-2">
             <h3 className="num mb-5">Company</h3>
-            <ul className="space-y-3 text-[0.95rem]">{nav.filter((l) => l.href !== "/services/").map((l) => <li key={l.href}><Link href={l.href} className="text-text-2 hover:text-text transition-colors">{l.label}</Link></li>)}</ul>
+            <ul className="space-y-3 text-[0.95rem]">{nav.filter((l) => l.href !== "/services/" && l.href !== "/").map((l) => <li key={l.href}><Link href={l.href} className="text-text-2 hover:text-text transition-colors">{l.label}</Link></li>)}</ul>
           </nav>
           <div className="md:col-span-3">
             <h3 className="num mb-5">Contact</h3>
