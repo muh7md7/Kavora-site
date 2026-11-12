@@ -6,14 +6,14 @@ import { services, site, isConfirmed, type ServiceId } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 type Errors = Partial<Record<string, string>>;
-const budgets = ["Not sure yet", "Under $2k", "$2k – $5k", "$5k – $15k", "$15k+"];
+const contactMethods = ["Email", "WhatsApp", "Phone call", "Video call"];
 export const enquiryTypes = [
   { id: "single", label: "One service" },
   { id: "multiple", label: "Several services" },
   { id: "solution", label: "Complete solution" },
   { id: "ai-ready", label: "Ready-made AI solution" },
   { id: "ai-custom", label: "Custom AI agent" },
-  { id: "automation", label: "Business automation" },
+  { id: "automation", label: "Custom automation" },
   { id: "unsure", label: "Not sure yet" },
 ] as const;
 const serviceIds = services.map((s) => s.id) as string[];
@@ -23,7 +23,7 @@ function validate(f: FormData): Errors {
   const v = (k: string) => String(f.get(k) ?? "").trim();
   if (v("name").length < 2) e.name = "Please enter your full name.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"))) e.email = "Enter a valid email address.";
-  if (v("company").length < 2) e.company = "Please enter your company or business name.";
+  if (v("company").length < 2) e.company = "Please enter your business name.";
   if (v("website") && !/^https?:\/\/.+\..+/.test(v("website"))) e.website = "Include https:// in the address.";
   if (f.getAll("services[]").length === 0) e.services = "Choose at least one option — or “Not sure yet”.";
   if (v("description").length < 20) e.description = "Tell us a little more (at least 20 characters).";
@@ -40,7 +40,7 @@ function Form() {
   const [type, setType] = useState(presetType);
   const [picked, setPicked] = useState<string[]>(presetType === "solution" ? [...serviceIds] : presetServices);
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "fail">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "fail" | "unavailable" | "rate">("idle");
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const started = useRef<number>(0);
   const formRef = useRef<HTMLFormElement>(null);
@@ -81,6 +81,8 @@ function Form() {
       const r = await fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } });
       const j = await r.json().catch(() => ({}));
       if (r.ok && j?.ok) { setStatus("ok"); window.dispatchEvent(new CustomEvent("kb:enquiry-submitted")); }
+      else if (r.status === 503 || r.status === 404) setStatus("unavailable");
+      else if (r.status === 429) setStatus("rate");
       else setStatus("fail");
     } catch { setStatus("fail"); }
   };
@@ -107,11 +109,6 @@ function Form() {
 
   return (
     <form ref={formRef} onSubmit={onSubmit} onBlur={onBlur} noValidate className="grid gap-8" aria-describedby="form-note">
-      {!endpoint && (
-        <p className="rounded-[14px] border border-line bg-bg-2 px-4 py-3 text-[0.88rem] text-text-2" role="note">
-          Online enquiries are temporarily unavailable. {isConfirmed(site.contact.email) ? <>Please email <a className="text-text underline" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</> : <>Email address: {site.contact.email}.</>}
-        </p>
-      )}
       <input type="text" name="website_url" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" /> {/* honeypot */}
       <input type="hidden" name="type" value={type} />
       {topic && <input type="hidden" name="topic" value={topic} />}
@@ -159,9 +156,9 @@ function Form() {
       <div className="grid gap-5 md:grid-cols-2">
         {field("name", "Full name", <input {...a("name")} autoComplete="name" required />)}
         {field("email", "Email", <input {...a("email")} type="email" autoComplete="email" required />)}
-        {field("company", "Company", <input {...a("company")} autoComplete="organization" required />)}
+        {field("company", "Business name", <input {...a("company")} autoComplete="organization" required />)}
         {field("website", "Website (optional)", <input {...a("website", true)} type="url" inputMode="url" placeholder="https://" />, "Include https://")}
-        {field("budget", "Budget range (optional)", <select {...a("budget")} defaultValue="">{["", ...budgets].map((b) => <option key={b} value={b}>{b || "Prefer not to say"}</option>)}</select>)}
+        {field("contact_method", "Preferred contact method (optional)", <select {...a("contact_method")} defaultValue="">{["", ...contactMethods].map((b) => <option key={b} value={b}>{b || "No preference"}</option>)}</select>)}
       </div>
       {field("description", "Tell us about your project", <textarea {...a("description", true)} rows={5} required defaultValue={topic ? `I'm interested in: ${topic}.\n\n` : ""} />, "What do you need, for whom, and by when? A few lines is enough.")}
 
@@ -170,16 +167,16 @@ function Form() {
         {err("consent") && <p id="e-consent" className="error" role="alert">{errors.consent}</p>}
       </div>
 
-      {status === "fail" && (
+      {(status === "fail" || status === "unavailable" || status === "rate") && (
         <p className="error !text-[0.9rem]" role="alert">
-          {endpoint ? "Something went wrong and nothing was sent. Please try again" : "Online enquiries aren't connected yet, so nothing was sent"}{isConfirmed(site.contact.email) ? ` — or email ${site.contact.email}` : ""}.
+          {status === "unavailable" ? "Online enquiries aren't connected yet, so nothing was sent" : status === "rate" ? "Too many enquiries from this connection in the last hour — nothing was sent. Please try again later" : "Something went wrong and nothing was sent. Please try again"}{isConfirmed(site.contact.email) ? ` — or email ${site.contact.email}` : ""}.
         </p>
       )}
       <div className="flex items-center gap-5 flex-wrap">
         <button type="submit" className="btn btn-primary" disabled={status === "sending"} aria-disabled={status === "sending"}>
           {status === "sending" ? <><Loader2 size={16} className="animate-spin" aria-hidden /> Sending…</> : "Send enquiry"}
         </button>
-        <p id="form-note" className="text-[0.78rem] text-text-2">Custom quote. No obligation. Minimal data, kept only as long as needed.</p>
+        <p id="form-note" className="text-[0.78rem] text-text-2">Custom quote. No obligation. No budget required. Minimal data, kept only as long as needed.</p>
       </div>
     </form>
   );

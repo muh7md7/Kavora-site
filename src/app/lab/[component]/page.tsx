@@ -12,7 +12,7 @@ export const dynamicParams = false;
 export function generateStaticParams() { return lab.map((e) => ({ component: e.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ component: string }> }): Promise<Metadata> {
   const e = findLab((await params).component);
-  return e ? { title: `${e.title} ${e.version} — Lab`, description: e.description, alternates: { canonical: `/lab/${e.slug}/` } } : {};
+  return e ? { title: `${e.title} — Lab`, description: e.description, alternates: { canonical: `/lab/${e.slug}/` } } : {};
 }
 
 export default async function LabEntryPage({ params }: { params: Promise<{ component: string }> }) {
@@ -24,7 +24,8 @@ export default async function LabEntryPage({ params }: { params: Promise<{ compo
       <section data-theme="light" className="tone tone-grad section !pt-[170px]">
         <div className="container">
           <nav aria-label="Breadcrumb" className="text-sm text-slate"><Link href="/lab/" className="hover:text-navy">Lab</Link> / {e.title}</nav>
-          <h1 className="mt-3">{e.title} <span className="accent">{e.version}</span></h1>
+          <h1 className="mt-3">{e.title}</h1>
+          <p className="chip chip-slate mt-4">Working demonstration · sample data</p>
           <p className="lead mt-4">{e.description}</p>
           <div className="mt-12 rounded-[28px] p-6 md:p-12 min-h-[360px] flex items-center justify-center tone tone-grad border border-line" data-theme="dark"><LabDemo slug={e.slug} /></div>
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.4fr]">
@@ -33,8 +34,8 @@ export default async function LabEntryPage({ params }: { params: Promise<{ compo
               <div><h2 className="!text-xl">Accessibility</h2><ul className="mt-3 space-y-1 text-sm text-slate list-disc pl-5">{e.a11y.map((a) => <li key={a}>{a}</li>)}</ul></div>
               <div><h2 className="!text-xl">Used on</h2><p className="mt-2 text-sm text-slate">{e.usedOn}</p></div>
               <div className="flex flex-wrap gap-3">
-                <Button href={`/lab/capture/${e.slug}/`} variant="glass">Open reel capture frame</Button>
-                <Button href="/contact/" variant="ghost">Want this built for you?</Button>
+                <Button href="/lab/" variant="glass">All experiments</Button>
+                <Button href="/contact/" variant="ghost">Discuss a project</Button>
               </div>
             </div>
             <CodeWindow code={code} filename={e.file} lang={e.lang ?? "tsx"} maxHeight={640} />

@@ -13,19 +13,19 @@ npm run build                # static export -> /out
 
 ## Deploy to Hostinger Business (shared, no Node)
 1. `npm run build` → upload the contents of `out/` to `public_html/` (keep `out/.htaccess` — it carries the security headers).
-2. Enquiry endpoint: upload `server/api/enquiry.php` to `public_html/api/enquiry.php`.
-   Copy `server/keelbiz-config.example.php` to `/home/USER/keelbiz-config.php` (outside `public_html`) and fill DB, SMTP, allowed origins.
-   Install PHPMailer outside web root: `composer require phpmailer/phpmailer` in `/home/USER`.
-   Create a MySQL DB in hPanel; the endpoint creates the `enquiries` table on first run.
-3. Set `NEXT_PUBLIC_ENQUIRY_ENDPOINT=https://DOMAIN/api/enquiry.php` and rebuild. Until then the form shows "Enquiries temporarily unavailable".
+2. Enquiry endpoint: `public/api/enquiry.php` ships inside `out/` automatically. Copy `server/config.example.php` to `public_html/api/config.php`
+   (blocked from the web by `api/.htaccess`) — or to `/home/USER/keelbiz-config.php` outside the web root — and set `notify_to`.
+   No database or Composer needed: enquiries are appended to a private `api/_data/enquiries.jsonl` and emailed with PHP `mail()`.
+   Optional: SMTP via PHPMailer, MySQL, Turnstile, n8n webhook (see the example config). Until `config.php` exists the endpoint returns 503 and the form says enquiries aren't connected yet (no fake success).
+3. The form posts to `/api/enquiry.php` on the same host by default; override with `NEXT_PUBLIC_ENQUIRY_ENDPOINT` if the endpoint lives elsewhere.
 4. Replace `site.url` in `src/content/site.ts` with the real domain (sitemap, canonicals, JSON-LD depend on it).
 5. Enable HSTS in `.htaccess` only after HTTPS is verified on all hosts.
 
 ## Structure
 `src/app` pages · `src/components/glass` Glass Kit (10) · `src/components/sections` page sections · `src/content` typed content · `src/lab` Lab registry + cursor timelines · `src/styles/tokens.css` · `server/` PHP endpoint · `docs/`.
 
-## Lab + reel capture
-`/lab` — all components with real source. `/lab/capture/<slug>/?theme=light|dark&bg=interior-1|abstract-1&title=&tag=` — 1080×1920 recording frame with scripted cursor (`src/lab/timelines/*.json`) and end card. See `docs/CONTENT-ENGINE.md`.
+## Lab
+`/lab` is a separate website section (not a service, not in the Services menu): interactive experiments and interface demonstrations with their real source. Internal recording frames remain at `/lab/capture/<slug>/` (noindex, unlinked).
 
 ## Previous Kavora site
 Preserved on branch `kavora-archive`.

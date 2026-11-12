@@ -58,11 +58,11 @@ export const lab: LabEntry[] = [
     usedOn: "Dashboards page", timeline: "gauge", wide: true,  },
   {
     slug: "checkout", title: "Glass Checkout", version: "V2",
-    description: "Interface demo of a payment card that tilts on pointer, flips to a 'Securing your payment…' state and confirms. Prefilled fake values; nothing leaves the page.",
+    description: "Interaction study: a payment card that tilts on pointer, flips to a processing state and confirms. Prefilled sample values; nothing leaves the page. A concept, not a product.",
     file: "src/components/glass/CheckoutDemo.tsx",
     props: ["autoplay: boolean"],
     a11y: ["Button announces state via aria-live", "No real inputs; labelled 'Interface demo'", "Tilt disabled for touch and reduced motion"],
-    usedOn: "Websites service page", timeline: "checkout",  },
+    usedOn: "Lab only (concept)", timeline: "checkout",  },
   {
     slug: "code-window", title: "Code Window", version: "V1",
     description: "macOS traffic lights, filename and language chip, syntax highlighting and a copy button. Always shows real source.",

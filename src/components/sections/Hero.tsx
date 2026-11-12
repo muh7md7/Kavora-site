@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, Bot, CalendarCheck, Check, MessageSquare, Sparkles } from "lucide-react";
 
 
-const capabilities = ["Business websites", "Landing pages", "Social media management", "Reels & content", "Meta Ads", "Google Ads", "Ready-made AI agents", "Custom AI agents", "Workflow automation", "Business dashboards"];
+const capabilities = ["Business websites", "Landing pages", "Social media management", "Reels & content", "Meta Ads", "Google Ads", "Custom AI agents", "Workflow automation", "Business dashboards", "Management systems"];
 
 /** Hero — editorial headline + a dark product stage with floating light-glass chips (pointer parallax on desktop). */
 export function Hero() {
@@ -36,7 +36,7 @@ export function Hero() {
             <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "260ms" }}>Grow your business.</span></span>
             <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "340ms" }}><span className="accent pr-[.04em]">Automate</span> what comes next.</span></span>
           </h1>
-          <p className="lead mt-8 max-w-[52ch] reveal-fade" style={{ animationDelay: "460ms" }}>From websites and digital marketing to ready-made AI solutions and custom business automation — Keelbiz helps businesses work smarter and grow.</p>
+          <p className="lead mt-8 max-w-[52ch] reveal-fade" style={{ animationDelay: "460ms" }}>We design websites, manage social media, run Meta and Google advertising, and build AI automation and business systems. Choose one service or a tailored combination.</p>
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 reveal-fade" style={{ animationDelay: "560ms" }}>
             <Link href="/contact/" className="btn btn-primary" data-magnetic>Start a Project <ArrowUpRight size={17} className="btn-arrow" aria-hidden /></Link>
             <Link href="/services/" className="btn btn-ghost">Explore Services <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>

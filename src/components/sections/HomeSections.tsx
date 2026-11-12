@@ -36,7 +36,7 @@ export function Flywheel({ className }: { className?: string }) {
 }
 
 const loopCopy: Record<string, string> = {
-  Attract: "Social content and Meta ads bring the right people to you.",
+  Attract: "Social content and Meta or Google ads bring the right people to you.",
   Convert: "A fast, credible website turns attention into enquiries.",
   Automate: "AI agents qualify, reply and follow up — around the clock.",
   Manage: "Dashboards show what's working, and feed the next campaign.",
@@ -74,7 +74,7 @@ export function Services() {
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5">Five services. Hire <span className="accent">one,</span> or combine them.</h2></Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">Each service stands on its own — with its own team, scope and quote. Add others only if they help.</p></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">We design websites, manage social media, run Meta and Google ads, and build AI automation and business systems. Each service stands on its own — add others only if they help.</p></Reveal>
         </div>
         <ul className="mt-16">{services.map((s, i) => <ServiceRow key={s.id} s={s} index={i} />)}</ul>
       </div>
@@ -121,25 +121,25 @@ export function Process() {
 
 export function FromTheLab() {
   const cards = [
-    { href: "/lab/tabs/", title: "Navigation Tabs", tag: "V7", node: <LazyLabTabs /> },
-    { href: "/lab/stat-card/", title: "Stat Card", tag: "V7", node: <LazyLabStat /> },
-    { href: "/lab/gauge/", title: "Goal Gauge", tag: "V7", node: <LazyLabGauge /> },
+    { href: "/lab/tabs/", title: "Navigation Tabs", node: <LazyLabTabs /> },
+    { href: "/lab/stat-card/", title: "Stat Card", node: <LazyLabStat /> },
+    { href: "/lab/gauge/", title: "Goal Gauge", node: <LazyLabGauge /> },
   ];
   return (
     <Tone tone="dark" className="section" aria-labelledby="lab-h">
       <div className="container">
         <div className="flex items-end justify-between gap-6 flex-wrap">
-          <Reveal><SectionHead eyebrow="The Lab" title="The craft," accent="in the open." lead="Live components from this site's own interface — each with its real source code." /></Reveal>
+          <Reveal><SectionHead eyebrow="Keelbiz Lab" title="Experiments," accent="in the open." lead="A separate space for interactive experiments and interface demonstrations — working examples, not products." /></Reveal>
           <Reveal index={1}><Link href="/lab/" className="btn btn-glass">Enter the Lab <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link></Reveal>
         </div>
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {cards.map((c, i) => (
             <Reveal key={c.href} index={i}>
-              <Link href={c.href} data-cursor="Code" className="group block rounded-[24px] border border-line bg-bg-2 overflow-hidden transition-colors hover:border-line-strong">
+              <Link href={c.href} data-cursor="Open" className="group block rounded-[24px] border border-line bg-bg-2 overflow-hidden transition-colors hover:border-line-strong">
                 <div className="h-[260px] flex items-center justify-center p-6 tone-grad relative">{c.node}</div>
                 <div className="flex items-center justify-between px-6 py-5 border-t border-line">
-                  <span className="font-[550] tracking-[-0.015em]">{c.title} <span className="accent">{c.tag}</span></span>
-                  <span className="num inline-flex items-center gap-1 group-hover:text-text transition-colors">View code <ArrowUpRight size={14} aria-hidden /></span>
+                  <span className="font-[550] tracking-[-0.015em]">{c.title}</span>
+                  <span className="num inline-flex items-center gap-1 group-hover:text-text transition-colors">Open <ArrowUpRight size={14} aria-hidden /></span>
                 </div>
               </Link>
             </Reveal>

@@ -12,8 +12,8 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
-  title: "AI Solutions — ready-made AI agents, custom AI agents and automation",
-  description: "Buy a ready-made AI agent, have Keelbiz build a custom AI agent for your business, or automate repetitive work by connecting your tools. Custom quotes.",
+  title: "AI Solutions — custom AI agents, automation and ready-made solutions",
+  description: "Tell Keelbiz what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made AI solutions where available. Enquiry and custom quote — no checkout.",
   alternates: { canonical: "/ai-solutions/" },
 };
 
@@ -21,7 +21,7 @@ const faq = [
   { q: "What's the difference between ready-made and custom?", a: "Ready-made solutions are proven agents or workflows we configure for your business — faster to launch. Custom agents are designed and built from scratch around your specific process." },
   { q: "Can I request an AI agent that isn't listed?", a: "Yes. The examples are not limits. Describe what you need and we'll tell you honestly whether it's feasible and how we'd build it." },
   { q: "Which tools can it connect to?", a: "It depends on the tools you use and whether they offer integrations. We confirm compatibility during scoping — we don't promise it upfront." },
-  { q: "How is it priced?", a: "Every solution gets a custom quote. Some have a one-time setup cost, some also have a monthly cost for hosting, AI usage and support. We explain both before you commit." },
+  { q: "How is it priced?", a: "Every solution gets a custom quote. Some have a one-time setup cost, some also have ongoing costs for hosting, AI usage, messaging or support. Third-party costs are paid by you directly and listed in the proposal before you commit. Ready-made solutions with a confirmed price are shared on request." },
   { q: "Can I buy online?", a: "Not yet. Send an enquiry and we'll reply with availability, options and a quote." },
 ];
 
@@ -29,16 +29,16 @@ export default function AiSolutionsPage() {
   const ai = serviceById("automation");
   return (
     <>
-      <PageHero eyebrow="AI Solutions" title="AI agents that do real work —" accent="ready or custom." lead="Answer customers instantly, follow up every lead, book appointments and remove repetitive tasks. Choose a ready-made solution, request a custom agent, or automate the tools you already use.">
+      <PageHero eyebrow="AI Solutions" title="Tell us what you want to automate." accent="We build it." lead="Custom AI agents and automation designed around your business — plus ready-made solutions where a built one genuinely fits. Answer customers instantly, follow up every lead, book appointments and remove repetitive work.">
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button href="/contact/?type=ai-custom&services=automation">Request a custom agent</Button>
+          <Button href="/contact/?type=ai-custom&services=automation">Discuss Your AI Project</Button>
           <Button href="#options" variant="ghost">See your options</Button>
         </div>
       </PageHero>
 
       <Tone tone="light" className="section !pt-0" id="options" aria-labelledby="opt-h">
         <div className="container border-t border-line pt-16">
-          <Reveal><SectionHead eyebrow="Three ways to buy" title="Pick the path that" accent="fits." /></Reveal>
+          <Reveal><SectionHead eyebrow="Three ways to work with us" title="Pick the path that" accent="fits." /></Reveal>
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             {aiOffer.paths.map((p, i) => (
               <Reveal key={p.id} index={i}>

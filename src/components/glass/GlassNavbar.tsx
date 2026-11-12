@@ -3,21 +3,12 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, ChevronDown, Menu } from "lucide-react";
-import { nav, services } from "@/content/site";
+import { menuName, nav, services } from "@/content/site";
 import { Logo } from "@/components/brand/Logo";
 import { ServiceGlyph } from "./ServiceGlyph";
 import { cn } from "@/lib/cn";
 
-export type NavLink = { label: string; href: string; mega?: "services" | "lab" | boolean };
-
-const labLinks = [
-  { n: "01", label: "Glass Navbar", href: "/lab/navbar/" },
-  { n: "02", label: "Glass Sidebar", href: "/lab/sidebar/" },
-  { n: "03", label: "Navigation Tabs", href: "/lab/tabs/" },
-  { n: "04", label: "Stat Cards & KPIs", href: "/lab/stat-card/" },
-  { n: "05", label: "Gauge & Area Chart", href: "/lab/gauge/" },
-  { n: "06", label: "Workflow Canvas", href: "/lab/workflow/" },
-];
+export type NavLink = { label: string; href: string; mega?: "services" | boolean };
 
 type Props = {
   links?: readonly NavLink[];
@@ -30,13 +21,13 @@ type Props = {
 
 /**
  * Floating full-glass header (v2).
- * — All primary links visible on desktop; Services and Lab open mega panels (hover-intent + click + keyboard).
+ * — All primary links visible on desktop; Services opens a mega panel (hover-intent + click + keyboard). Lab is a plain link (separate section, not a service).
  * — Adapts its tone to the section beneath it (reads [data-theme] under the header line).
  * — Hides on scroll down, returns on scroll up; hairline scroll-progress along the bottom edge.
  */
 export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref = "/contact/", onOpenMobile, inline }: Props) {
   const pathname = usePathname() ?? "/";
-  const [open, setOpen] = useState<null | "services" | "lab">(null);
+  const [open, setOpen] = useState<null | "services">(null);
   const [hover, setHover] = useState<string | null>(null);
   const [tone, setTone] = useState<"light" | "dark">("light");
   const [hidden, setHidden] = useState(false);
@@ -88,12 +79,12 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
     setInd(li ? { left: li.offsetLeft, width: li.offsetWidth } : null);
   }, [target, links]);
 
-  const intent = useCallback((v: null | "services" | "lab", delay: number) => {
+  const intent = useCallback((v: null | "services", delay: number) => {
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => setOpen(v), delay);
   }, []);
 
-  const megaOf = (l: NavLink) => (l.mega === true ? "services" : l.mega || null) as null | "services" | "lab";
+  const megaOf = (l: NavLink) => (l.mega ? "services" : null) as null | "services";
 
   return (
     <div
@@ -174,7 +165,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
                   <Link href={`/services/${s.slug}/`} className="group flex gap-4 rounded-[14px] p-4 hover:bg-surface-strong transition-colors h-full">
                     <ServiceGlyph id={s.id} />
                     <span className="min-w-0">
-                      <span className="flex items-center gap-2"><span className="num">0{i + 1}</span><span className="font-[550] text-[0.95rem] tracking-[-0.015em] text-text">{s.name}</span></span>
+                      <span className="flex items-center gap-2"><span className="num">0{i + 1}</span><span className="font-[550] text-[0.95rem] tracking-[-0.015em] text-text">{menuName[s.id]}</span></span>
                       <span className="block text-[0.85rem] text-text-2 mt-1 leading-snug">{s.short}</span>
                     </span>
                     <ArrowUpRight size={16} className="ml-auto shrink-0 text-text-2 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" aria-hidden />
@@ -189,34 +180,14 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
             </ul>
             <div data-theme="dark" className="lg:col-span-4 rounded-[14px] p-6 flex flex-col justify-between overflow-hidden relative tone-grad min-h-[260px]">
               <div>
-                <span className="eyebrow">AI solutions</span>
-                <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">Ready-made or <span className="accent">custom-built</span> AI agents.</p>
-                <p className="text-sm text-text-2 mt-3">Support, sales, booking and workflow automation — set up for your business.</p>
+                <span className="eyebrow">AI Solutions</span>
+                <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">Custom AI agents, automation — or <span className="accent">ready-made</span> where available.</p>
+                <p className="text-sm text-text-2 mt-3">Tell us what you want to automate. We design a solution around your business.</p>
               </div>
               <div className="mt-6 flex flex-col gap-2">
                 <Link href="/ai-solutions/" className="btn btn-primary !min-h-10 !text-sm !justify-between">Explore AI solutions <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
                 <Link href="/contact/?type=solution" className="btn btn-glass !min-h-10 !text-sm !justify-between">Build your solution <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
               </div>
-            </div>
-          </div>
-        )}
-        {open === "lab" && (
-          <div id={`${panelId}-lab`} role="region" aria-label="Lab" onMouseEnter={() => intent("lab", 0)}
-            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 lg:left-1/2 lg:-translate-x-1/2 lg:w-[720px] top-[calc(100%+10px)] rounded-[18px] p-3 grid sm:grid-cols-12 gap-3">
-            <ul className="sm:col-span-7 grid gap-0.5">
-              {labLinks.map((l) => (
-                <li key={l.href}><Link href={l.href} className="group flex items-center gap-4 rounded-[12px] px-4 py-3 hover:bg-surface-strong transition-colors">
-                  <span className="num">{l.n}</span><span className="text-[0.92rem] font-[520]">{l.label}</span>
-                  <ArrowUpRight size={15} className="ml-auto text-text-2 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden />
-                </Link></li>
-              ))}
-            </ul>
-            <div className="sm:col-span-5 rounded-[14px] p-5 bg-bg-2 flex flex-col justify-between border border-line">
-              <div>
-                <span className="eyebrow">Open source craft</span>
-                <p className="mt-3 text-[1.1rem] leading-snug tracking-[-0.02em] font-[550]">Every interface on this site, live — with its real code.</p>
-              </div>
-              <Link href="/lab/" className="btn-ghost btn !justify-start mt-4 !text-sm">Enter the Lab <ArrowUpRight size={15} className="arrow" aria-hidden /></Link>
             </div>
           </div>
         )}

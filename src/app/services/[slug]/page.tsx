@@ -12,7 +12,15 @@ import Link from "next/link";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
 import { ArrowUpRight } from "lucide-react";
 import { BreadcrumbJsonLd, FaqJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
-import { steps } from "@/content/site";
+import { steps, thirdPartyNote } from "@/content/site";
+
+const exampleCopy: Record<string, { title: string; accent: string; lead: string }> = {
+  websites: { title: "Responsive, by", accent: "default.", lead: "An interactive preview of a business website at desktop, tablet and phone widths — illustrative layout, sample content. Your site is designed around your business." },
+  social: { title: "A month,", accent: "planned.", lead: "Illustrative content calendar and reel formats — your plan is built around your audience and platforms." },
+  ads: { title: "Structured", accent: "campaigns.", lead: "Illustrative campaign structure and reporting layout — sample data, not results." },
+  automation: { title: "See it", accent: "working.", lead: "A typical enquiry-to-CRM flow. Hover or focus each step — yours is designed around your process." },
+  dashboards: { title: "One clear", accent: "view.", lead: "An illustrative dashboard layout with sample data — the real system is built on your own numbers." },
+};
 
 export const dynamicParams = false;
 export function generateStaticParams() { return services.map((s) => ({ slug: s.slug })); }
@@ -30,10 +38,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const next = services[(idx + 1) % services.length];
   return (
     <>
-      <PageHero eyebrow={`Service 0${idx + 1} · ${s.flywheel}`} title={s.name.split(" ").slice(0, -1).join(" ")} accent={s.name.split(" ").slice(-1)[0]} lead={s.definition}>
+      <PageHero eyebrow={`Service 0${idx + 1} of 05`} title={s.name.split(" ").slice(0, -1).join(" ")} accent={s.name.split(" ").slice(-1)[0]} lead={s.definition}>
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button href={`/contact/?services=${s.id}`}>Get a quote for {s.name.toLowerCase()}</Button>
-          <Button href="#demo" variant="ghost">See the live demo</Button>
+          <Button href={`/contact/?services=${s.id}`}>{s.cta}</Button>
+          <Button href="#example" variant="ghost">See an example</Button>
         </div>
       </PageHero>
 
@@ -64,9 +72,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </Tone>
 
-      <Tone tone="dark" grad className="section overflow-hidden" id="demo" aria-labelledby="demo-h">
+      <Tone tone="dark" grad className="section overflow-hidden" id="example" aria-labelledby="demo-h">
         <div className="container">
-          <Reveal><SectionHead eyebrow="Live demo" title="See it" accent="working." lead={s.id === "automation" ? "Hover or focus each step of the flow." : "An interface demo with sample data — the real build is designed around your business."} /></Reveal>
+          <Reveal><SectionHead eyebrow="Example" title={exampleCopy[s.id].title} accent={exampleCopy[s.id].accent} lead={exampleCopy[s.id].lead} /></Reveal>
           <Reveal className="mt-14 bloom" index={1}><ServiceDemo id={s.id} /></Reveal>
         </div>
       </Tone>
@@ -96,7 +104,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
         <div className="container grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-4"><p className="eyebrow">FAQ</p><h2 className="mt-5">Good <span className="accent">questions.</span></h2></Reveal>
-          <Reveal className="lg:col-span-8" index={1}><Faq items={s.faq} name={`faq-${s.id}`} /></Reveal>
+          <Reveal className="lg:col-span-8" index={1}><Faq items={s.faq} name={`faq-${s.id}`} />
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-5 rounded-[20px] border border-line bg-surface p-6">
+              <p className="text-text-2 text-[0.92rem] max-w-[60ch]"><span className="text-text font-[550]">Pricing.</span> Custom quote after a short discovery call. {thirdPartyNote}</p>
+              <Button href={`/contact/?services=${s.id}`}>{s.cta}</Button>
+            </div>
+          </Reveal>
         </div>
         <div className="container mt-20">
           <Link href={`/services/${next.slug}/`} data-cursor="Next" className="group flex items-center justify-between gap-6 border-t border-line pt-10">

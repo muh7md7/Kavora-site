@@ -6,7 +6,7 @@ import { LabDemo } from "@/components/lab/LabDemo";
 import { readSource } from "@/lib/source";
 import { CaptureFrame } from "@/components/lab/CaptureFrame";
 import type { Timeline } from "@/lab/timelines/types";
-import { site } from "@/content/site";
+import { isConfirmed, site } from "@/content/site";
 
 export const dynamicParams = false;
 export function generateStaticParams() { return lab.map((e) => ({ component: e.slug })); }
@@ -17,7 +17,7 @@ export default async function CapturePage({ params }: { params: Promise<{ compon
   if (!e) notFound();
   const code = readSource(e.file);
   const timeline = JSON.parse(readSource(`src/lab/timelines/${e.timeline}.json`)) as Timeline;
-  const handle = site.socials.instagram.startsWith("[") ? "@keelbiz [TO CONFIRM]" : site.socials.instagram.replace(/^https?:\/\/[^/]+\//, "@");
+  const handle = isConfirmed(site.socials.instagram) ? site.socials.instagram.replace(/^https?:\/\/[^/]+\//, "@") : "keelbiz";
   return (
     <Suspense>
       <CaptureFrame title={e.title} version={e.version} code={code} file={e.file} timeline={timeline} brandHandle={handle}>

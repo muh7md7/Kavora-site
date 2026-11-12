@@ -1,5 +1,5 @@
 import type { ServiceId } from "@/content/site";
-import { CheckoutDemo } from "@/components/glass/CheckoutDemo";
+import { WebsitePreview } from "@/components/glass/WebsitePreview";
 import { WorkflowCanvas } from "@/components/glass/WorkflowCanvas";
 import { GlassSidebar } from "@/components/glass/GlassSidebar";
 import { KpiRow } from "@/components/glass/StatCard";
@@ -8,15 +8,6 @@ import { Tabs } from "@/components/glass/Tabs";
 import { BarChart3, Inbox, Users } from "lucide-react";
 
 const Label = ({ t = "Sample data" }: { t?: string }) => <span className="chip chip-slate">{t}</span>;
-
-function DeviceFrames() {
-  return (
-    <div className="flex items-end gap-4 justify-center">
-      <div className="glass rounded-lg p-2 w-[420px] max-w-full"><div className="rounded-md bg-ivory h-56 p-4 flex flex-col gap-2"><div className="h-3 w-24 rounded bg-navy/80" /><div className="h-2 w-2/3 rounded bg-mist" /><div className="h-2 w-1/2 rounded bg-mist" /><div className="mt-auto grid grid-cols-3 gap-2">{[0,1,2].map(i=><div key={i} className="h-12 rounded-sm bg-pearl hairline"/>)}</div></div></div>
-      <div className="glass rounded-lg p-1.5 w-28 shrink-0"><div className="rounded-md bg-ivory h-48 p-2 flex flex-col gap-1.5"><div className="h-2 w-10 rounded bg-navy/80" /><div className="h-1.5 w-full rounded bg-mist" /><div className="h-1.5 w-3/4 rounded bg-mist" /><div className="mt-auto h-6 rounded-pill bg-navy" /></div></div>
-    </div>
-  );
-}
 
 function ReelShowcase() {
   return (
@@ -87,7 +78,7 @@ function FullDashboard() {
 /** Per-service live demo block. */
 export function ServiceDemo({ id }: { id: ServiceId }) {
   switch (id) {
-    case "websites": return <div className="grid gap-8 lg:grid-cols-2 items-center"><DeviceFrames /><div className="flex justify-center"><CheckoutDemo /></div></div>;
+    case "websites": return <WebsitePreview />;
     case "social": return <div className="grid gap-8 lg:grid-cols-2 items-center"><ReelShowcase /><CalendarMock /></div>;
     case "ads": return <div className="grid gap-8 lg:grid-cols-2 items-start"><CampaignStructure /><ReportingMock /></div>;
     case "automation": return <WorkflowCanvas />;

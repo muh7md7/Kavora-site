@@ -65,7 +65,7 @@ export default function AboutPage() {
           <Reveal className="lg:col-span-7">
             <p className="eyebrow">The team</p>
             <h2 className="mt-5">Founder-led, with <span className="accent">specialists</span> per project.</h2>
-            <p className="lead mt-6">You work with the founder directly, supported by specialists in design, engineering, advertising and automation as each project needs. Team profiles: [TO CONFIRM].</p>
+            <p className="lead mt-6">You work with the founder directly, supported by specialists in design, engineering, advertising and automation as each project needs.</p>
           </Reveal>
           <Reveal className="lg:col-span-5 lg:justify-self-end" index={1}><Button href="/contact/">Start a conversation</Button></Reveal>
         </div>

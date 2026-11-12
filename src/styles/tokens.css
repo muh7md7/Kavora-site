@@ -115,6 +115,36 @@
   --bg-grad: var(--grad-light);
   --logo-fill: var(--graphite);
 }
+[data-theme="light"] {
+  /* Explicit light scope so a light block can sit inside a dark section (e.g. previews). */
+  --bg: var(--offwhite);
+  --bg-2: var(--mist-grey);
+  --text: #1b252c;
+  --text-2: #5a6a73;
+  --line: #dbe1e5;
+  --line-strong: #c5cfd5;
+  --surface: rgba(255, 255, 255, 0.55);
+  --surface-strong: rgba(255, 255, 255, 0.82);
+  --accent: var(--steel);
+  --accent-text: var(--steel);
+  --on-accent: #ffffff;
+  --steel-soft: #dfe7ec;
+  --moss: #4f6673;
+  --moss-soft: #dfe7ec;
+  --rust: #9b4a42;
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 248, 246, 0.56));
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-edge: rgba(40, 53, 61, 0.09);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 24px 48px -28px rgba(17, 25, 30, 0.28), 0 6px 16px -10px rgba(17, 25, 30, 0.10);
+  --bloom: rgba(184, 201, 210, 0.35);
+  --logo-ink: #f7f8f6;
+  --logo-keel: #4f6673;
+  --logo-fill: var(--graphite);
+  --bg-grad: var(--grad-light);
+  color: var(--text);
+  background-color: var(--bg);
+}
 [data-theme="dark"] {
   --bg: var(--deep-charcoal);
   --bg-2: var(--charcoal-2);

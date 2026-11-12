@@ -3,7 +3,7 @@ import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { EnquiryForm } from "@/components/sections/EnquiryForm";
 import { Tone } from "@/components/sections/Tone";
-import { isConfirmed, site } from "@/content/site";
+import { isConfirmed, site, thirdPartyNote } from "@/content/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -31,11 +31,21 @@ export default function ContactPage() {
                 ))}
               </ol>
             </div>
+            {(isConfirmed(email) || isConfirmed(whatsapp)) && (
+              <div className="rounded-[24px] border border-line bg-surface p-7">
+                <p className="eyebrow">Direct</p>
+                <ul className="mt-5 grid gap-3 text-[0.95rem]">
+                  {isConfirmed(email) && <li className="flex items-center gap-3"><Mail size={17} className="text-text-2" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="email_click">{email}</a></li>}
+                  {isConfirmed(whatsapp) && <li className="flex items-center gap-3"><MessageCircle size={17} className="text-text-2" aria-hidden /><a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} className="inline-flex items-center gap-1 underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="whatsapp_click" rel="noopener">WhatsApp <ArrowUpRight size={14} aria-hidden /></a></li>}
+                </ul>
+              </div>
+            )}
             <div className="rounded-[24px] border border-line bg-surface p-7">
-              <p className="eyebrow">Direct</p>
-              <ul className="mt-5 grid gap-3 text-[0.95rem]">
-                <li className="flex items-center gap-3"><Mail size={17} className="text-text-2" aria-hidden />{isConfirmed(email) ? <a href={`mailto:${email}`} className="underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="email_click">{email}</a> : <span className="text-text-2">Email {email}</span>}</li>
-                <li className="flex items-center gap-3"><MessageCircle size={17} className="text-text-2" aria-hidden />{isConfirmed(whatsapp) ? <a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} className="inline-flex items-center gap-1 underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="whatsapp_click" rel="noopener">WhatsApp <ArrowUpRight size={14} aria-hidden /></a> : <span className="text-text-2">WhatsApp {whatsapp}</span>}</li>
+              <p className="eyebrow">Good to know</p>
+              <ul className="mt-5 grid gap-3 text-[0.92rem] text-text-2">
+                <li>No budget required to enquire.</li>
+                <li>Custom quote — no public price list.</li>
+                <li>{thirdPartyNote}</li>
               </ul>
             </div>
             {site.features.bookingEmbed && <div className="rounded-[24px] border border-line p-6 text-sm text-text-2">Booking embed goes here once configured.</div>}

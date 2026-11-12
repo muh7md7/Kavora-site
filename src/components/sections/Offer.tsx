@@ -69,9 +69,9 @@ export function AiOffer({ tone = "dark" }: { tone?: "light" | "dark" }) {
         <div className="grid gap-10 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7">
             <p className="eyebrow">AI agents &amp; automation</p>
-            <h2 id="ai-h" className="mt-5">AI that works for your business. Ready-made or <span className="accent">custom.</span></h2>
+            <h2 id="ai-h" className="mt-5">Tell us what you want to automate. We design a solution <span className="accent">around</span> your business.</h2>
           </Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">Buy a ready-made solution, have us build one around your needs, or automate the work you already do. Plain language, clear quotes.</p></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">Custom AI agents, custom automation — and ready-made solutions where a built one fits. Plain language, clear quotes, no checkout.</p></Reveal>
         </div>
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {aiOffer.paths.map((p, i) => (
@@ -87,7 +87,7 @@ export function AiOffer({ tone = "dark" }: { tone?: "light" | "dark" }) {
           ))}
         </div>
         <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-8">
-          <p className="text-text-2 max-w-xl">Support agents, lead follow-up, appointment booking, WhatsApp and website assistants, workflow automation — and anything else that&apos;s technically feasible.</p>
+          <p className="text-text-2 max-w-xl">Customer support, lead qualification, sales follow-up, appointment booking, website and messaging assistants, workflow automation — and anything else that&apos;s technically feasible.</p>
           <Link href="/ai-solutions/" className="btn btn-primary" data-magnetic>Explore AI Solutions <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
         </Reveal>
       </div>

@@ -26,7 +26,7 @@ export function Footer() {
           <div className="md:col-span-4">
             <LogoMark className="size-10 text-[#F7F8F6] [--logo-ink:#11191E] [--logo-keel:#4F6673]" />
             <p className="text-[0.95rem] text-text-2 mt-6 max-w-xs">{site.positioning}</p>
-            <p className="num mt-4">{site.market}</p>
+            <p className="num mt-4">One service or a complete solution</p>
           </div>
           <nav aria-label="Services" className="md:col-span-3">
             <h3 className="num mb-5">Services</h3>
@@ -41,10 +41,11 @@ export function Footer() {
           <div className="md:col-span-3">
             <h3 className="num mb-5">Contact</h3>
             <ul className="space-y-3 text-[0.95rem]">
-              <li>{isConfirmed(email) ? <a href={`mailto:${email}`} className="hover:text-accent" data-event="email_click">{email}</a> : <span className="text-text-2">Email {email}</span>}</li>
-              <li>{isConfirmed(wa) ? <a href={`https://wa.me/${wa.replace(/\D/g, "")}`} className="hover:text-accent" data-event="whatsapp_click">WhatsApp</a> : <span className="text-text-2">WhatsApp {wa}</span>}</li>
-              {Object.entries(site.socials).map(([k, v]) => (
-                <li key={k}>{isConfirmed(v) ? <a href={v} rel="me noopener" className="capitalize hover:text-accent">{k}</a> : <span className="text-text-2 capitalize">{k} {v}</span>}</li>
+              <li><Link href="/contact/" className="text-text-2 hover:text-text transition-colors">Send an enquiry</Link></li>
+              {isConfirmed(email) && <li><a href={`mailto:${email}`} className="text-text-2 hover:text-text transition-colors" data-event="email_click">{email}</a></li>}
+              {isConfirmed(wa) && <li><a href={`https://wa.me/${wa.replace(/\D/g, "")}`} className="text-text-2 hover:text-text transition-colors" data-event="whatsapp_click" rel="noopener">WhatsApp</a></li>}
+              {Object.entries(site.socials).filter(([, v]) => isConfirmed(v)).map(([k, v]) => (
+                <li key={k}><a href={v} rel="me noopener" className="capitalize text-text-2 hover:text-text transition-colors">{k}</a></li>
               ))}
             </ul>
           </div>

@@ -21,7 +21,7 @@ Theming: every section sets `data-theme="light|dark"`; tokens re-map, so compone
 Geist (display + UI, 560 weight, −0.035em), Instrument Serif italic for one accent word per headline, Geist Mono for eyebrows/numbers. All self-hosted WOFF2 (OFL).
 
 ## Signature components
-Floating full-glass header (all links visible, Services + Lab mega menus, adaptive tone, hide-on-scroll, progress hairline) · full-screen mobile menu · cursor system (dot + eased ring, labels via `data-cursor`) · editorial service index · orbit loop diagram · scroll-linked process timeline · CSS reveals (fade/rise/blur) · marquee · oversized outline wordmark.
+Floating full-glass header (all links visible, Services mega menu only — Lab is a plain link, adaptive tone, hide-on-scroll, progress hairline) · full-screen mobile menu · cursor system (dot + eased ring, labels via `data-cursor`) · editorial service index · orbit loop diagram · scroll-linked process timeline · CSS reveals (fade/rise/blur) · marquee · oversized outline wordmark.
 
 ## Logo
 `src/components/brand/Logo.tsx` + `public/brand/keelbiz-mark.svg`: a K whose lower arm sweeps like a keel line, anchored by a short steel baseline. Wordmark: lowercase "keelbiz", Geist 620, −0.045em.
@@ -29,5 +29,8 @@ Floating full-glass header (all links visible, Services + Lab mega menus, adapti
 ## Rhythm (Home)
 light hero → light services → dark "one service or a complete solution" → mist process → dark AI offer → light why → dark Lab → mist FAQ → dark CTA/footer.
 
+## Information architecture
+Five services (Website Design & Development · Social Media Management · Digital Advertising — Meta & Google Ads · AI Agents & Automation · Business Dashboards & Systems) + AI Solutions (ready-made / custom agents / custom automation, enquiry only). Lab is a separate destination for working experiments and clearly labelled concepts — never a service, product or package. Service pages show an "Example" (illustrative, sample data); the Website page shows a genuine responsive preview (`WebsitePreview`, container-query driven) instead of the former checkout demo.
+
 ## Content rules
-Location-neutral (no countries/cities/regions in copy, metadata or JSON-LD). Services offered individually or combined; AI offered three ways (ready-made, custom, automation) with enquiry/quote — no checkout, no public prices, no invented availability.
+Location-neutral (no countries/cities/regions in copy, metadata or JSON-LD). Services offered individually or combined; AI offered three ways (ready-made, custom, automation) with enquiry/quote — no checkout, no public prices, no invented availability. Unconfirmed contact details are empty strings and never rendered. Third-party costs (ad spend, hosting, AI usage, messaging) are disclosed via `thirdPartyNote`.

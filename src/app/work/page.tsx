@@ -10,16 +10,16 @@ import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Keelbiz case studies — published only with client permission and verified results — plus interactive interface demonstrations.",
+  description: "Keelbiz case studies — published only with client permission and verified results — plus clearly labelled interface demonstrations with sample data.",
   alternates: { canonical: "/work/" },
 };
 
 // Clearly labelled demonstrations of the kind of interfaces we build (not client work).
 const demos = [
   { title: "AI website assistant", kind: "AI Agents & Automation", href: "/ai-solutions/", visual: "chat" },
-  { title: "Business dashboard", kind: "Business Dashboards", href: "/services/business-dashboards-systems/#demo", visual: "dash" },
-  { title: "Enquiry-to-CRM workflow", kind: "Automation", href: "/lab/workflow/", visual: "flow" },
-  { title: "E-commerce checkout UI", kind: "Website Development", href: "/services/website-design-development/#demo", visual: "card" },
+  { title: "Business dashboard", kind: "Business Dashboards & Systems", href: "/services/business-dashboards-systems/#example", visual: "dash" },
+  { title: "Enquiry-to-CRM workflow", kind: "AI Agents & Automation", href: "/services/ai-agents-automation/#example", visual: "flow" },
+  { title: "Responsive business website", kind: "Website Design & Development", href: "/services/website-design-development/#example", visual: "site" },
 ];
 
 function DemoVisual({ v }: { v: string }) {
@@ -32,7 +32,11 @@ function DemoVisual({ v }: { v: string }) {
       <span className="col-span-3 h-20 rounded-[10px] bg-[linear-gradient(180deg,rgba(184,201,210,.25),transparent)] border border-[rgba(184,201,210,.18)]" /></div>);
   if (v === "flow") return (
     <div className="w-[80%] flex items-center justify-between">{[0, 1, 2, 3].map((i) => <span key={i} className="size-12 rounded-[12px] bg-[rgba(184,201,210,.12)] border border-[rgba(184,201,210,.22)]" />)}</div>);
-  return <div className="w-[55%] aspect-[1.6] rounded-[14px] bg-[linear-gradient(135deg,#4f6673,#18232a_75%)] border border-[rgba(184,201,210,.2)]" />;
+  return (
+    <div className="w-[80%] flex items-end gap-3 justify-center">
+      <span className="flex-1 h-28 rounded-[10px] border border-[rgba(184,201,210,.2)] bg-[rgba(184,201,210,.08)] p-2 grid content-start gap-1.5"><i className="h-1.5 w-1/3 rounded bg-[rgba(184,201,210,.5)]" /><i className="h-1 w-2/3 rounded bg-[rgba(184,201,210,.2)]" /><i className="mt-auto grid grid-cols-3 gap-1">{[0,1,2].map((i)=><b key={i} className="h-6 rounded bg-[rgba(184,201,210,.12)]" />)}</i></span>
+      <span className="w-14 h-24 rounded-[10px] border border-[rgba(184,201,210,.2)] bg-[rgba(184,201,210,.08)] p-1.5 grid content-start gap-1"><i className="h-1 w-1/2 rounded bg-[rgba(184,201,210,.5)]" /><i className="h-1 w-full rounded bg-[rgba(184,201,210,.2)]" /><i className="mt-auto h-3 rounded-full bg-[rgba(184,201,210,.35)]" /></span>
+    </div>);
 }
 
 export default function WorkPage() {
