@@ -6,7 +6,7 @@ import { Intro } from "@/components/sections/HomeSections";
 import { FlexibleSolutions } from "@/components/sections/Offer";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata: Metadata = { title: "Services — one connected growth loop", description: "Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several.", alternates: { canonical: "/services/" } };
+export const metadata: Metadata = { title: "Services — one service or a complete solution", description: "Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several.", alternates: { canonical: "/services/" } };
 
 export default function ServicesPage() {
   return (
