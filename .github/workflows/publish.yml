@@ -40,7 +40,7 @@ jobs:
         run: |
           for i in 1 2 3 4; do
             sleep 10
-            res=$(curl -sS -X POST "$PUBLISH_HOOK" -w ' HTTP%{http_code}' || true)
+            res=$(curl -sS -X POST -A "Mozilla/5.0 (compatible; KeelbizPublisher/1.0; +https://github.com/${{ github.repository }})" -H "Accept: application/json" "$PUBLISH_HOOK" -w ' HTTP%{http_code}' 2>&1 | head -c 600 || true)
             echo "$res"
             case "$res" in *'"ok":true'*) exit 0;; esac
           done
