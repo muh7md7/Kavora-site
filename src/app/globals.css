@@ -573,3 +573,17 @@ html:not(.js) .rv-clip { clip-path: none; }
 /* Compare-table checkmarks draw in on scroll */
 .tick-path { stroke-dasharray: 16; transition: stroke-dashoffset 420ms var(--ease); }
 @media (prefers-reduced-motion: reduce) { .tick-path { stroke-dashoffset: 0 !important; transition: none; } }
+/* Service demo keyframes */
+@keyframes tile-in { from { opacity: 0; transform: scale(.82); } to { opacity: 1; transform: none; } }
+@keyframes reel-bar { from { transform: scaleY(.45); } to { transform: scaleY(1); } }
+@keyframes reel-seek { from { transform: translateX(-100%); } to { transform: translateX(300%); } }
+@keyframes node-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@keyframes flow-dot { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@media (prefers-reduced-motion: reduce) {
+  .mini-tile, [style*="tile-in"] { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+/* Dashboard chart: line draws once in view, and redraws when the range or filter changes (React remounts it by key). */
+.chart-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms var(--ease); }
+.chart-line.is-in { stroke-dashoffset: 0; }
+.chart-area { animation: fade-in 700ms var(--ease) both; }
+@media (prefers-reduced-motion: reduce) { .chart-line { stroke-dashoffset: 0 !important; transition: none; } .chart-area { animation: none; } }

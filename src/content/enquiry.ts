@@ -33,11 +33,12 @@ export const timelines = [
 export const contactMethods = ["Email", "WhatsApp", "Phone call", "Video call"] as const;
 
 /** Build a contact URL that lands with choices preselected. */
-export function contactHref(p: { type?: string; services?: ServiceId[]; package?: string } = {}) {
+export function contactHref(p: { type?: string; services?: ServiceId[]; package?: string; topic?: string } = {}) {
   const q = new URLSearchParams();
   if (p.type) q.set("type", p.type);
   if (p.services?.length) q.set("services", p.services.join(","));
   if (p.package) q.set("package", p.package);
+  if (p.topic) q.set("topic", p.topic);
   const s = q.toString();
   return `/contact/${s ? `?${s}` : ""}`;
 }
