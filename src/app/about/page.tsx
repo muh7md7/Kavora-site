@@ -9,8 +9,8 @@ import { services, site, whyUs } from "@/content/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "About Keelbiz",
-  description: "Keelbiz is a founder-led digital growth agency helping businesses build, grow and automate — with websites, social media, advertising, AI agents and business dashboards.",
+  title: "About",
+  description: "Keelbiz helps businesses build, grow and automate with websites, social media, advertising, AI agents and business dashboards.",
   alternates: { canonical: "/about/" },
 };
 
@@ -67,8 +67,8 @@ export default function AboutPage() {
         <div className="container grid gap-10 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7">
             <p className="eyebrow">The team</p>
-            <h2 className="mt-5">Founder-led, with <span className="accent">specialists</span> per project.</h2>
-            <p className="lead mt-6">You work with the founder directly, supported by specialists in design, engineering, advertising and automation as each project needs.</p>
+            <h2 className="mt-5">One team, with <span className="accent">specialists</span> per project.</h2>
+            <p className="lead mt-6">You get one point of contact, supported by specialists in design, engineering, advertising and automation as each project needs.</p>
           </Reveal>
           <Reveal className="lg:col-span-5 lg:justify-self-end" index={1}><Button href="/contact/">Start a conversation</Button></Reveal>
         </div>

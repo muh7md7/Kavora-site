@@ -22,7 +22,7 @@ const geistMono = GeistMono; // --font-geist-mono
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.brand} — Build, grow and automate your business`, template: `%s · ${site.brand}` },
-  description: site.supporting,
+  description: "Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards.",
   openGraph: { type: "website", siteName: site.brand, images: ["/og/default.png"] },
   twitter: { card: "summary_large_image" },
   icons: { icon: "/icon.svg", apple: "/apple-icon.png" },

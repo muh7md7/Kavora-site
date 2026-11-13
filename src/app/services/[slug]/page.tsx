@@ -27,7 +27,7 @@ export function generateStaticParams() { return services.map((s) => ({ slug: s.s
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const s = services.find((x) => x.slug === slug);
-  return s ? { title: s.name, description: s.definition, alternates: { canonical: `/services/${s.slug}/` } } : {};
+  return s ? { title: s.name, description: s.definition.length > 160 ? s.definition.slice(0, s.definition.lastIndexOf(" ", 155)) + "…" : s.definition, alternates: { canonical: `/services/${s.slug}/` } } : {};
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -92,7 +92,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="container grid gap-14 lg:grid-cols-12 mb-24">
           <Reveal className="lg:col-span-4"><p className="eyebrow">Works well with</p><h2 className="mt-5">Optional <span className="accent">extras.</span></h2>
             <p className="text-text-2 mt-5">Only if they help. {s.name} is available on its own.</p></Reveal>
-          <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3">
+          <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3 self-start">
             {s.pairsWith.map((p, i) => { const o = services.find((x) => x.id === p.id)!; return (
               <Reveal as="li" key={p.id} index={i}>
                 <Link href={`/services/${o.slug}/`} data-spot className="lift group flex h-full gap-4 rounded-[20px] border border-line bg-surface p-6">

@@ -44,20 +44,15 @@ export default function WorkPage() {
     <>
       <PageHero eyebrow="Work" title="Selected" accent="work." lead="Client case studies are published only with permission and verified results. Meanwhile, explore live demonstrations of what we build." />
 
+      {caseStudies.length > 0 && (
       <Tone tone="light" className="section !pt-0">
         <div className="container border-t border-line pt-16">
-          {caseStudies.length === 0 ? (
-            <Reveal className="rounded-[24px] border border-dashed border-line-strong p-8 md:p-10 flex flex-wrap items-center justify-between gap-6">
-              <div><span className="chip chip-slate">Case studies</span><p className="mt-4 text-[1.2rem] tracking-[-0.02em] font-[550]">Client case studies are being prepared.</p><p className="text-text-2 mt-1">Published only with client permission and verified results.</p></div>
-              <Link href="/contact/" className="btn btn-glass">Discuss your project <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
-            </Reveal>
-          ) : (
             <div className="grid gap-6 md:grid-cols-2">{caseStudies.map((c) => (
               <article key={c.slug} className="rounded-[24px] border border-line bg-surface p-7"><span className="chip chip-navy">{c.industry}</span><h2 className="!text-2xl mt-4">{c.title}</h2><p className="text-text-2 mt-2">{c.summary}</p><p className="num mt-4">{c.services.join(" · ")}</p></article>
             ))}</div>
-          )}
         </div>
       </Tone>
+      )}
 
       <Tone tone="dark" grad className="section">
         <div className="container">

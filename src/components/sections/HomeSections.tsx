@@ -169,7 +169,7 @@ export function HomeFaq() {
         <Reveal className="lg:col-span-4">
           <p className="eyebrow">FAQ</p>
           <h2 id="faq-h" className="mt-5">Straight <span className="accent">answers.</span></h2>
-          <p className="lead mt-6">No invented prices, timelines or guarantees.</p>
+          <p className="lead mt-6">How we work, how pricing works and how to start.</p>
         </Reveal>
         <Reveal className="lg:col-span-8" index={1}><Faq items={homeFaq} /></Reveal>
       </div>

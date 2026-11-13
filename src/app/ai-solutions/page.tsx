@@ -12,8 +12,8 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
-  title: "AI Solutions — custom AI agents, automation and ready-made solutions",
-  description: "Tell Keelbiz what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made AI solutions where available. Enquiry and custom quote — no checkout.",
+  title: "AI Solutions — custom agents and automation",
+  description: "Tell us what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made solutions where available.",
   alternates: { canonical: "/ai-solutions/" },
 };
 
@@ -105,7 +105,7 @@ export default function AiSolutionsPage() {
             <p className="eyebrow">Combine it</p>
             <h2 className="mt-5">Works on its own — or with your <span className="accent">other</span> services.</h2>
           </Reveal>
-          <ul className="lg:col-span-8 grid sm:grid-cols-3 gap-3">
+          <ul className="lg:col-span-8 grid sm:grid-cols-3 gap-3 self-start">
             {[
               { t: "With your website", d: "An AI assistant that answers and qualifies visitors.", href: "/services/website-design-development/" },
               { t: "With your ads", d: "Every lead from Meta or Google followed up instantly.", href: "/services/digital-advertising/" },

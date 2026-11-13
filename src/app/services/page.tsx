@@ -12,7 +12,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero eyebrow="Services" title="One service or a complete solution. Built around your" accent="business." lead="Hire us for exactly what you need — a website, social media, advertising, AI automation or a business dashboard — or combine them." />
-      <section data-theme="light" className="tone section !pt-0"><div className="container"><ul>{services.map((s, i) => <ServiceTile key={s.id} s={s} index={i} />)}</ul></div></section>
+      <section data-theme="light" className="tone section !pt-0"><div className="container"><h2 className="sr-only">All services</h2><ul>{services.map((s, i) => <ServiceTile key={s.id} s={s} index={i} />)}</ul></div></section>
       <FlexibleSolutions />
       <Intro />
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Services", href: "/services/" }]} />

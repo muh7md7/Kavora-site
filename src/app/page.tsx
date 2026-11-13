@@ -7,7 +7,7 @@ import { homeFaq } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Keelbiz — Build, grow and automate your business",
-  description: "Keelbiz builds websites, manages social media, runs Meta and Google ads, and develops AI agents, automation and business dashboards. Hire us for one service or a complete solution.",
+  description: "Websites, social media, Meta and Google ads, AI agents, automation and business dashboards. Hire Keelbiz for one service or a complete solution.",
   alternates: { canonical: "/" },
 };
 
