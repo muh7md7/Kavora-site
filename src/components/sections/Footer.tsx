@@ -9,7 +9,7 @@ export function Footer() {
   const email = site.contact.email;
   const wa = site.contact.whatsapp;
   return (
-    <footer data-theme="dark" className="tone tone-grad overflow-hidden">
+    <footer data-site-footer data-theme="dark" className="tone tone-grad overflow-hidden">
       <section className="container pt-[clamp(96px,12vw,180px)] pb-20" aria-labelledby="cta-h">
         <p className="eyebrow">Start a Project</p>
         <h2 id="cta-h" className="display mt-6 max-w-[13ch]">Let&apos;s build what&apos;s <span className="accent u-draw">next.</span></h2>

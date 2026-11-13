@@ -1,8 +1,7 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { flywheel, services, shortName, type ServiceId } from "@/content/site";
 import { cn } from "@/lib/cn";
+import { useScrollProgress } from "@/components/motion/useScrollProgress";
 
 /**
  * "Not five services. One system." — the four stages, pinned while the connecting line draws between them.
@@ -22,10 +21,7 @@ const detail: Record<string, string> = {
 };
 
 export function SystemPinned() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const line = useTransform(scrollYProgress, [0.06, 0.92], [0, 1]);
+  const ref = useScrollProgress<HTMLDivElement>("--p");
 
   return (
     <section data-theme="light" className="tone section-major">
@@ -44,9 +40,8 @@ export function SystemPinned() {
             <div className="relative h-full grid grid-cols-4 gap-6">
               {/* connecting line */}
               <div className="absolute left-[12.5%] right-[12.5%] top-[62px] h-px bg-line" aria-hidden />
-              <motion.div className="absolute left-[12.5%] right-[12.5%] top-[62px] h-px bg-[var(--graphite)] origin-left"
-                style={reduce ? { scaleX: 1 } : { scaleX: line }} aria-hidden />
-              {flywheel.map((f, i) => <Stage key={f.step} i={i} step={f.step} progress={line} reduce={!!reduce} />)}
+              <div className="draw-x absolute left-[12.5%] right-[12.5%] top-[62px] h-px bg-[var(--graphite)] origin-left" aria-hidden />
+              {flywheel.map((f, i) => <Stage key={f.step} i={i} step={f.step} />)}
             </div>
           </div>
         </div>
@@ -69,14 +64,11 @@ export function SystemPinned() {
   );
 }
 
-function Stage({ i, step, progress, reduce }: { i: number; step: string; progress: import("motion/react").MotionValue<number>; reduce: boolean }) {
-  // Each node lights up as the line reaches it.
-  const at = i / 3;
-  const o = useTransform(progress, [Math.max(at - 0.12, 0), at + 0.02], [0.35, 1]);
-  const y = useTransform(progress, [Math.max(at - 0.12, 0), at + 0.02], [16, 0]);
+function Stage({ i, step }: { i: number; step: string }) {
+  // Each node lights up as the drawn line reaches it (CSS interpolates from the section's --p).
   const slugs = stageServices[step];
   return (
-    <motion.div style={reduce ? undefined : { opacity: o, y }} className="flex flex-col pt-[34px] min-w-0">
+    <div className="stage-node flex flex-col pt-[34px] min-w-0" style={{ ["--at" as string]: i / 3 }}>
       <span className={cn("relative z-10 size-14 rounded-full grid place-items-center font-mono text-[12px] border bg-bg", "border-line-strong")}>
         0{i + 1}
       </span>
@@ -88,6 +80,6 @@ function Stage({ i, step, progress, reduce }: { i: number; step: string; progres
           return <a key={id} href={`/services/${s.slug}/`} className="tag !min-h-9 hover:!text-text hover:!border-text-2">{shortName[id]}</a>;
         })}
       </p>
-    </motion.div>
+    </div>
   );
 }

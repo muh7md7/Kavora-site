@@ -7,7 +7,7 @@ import { SectionHead, Tone } from "@/components/sections/Tone";
 import { LazyWorkflow } from "@/components/sections/Lazy";
 import { Faq } from "@/components/sections/Faq";
 import { Button } from "@/components/glass/Button";
-import { aiOffer, serviceById } from "@/content/site";
+import { aiOffer, serviceById, ogImage } from "@/content/site";
 import { FlipExamples } from "@/components/ai/FlipExamples";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: "AI Solutions — custom AI agents, automation and ready-made solutions",
   description: "Tell Keelbiz what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made AI solutions where available. Enquiry and custom quote — no checkout.",
   alternates: { canonical: "/ai-solutions/" },
+  openGraph: ogImage("ai-solutions"),
 };
 
 const faq = [

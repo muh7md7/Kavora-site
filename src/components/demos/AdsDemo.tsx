@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ChevronRight, Globe, Search } from "lucide-react";
 import { DemoShell } from "@/components/ui";
 import { useInViewOnce } from "@/components/motion/useInView";
+import { AdsDemoLazy } from "./lazy";
 import { cn } from "@/lib/cn";
 
 /**
@@ -292,7 +293,7 @@ export function AdsDemoSection() {
           <h2 className="mt-5">The account, <span className="accent">open.</span></h2>
           <p className="lead mt-6">This is how a managed account is structured and reported — campaign, ad set, ad, and the numbers that decide what we change next.</p>
         </div>
-        <div className="mt-12"><AdsDemo /></div>
+        <div className="mt-12"><AdsDemoLazy /></div>
       </div>
     </section>
   );

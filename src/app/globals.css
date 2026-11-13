@@ -242,9 +242,8 @@ p { max-width: 68ch; }
 .orbit { animation: spin-slow 60s linear infinite; transform-origin: 50% 50%; }
 
 /* Scroll-driven parallax (progressive enhancement) */
+/* v2 scroll-driven parallax removed in v5: .parallax-y is now driven by --p (see below), one system only. */
 @supports (animation-timeline: view()) {
-  .parallax-y { animation: parallax-y linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
-  @keyframes parallax-y { from { transform: translateY(40px); } to { transform: translateY(-40px); } }
   .scale-in { animation: scale-in linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
   @keyframes scale-in { from { transform: scale(.94); opacity: .4; } to { transform: none; opacity: 1; } }
 }
@@ -601,3 +600,48 @@ html:not(.js) .rv-clip { clip-path: none; }
   -webkit-background-clip: text; background-clip: text; animation: wordmark-sweep 9s var(--ease-in-out, ease-in-out) infinite; }
 @keyframes wordmark-sweep { 0%, 12% { background-position: 120% 0; } 58%, 100% { background-position: -40% 0; } }
 @media (prefers-reduced-motion: reduce) { .wordmark { animation: none; } }
+/* Accordion panel — CSS-only reveal (no motion library on pages that only need an FAQ). */
+.acc-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 350ms var(--ease), opacity 250ms var(--ease); }
+.acc-panel.is-open { grid-template-rows: 1fr; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .acc-panel { transition: none; } }
+/* Scroll-linked motion driven by --p (set by useScrollProgress) — CSS instead of a JS animation library. */
+.work-track { transform: translate3d(calc(var(--p, 0) * -66%), 0, 0); will-change: transform; }
+.draw-line { transform: scaleY(var(--p, 0)); will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .work-track { transform: none; } .draw-line { transform: scaleY(1); } }
+/* Parallax driven by --p (useScrollProgress). Desktop only; off for touch and reduced motion. */
+.parallax-y { will-change: transform; }
+@media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .parallax-y { transform: translate3d(0, calc((0.5 - var(--p, 0.5)) * 2 * var(--range, 40px)), 0); }
+}
+/* Services-hub hero chips: settle from scattered to a row as the section scrolls (driven by --p). */
+.chip-float { transform: translate3d(calc(var(--cx) * (1 - var(--p, 0))), calc(var(--cy) * (1 - var(--p, 0))), 0) rotate(calc(var(--cr) * (1 - var(--p, 0)))); will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .chip-float { transform: none; } }
+/* Pinned four-stage diagram: line draws and nodes light as --p passes each one's --at. */
+.draw-x { transform: scaleX(var(--p, 0)); will-change: transform; }
+.stage-node { opacity: clamp(0.35, 0.35 + (var(--p, 0) - var(--at)) * 9, 1); transform: translateY(calc(clamp(0, (var(--at) + 0.02 - var(--p, 0)) * 9, 1) * 16px)); }
+@media (prefers-reduced-motion: reduce) { .draw-x { transform: scaleX(1); } .stage-node { opacity: 1; transform: none; } }
+/* Demo slots — height reserved to match the loaded demo at each breakpoint (measured), so the
+   code-split swap causes no layout shift. Update these if a demo's content changes materially. */
+.demo-slot { min-height: 1200px; }
+.demo-slot-websites { min-height: 1440px; }
+.demo-slot-social { min-height: 960px; }
+.demo-slot-ads { min-height: 1630px; }
+.demo-slot-automation { min-height: 1850px; }
+.demo-slot-dashboards { min-height: 1150px; }
+@media (min-width: 1024px) {
+  .demo-slot-websites { min-height: 1480px; }
+  .demo-slot-social { min-height: 660px; }
+  .demo-slot-ads { min-height: 1000px; }
+  .demo-slot-automation { min-height: 760px; }
+  .demo-slot-dashboards { min-height: 1150px; }
+}
+/* Tap targets: footer, breadcrumb and legal links are plain text links, which on a phone are
+   under the 44px minimum. Padding is added vertically (and pulled back with a negative margin)
+   so the touch area grows without changing the visual spacing. */
+@media (max-width: 1023px) {
+  [data-site-footer] a:not(.b):not(.tag),
+  nav[aria-label="Breadcrumb"] a {
+    display: inline-flex; align-items: center; min-height: 44px; padding-block: 11px; margin-block: -11px;
+  }
+  [data-site-footer] li { display: flex; }
+}

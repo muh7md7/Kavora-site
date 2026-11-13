@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/content/site";
 import { Tone } from "@/components/sections/Tone";
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { Button } from "@/components/ui";
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   title: "Insights — coming soon",
   description: "Practical notes on websites, advertising, AI automation and business systems. Not published yet.",
   alternates: { canonical: "/insights/" },
+  openGraph: ogImage("insights"),
   robots: { index: false, follow: true },
 };
 

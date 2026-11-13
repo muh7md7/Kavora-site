@@ -1,8 +1,6 @@
 "use client";
-import { useId, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { spring } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 export type TabItem = { id: string; label: string; icon?: LucideIcon; badge?: number };
@@ -39,19 +37,26 @@ export function Tabs({ items, value, onChange, variant = "segmented", ariaLabel,
     e.preventDefault(); set(items[next].id); refs.current[next]?.focus();
   };
 
-  const layoutId = `tab-pill-${id}`;
+  // Indicator position is measured from the active button, so no layout library is needed.
+  const [ind, setInd] = useState<{ left: number; width: number } | null>(null);
+  useEffect(() => {
+    const el = refs.current[items.findIndex((t) => t.id === active)];
+    setInd(el ? { left: el.offsetLeft, width: el.offsetWidth } : null);
+  }, [active, items]);
   return (
     <div className={className}>
       <div
         role="tablist"
         aria-label={ariaLabel}
         className={cn(
-          "glass inline-flex items-center gap-1 p-1 max-w-full overflow-x-auto",
+          "glass relative inline-flex items-center gap-1 p-1 max-w-full overflow-x-auto",
           variant === "segmented" && "rounded-pill",
           variant === "top" && "rounded-md",
           variant === "dock" && "rounded-lg px-2 py-2 gap-2",
         )}
       >
+        <span aria-hidden className={cn("absolute top-1 bottom-1 bg-surface-strong shadow-sm transition-[left,width,opacity] duration-[380ms] ease-[cubic-bezier(.22,1,.36,1)]", variant === "dock" ? "rounded-md" : "rounded-pill")}
+          style={{ left: ind?.left ?? 0, width: ind?.width ?? 0, opacity: ind ? 1 : 0 }} />
         {items.map((t, i) => {
           const on = t.id === active; const Icon = t.icon;
           return (
@@ -72,7 +77,6 @@ export function Tabs({ items, value, onChange, variant = "segmented", ariaLabel,
               )}
               aria-label={variant === "dock" ? t.label : undefined}
             >
-              {on && <motion.span layoutId={layoutId} transition={spring} className={cn("absolute inset-0 -z-10 bg-surface-strong shadow-sm", variant === "dock" ? "rounded-md" : "rounded-pill")} aria-hidden />}
               {Icon && <Icon size={16} aria-hidden />}
               {variant !== "dock" && t.label}
               {t.badge && <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-pill bg-sage text-white text-[10px] leading-4 text-center">{t.badge}</span>}

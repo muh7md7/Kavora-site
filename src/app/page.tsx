@@ -3,12 +3,13 @@ import { HomeHero } from "@/components/home/HomeHero";
 import { AiHome, HomeCta, HomeFaqSection, HomeServices, ProcessTimeline, ProofStrip, SelectedWork, Testimonials, WhyBento } from "@/components/home/sections";
 import { SeeItInAction } from "@/components/sections/HomeSections";
 import { FaqJsonLd } from "@/components/seo/JsonLd";
-import { homeFaq } from "@/content/site";
+import { homeFaq, ogImage } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Keelbiz — Build, grow and automate your business",
   description: "Keelbiz builds websites, manages social media, runs Meta and Google ads, and develops AI agents, automation and business dashboards. Hire us for one service or a complete solution.",
   alternates: { canonical: "/" },
+  openGraph: ogImage("default"),
 };
 
 /**

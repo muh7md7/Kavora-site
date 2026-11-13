@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { site } from "@/content/site";
 import { Header } from "@/components/sections/Header";
@@ -15,9 +14,13 @@ const serif = localFont({
   ],
   variable: "--font-serif-accent", display: "swap", preload: false, adjustFontFallback: "Times New Roman",
 });
-const geist = GeistSans; // --font-geist-sans
+// Self-hosted subsets (scripts/subset-fonts.mjs): 141 KB of variable fonts cut to 38 KB,
+// which was the single biggest item on the critical path for mobile LCP.
+const geist = localFont({ src: "../fonts/Geist-subset.woff2", variable: "--font-geist-sans", weight: "100 900", display: "swap", preload: true,
+  fallback: ["Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"], adjustFontFallback: "Arial" });
 // Mono is decorative (eyebrows, numbers): not preloaded, so it never competes with the LCP headline.
-const geistMono = localFont({ src: "../fonts/GeistMono-Variable.woff2", variable: "--font-geist-mono", weight: "100 900", display: "swap", preload: false,
+
+const geistMono = localFont({ src: "../fonts/GeistMono-subset.woff2", variable: "--font-geist-mono", weight: "100 900", display: "swap", preload: false,
   fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"], adjustFontFallback: false });
 
 export const metadata: Metadata = {

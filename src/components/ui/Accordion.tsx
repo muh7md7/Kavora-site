@@ -1,9 +1,7 @@
 "use client";
 import { useId, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { easeOut } from "@/lib/motion";
 
 /**
  * Accordion — single-open, APG disclosure semantics.
@@ -12,7 +10,6 @@ import { easeOut } from "@/lib/motion";
 export function Accordion({ items, className, defaultOpen = -1 }: { items: { q: string; a: React.ReactNode }[]; className?: string; defaultOpen?: number }) {
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
-  const reduce = useReducedMotion();
   return (
     <div className={cn("divide-y divide-line border-y border-line", className)}>
       {items.map((it, i) => {
@@ -29,14 +26,11 @@ export function Accordion({ items, className, defaultOpen = -1 }: { items: { q: 
               </button>
             </h3>
             <div id={`${id}-p${i}`} role="region" aria-labelledby={`${id}-h${i}`} hidden={!on}>
-              <AnimatePresence initial={false}>
-                {on && (
-                  <motion.div initial={reduce ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: easeOut }}
-                    className="pb-6 pr-14 text-text-2 leading-relaxed max-w-[68ch]">
-                    {it.a}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className={cn("acc-panel", on && "is-open")}>
+                <div className="min-h-0 overflow-hidden">
+                  <div className="pb-6 pr-14 text-text-2 leading-relaxed max-w-[68ch]">{it.a}</div>
+                </div>
+              </div>
             </div>
           </div>
         );

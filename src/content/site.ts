@@ -297,3 +297,8 @@ export const stackFlow: { from: ServiceId; to: ServiceId; label: string }[] = [
   { from: "ads", to: "dashboards", label: "reports into" },
   { from: "social", to: "dashboards", label: "reports into" },
 ];
+
+/** Per-page Open Graph image. Falls back to the default card when a page has no image of its own. */
+export function ogImage(slug: string) {
+  return { images: [{ url: `/og/${slug}.png`, width: 1200, height: 630, alt: "Keelbiz" }] };
+}

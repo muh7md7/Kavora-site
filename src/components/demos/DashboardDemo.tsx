@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Moon, Sun } from "lucide-react";
 import { DemoShell, Chip } from "@/components/ui";
 import { useInViewOnce } from "@/components/motion/useInView";
+import { DashboardDemoLazy } from "./lazy";
 import { cn } from "@/lib/cn";
 
 /**
@@ -187,7 +188,7 @@ export function DashboardDemoSection() {
           <h2 className="mt-5">Your numbers, in one <span className="accent">screen.</span></h2>
           <p className="lead mt-6">A real dashboard, not a screenshot: change the range, filter the source, sort the table. This is the kind of system we build on your own data.</p>
         </div>
-        <div className="mt-12"><DashboardDemo /></div>
+        <div className="mt-12"><DashboardDemoLazy /></div>
       </div>
     </section>
   );

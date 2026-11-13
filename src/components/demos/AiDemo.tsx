@@ -5,6 +5,7 @@ import { Calendar, CheckCheck, Database, MessageSquare, Sparkles, UserRound, Wor
 import { DeviceFrame, DemoShell } from "@/components/ui";
 import { useInViewOnce, usePrefersReducedMotion } from "@/components/motion/useInView";
 import { easeOut } from "@/lib/motion";
+import { AiDemoLazy } from "./lazy";
 import { cn } from "@/lib/cn";
 
 /**
@@ -228,7 +229,7 @@ export function AiDemoSection() {
         <div className="mt-12 flex items-center gap-3 flex-wrap">
           <span className="tag tag-mono"><Workflow size={12} aria-hidden />Chat · workflow · calculator</span>
         </div>
-        <div className="mt-6"><AiDemo /></div>
+        <div className="mt-6"><AiDemoLazy /></div>
       </div>
     </section>
   );

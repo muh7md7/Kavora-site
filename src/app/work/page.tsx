@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/content/site";
 import { WorkGrid, WorkDemos } from "@/components/work/WorkGrid";
 import { Tone } from "@/components/sections/Tone";
 import { SplitHeading } from "@/components/motion/SplitHeading";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   title: "Work — what we build",
   description: "Interface demonstrations of the websites, social content, advertising accounts, AI agents and dashboards we build. Case studies are published only with client permission.",
   alternates: { canonical: "/work/" },
+  openGraph: ogImage("work"),
 };
 
 export default function WorkPage() {

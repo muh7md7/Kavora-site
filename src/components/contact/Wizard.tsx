@@ -179,7 +179,7 @@ function WizardInner() {
           <ol className="mt-4 hidden sm:flex gap-1.5" aria-hidden>
             {STEPS.map((n, i) => (
               <li key={n} className="flex-1"><button type="button" tabIndex={-1} disabled={i > step} onClick={() => i < step && go(i)}
-                className={cn("w-full text-left text-[11px] font-[500] truncate", i === step ? "text-text" : i < step ? "text-text-2 hover:text-text" : "text-text-2/50")}>{n}</button></li>
+                className={cn("w-full text-left text-[11px] font-[500] truncate min-h-11 flex items-center -my-3 py-3", i === step ? "text-text" : i < step ? "text-text-2 hover:text-text" : "text-text-2/50")}>{n}</button></li>
             ))}
           </ol>
 

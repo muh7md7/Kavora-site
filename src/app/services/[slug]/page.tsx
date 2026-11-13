@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { services } from "@/content/site";
+import { ogImage, services } from "@/content/site";
 import { servicePages } from "@/components/service/pages";
 import { StickyCta } from "@/components/service/StickyCta";
 import { BreadcrumbJsonLd, FaqJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
@@ -11,7 +11,7 @@ export function generateStaticParams() { return services.map((s) => ({ slug: s.s
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const s = services.find((x) => x.slug === slug);
-  return s ? { title: s.name, description: s.definition, alternates: { canonical: `/services/${s.slug}/` } } : {};
+  return s ? { title: s.name, description: s.definition, alternates: { canonical: `/services/${s.slug}/` }, openGraph: ogImage(s.slug) } : {};
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {

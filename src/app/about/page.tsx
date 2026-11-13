@@ -5,7 +5,7 @@ import { Tone } from "@/components/sections/Tone";
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button, Marquee, Placeholder } from "@/components/ui";
-import { services, shortName, site, whyUs } from "@/content/site";
+import { services, shortName, site, whyUs, ogImage } from "@/content/site";
 import { serviceIcon } from "@/content/enquiry";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "About Keelbiz",
   description: "Keelbiz is a founder-led digital growth agency helping businesses build, grow and automate — with websites, social media, advertising, AI agents and business dashboards.",
   alternates: { canonical: "/about/" },
+  openGraph: ogImage("about"),
 };
 
 /** Tools we actually work in. Named because they're ours, not presented as partnerships or certifications. */

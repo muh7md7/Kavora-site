@@ -7,11 +7,7 @@ import { services, shortName, type ServiceId } from "@/content/site";
 import { serviceIcon } from "@/content/enquiry";
 import { Placeholder, Button } from "@/components/ui";
 import { Reveal } from "@/components/motion/Reveal";
-import { WebsiteDemo } from "@/components/demos/WebsiteDemo";
-import { SocialDemo } from "@/components/demos/SocialDemo";
-import { AdsDemo } from "@/components/demos/AdsDemo";
-import { AiDemo } from "@/components/demos/AiDemo";
-import { DashboardDemo } from "@/components/demos/DashboardDemo";
+import { WebsiteDemoLazy, SocialDemoLazy, AdsDemoLazy, AiDemoLazy, DashboardDemoLazy } from "@/components/demos/lazy";
 import { MiniPreview } from "@/components/demos/MiniPreview";
 import { cn } from "@/lib/cn";
 
@@ -113,11 +109,11 @@ export function WorkGrid() {
 /* ---------------- demos with full-screen modal ---------------- */
 
 const demoList = [
-  { id: "websites" as ServiceId, title: "Responsive business website", el: WebsiteDemo },
-  { id: "social" as ServiceId, title: "A month of social, planned", el: SocialDemo },
-  { id: "ads" as ServiceId, title: "Ads account and reporting", el: AdsDemo },
-  { id: "automation" as ServiceId, title: "AI assistant and workflow", el: AiDemo },
-  { id: "dashboards" as ServiceId, title: "Business dashboard", el: DashboardDemo },
+  { id: "websites" as ServiceId, title: "Responsive business website", el: WebsiteDemoLazy },
+  { id: "social" as ServiceId, title: "A month of social, planned", el: SocialDemoLazy },
+  { id: "ads" as ServiceId, title: "Ads account and reporting", el: AdsDemoLazy },
+  { id: "automation" as ServiceId, title: "AI assistant and workflow", el: AiDemoLazy },
+  { id: "dashboards" as ServiceId, title: "Business dashboard", el: DashboardDemoLazy },
 ];
 
 export function WorkDemos() {

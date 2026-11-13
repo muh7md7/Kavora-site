@@ -1,12 +1,16 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import { useScrollProgress } from "./useScrollProgress";
+import { cn } from "@/lib/cn";
 
-/** Hero-visual parallax only: ±range px on scroll, desktop (CSS hides effect via reduced motion). */
+/**
+ * Hero-visual parallax: ±range px, driven by a CSS variable rather than an animation library,
+ * so pages that only need this don't pay for Motion. Desktop only; static under reduced motion.
+ */
 export function Parallax({ children, range = 40, className }: { children: React.ReactNode; range?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [range, -range]);
-  return <motion.div ref={ref} style={reduce ? undefined : { y }} className={className}>{children}</motion.div>;
+  const ref = useScrollProgress<HTMLDivElement>("--p");
+  return (
+    <div ref={ref} className={cn("parallax-y", className)} style={{ ["--range" as string]: `${range}px` }}>
+      {children}
+    </div>
+  );
 }

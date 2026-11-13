@@ -8,12 +8,13 @@ import { Tone } from "@/components/sections/Tone";
 import { Button } from "@/components/ui";
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
-import { thirdPartyNote } from "@/content/site";
+import { thirdPartyNote, ogImage } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Services — one service or a complete solution",
   description: "Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several.",
   alternates: { canonical: "/services/" },
+  openGraph: ogImage("services"),
 };
 
 export default function ServicesPage() {

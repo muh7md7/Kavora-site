@@ -1,7 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { ArrowRight, ArrowUpRight, Bell, CalendarCheck, Database, MessageSquare, Quote, Sparkles } from "lucide-react";
 import { aiOffer, combinations, homeFaq, services, shortName, steps, whyUs } from "@/content/site";
 import { enquiryTypes, serviceIcon } from "@/content/enquiry";
@@ -12,6 +11,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { Tone } from "@/components/sections/Tone";
 import { useInViewOnce } from "@/components/motion/useInView";
+import { useScrollProgress } from "@/components/motion/useScrollProgress";
 import { cn } from "@/lib/cn";
 
 /* ---------- 02 · proof strip ---------- */
@@ -117,10 +117,8 @@ const workSlots = [
 ];
 
 export function SelectedWork() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]);
+  // Scroll progress lands in --p on the track; the transform is CSS (no motion library on the home critical path).
+  const ref = useScrollProgress<HTMLDivElement>("--p");
   const live = caseStudies.length > 0;
 
   return (
@@ -143,7 +141,7 @@ export function SelectedWork() {
       {/* desktop: pinned horizontal scroll */}
       <div ref={ref} className="hidden lg:block relative h-[165vh] mt-12">
         <div className="sticky top-[13vh] h-[70vh] overflow-hidden flex items-center">
-          <motion.ul style={reduce ? undefined : { x }} className="flex gap-6 px-[var(--gutter)]">
+          <ul className="work-track flex gap-6 px-[var(--gutter)]">
             {workSlots.map((w, i) => (
               <li key={w.k} className="w-[clamp(380px,32vw,520px)] shrink-0">
                 <article data-spot className="card p-6 h-[56vh] flex flex-col">
@@ -158,7 +156,7 @@ export function SelectedWork() {
                 </article>
               </li>
             ))}
-          </motion.ul>
+          </ul>
         </div>
       </div>
 
@@ -180,9 +178,7 @@ export function SelectedWork() {
 
 /* ---------- 06 · process — scroll-drawn timeline ---------- */
 export function ProcessTimeline() {
-  const ref = useRef<HTMLOListElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 60%"] });
+  const ref = useScrollProgress<HTMLOListElement>("--p", { start: 0.75, end: 0.4 });
 
   return (
     <Tone className="section-major">
@@ -196,8 +192,7 @@ export function ProcessTimeline() {
 
         <ol ref={ref} className="lg:col-span-8 relative pl-10 sm:pl-14">
           <span className="absolute left-[15px] sm:left-[23px] top-3 bottom-3 w-px bg-line" aria-hidden />
-          <motion.span className="absolute left-[15px] sm:left-[23px] top-3 bottom-3 w-px bg-[var(--graphite)] origin-top"
-            style={reduce ? { scaleY: 1 } : { scaleY: scrollYProgress }} aria-hidden />
+          <span className="draw-line absolute left-[15px] sm:left-[23px] top-3 bottom-3 w-px bg-[var(--graphite)] origin-top" aria-hidden />
           {steps.map((s, i) => (
             <Reveal as="li" key={s.n} index={i} className="relative pb-10 last:pb-0">
               <span className="absolute -left-10 sm:-left-14 top-0 size-8 sm:size-12 rounded-full border border-line-strong bg-bg grid place-items-center font-mono text-[10px] sm:text-[11px]">{s.n}</span>

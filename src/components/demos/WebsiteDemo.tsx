@@ -4,6 +4,7 @@ import { Monitor, Smartphone, Tablet } from "lucide-react";
 import { animate } from "motion/react";
 import { DemoShell } from "@/components/ui";
 import { useInViewOnce, usePrefersReducedMotion } from "@/components/motion/useInView";
+import { WebsiteDemoLazy } from "./lazy";
 import { cn } from "@/lib/cn";
 
 /**
@@ -254,7 +255,7 @@ export function WebsiteDemoSection() {
           <p className="lead mt-6">Switch the style, switch the width, drag the redesign. This is the level of finish we build to — not a screenshot of it.</p>
         </div>
         <div className="mt-12">
-          <DemoShell badge={false} controls={false}><WebsiteDemo /></DemoShell>
+          <DemoShell badge={false} controls={false}><WebsiteDemoLazy /></DemoShell>
         </div>
       </div>
     </section>

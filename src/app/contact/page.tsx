@@ -3,13 +3,14 @@ import { CalendarDays, Clock, Mail, MessageCircle } from "lucide-react";
 import { Tone } from "@/components/sections/Tone";
 import { Wizard } from "@/components/contact/Wizard";
 import { SplitHeading } from "@/components/motion/SplitHeading";
-import { isConfirmed, site, thirdPartyNote } from "@/content/site";
+import { isConfirmed, site, thirdPartyNote, ogImage } from "@/content/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: "Contact — start a project",
   description: "Tell Keelbiz what you need — one service, several, a complete solution or a custom AI agent. Five quick steps; we reply with questions and a custom quote.",
   alternates: { canonical: "/contact/" },
+  openGraph: ogImage("contact"),
 };
 
 const next = [

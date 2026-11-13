@@ -5,6 +5,7 @@ import { Bookmark, Heart, MessageCircle, Play, Send } from "lucide-react";
 import { DeviceFrame, DemoShell } from "@/components/ui";
 import { useInViewOnce, usePrefersReducedMotion } from "@/components/motion/useInView";
 import { easeOut } from "@/lib/motion";
+import { SocialDemoLazy } from "./lazy";
 import { cn } from "@/lib/cn";
 
 /**
@@ -158,14 +159,14 @@ function MonthCalendar() {
       </div>
       <p className="mt-1.5 text-[0.85rem] text-text-2">Drag a post to another day — or select it and use the arrow keys. This is the approval view you&rsquo;d get each month.</p>
 
-      <div className="mt-5 grid grid-cols-7 gap-1.5" role="grid" aria-label="Content week">
+      <ul className="mt-5 grid grid-cols-7 gap-1.5" aria-label="Content week">
         {week.map((d, i) => (
-          <div key={d} role="gridcell" aria-label={d}
+          <li key={d}
             onDragOver={(e) => { e.preventDefault(); setOver(i); }}
             onDragLeave={() => setOver((o) => (o === i ? null : o))}
             onDrop={(e) => { e.preventDefault(); if (drag) move(drag, i); setDrag(null); setOver(null); }}
             className={cn("rounded-[12px] border p-1.5 min-h-[120px] transition-colors duration-200", over === i ? "border-text-2 bg-[var(--surface-strong)]" : "border-line bg-bg-2")}>
-            <p className="font-mono text-[9px] uppercase tracking-[.1em] text-text-2 text-center pb-1.5">{d.slice(0, 2)}</p>
+            <p className="font-mono text-[9px] uppercase tracking-[.1em] text-text-2 text-center pb-1.5"><abbr title={d} className="no-underline">{d.slice(0, 2)}</abbr></p>
             <div className="grid gap-1">
               <AnimatePresence initial={false}>
                 {slots.filter((s) => s.day === i).map((s) => (
@@ -186,9 +187,9 @@ function MonthCalendar() {
                 ))}
               </AnimatePresence>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
       <p className="mt-3 flex flex-wrap gap-3 text-[0.75rem] text-text-2">
         {(Object.keys(kindLabel) as Kind[]).map((k) => (
           <span key={k} className="inline-flex items-center gap-1.5"><i className={cn("size-2.5 rounded-[3px]", kindTone[k])} aria-hidden />{kindLabel[k]}</span>
@@ -244,7 +245,7 @@ export function SocialDemoSection() {
           <h2 className="mt-5">A month you can <span className="accent">approve.</span></h2>
           <p className="lead mt-6">The grid fills, the calendar moves, the captions are written. This is what lands in your inbox at the start of each month.</p>
         </div>
-        <div className="mt-12"><SocialDemo /></div>
+        <div className="mt-12"><SocialDemoLazy /></div>
       </div>
     </section>
   );
