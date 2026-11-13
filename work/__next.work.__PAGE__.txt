@@ -1,0 +1,33 @@
+2:"$Sreact.fragment"
+3:"/_next/static/chunks/1ua2kfq9s-me6.js"
+4:"/_next/static/chunks/3jhlrfex14q5b.js"
+5:I[39756,["$3","$4"],"default"]
+6:I[37457,["$3","$4"],"default"]
+b:"/_next/static/chunks/0hp5z2-ug7604.js"
+c:"/_next/static/chunks/2mcymc2tpd41s.js"
+d:I[10926,["$3","$4","$b","$c"],"SplitHeading"]
+e:I[22016,["$3","$4","$b","$c"],""]
+f:I[5014,["$3","$4","$b","$c"],"default"]
+10:I[82158,["$3","$4","$b","$c"],"WorkDemos"]
+11:I[82158,["$3","$4","$b","$c"],"WorkGrid"]
+12:I[97367,["$3","$4"],"OutletBoundary"]
+13:"$Sreact.suspense"
+16:"ViewportBoundary"
+17:I[97367,["$3","$4"],"$16"]
+18:"MetadataBoundary"
+19:I[97367,["$3","$4"],"$18"]
+1a:I[27201,["$3","$4"],"IconMark"]
+8:X
+8:C
+9:X
+a:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[[["$","section",null,{"data-theme":"light","className":"tone tone-grad section-hero overflow-hidden","children":[["$","div",null,{"className":"aurora","aria-hidden":true,"children":[["$","i",null,{}],["$","i",null,{}],["$","i",null,{}]]}],["$","div",null,{"className":"container","children":[["$","p",null,{"className":"eyebrow rv-auto","children":"Work"}],["$","$Ld",null,{"as":"h1","auto":true,"underline":true,"text":"Proof, not","accent":"promises.","className":"display mt-7 max-w-[13ch]"}],["$","p",null,{"className":"lead mt-8 rv-auto","style":{"--rv-delay":"300ms"},"children":"Below are running demonstrations of the kind of work we deliver. Client case studies appear here once the client has approved the images, the figures and the wording — not before."}],["$","div",null,{"className":"mt-10 flex flex-wrap gap-3 rv-auto","style":{"--rv-delay":"420ms"},"children":[["$","$Le",null,{"href":"/contact/","className":"b b-primary","data-magnetic":"","children":["$undefined","Start a project",["$","$Lf",null,{"icon":{"name":"arrow-up-right","size":24,"node":[["path",{"d":"M7 7h10v10","key":"1tivn9"}],["path",{"d":"M7 17 17 7","key":"1vkiza"}]]},"className":"b-arrow","size":16,"aria-hidden":true}],false]}],["$","$Le",null,{"href":"/services/","className":"b b-secondary","children":["$undefined","See the services",false,["$","$Lf",null,{"icon":{"name":"arrow-right","size":24,"node":[["path",{"d":"M5 12h14","key":"1ays0h"}],["path",{"d":"m12 5 7 7-7 7","key":"xquz4c"}]]},"className":"b-arrow-r","size":16,"aria-hidden":true}]]}]]}]]}]]}],["$","$L10",null,{}],["$","$L11",null,{}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://keelbiz.example/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Work\",\"item\":\"https://keelbiz.example/work/\"}]}"}}]],[["$","script","script-0",{"src":"/_next/static/chunks/0hp5z2-ug7604.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2mcymc2tpd41s.js","async":true}]],["$","$L12",null,{"children":["$","$13",null,{"name":"Next.MetadataOutlet","children":"$@14"}]}]]}],"p":"$@15","v":null,"s":"$9"}}]]
+1:[["children",{"s":"work","h":64,"d":{"r":["$","$2","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":"$8","s":"$9"},"c":"$Qa"}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#F7F8F6"}]]}],["$","$L19",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$13",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Work — what we build · Keelbiz"}],["$","meta","1",{"name":"description","content":"Interface demonstrations of the websites, social content, advertising accounts, AI agents and dashboards we build. Case studies are published only with client permission."}],["$","link","2",{"rel":"canonical","href":"https://keelbiz.example/work/"}],["$","meta","3",{"property":"og:title","content":"Work — what we build · Keelbiz"}],["$","meta","4",{"property":"og:description","content":"Interface demonstrations of the websites, social content, advertising accounts, AI agents and dashboards we build. Case studies are published only with client permission."}],["$","meta","5",{"property":"og:image","content":"https://keelbiz.example/og/work.png"}],["$","meta","6",{"property":"og:image:width","content":"1200"}],["$","meta","7",{"property":"og:image:height","content":"630"}],["$","meta","8",{"property":"og:image:alt","content":"Keelbiz"}],["$","meta","9",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","10",{"name":"twitter:title","content":"Work — what we build · Keelbiz"}],["$","meta","11",{"name":"twitter:description","content":"Interface demonstrations of the websites, social content, advertising accounts, AI agents and dashboards we build. Case studies are published only with client permission."}],["$","meta","12",{"name":"twitter:image","content":"https://keelbiz.example/og/work.png"}],["$","meta","13",{"name":"twitter:image:alt","content":"Keelbiz"}],["$","meta","14",{"name":"twitter:image:width","content":"1200"}],["$","meta","15",{"name":"twitter:image:height","content":"630"}],["$","link","16",{"rel":"icon","href":"/favicon.ico?favicon.117ezoe8m31dk.ico","sizes":"48x48","type":"image/x-icon"}],["$","link","17",{"rel":"icon","href":"/icon.svg"}],["$","link","18",{"rel":"apple-touch-icon","href":"/apple-icon.png"}],["$","$L1a","19",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1b","v":null,"s":"$9"}},"a":"$@1c","u":"$@1d","b":"s77EMnZBvgm6FKJkLoqaW"}
+14:null
+1d:true
+9:300
+9:C
+1c:0
+7:"$undefined"
+1b:"$undefined"
+15:"$undefined"

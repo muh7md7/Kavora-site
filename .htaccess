@@ -1,0 +1,41 @@
+# Keelbiz — Hostinger (Apache). Static Next.js export + security headers.
+RewriteEngine On
+# HTTP -> HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Serve trailing-slash folders; custom 404
+ErrorDocument 404 /404.html
+# Retired sections
+RewriteRule ^lab(/.*)?$ / [L,R=301]
+# /insights/ now renders a real "nothing published yet" page (noindex) — no redirect.
+RewriteRule ^insights/[^/]+/?$ /insights/ [L,R=302]
+
+<IfModule mod_headers.c>
+  # Enable HSTS only after HTTPS verified on all subdomains:
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-Frame-Options "DENY"
+  # CSP: self only. 'unsafe-inline' for styles is required by Next inline style tags; scripts use Next's static chunks.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+  Header always unset X-Powered-By
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Block access to source maps / dotfiles
+<FilesMatch "\.(map|env|md)$">
+  Require all denied
+</FilesMatch>

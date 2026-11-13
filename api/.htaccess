@@ -1,0 +1,5 @@
+# Enquiry endpoint folder: block config + data, allow only enquiry.php
+<FilesMatch "^(config\.php|.*\.jsonl|rate-.*)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
