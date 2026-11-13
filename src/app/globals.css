@@ -565,3 +565,11 @@ html:not(.js) .rv-clip { clip-path: none; }
    scroll-triggered headings keep the full 1.1s. */
 .sw-auto .sw > span { animation-duration: 620ms; animation-delay: calc(var(--i, 0) * 28ms + var(--d, 0ms)); }
 .sw-auto .u-draw::after { animation-duration: 700ms; }
+/* Bento demo cards: the loop runs at half speed until the card is hovered or focused. */
+.demo-card .mini * { animation-duration: 9s; }
+.demo-card:hover .mini *, .demo-card:focus-visible .mini * { animation-duration: 3.4s; }
+.demo-card .mini .mini-desk, .demo-card .mini .mini-phone { animation-duration: 9s; }
+.demo-card:hover .mini .mini-desk, .demo-card:hover .mini .mini-phone { animation-duration: 5s; }
+/* Compare-table checkmarks draw in on scroll */
+.tick-path { stroke-dasharray: 16; transition: stroke-dashoffset 420ms var(--ease); }
+@media (prefers-reduced-motion: reduce) { .tick-path { stroke-dashoffset: 0 !important; transition: none; } }

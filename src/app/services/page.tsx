@@ -1,20 +1,42 @@
 import type { Metadata } from "next";
-import { services } from "@/content/site";
-import { PageHero } from "@/components/sections/PageHero";
-import { ServiceTile } from "@/components/sections/ServiceTile";
-import { Intro } from "@/components/sections/HomeSections";
-import { FlexibleSolutions } from "@/components/sections/Offer";
+import { HubHero } from "@/components/services/HubHero";
+import { ServiceBento } from "@/components/services/ServiceBento";
+import { StackBuilder } from "@/components/services/StackBuilder";
+import { SystemPinned } from "@/components/services/SystemPinned";
+import { CompareTable } from "@/components/services/CompareTable";
+import { Tone } from "@/components/sections/Tone";
+import { Button } from "@/components/ui";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { thirdPartyNote } from "@/content/site";
 
-export const metadata: Metadata = { title: "Services — one service or a complete solution", description: "Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several.", alternates: { canonical: "/services/" } };
+export const metadata: Metadata = {
+  title: "Services — one service or a complete solution",
+  description: "Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several.",
+  alternates: { canonical: "/services/" },
+};
 
 export default function ServicesPage() {
   return (
     <>
-      <PageHero eyebrow="Services" title="One service or a complete solution. Built around your" accent="business." lead="Hire us for exactly what you need — a website, social media, advertising, AI automation or a business dashboard — or combine them." />
-      <section data-theme="light" className="tone section !pt-0"><div className="container"><ul>{services.map((s, i) => <ServiceTile key={s.id} s={s} index={i} />)}</ul></div></section>
-      <FlexibleSolutions />
-      <Intro />
+      <HubHero />
+      <ServiceBento />
+      <StackBuilder />
+      <SystemPinned />
+      <CompareTable />
+
+      <Tone tone="dark" grad className="grain section-major">
+        <div className="container text-center">
+          <SplitHeading as="h2" text="Still not sure which you" accent="need?" className="mx-auto max-w-[18ch]" />
+          <p className="lead mt-6 mx-auto">Tell us the problem in a few lines. We&rsquo;ll say which services actually apply — including when the answer is just one of them.</p>
+          <div className="mt-10 flex flex-wrap gap-3 justify-center">
+            <Button href="/contact/?type=unsure" size="lg">Describe your situation</Button>
+            <Button href="/work/" variant="secondary" arrow="right">See the work</Button>
+          </div>
+          <p className="mt-10 text-sm text-text-2 max-w-[62ch] mx-auto">{thirdPartyNote}</p>
+        </div>
+      </Tone>
+
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Services", href: "/services/" }]} />
     </>
   );

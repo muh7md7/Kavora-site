@@ -273,3 +273,26 @@ export const homeFaq = [
 /** Third-party costs — shown wherever pricing is discussed. Concise, no amounts. */
 export const thirdPartyNote =
   "Our fee covers our work. Third-party costs — ad spend, hosting and domains, AI usage, messaging and integration subscriptions — may apply and are listed in your proposal.";
+
+/** Compare table — which service solves which problem. Problem statements, never claims about results. */
+export const problemMatrix: { problem: string; ids: ServiceId[] }[] = [
+  { problem: "People can't find us, or don't trust what they find", ids: ["websites", "social"] },
+  { problem: "We get visitors but almost no enquiries", ids: ["websites", "ads"] },
+  { problem: "Our social accounts are inconsistent or inactive", ids: ["social"] },
+  { problem: "We need more leads than word of mouth brings", ids: ["ads", "social"] },
+  { problem: "Enquiries go unanswered outside working hours", ids: ["automation"] },
+  { problem: "The same questions are answered manually every day", ids: ["automation"] },
+  { problem: "Admin and data entry eat the week", ids: ["automation", "dashboards"] },
+  { problem: "Our numbers live in separate tools and spreadsheets", ids: ["dashboards"] },
+  { problem: "We can't tell what marketing is actually working", ids: ["dashboards", "ads"] },
+];
+
+/** How the services connect when combined — used by the stack builder diagram. */
+export const stackFlow: { from: ServiceId; to: ServiceId; label: string }[] = [
+  { from: "social", to: "websites", label: "sends people to" },
+  { from: "ads", to: "websites", label: "sends traffic to" },
+  { from: "websites", to: "automation", label: "passes enquiries to" },
+  { from: "automation", to: "dashboards", label: "reports into" },
+  { from: "ads", to: "dashboards", label: "reports into" },
+  { from: "social", to: "dashboards", label: "reports into" },
+];
