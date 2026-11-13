@@ -23,7 +23,7 @@ const demoTabs = [
 export function LabDemo({ slug, autoplay }: { slug: string; autoplay?: boolean }): ReactNode {
   const o = { autoplay };
   switch (slug) {
-    case "navbar": return <div className="w-full max-w-4xl"><GlassNavbar inline /></div>;
+    case "navbar": return <div className="w-full min-w-0"><GlassNavbar inline /></div>;
     case "mobile-sheet": return <MobileSheetDemo />;
     case "sidebar": return <GlassSidebar />;
     case "tabs": return (

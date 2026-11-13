@@ -90,7 +90,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
     <div
       ref={wrapRef}
       data-site-header
-      data-theme={tone}
+      data-theme={inline ? undefined : tone}
       className={cn(
         inline ? "relative w-full" : "fixed inset-x-0 top-0 z-50",
         "header-enter pointer-events-none px-3 sm:px-4 pt-3 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] !bg-transparent",
