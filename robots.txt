@@ -1,5 +1,4 @@
 User-Agent: *
 Allow: /
-Disallow: /design-system/
 
 Sitemap: https://keelbiz.example/sitemap.xml

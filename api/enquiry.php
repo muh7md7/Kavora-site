@@ -20,7 +20,7 @@ if (!$cfg || empty($cfg['notify_to'])) fail(503, 'unavailable');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') fail(405, 'method');
-if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 6 * 1024 * 1024) fail(413, 'too_large'); // 5 MB attachment + fields
+if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 20000) fail(413, 'too_large');
 
 // Origin / CSRF — same-origin posts carry Origin; allow configured hosts only.
 $origin = $_SERVER['HTTP_ORIGIN'] ?? ($_SERVER['HTTP_REFERER'] ?? '');
@@ -42,16 +42,6 @@ $hits = is_file($rf) ? array_values(array_filter(array_map('intval', file($rf, F
 if (count($hits) >= $max) fail(429, 'rate');
 $hits[] = $now; @file_put_contents($rf, implode("\n", $hits), LOCK_EX);
 
-// Newsletter subscribe — a separate, much smaller contract: email + consent only.
-// Kept here so the footer field needs no second endpoint, and stored in its own file.
-if (($_POST['intent'] ?? '') === 'subscribe') {
-  $semail = mb_substr(trim((string)($_POST['email'] ?? '')), 0, 200);
-  if (!filter_var($semail, FILTER_VALIDATE_EMAIL) || empty($_POST['consent'])) fail(400);
-  if (preg_match('/[\r\n]/', $semail)) fail(400);
-  @file_put_contents("$dir/subscribers.jsonl", json_encode(['at' => gmdate('c'), 'email' => $semail], JSON_UNESCAPED_SLASHES) . "\n", FILE_APPEND | LOCK_EX);
-  echo json_encode(['ok' => true, 'subscribed' => true]); exit;
-}
-
 // Validation (mirrors the client; the server is the authority)
 $v = fn(string $k, int $max) => mb_substr(trim((string)($_POST[$k] ?? '')), 0, $max);
 $name = $v('name', 120); $email = $v('email', 200); $company = $v('company', 160); $website = $v('website', 300);
@@ -61,9 +51,6 @@ $allowedTypes = ['', 'single', 'multiple', 'solution', 'ai-ready', 'ai-custom', 
 $picked = array_values(array_unique(array_filter((array)($_POST['services'] ?? []), fn($x) => is_string($x) && in_array($x, $allowedServices, true))));
 $type = $v('type', 20); $topic = $v('topic', 120);
 $adPlatforms = in_array($v('ad_platforms', 10), ['', 'meta', 'google', 'both', 'unsure'], true) ? $v('ad_platforms', 10) : '';
-$package = in_array($v('package', 10), ['', 'starter', 'growth', 'scale', 'custom', 'unsure'], true) ? $v('package', 10) : '';
-$budget = in_array($v('budget', 40), ['', 'Prefer to discuss', 'Getting started', 'Steady investment', 'Significant investment', 'Major project'], true) ? $v('budget', 40) : '';
-$timeline = in_array($v('timeline', 10), ['', 'asap', '1-3m', '3-6m', 'flexible'], true) ? $v('timeline', 10) : '';
 $service = implode(', ', $picked);
 if (mb_strlen($name) < 2 || !filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($company) < 2 || count($picked) === 0 || !in_array($type, $allowedTypes, true) || mb_strlen($desc) < 20 || !$consent) fail(400);
 if ($website !== '' && !filter_var($website, FILTER_VALIDATE_URL)) fail(400);
@@ -79,20 +66,8 @@ if (!empty($cfg['turnstile_secret'])) {
   if (empty($r['success'])) fail(400, 'captcha');
 }
 
-// Optional attachment: whitelisted types, 5 MB, stored privately with a random name (never served).
-$attachment = '';
-if (!empty($_FILES['attachment']) && ($_FILES['attachment']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
-  $f = $_FILES['attachment']; $ext = strtolower(pathinfo((string)$f['name'], PATHINFO_EXTENSION));
-  $okExt = ['pdf', 'png', 'jpg', 'jpeg', 'webp', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt'];
-  if ($f['size'] > 5 * 1024 * 1024 || !in_array($ext, $okExt, true)) fail(400, 'file');
-  if (!is_dir("$dir/uploads")) @mkdir("$dir/uploads", 0700, true);
-  $attachment = gmdate('Ymd-His') . '-' . bin2hex(random_bytes(6)) . '.' . $ext;
-  if (!@move_uploaded_file($f['tmp_name'], "$dir/uploads/$attachment")) $attachment = '';
-}
-
 $record = ['at' => gmdate('c'), 'name' => $name, 'email' => $email, 'company' => $company, 'website' => $website, 'type' => $type,
-  'services' => $picked, 'ad_platforms' => $adPlatforms, 'package' => $package, 'budget' => $budget, 'timeline' => $timeline,
-  'topic' => $topic, 'contact_method' => $contactMethod, 'description' => $desc, 'attachment' => $attachment];
+  'services' => $picked, 'ad_platforms' => $adPlatforms, 'topic' => $topic, 'contact_method' => $contactMethod, 'description' => $desc];
 
 // 1) Durable store: private JSONL (always) + MySQL (only if configured)
 $stored = (bool)@file_put_contents("$dir/enquiries.jsonl", json_encode($record, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
@@ -108,7 +83,7 @@ if (!empty($cfg['db_dsn'])) {
 
 // 2) Notify
 $subject = "New enquiry: $company — " . ($service ?: 'unspecified');
-$body = "Name: $name\nEmail: $email\nBusiness: $company\nWebsite: $website\nType: $type\nServices: $service\nAd platforms: $adPlatforms\nPackage: $package\nBudget: $budget\nTimeline: $timeline\nTopic: $topic\nPreferred contact: $contactMethod\nAttachment: " . ($attachment ? "api/_data/uploads/$attachment" : 'none') . "\nReceived: {$record['at']}\n\n$desc\n";
+$body = "Name: $name\nEmail: $email\nBusiness: $company\nWebsite: $website\nType: $type\nServices: $service\nAd platforms: $adPlatforms\nTopic: $topic\nPreferred contact: $contactMethod\nReceived: {$record['at']}\n\n$desc\n";
 $from = (string)($cfg['smtp_from'] ?? ('no-reply@' . preg_replace('/^www\./', '', $_SERVER['HTTP_HOST'] ?? 'localhost')));
 $sent = false;
 if (!empty($cfg['smtp_host']) && !empty($cfg['phpmailer_autoload']) && is_file($cfg['phpmailer_autoload'])) {
