@@ -1,0 +1,135 @@
+{
+  "servicesHub": {
+    "eyebrow": "Services",
+    "title": "Five services, built around your",
+    "accent": "business.",
+    "lead": "Hire us for exactly what you need — a website, social media, advertising, AI automation or a business dashboard — or combine them."
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "About Keelbiz",
+      "title": "Your partner in digital",
+      "accent": "growth.",
+      "lead": "We design websites, manage social media, run Meta and Google advertising, and build AI automation and business systems — one service or a tailored combination, built around your business."
+    },
+    "story": {
+      "eyebrow": "Why we exist",
+      "statement": "Most businesses buy their website, marketing and automation from different people who never talk to each other. The site doesn't match the ads, leads go unanswered, and nobody can see what's working.",
+      "lead": "Keelbiz brings these together — so you can start with exactly what you need today, and connect more later. One service or a complete solution, built around your business."
+    },
+    "principles": {
+      "eyebrow": "How we work",
+      "title": "Principles we",
+      "accent": "keep.",
+      "after": "",
+      "lead": ""
+    },
+    "whatWeDo": {
+      "eyebrow": "What we do",
+      "title": "Five services.",
+      "accent": "Your",
+      "after": "choice.",
+      "lead": ""
+    },
+    "team": {
+      "eyebrow": "The team",
+      "title": "One team, with",
+      "accent": "specialists",
+      "after": "per project.",
+      "lead": "You get one point of contact, supported by specialists in design, engineering, advertising and automation as each project needs.",
+      "button": "Start a conversation"
+    }
+  },
+  "work": {
+    "hero": {
+      "eyebrow": "Work",
+      "title": "Selected",
+      "accent": "work.",
+      "lead": "Concept demonstrations of the websites, content, campaigns, automation and dashboards we build. Client case studies are added only with permission."
+    },
+    "demos": {
+      "eyebrow": "Concept demonstrations",
+      "title": "What we build,",
+      "accent": "shown.",
+      "after": "",
+      "lead": "Each one is an illustrative concept with sample content — clearly not client work. Open one to try the interactive version."
+    },
+    "caseNoteTitle": "About case studies.",
+    "caseNote": "Client projects are published here only with the client's permission and verified results.",
+    "button": "Discuss your project"
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Tell us what you're",
+      "accent": "building.",
+      "lead": "One service, several, or a complete solution — a few lines is enough. We reply with questions, options and a custom quote."
+    },
+    "nextSteps": [
+      "We read your enquiry and reply within two working days.",
+      "A short call to understand what you need.",
+      "A clear proposal and custom quote — no obligation."
+    ],
+    "goodToKnow": [
+      "No budget required to enquire.",
+      "Custom quote — no public price list."
+    ]
+  },
+  "aiSolutions": {
+    "hero": {
+      "eyebrow": "AI Solutions",
+      "title": "Tell us what you want to automate.",
+      "accent": "We build it.",
+      "lead": "Custom AI agents and automation designed around your business — plus ready-made solutions where a built one genuinely fits. Answer customers instantly, follow up every lead, book appointments and remove repetitive work."
+    },
+    "options": {
+      "eyebrow": "Three ways to work with us",
+      "title": "Pick the path that",
+      "accent": "fits.",
+      "after": "",
+      "lead": ""
+    },
+    "examples": {
+      "eyebrow": "What an AI agent can do",
+      "title": "Examples, not",
+      "accent": "limits.",
+      "after": "",
+      "lead": "Each of these can be ready-made or custom-built, depending on your tools and process. Need something else? Ask."
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "From enquiry to",
+      "accent": "booked",
+      "after": "call.",
+      "lead": "An example of one workflow. Hover or focus each step.",
+      "steps": [
+        "Tell us the task and the tools you use",
+        "We propose a solution with a clear quote",
+        "We build, test and connect it",
+        "It runs — and we monitor it"
+      ]
+    },
+    "faq": [
+      {
+        "q": "What's the difference between ready-made and custom?",
+        "a": "Ready-made solutions are proven agents or workflows we configure for your business — faster to launch. Custom agents are designed and built from scratch around your specific process."
+      },
+      {
+        "q": "Can I request an AI agent that isn't listed?",
+        "a": "Yes. The examples are not limits. Describe what you need and we'll tell you honestly whether it's feasible and how we'd build it."
+      },
+      {
+        "q": "Which tools can it connect to?",
+        "a": "It depends on the tools you use and whether they offer integrations. We confirm compatibility during scoping — we don't promise it upfront."
+      },
+      {
+        "q": "How is it priced?",
+        "a": "Every solution gets a custom quote. Some have a one-time setup cost, some also have ongoing costs for hosting, AI usage, messaging or support. Third-party costs are paid by you directly and listed in the proposal before you commit. Ready-made solutions with a confirmed price are shared on request."
+      },
+      {
+        "q": "Can I buy online?",
+        "a": "Not yet. Send an enquiry and we'll reply with availability, options and a quote."
+      }
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pages } from "@/content/copy";
 import { PageHero } from "@/components/sections/PageHero";
 import { ServiceFeatureList } from "@/components/sections/Bento";
 import { Intro } from "@/components/sections/HomeSections";
@@ -10,7 +11,7 @@ export const metadata: Metadata = { title: "Services — one service or a comple
 export default function ServicesPage() {
   return (
     <>
-      <PageHero eyebrow="Services" title="Five services, built around your" accent="business." lead="Hire us for exactly what you need — a website, social media, advertising, AI automation or a business dashboard — or combine them." />
+      <PageHero eyebrow={pages.servicesHub.eyebrow} title={pages.servicesHub.title} accent={pages.servicesHub.accent} lead={pages.servicesHub.lead} />
       <section data-theme="light" className="tone section !pt-2"><div className="container"><h2 className="sr-only">All services</h2><ServiceFeatureList /></div></section>
       <FlexibleSolutions />
       <Intro />

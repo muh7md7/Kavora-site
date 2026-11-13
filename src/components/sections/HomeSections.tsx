@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { home } from "@/content/copy";
 import { ArrowUpRight, Check } from "lucide-react";
 import { flywheel, homeFaq, steps, whyUs } from "@/content/site";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
@@ -8,7 +9,7 @@ import { ServicesBento } from "./Bento";
 import { Faq } from "./Faq";
 import { Reveal } from "./Reveal";
 import { ProcessSteps } from "./ProcessSteps";
-import { Tone } from "./Tone";
+import { HeadText, Tone } from "./Tone";
 import { cn } from "@/lib/cn";
 
 /** The loop diagram — four stations on a slow orbit with one travelling light. */
@@ -74,13 +75,13 @@ export function Services() {
     <Tone tone="mist" className="section" id="services" aria-labelledby="svc-h">
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-12 items-end">
-          <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5 max-w-[16ch]">Five services. Hire <span className="accent">one,</span> or combine them.</h2></Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">Each service stands on its own. Combine them only when it helps — every project is scoped and quoted around your business.</p></Reveal>
+          <Reveal className="lg:col-span-7"><p className="eyebrow">{home.services.eyebrow}</p><h2 id="svc-h" className="mt-5 max-w-[16ch]"><HeadText h={home.services} /></h2></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">{home.services.lead}</p></Reveal>
         </div>
         <div className="mt-14"><ServicesBento /></div>
         <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-line pt-7">
-          <p className="text-text-2 text-[0.92rem]">Previews are illustrative interface demonstrations, not client work.</p>
-          <Link href="/contact/" className="btn btn-ghost">Not sure which you need? Ask us <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
+          <p className="text-text-2 text-[0.92rem]">{home.services.note}</p>
+          <Link href="/contact/" className="btn btn-ghost">{home.services.helpLink} <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
         </Reveal>
       </div>
     </Tone>
@@ -113,9 +114,9 @@ export function Process() {
       <div className="container grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
           <Reveal>
-            <p className="eyebrow">Process</p>
-            <h2 id="proc-h" className="mt-5">Clear steps. <span className="accent">No</span> surprises.</h2>
-            <p className="lead mt-6">The same five steps for every project. Scope before creative, measurement before claims.</p>
+            <p className="eyebrow">{home.process.eyebrow}</p>
+            <h2 id="proc-h" className="mt-5"><HeadText h={home.process} /></h2>
+            <p className="lead mt-6">{home.process.lead}</p>
           </Reveal>
         </div>
         <div className="lg:col-span-7"><ProcessSteps items={steps} /></div>
@@ -129,8 +130,8 @@ export function SeeItInAction() {
     <Tone tone="dark" grad grid className="section overflow-hidden" aria-labelledby="see-h">
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-12 items-end">
-          <Reveal className="lg:col-span-7"><p className="eyebrow">See it in action</p><h2 id="see-h" className="mt-5">What we build, <span className="accent">working.</span></h2></Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">Pick a service to try a live illustration of the kind of work we deliver. Sample data, real interactions.</p></Reveal>
+          <Reveal className="lg:col-span-7"><p className="eyebrow">{home.showcase.eyebrow}</p><h2 id="see-h" className="mt-5"><HeadText h={home.showcase} /></h2></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">{home.showcase.lead}</p></Reveal>
         </div>
         <Reveal className="mt-14 bloom" index={2}><Showcase /></Reveal>
       </div>
@@ -143,8 +144,8 @@ export function WhyUs() {
     <Tone tone="light" className="section" aria-labelledby="why-h">
       <div className="container grid gap-14 lg:grid-cols-12">
         <Reveal className="lg:col-span-4">
-          <p className="eyebrow">Why Keelbiz</p>
-          <h2 id="why-h" className="mt-5">Only claims we can <span className="accent">stand</span> behind.</h2>
+          <p className="eyebrow">{home.why.eyebrow}</p>
+          <h2 id="why-h" className="mt-5"><HeadText h={home.why} /></h2>
         </Reveal>
         <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-4">
           {whyUs.map((w, i) => (
@@ -155,8 +156,8 @@ export function WhyUs() {
             </Reveal>
           ))}
           <Reveal as="li" index={whyUs.length} className="card p-6 md:p-7 flex flex-col justify-between !bg-[linear-gradient(160deg,#dfe7ea,#d5e0e4)]">
-            <p className="text-text-2 text-[0.95rem]">Selected case studies are published only with client permission and verified results.</p>
-            <Link href="/work/" className="btn btn-ghost !justify-start mt-4">See our work <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
+            <p className="text-text-2 text-[0.95rem]">{home.why.note}</p>
+            <Link href="/work/" className="btn btn-ghost !justify-start mt-4">{home.why.link} <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
           </Reveal>
         </ul>
       </div>
@@ -171,9 +172,9 @@ export function HomeFaq() {
     <Tone tone="light" alt className="section" aria-labelledby="faq-h">
       <div className="container grid gap-14 lg:grid-cols-12">
         <Reveal className="lg:col-span-4">
-          <p className="eyebrow">FAQ</p>
-          <h2 id="faq-h" className="mt-5">Straight <span className="accent">answers.</span></h2>
-          <p className="lead mt-6">How we work, how pricing works and how to start.</p>
+          <p className="eyebrow">{home.faq.eyebrow}</p>
+          <h2 id="faq-h" className="mt-5"><HeadText h={home.faq} /></h2>
+          <p className="lead mt-6">{home.faq.lead}</p>
         </Reveal>
         <Reveal className="lg:col-span-8" index={1}><Faq items={homeFaq} /></Reveal>
       </div>

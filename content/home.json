@@ -1,0 +1,116 @@
+{
+  "seo": {
+    "title": "Keelbiz — Build, grow and automate your business",
+    "description": "Websites, social media, Meta and Google ads, AI agents, automation and business dashboards. Hire Keelbiz for one service or a complete solution."
+  },
+  "hero": {
+    "eyebrow": "Websites · Social · Advertising · AI · Dashboards",
+    "line1": "Build your presence.",
+    "line2": "Grow your business.",
+    "accentWord": "Automate",
+    "line3": "what comes next.",
+    "lead": "We design websites, manage social media, run Meta and Google advertising, and build AI automation and business systems. Choose one service or a tailored combination.",
+    "primaryButton": "Start a Project",
+    "secondaryButton": "Explore Services",
+    "ticks": [
+      "One service or a complete solution",
+      "Custom quotes",
+      "No forced bundles"
+    ],
+    "marquee": [
+      "Business websites",
+      "Landing pages",
+      "Social media management",
+      "Reels & content",
+      "Meta Ads",
+      "Google Ads",
+      "Custom AI agents",
+      "Workflow automation",
+      "Business dashboards",
+      "Management systems"
+    ]
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Five services. Hire",
+    "accent": "one,",
+    "after": "or combine them.",
+    "lead": "Each service stands on its own. Combine them only when it helps — every project is scoped and quoted around your business.",
+    "cards": [
+      {
+        "title": "Website Design & Development",
+        "description": "Business websites, landing pages and redesigns — fast, responsive and built to turn visitors into enquiries."
+      },
+      {
+        "title": "Social Media Management",
+        "description": "Planned content, visual creatives, reels and captions — scheduled and managed for you."
+      },
+      {
+        "title": "Digital Advertising",
+        "description": "Meta and Google campaigns set up, managed and optimised, with clear reporting."
+      },
+      {
+        "title": "AI Agents & Automation",
+        "description": "AI agents that answer enquiries, qualify leads and follow up — plus automation for repetitive work."
+      },
+      {
+        "title": "Business Dashboards & Systems",
+        "description": "Custom dashboards, management tools and reporting built on your own numbers."
+      }
+    ],
+    "note": "Previews are illustrative interface demonstrations, not client work.",
+    "helpLink": "Not sure which you need? Ask us"
+  },
+  "showcase": {
+    "eyebrow": "See it in action",
+    "title": "What we build,",
+    "accent": "working.",
+    "after": "",
+    "lead": "Pick a service to try a live illustration of the kind of work we deliver. Sample data, real interactions."
+  },
+  "why": {
+    "eyebrow": "Why Keelbiz",
+    "title": "Only claims we can",
+    "accent": "stand",
+    "after": "behind.",
+    "lead": "",
+    "note": "Selected case studies are published only with client permission and verified results.",
+    "link": "See our work"
+  },
+  "flexible": {
+    "eyebrow": "How you can work with us",
+    "title": "One service or a complete solution.",
+    "accent": "Built",
+    "after": "around your business.",
+    "lead": "From a single website to complete digital growth and automation — choose exactly what your business needs.",
+    "individualTitle": "Individual services",
+    "individualText": "Choose exactly what your business needs. Every service stands on its own.",
+    "individualButton": "Explore Services",
+    "completeTitle": "Complete solutions",
+    "completeText": "Combine services to support your business goals. Examples — not fixed packages:",
+    "completeButton": "Build Your Solution"
+  },
+  "process": {
+    "eyebrow": "Process",
+    "title": "Clear steps.",
+    "accent": "No",
+    "after": "surprises.",
+    "lead": "The same five steps for every project. Scope before creative, measurement before claims."
+  },
+  "ai": {
+    "eyebrow": "AI agents & automation",
+    "title": "Tell us what to automate. We design it",
+    "accent": "around",
+    "after": "you.",
+    "lead": "Custom AI agents, custom automation — and ready-made solutions where a built one fits. Plain language, clear quotes, no checkout.",
+    "footnote": "Customer support, lead qualification, sales follow-up, appointment booking, website and messaging assistants, workflow automation — and anything else that's technically feasible.",
+    "button": "Explore AI Solutions"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Straight",
+    "accent": "answers.",
+    "after": "",
+    "lead": "How we work, how pricing works and how to start."
+  }
+}

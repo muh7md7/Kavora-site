@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pages } from "@/content/copy";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { Reveal } from "@/components/sections/Reveal";
-import { Tone } from "@/components/sections/Tone";
+import { HeadText, Tone } from "@/components/sections/Tone";
 import { caseStudies } from "@/content/work";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
@@ -26,9 +27,10 @@ const demos: { id: ServiceId; title: string; kind: string; desc: string; href: s
 ];
 
 export default function WorkPage() {
+  const w = pages.work;
   return (
     <>
-      <PageHero eyebrow="Work" title="Selected" accent="work." lead="Concept demonstrations of the websites, content, campaigns, automation and dashboards we build. Client case studies are added only with permission." />
+      <PageHero eyebrow={w.hero.eyebrow} title={w.hero.title} accent={w.hero.accent} lead={w.hero.lead} />
 
       {caseStudies.length > 0 && (
       <Tone tone="light" className="section !pt-0">
@@ -43,8 +45,8 @@ export default function WorkPage() {
       <Tone tone="mist" className="section">
         <div className="container">
           <div className="grid gap-8 lg:grid-cols-12 items-end">
-            <Reveal className="lg:col-span-7"><p className="eyebrow">Concept demonstrations</p><h2 className="mt-5 max-w-[16ch]">What we build, <span className="accent">shown.</span></h2></Reveal>
-            <Reveal className="lg:col-span-5" index={1}><p className="lead">Each one is an illustrative concept with sample content — clearly not client work. Open one to try the interactive version.</p></Reveal>
+            <Reveal className="lg:col-span-7"><p className="eyebrow">{w.demos.eyebrow}</p><h2 className="mt-5 max-w-[16ch]"><HeadText h={w.demos} /></h2></Reveal>
+            <Reveal className="lg:col-span-5" index={1}><p className="lead">{w.demos.lead}</p></Reveal>
           </div>
           <ul className="mt-12 grid gap-4 md:grid-cols-2">
             {demos.map((d, i) => (
@@ -63,8 +65,8 @@ export default function WorkPage() {
             ))}
           </ul>
           <Reveal className="mt-10 card p-7 md:p-9 flex flex-wrap items-center justify-between gap-6">
-            <p className="max-w-[58ch]"><span className="font-[560]">About case studies.</span> <span className="text-text-2">Client projects are published here only with the client&apos;s permission and verified results.</span></p>
-            <Link href="/contact/" className="btn btn-primary">Discuss your project <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
+            <p className="max-w-[58ch]"><span className="font-[560]">{w.caseNoteTitle}</span> <span className="text-text-2">{w.caseNote}</span></p>
+            <Link href="/contact/" className="btn btn-primary">{w.button} <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
           </Reveal>
         </div>
       </Tone>

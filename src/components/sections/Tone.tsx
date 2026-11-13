@@ -27,3 +27,8 @@ export function SectionHead({ eyebrow, title, accent, after, lead, className, al
     </div>
   );
 }
+
+/** Renders an editable heading object: title + serif-italic accent word + trailing text. */
+export function HeadText({ h }: { h: { title: string; accent?: string; after?: string } }) {
+  return <>{h.title}{h.accent ? <> <span className="accent">{h.accent}</span></> : null}{h.after ? ` ${h.after}` : ""}</>;
+}

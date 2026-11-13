@@ -1,0 +1,36 @@
+# Publishes the website whenever content or code changes on main (including edits saved in the Pages CMS admin panel).
+# Builds the static site and pushes it to the `deploy` branch; Hostinger's Git deployment pulls that branch into public_html.
+name: Publish website
+on:
+  push:
+    branches: [main]
+    paths: ["content/**", "src/**", "public/**", "package.json", "package-lock.json", "next.config.ts", ".github/workflows/publish.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: publish, cancel-in-progress: true }
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - name: Build
+        run: npm run build
+      - name: Push build to deploy branch
+        env:
+          REPO_URL: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        run: |
+          git clone -q --depth 1 --branch deploy "$REPO_URL" site-deploy
+          cd site-deploy
+          git rm -rq --ignore-unmatch . && git clean -fdxq
+          cp -a ../out/. .
+          git config user.name "Keelbiz publisher"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No changes to publish"; exit 0; fi
+          git commit -q -m "Publish website (main ${GITHUB_SHA::7})"
+          git push -q origin deploy

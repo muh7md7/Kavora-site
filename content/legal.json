@@ -1,0 +1,70 @@
+{
+  "updated": "13 November 2026",
+  "privacy": {
+    "title": "Privacy Policy",
+    "sections": [
+      {
+        "heading": "What we collect",
+        "text": "The details you submit through the enquiry form (name, email, business name, services of interest, project description, and optionally your website and preferred contact method) and standard server logs. We do not collect payment card data."
+      },
+      {
+        "heading": "Why",
+        "text": "To respond to your enquiry and, where you agree, to follow up about our services. We do not sell your data or use it for unrelated purposes."
+      },
+      {
+        "heading": "Retention",
+        "text": "Enquiries are kept only as long as needed to respond and, if a project follows, for its duration — then deleted. Access is restricted to the Keelbiz team."
+      },
+      {
+        "heading": "Analytics and advertising",
+        "text": "This site currently uses no advertising pixels and no tracking cookies. If privacy-friendly analytics are added, they will be cookieless. See the Cookie Policy."
+      },
+      {
+        "heading": "Your rights",
+        "text": "You can ask what we hold about you, request correction or deletion, or withdraw consent at any time by contacting us through the enquiry form."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms",
+    "sections": [
+      {
+        "heading": "Scope",
+        "text": "These terms cover use of this website. Service engagements are governed by a separate written proposal and agreement."
+      },
+      {
+        "heading": "No guarantees",
+        "text": "Demos on this site use sample or illustrative data. We do not promise specific results, revenue or return on investment."
+      },
+      {
+        "heading": "Intellectual property",
+        "text": "Site content, designs and code are © Keelbiz unless stated otherwise. Reuse requires written permission."
+      },
+      {
+        "heading": "Liability",
+        "text": "This website is provided for general information. To the extent permitted by law, Keelbiz is not liable for losses arising from its use. Liability for project work is set out in each project agreement."
+      },
+      {
+        "heading": "Governing law",
+        "text": "The governing law and jurisdiction are stated in each project agreement."
+      }
+    ]
+  },
+  "cookies": {
+    "title": "Cookies",
+    "sections": [
+      {
+        "heading": "Default",
+        "text": "This site sets no non-essential cookies by default. Preferences such as a remembered tab are stored locally in your browser only."
+      },
+      {
+        "heading": "Analytics",
+        "text": "If analytics are enabled they are cookieless (Plausible or Umami). No consent banner is required for these."
+      },
+      {
+        "heading": "Advertising",
+        "text": "No advertising pixels are currently used on this site. If one is added, it will load only after you accept it in the cookie settings."
+      }
+    ]
+  }
+}

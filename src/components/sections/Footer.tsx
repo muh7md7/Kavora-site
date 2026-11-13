@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeadText } from "./Tone";
 import { ArrowUpRight } from "lucide-react";
 import { isConfirmed, nav, services, site } from "@/content/site";
 import { LogoMark } from "@/components/brand/Logo";
@@ -7,16 +8,17 @@ import { LogoMark } from "@/components/brand/Logo";
 export function Footer() {
   const email = site.contact.email;
   const wa = site.contact.whatsapp;
+  const ft = site.footer;
   return (
     <footer data-theme="dark" className="tone tone-grad overflow-hidden">
       <section className="container pt-[clamp(96px,12vw,180px)] pb-20" aria-labelledby="cta-h">
-        <p className="eyebrow">Start a Project</p>
-        <h2 id="cta-h" className="display mt-6 max-w-[14ch]">Let&apos;s build what&apos;s <span className="accent">next.</span></h2>
+        <p className="eyebrow">{ft.eyebrow}</p>
+        <h2 id="cta-h" className="display mt-6 max-w-[14ch]"><HeadText h={ft} /></h2>
         <div className="mt-12 grid gap-10 lg:grid-cols-12 items-end">
-          <p className="lead lg:col-span-6">One service or a complete solution — tell us what you need and we&apos;ll reply with options and a custom quote.</p>
+          <p className="lead lg:col-span-6">{ft.lead}</p>
           <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
-            <Link href="/contact/" className="btn btn-premium !min-h-14 !px-7" data-magnetic>Start a conversation <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></Link>
-            <Link href="/services/" className="btn btn-glass !min-h-14 !px-7">Explore services</Link>
+            <Link href="/contact/" className="btn btn-premium !min-h-14 !px-7" data-magnetic>{ft.primaryButton} <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></Link>
+            <Link href="/services/" className="btn btn-glass !min-h-14 !px-7">{ft.secondaryButton}</Link>
           </div>
         </div>
       </section>
@@ -26,7 +28,7 @@ export function Footer() {
           <div className="md:col-span-4">
             <LogoMark className="size-10 text-[#F7F8F6] [--logo-ink:#11191E] [--logo-keel:#4F6673]" />
             <p className="text-[0.95rem] text-text-2 mt-6 max-w-xs">{site.positioning}</p>
-            <p className="num mt-4">One service or a complete solution</p>
+            <p className="num mt-4">{ft.tagline}</p>
           </div>
           <nav aria-label="Services" className="md:col-span-3">
             <h3 className="num mb-5">Services</h3>

@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { home } from "@/content/copy";
 import Link from "next/link";
 import { ArrowUpRight, Bot, CalendarCheck, Check, MessageSquare, Sparkles } from "lucide-react";
 
 
-const capabilities = ["Business websites", "Landing pages", "Social media management", "Reels & content", "Meta Ads", "Google Ads", "Custom AI agents", "Workflow automation", "Business dashboards", "Management systems"];
+const hero = home.hero;
+const capabilities = hero.marquee;
 
 /** Hero — editorial headline + a dark product stage with floating light-glass chips (pointer parallax on desktop). */
 export function Hero() {
@@ -36,19 +38,19 @@ export function Hero() {
       <div className="spotlight" aria-hidden />
       <div className="container grid gap-14 lg:gap-12 lg:grid-cols-12 items-center">
         <div className="lg:col-span-7">
-          <p className="eyebrow reveal-fade" style={{ animationDelay: "120ms" }}>Websites · Social · Advertising · AI · Dashboards</p>
+          <p className="eyebrow reveal-fade" style={{ animationDelay: "120ms" }}>{hero.eyebrow}</p>
           <h1 className="mt-7 !text-[clamp(2.5rem,1.35rem+3.3vw,4.5rem)] !leading-[1.02] !tracking-[-0.048em]">
-            <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "180ms" }}>Build your presence.</span></span>
-            <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "260ms" }}>Grow your business.</span></span>
-            <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "340ms" }}><span className="accent pr-[.04em]">Automate</span> what comes next.</span></span>
+            <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "180ms" }}>{hero.line1}</span></span>
+            <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "260ms" }}>{hero.line2}</span></span>
+            <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "340ms" }}><span className="accent pr-[.04em]">{hero.accentWord}</span> {hero.line3}</span></span>
           </h1>
-          <p className="lead mt-7 max-w-[50ch] reveal-fade" style={{ animationDelay: "460ms" }}>We design websites, manage social media, run Meta and Google advertising, and build AI automation and business systems. Choose one service or a tailored combination.</p>
+          <p className="lead mt-7 max-w-[50ch] reveal-fade" style={{ animationDelay: "460ms" }}>{hero.lead}</p>
           <div className="mt-9 flex flex-wrap items-center gap-3 reveal-fade" style={{ animationDelay: "560ms" }}>
-            <Link href="/contact/" className="btn btn-primary" data-magnetic>Start a Project <ArrowUpRight size={17} className="btn-arrow" aria-hidden /></Link>
-            <Link href="/services/" className="btn btn-glass">Explore Services</Link>
+            <Link href="/contact/" className="btn btn-primary" data-magnetic>{hero.primaryButton} <ArrowUpRight size={17} className="btn-arrow" aria-hidden /></Link>
+            <Link href="/services/" className="btn btn-glass">{hero.secondaryButton}</Link>
           </div>
           <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-[0.85rem] text-text-2 reveal-fade" style={{ animationDelay: "640ms" }}>
-            {["One service or a complete solution", "Custom quotes", "No forced bundles"].map((t) => (
+            {hero.ticks.map((t) => (
               <li key={t} className="inline-flex items-center gap-2"><Check size={14} className="text-accent" aria-hidden />{t}</li>
             ))}
           </ul>

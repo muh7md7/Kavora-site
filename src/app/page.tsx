@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { home } from "@/content/copy";
 import { Hero } from "@/components/sections/Hero";
 import { HomeFaq, Process, SeeItInAction, Services, WhyUs } from "@/components/sections/HomeSections";
 import { AiOffer, FlexibleSolutions } from "@/components/sections/Offer";
@@ -6,8 +7,8 @@ import { FaqJsonLd } from "@/components/seo/JsonLd";
 import { homeFaq } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Keelbiz — Build, grow and automate your business",
-  description: "Websites, social media, Meta and Google ads, AI agents, automation and business dashboards. Hire Keelbiz for one service or a complete solution.",
+  title: home.seo.title,
+  description: home.seo.description,
   alternates: { canonical: "/" },
 };
 

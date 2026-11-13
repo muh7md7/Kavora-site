@@ -1,0 +1,85 @@
+{
+  "paths": [
+    {
+      "title": "Ready-made AI solutions",
+      "lead": "Where a built solution fits your need, we configure it for your business.",
+      "points": [
+        "Faster to launch than a custom build",
+        "Configured with your details and tools",
+        "Availability confirmed per use case — ask us"
+      ],
+      "cta": {
+        "label": "Ask what's available",
+        "href": "/contact/?type=ai-ready&services=automation"
+      }
+    },
+    {
+      "title": "Custom AI agents",
+      "lead": "Tell us what you need. We propose and build it.",
+      "points": [
+        "Designed around your process",
+        "Built for your specific tasks",
+        "Scoped and quoted before we start"
+      ],
+      "cta": {
+        "label": "Discuss Your AI Project",
+        "href": "/contact/?type=ai-custom&services=automation"
+      }
+    },
+    {
+      "title": "Custom automation",
+      "lead": "Connect your tools and remove repetitive work.",
+      "points": [
+        "Link the apps you already use",
+        "Automate follow-ups, data entry and reports",
+        "Monitored, with alerts if something fails"
+      ],
+      "cta": {
+        "label": "Explore Automation",
+        "href": "/contact/?type=automation&services=automation"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "title": "Customer support agent",
+      "does": "Answers common questions on your website or chat, day and night.",
+      "solves": "Slow replies and repeated questions."
+    },
+    {
+      "title": "Sales & lead follow-up agent",
+      "does": "Qualifies new leads and follows up until they respond.",
+      "solves": "Leads that go cold."
+    },
+    {
+      "title": "Appointment booking agent",
+      "does": "Offers available times and books meetings for you.",
+      "solves": "Back-and-forth scheduling."
+    },
+    {
+      "title": "Website & messaging assistant",
+      "does": "Chats with visitors on your site or messaging channels and passes hot leads to your team.",
+      "solves": "Missed enquiries out of hours."
+    },
+    {
+      "title": "Email & message automation",
+      "does": "Sends the right message at the right time, automatically.",
+      "solves": "Manual reminders and updates."
+    },
+    {
+      "title": "Social media workflows",
+      "does": "Moves content from idea to scheduled post with fewer steps.",
+      "solves": "Time lost to posting admin."
+    },
+    {
+      "title": "CRM & process automation",
+      "does": "Keeps your CRM and apps in sync without copy-paste.",
+      "solves": "Data entry and missed updates."
+    },
+    {
+      "title": "Reporting automation",
+      "does": "Builds and sends your regular reports automatically.",
+      "solves": "Hours spent on weekly reports."
+    }
+  ]
+}

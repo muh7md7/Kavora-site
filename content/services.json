@@ -1,0 +1,280 @@
+{
+  "services": [
+    {
+      "name": "Website Design & Development",
+      "short": "Business websites, landing pages, redesigns, custom development and integrations.",
+      "definition": "We design and build fast, credible websites that turn visitors into enquiries — from a single landing page to a complete business site.",
+      "forWho": "Businesses launching, rebranding, or replacing a site that no longer reflects them or brings in enquiries.",
+      "cta": "Get a Proposal",
+      "benefits": [
+        "Look credible from the first second",
+        "Turn visitors into enquiries",
+        "Easy to grow and maintain"
+      ],
+      "capabilities": [
+        "Business and corporate websites",
+        "Landing pages for campaigns",
+        "Website redesigns",
+        "Custom website development",
+        "Website integrations (forms, booking, CRM, payments)",
+        "SEO-ready structure"
+      ],
+      "deliverables": [
+        "Page designs and content structure",
+        "A fast, responsive build",
+        "Enquiry forms connected to your inbox or CRM",
+        "SEO foundations: titles, sitemap, structured data",
+        "Handover notes"
+      ],
+      "useCases": [
+        "A new business going online",
+        "A redesign of an outdated site",
+        "A landing page for an ad campaign",
+        "A site that needs to bring in more enquiries"
+      ],
+      "pairsWith": [
+        {
+          "id": "ads",
+          "why": "Send paid traffic to pages built to convert."
+        },
+        {
+          "id": "automation",
+          "why": "Reply to every new enquiry instantly."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do you work remotely?",
+          "a": "Yes. Every project runs remotely, with clear communication and regular reviews."
+        },
+        {
+          "q": "Who owns the website?",
+          "a": "You do. Hosting, domain and code are set up in your name."
+        },
+        {
+          "q": "Can you just redesign one page?",
+          "a": "Yes. We can take on a single page, a landing page or a full site."
+        }
+      ]
+    },
+    {
+      "name": "Social Media Management",
+      "short": "Content, posts, reels, captions, scheduling and account management.",
+      "definition": "We plan, create and publish your social content — posts, reels and captions — so your accounts stay active, consistent and on-brand.",
+      "forWho": "Businesses that know social matters but don't have the time or team to run it well.",
+      "cta": "Discuss Your Goals",
+      "benefits": [
+        "A consistent, professional presence",
+        "Content made for your audience",
+        "Time back in your week"
+      ],
+      "capabilities": [
+        "Content planning",
+        "Post and carousel design",
+        "Reels, stories and short-form video",
+        "Captions and hashtags",
+        "Scheduling and publishing",
+        "Platform-specific content where supported"
+      ],
+      "deliverables": [
+        "A monthly content calendar",
+        "Designed posts and reels",
+        "On-brand captions",
+        "Scheduled publishing",
+        "A simple monthly report"
+      ],
+      "useCases": [
+        "Hospitality, events and restaurants",
+        "Service businesses building trust",
+        "Product launches",
+        "Founder-led brands"
+      ],
+      "pairsWith": [
+        {
+          "id": "ads",
+          "why": "Boost your best content to the right audience."
+        },
+        {
+          "id": "automation",
+          "why": "Answer DMs and comments faster."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which platforms do you manage?",
+          "a": "Instagram, Facebook and LinkedIn by default. Others on request."
+        },
+        {
+          "q": "Do you need our passwords?",
+          "a": "No. You grant access through the platform's business tools and can remove it any time."
+        }
+      ]
+    },
+    {
+      "name": "Digital Advertising",
+      "short": "Meta Ads and Google Ads — setup, management and optimisation.",
+      "definition": "We plan, launch and manage ad campaigns on Meta (Facebook and Instagram) and Google — on one platform or both — to bring you leads and customers.",
+      "forWho": "Businesses that want more enquiries or sales from paid advertising, with clear reporting.",
+      "cta": "Request a Strategy",
+      "benefits": [
+        "Reach people ready to buy",
+        "Choose Meta, Google or both",
+        "Clear reporting on what's working"
+      ],
+      "capabilities": [
+        "Facebook and Instagram ads",
+        "Google Search ads",
+        "Other suitable Google Ads campaigns",
+        "Campaign setup and tracking",
+        "Ongoing management and optimisation",
+        "Lead generation and advertising strategy"
+      ],
+      "deliverables": [
+        "Campaign plan and structure",
+        "Ad creative and copy",
+        "Conversion tracking setup",
+        "Regular optimisation",
+        "Simple performance reports"
+      ],
+      "useCases": [
+        "Lead generation for service businesses",
+        "Search ads for people already looking for you",
+        "Seasonal and event promotions",
+        "Online store sales"
+      ],
+      "pairsWith": [
+        {
+          "id": "websites",
+          "why": "Landing pages that convert your ad clicks."
+        },
+        {
+          "id": "automation",
+          "why": "Follow up every lead from your ads automatically."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Meta or Google — which do I need?",
+          "a": "It depends on how your customers find you. Meta reaches people while they scroll; Google reaches people while they search. You can choose one or both."
+        },
+        {
+          "q": "Do you guarantee results?",
+          "a": "No. Nobody honest can. We set campaigns up properly, test, optimise and report what actually happens."
+        },
+        {
+          "q": "Who pays for the ad spend?",
+          "a": "Ad spend is paid directly to Meta or Google from your own account. Our management fee is separate."
+        }
+      ]
+    },
+    {
+      "name": "AI Agents & Automation",
+      "short": "Custom AI agents, workflow automation and ready-made AI solutions where available.",
+      "definition": "We build AI agents and automations that answer enquiries, follow up leads, book appointments and connect your business tools — ready-made where available, or custom-built around your needs.",
+      "forWho": "Businesses losing time or leads to repetitive work — replying, following up, copying data between apps.",
+      "cta": "Discuss Your AI Project",
+      "benefits": [
+        "Reply to customers instantly",
+        "Never forget a follow-up",
+        "Less manual admin"
+      ],
+      "capabilities": [
+        "AI customer support agents",
+        "AI sales and lead follow-up",
+        "AI appointment booking",
+        "Website and messaging assistants",
+        "Business workflow automation",
+        "Custom integrations between your apps"
+      ],
+      "deliverables": [
+        "A clear proposal for your use case",
+        "A built and tested AI agent or workflow",
+        "Connections to your tools",
+        "Monitoring and error alerts",
+        "Simple documentation"
+      ],
+      "useCases": [
+        "Answering common customer questions",
+        "Qualifying and following up new leads",
+        "Booking appointments automatically",
+        "Moving data between apps without copy-paste"
+      ],
+      "pairsWith": [
+        {
+          "id": "websites",
+          "why": "Put an AI assistant on your website."
+        },
+        {
+          "id": "dashboards",
+          "why": "See every automated lead and task in one place."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can you build something that isn't on your list?",
+          "a": "Yes. Tell us what you need. If it's technically feasible, we'll propose a solution."
+        },
+        {
+          "q": "Do you sell ready-made AI agents?",
+          "a": "Yes, where a ready-made solution fits your needs. Ask us what's currently available for your use case."
+        },
+        {
+          "q": "Is our customer data safe?",
+          "a": "We design for minimal data use and keep credentials out of public code. Specific compliance needs are reviewed per project."
+        }
+      ]
+    },
+    {
+      "name": "Business Dashboards & Systems",
+      "short": "Custom dashboards, management systems, client tools and reporting.",
+      "definition": "We build custom dashboards and internal systems — reporting, client management, order and project tracking — so you can run your business from one clear view.",
+      "forWho": "Owners and managers juggling spreadsheets, apps and messages to see what's going on.",
+      "cta": "Request a Quote",
+      "benefits": [
+        "One clear view of your business",
+        "Fewer spreadsheets",
+        "Decisions based on real numbers"
+      ],
+      "capabilities": [
+        "Business reporting dashboards",
+        "Sales and operations tracking",
+        "Client management systems",
+        "Orders and workflow management",
+        "Custom business tools",
+        "Operational and financial reporting"
+      ],
+      "deliverables": [
+        "A requirements and data map",
+        "A working system with user roles",
+        "Dashboards connected to your data",
+        "Training and documentation"
+      ],
+      "useCases": [
+        "Agency and studio operations",
+        "Bookings and events",
+        "Sales pipeline visibility",
+        "Field and delivery tracking"
+      ],
+      "pairsWith": [
+        {
+          "id": "automation",
+          "why": "Feed the dashboard automatically."
+        },
+        {
+          "id": "ads",
+          "why": "See advertising results next to sales."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do we own the system?",
+          "a": "Yes. Code, data and accounts are set up in your name."
+        },
+        {
+          "q": "Can it connect to the tools we already use?",
+          "a": "Usually, yes. We confirm what's possible before we start."
+        }
+      ]
+    }
+  ]
+}

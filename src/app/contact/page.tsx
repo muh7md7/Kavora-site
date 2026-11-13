@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pages } from "@/content/copy";
 import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { EnquiryForm } from "@/components/sections/EnquiryForm";
@@ -14,9 +15,10 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const { email, whatsapp } = site.contact;
+  const c = pages.contact;
   return (
     <>
-      <PageHero eyebrow="Contact" title="Tell us what you're" accent="building." lead="One service, several, or a complete solution — a few lines is enough. We reply with questions, options and a custom quote." compact />
+      <PageHero eyebrow={c.hero.eyebrow} title={c.hero.title} accent={c.hero.accent} lead={c.hero.lead} compact />
       <Tone tone="mist" className="section !pt-12 md:!pt-16">
         <div className="container grid gap-6 lg:gap-8 lg:grid-cols-12">
           <div className="lg:col-span-8 card !bg-[linear-gradient(180deg,rgba(255,253,250,.9),rgba(255,253,250,.7))] p-6 sm:p-8 md:p-10">
@@ -26,7 +28,7 @@ export default function ContactPage() {
             <div data-theme="dark" className="card p-7 !bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.32),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] !border-transparent text-text">
               <p className="eyebrow">What happens next</p>
               <ol className="mt-6 grid gap-5">
-                {["We read your enquiry and reply within two working days.", "A short call to understand what you need.", "A clear proposal and custom quote — no obligation."].map((t, i) => (
+                {c.nextSteps.map((t, i) => (
                   <li key={t} className="flex gap-4"><span className="num shrink-0">0{i + 1}</span><span className="text-[0.95rem]">{t}</span></li>
                 ))}
               </ol>
@@ -43,8 +45,7 @@ export default function ContactPage() {
             <div className="card p-7">
               <p className="eyebrow">Good to know</p>
               <ul className="mt-5 grid gap-3 text-[0.92rem] text-text-2">
-                <li>No budget required to enquire.</li>
-                <li>Custom quote — no public price list.</li>
+                {c.goodToKnow.map((t) => <li key={t}>{t}</li>)}
                 <li>{thirdPartyNote}</li>
               </ul>
             </div>

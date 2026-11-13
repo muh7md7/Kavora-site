@@ -1,0 +1,849 @@
+# Keelbiz admin panel (Pages CMS). Open https://app.pagescms.org, sign in with GitHub and pick muh7md7/Kavora-site.
+# Saving an edit commits to main; the "Publish website" GitHub Action rebuilds and deploys automatically.
+content:
+- name: settings
+  label: ⚙️ Business details & footer
+  description: Brand name, contact details, social links and the closing call-to-action. Leave a contact field empty to hide it on the website.
+  type: file
+  path: content/settings.json
+  fields:
+  - name: brand
+    label: Business name
+    type: string
+    required: true
+  - name: positioning
+    label: Tagline
+    type: string
+  - name: supporting
+    label: Short description of the business
+    type: text
+  - name: contact
+    label: Contact details
+    type: object
+    fields:
+    - name: email
+      label: Public email address
+      type: string
+      description: Shown on the website when filled in
+    - name: phone
+      label: Phone number
+      type: string
+    - name: whatsapp
+      label: WhatsApp number
+      type: string
+      description: International format, e.g. +971500000000
+    description: Only fill in details you want visitors to see.
+  - name: socials
+    label: Social media links
+    type: object
+    fields:
+    - name: instagram
+      label: Instagram link
+      type: string
+      description: Full link, e.g. https://instagram.com/keelbiz
+    - name: linkedin
+      label: LinkedIn link
+      type: string
+    - name: facebook
+      label: Facebook link
+      type: string
+  - name: thirdPartyNote
+    label: Third-party costs note
+    type: text
+    description: Shown wherever pricing is mentioned
+  - name: footer
+    label: Closing call-to-action (bottom of every page)
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (italic)
+      type: string
+    - name: lead
+      label: Paragraph
+      type: text
+    - name: primaryButton
+      label: Main button text
+      type: string
+    - name: secondaryButton
+      label: Second button text
+      type: string
+    - name: tagline
+      label: Footer tagline
+      type: string
+- name: home
+  label: 🏠 Home page
+  description: Every heading and paragraph on the home page.
+  type: file
+  path: content/home.json
+  fields:
+  - name: seo
+    label: Google search listing
+    type: object
+    fields:
+    - name: title
+      label: Page title
+      type: string
+    - name: description
+      label: Search description
+      type: text
+      description: Keep under 160 characters
+  - name: hero
+    label: Top section (hero)
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the headline
+      type: string
+    - name: line1
+      label: Headline — line 1
+      type: string
+    - name: line2
+      label: Headline — line 2
+      type: string
+    - name: accentWord
+      label: Headline — line 3 accent word (italic)
+      type: string
+    - name: line3
+      label: Headline — line 3 rest
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: primaryButton
+      label: Main button text
+      type: string
+    - name: secondaryButton
+      label: Second button text
+      type: string
+    - name: ticks
+      label: Small points under the buttons
+      type: string
+      list: true
+    - name: marquee
+      label: Scrolling list of what you do
+      type: string
+      list: true
+  - name: services
+    label: Services section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (italic)
+      type: string
+    - name: after
+      label: Heading — after accent
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: cards
+      label: 'Service cards (in order: Website, Social, Advertising, AI, Dashboards)'
+      type: object
+      fields:
+      - name: title
+        label: Card title
+        type: string
+      - name: description
+        label: Card description
+        type: text
+      list:
+        min: 5
+        max: 5
+    - name: note
+      label: Note under the cards
+      type: string
+    - name: helpLink
+      label: Help link text
+      type: string
+  - name: showcase
+    label: “See it in action” section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (shown in italic)
+      type: string
+    - name: after
+      label: Heading — text after the accent word
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+  - name: why
+    label: “Why Keelbiz” section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (shown in italic)
+      type: string
+    - name: after
+      label: Heading — text after the accent word
+      type: string
+    - name: note
+      label: Last card text
+      type: text
+    - name: link
+      label: Last card link text
+      type: string
+  - name: flexible
+    label: “One service or a complete solution” section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (shown in italic)
+      type: string
+    - name: after
+      label: Heading — text after the accent word
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: individualTitle
+      label: Left card title
+      type: string
+    - name: individualText
+      label: Left card text
+      type: text
+    - name: individualButton
+      label: Left card button
+      type: string
+    - name: completeTitle
+      label: Right card title
+      type: string
+    - name: completeText
+      label: Right card text
+      type: text
+    - name: completeButton
+      label: Right card button
+      type: string
+  - name: process
+    label: Process section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (shown in italic)
+      type: string
+    - name: after
+      label: Heading — text after the accent word
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+  - name: ai
+    label: AI section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (shown in italic)
+      type: string
+    - name: after
+      label: Heading — text after the accent word
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: footnote
+      label: Text above the button
+      type: text
+    - name: button
+      label: Button text
+      type: string
+  - name: faq
+    label: FAQ section
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+    - name: title
+      label: Heading — first part
+      type: string
+    - name: accent
+      label: Accent word (shown in italic)
+      type: string
+    - name: after
+      label: Heading — text after the accent word
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+- name: services
+  label: 🧩 Services
+  description: The five services and their pages. Edit text freely; keep exactly five services.
+  type: file
+  path: content/services.json
+  fields:
+  - name: services
+    label: Services
+    type: object
+    fields:
+    - name: name
+      label: Service name
+      type: string
+      required: true
+    - name: short
+      label: One-line summary
+      type: text
+    - name: definition
+      label: Main description (top of the service page)
+      type: text
+    - name: forWho
+      label: Who it's for
+      type: text
+    - name: cta
+      label: Button text
+      type: string
+      description: e.g. Get a Proposal
+    - name: benefits
+      label: Benefits (3 recommended)
+      type: string
+      list: true
+    - name: capabilities
+      label: What we offer
+      type: string
+      list: true
+    - name: deliverables
+      label: What you get
+      type: string
+      list: true
+    - name: useCases
+      label: Use cases
+      type: string
+      list: true
+    - name: pairsWith
+      label: Works well with
+      type: object
+      fields:
+      - name: id
+        label: Other service
+        type: select
+        options:
+          values: &id001
+          - websites
+          - social
+          - ads
+          - automation
+          - dashboards
+      - name: why
+        label: Why they work together
+        type: string
+      list: true
+    - name: faq
+      label: FAQ
+      type: object
+      fields:
+      - name: q
+        label: Question
+        type: string
+        required: true
+      - name: a
+        label: Answer
+        type: text
+        required: true
+      list: true
+    list:
+      min: 5
+      max: 5
+- name: shared
+  label: 🔁 Process, reasons & FAQ
+  description: Content used on several pages.
+  type: file
+  path: content/shared.json
+  fields:
+  - name: steps
+    label: Process steps
+    type: object
+    fields:
+    - name: n
+      label: Number
+      type: string
+    - name: name
+      label: Step name
+      type: string
+    - name: text
+      label: Description
+      type: text
+    list: true
+  - name: whyUs
+    label: Reasons to choose Keelbiz
+    type: object
+    fields:
+    - name: t
+      label: Title
+      type: string
+    - name: d
+      label: Description
+      type: text
+    list: true
+  - name: combinations
+    label: Example service combinations
+    type: object
+    fields:
+    - name: title
+      label: Title
+      type: string
+    - name: ids
+      label: Services included
+      type: select
+      options:
+        values: *id001
+        multiple: true
+    - name: note
+      label: Note
+      type: text
+    list: true
+  - name: flywheel
+    label: Loop diagram (About page)
+    type: object
+    fields:
+    - name: step
+      label: Stage
+      type: string
+    - name: detail
+      label: Detail
+      type: string
+    list:
+      min: 4
+      max: 4
+  - name: homeFaq
+    label: Home page FAQ
+    type: object
+    fields:
+    - name: q
+      label: Question
+      type: string
+      required: true
+    - name: a
+      label: Answer
+      type: text
+      required: true
+    list: true
+- name: ai
+  label: 🤖 AI offer
+  description: Ways to buy AI and the example AI agents.
+  type: file
+  path: content/ai.json
+  fields:
+  - name: paths
+    label: Ways to work with us
+    type: object
+    fields:
+    - name: title
+      label: Title
+      type: string
+    - name: lead
+      label: Short description
+      type: text
+    - name: points
+      label: Points
+      type: string
+      list: true
+    - name: cta
+      label: Button
+      type: object
+      fields:
+      - name: label
+        label: Button text
+        type: string
+      - name: href
+        label: Link
+        type: string
+        description: Normally leave as is
+    list:
+      min: 3
+      max: 3
+  - name: examples
+    label: Example AI agents
+    type: object
+    fields:
+    - name: title
+      label: Title
+      type: string
+    - name: does
+      label: What it does
+      type: text
+    - name: solves
+      label: What it solves
+      type: text
+    list: true
+- name: pages
+  label: 📄 Other pages
+  description: Services overview, About, Work, Contact and AI Solutions pages.
+  type: file
+  path: content/pages.json
+  fields:
+  - name: servicesHub
+    label: Services overview page
+    type: object
+    fields:
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word (italic)
+      type: string
+    - name: lead
+      label: Intro paragraph
+      type: text
+  - name: about
+    label: About page
+    type: object
+    fields:
+    - name: hero
+      label: Top section
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: title
+        label: Heading
+        type: string
+      - name: accent
+        label: Accent word (italic)
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+    - name: story
+      label: Why we exist
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: statement
+        label: Large statement
+        type: text
+      - name: lead
+        label: Paragraph
+        type: text
+    - name: principles
+      label: Principles heading
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+    - name: whatWeDo
+      label: What we do heading
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+    - name: team
+      label: Team section
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+      - name: button
+        label: Button text
+        type: string
+  - name: work
+    label: Work page
+    type: object
+    fields:
+    - name: hero
+      label: Top section
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: title
+        label: Heading
+        type: string
+      - name: accent
+        label: Accent word (italic)
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+    - name: demos
+      label: Demonstrations heading
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+    - name: caseNoteTitle
+      label: Case studies note — title
+      type: string
+    - name: caseNote
+      label: Case studies note — text
+      type: text
+    - name: button
+      label: Button text
+      type: string
+  - name: contact
+    label: Contact page
+    type: object
+    fields:
+    - name: hero
+      label: Top section
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: title
+        label: Heading
+        type: string
+      - name: accent
+        label: Accent word (italic)
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+    - name: nextSteps
+      label: What happens next
+      type: string
+      list: true
+    - name: goodToKnow
+      label: Good to know
+      type: string
+      list: true
+  - name: aiSolutions
+    label: AI Solutions page
+    type: object
+    fields:
+    - name: hero
+      label: Top section
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: title
+        label: Heading
+        type: string
+      - name: accent
+        label: Accent words (italic)
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+    - name: options
+      label: Options heading
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+    - name: examples
+      label: Examples heading
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+    - name: how
+      label: How it works
+      type: object
+      fields:
+      - name: eyebrow
+        label: Small label above the heading
+        type: string
+      - name: title
+        label: Heading — first part
+        type: string
+      - name: accent
+        label: Accent word (shown in italic)
+        type: string
+      - name: after
+        label: Heading — text after the accent word
+        type: string
+      - name: lead
+        label: Intro paragraph
+        type: text
+      - name: steps
+        label: Steps
+        type: string
+        list: true
+    - name: faq
+      label: FAQ
+      type: object
+      fields:
+      - name: q
+        label: Question
+        type: string
+        required: true
+      - name: a
+        label: Answer
+        type: text
+        required: true
+      list: true
+- name: legal
+  label: ⚖️ Legal pages
+  description: Privacy, Terms and Cookies. Have a lawyer review before publishing changes.
+  type: file
+  path: content/legal.json
+  fields:
+  - name: updated
+    label: Last updated date
+    type: string
+    description: e.g. 13 November 2026
+  - name: privacy
+    label: Privacy Policy
+    type: object
+    fields:
+    - name: title
+      label: Page title
+      type: string
+    - name: sections
+      label: Sections
+      type: object
+      fields:
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Text
+        type: text
+      list: true
+  - name: terms
+    label: Terms
+    type: object
+    fields:
+    - name: title
+      label: Page title
+      type: string
+    - name: sections
+      label: Sections
+      type: object
+      fields:
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Text
+        type: text
+      list: true
+  - name: cookies
+    label: Cookies
+    type: object
+    fields:
+    - name: title
+      label: Page title
+      type: string
+    - name: sections
+      label: Sections
+      type: object
+      fields:
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Text
+        type: text
+      list: true

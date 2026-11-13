@@ -1,0 +1,156 @@
+{
+  "steps": [
+    {
+      "n": "01",
+      "name": "Discover",
+      "text": "We learn your business, goals, audience and constraints."
+    },
+    {
+      "n": "02",
+      "name": "Propose",
+      "text": "We recommend what you actually need — one service or several — with a clear quote."
+    },
+    {
+      "n": "03",
+      "name": "Create",
+      "text": "Design and engineering in one team, reviewed with you."
+    },
+    {
+      "n": "04",
+      "name": "Launch",
+      "text": "Tested, measured and handed over with documentation."
+    },
+    {
+      "n": "05",
+      "name": "Improve",
+      "text": "We review real results and improve what matters."
+    }
+  ],
+  "whyUs": [
+    {
+      "t": "Flexible by design",
+      "d": "Hire us for one service or several. You never have to buy a bundle."
+    },
+    {
+      "t": "Design + engineering together",
+      "d": "No handoff gap between how it looks and how it works."
+    },
+    {
+      "t": "AI that's practical",
+      "d": "Ready-made where it fits, custom-built where it doesn't."
+    },
+    {
+      "t": "Transparent quotes",
+      "d": "Clear scope and a custom quote before any work starts."
+    },
+    {
+      "t": "Clear communication",
+      "d": "One point of contact, plain language, regular updates."
+    }
+  ],
+  "combinations": [
+    {
+      "title": "Launch online",
+      "ids": [
+        "websites"
+      ],
+      "note": "Website with an SEO-ready structure."
+    },
+    {
+      "title": "Grow your audience",
+      "ids": [
+        "social",
+        "ads"
+      ],
+      "note": "Social media management with Meta or Google advertising."
+    },
+    {
+      "title": "Never miss a lead",
+      "ids": [
+        "websites",
+        "automation"
+      ],
+      "note": "A website with an AI assistant and instant follow-up."
+    },
+    {
+      "title": "Ads that follow up",
+      "ids": [
+        "ads",
+        "automation"
+      ],
+      "note": "Campaigns with automated lead follow-up."
+    },
+    {
+      "title": "Full presence",
+      "ids": [
+        "websites",
+        "social",
+        "ads"
+      ],
+      "note": "Website, social media and advertising together."
+    },
+    {
+      "title": "Complete growth system",
+      "ids": [
+        "websites",
+        "social",
+        "ads",
+        "automation",
+        "dashboards"
+      ],
+      "note": "Digital growth and business automation, end to end."
+    }
+  ],
+  "flywheel": [
+    {
+      "step": "Attract",
+      "detail": "Social + Ads"
+    },
+    {
+      "step": "Convert",
+      "detail": "Website"
+    },
+    {
+      "step": "Automate",
+      "detail": "AI Agents"
+    },
+    {
+      "step": "Manage",
+      "detail": "Dashboards"
+    }
+  ],
+  "homeFaq": [
+    {
+      "q": "Do I have to buy more than one service?",
+      "a": "No. You can hire us for one service, several, or a complete solution. We'll only recommend what you need."
+    },
+    {
+      "q": "Do you work remotely?",
+      "a": "Yes. Every project runs remotely — discovery, reviews and handover included."
+    },
+    {
+      "q": "Do you sell ready-made AI agents or only build custom ones?",
+      "a": "Both. Where a ready-made solution fits, we set it up for you. Otherwise we design and build a custom agent."
+    },
+    {
+      "q": "Which advertising platforms do you manage?",
+      "a": "Meta (Facebook and Instagram) and Google Ads. You can choose one or both."
+    },
+    {
+      "q": "Do you offer ongoing support?",
+      "a": "Yes. Maintenance, content and optimisation can continue after launch."
+    },
+    {
+      "q": "How does pricing work?",
+      "a": "Every project gets a custom quote after a short discovery conversation. We don't publish fixed prices because every scope is different. Where a ready-made AI solution has a confirmed price, we share it on request."
+    },
+    {
+      "q": "Are there costs beyond your fee?",
+      "a": "Sometimes. Third-party costs — ad spend paid to Meta or Google, hosting and domains, AI usage, messaging or integration subscriptions — are paid by you directly and listed in the proposal before you commit."
+    },
+    {
+      "q": "How do we start?",
+      "a": "Send an enquiry with a short description of what you need. We reply with questions and next steps."
+    }
+  ]
+}

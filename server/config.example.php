@@ -5,7 +5,7 @@ return [
   'notify_to' => 'you@example.com',          // REQUIRED — where enquiries are delivered
   'allowed_origins' => [],                    // e.g. ['https://keelbiz.example', 'https://www.keelbiz.example']
   'allow_same_host' => true,                  // accept posts from the same host the endpoint is served on (temp domains)
-  'data_dir' => '',                           // private folder for the JSONL log + rate files; default api/_data (denied by .htaccess)
+  'data_dir' => __DIR__ . '/keelbiz-data',      // private folder for the JSONL log + rate files (outside public_html); '' = api/_data
   'rate_window' => 3600, 'rate_max' => 5, 'rate_salt' => 'change-me-random',
   'smtp_from' => '',                          // sender address; default no-reply@HOST
   'mail_envelope_from' => '',                 // optional -f for mail()

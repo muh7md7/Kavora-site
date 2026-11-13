@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { pages } from "@/content/copy";
 import Link from "next/link";
 import { PageHero } from "@/components/sections/PageHero";
 import { Reveal } from "@/components/sections/Reveal";
-import { Tone } from "@/components/sections/Tone";
+import { HeadText, Tone } from "@/components/sections/Tone";
 import { Button } from "@/components/glass/Button";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
-import { services, site, whyUs } from "@/content/site";
+import { services, whyUs } from "@/content/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { Flywheel } from "@/components/sections/HomeSections";
 import { cn } from "@/lib/cn";
@@ -17,26 +18,25 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const ab = pages.about;
   return (
     <>
-      <PageHero eyebrow="About Keelbiz" title="Your partner in digital" accent="growth." lead={site.supporting}
+      <PageHero eyebrow={ab.hero.eyebrow} title={ab.hero.title} accent={ab.hero.accent} lead={ab.hero.lead}
         aside={<div className="device flex justify-center p-6 sm:p-8"><Flywheel className="max-w-[380px]" /></div>} />
 
       <Tone tone="mist" className="section">
         <div className="container grid gap-14 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5"><p className="eyebrow">Why we exist</p></Reveal>
+          <Reveal className="lg:col-span-5"><p className="eyebrow">{ab.story.eyebrow}</p></Reveal>
           <Reveal className="lg:col-span-7" index={1}>
-            <p className="text-[clamp(1.4rem,1.1rem+1.2vw,2.1rem)] leading-[1.3] tracking-[-0.025em] text-text">
-              Most businesses buy their website, marketing and automation from different people who never talk to each other. The site doesn&apos;t match the ads, leads go unanswered, and nobody can see what&apos;s working.
-            </p>
-            <p className="lead mt-8">Keelbiz brings these together — so you can start with exactly what you need today, and connect more later. One service or a complete solution, built around your business.</p>
+            <p className="text-[clamp(1.4rem,1.1rem+1.2vw,2.1rem)] leading-[1.3] tracking-[-0.025em] text-text">{ab.story.statement}</p>
+            <p className="lead mt-8">{ab.story.lead}</p>
           </Reveal>
         </div>
       </Tone>
 
       <Tone tone="dark" grad grid className="section">
         <div className="container grid gap-14 lg:grid-cols-12">
-          <Reveal className="lg:col-span-4"><p className="eyebrow">How we work</p><h2 className="mt-5">Principles we <span className="accent">keep.</span></h2></Reveal>
+          <Reveal className="lg:col-span-4"><p className="eyebrow">{ab.principles.eyebrow}</p><h2 className="mt-5"><HeadText h={ab.principles} /></h2></Reveal>
           <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-4">
             {whyUs.map((w, i) => (
               <Reveal as="li" key={w.t} index={i} className="card card-hover p-6 md:p-7">
@@ -51,7 +51,7 @@ export default function AboutPage() {
 
       <Tone tone="light" className="section">
         <div className="container grid gap-14 lg:grid-cols-12">
-          <Reveal className="lg:col-span-4"><p className="eyebrow">What we do</p><h2 className="mt-5">Five services. <span className="accent">Your</span> choice.</h2></Reveal>
+          <Reveal className="lg:col-span-4"><p className="eyebrow">{ab.whatWeDo.eyebrow}</p><h2 className="mt-5"><HeadText h={ab.whatWeDo} /></h2></Reveal>
           <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3">
             {services.map((s, i) => (
               <Reveal as="li" key={s.id} index={i} className={cn(i === services.length - 1 && "sm:col-span-2")}>
@@ -69,11 +69,11 @@ export default function AboutPage() {
       <Tone tone="warm" className="section">
         <div className="container grid gap-10 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7">
-            <p className="eyebrow">The team</p>
-            <h2 className="mt-5">One team, with <span className="accent">specialists</span> per project.</h2>
-            <p className="lead mt-6">You get one point of contact, supported by specialists in design, engineering, advertising and automation as each project needs.</p>
+            <p className="eyebrow">{ab.team.eyebrow}</p>
+            <h2 className="mt-5"><HeadText h={ab.team} /></h2>
+            <p className="lead mt-6">{ab.team.lead}</p>
           </Reveal>
-          <Reveal className="lg:col-span-5 lg:justify-self-end" index={1}><Button href="/contact/">Start a conversation</Button></Reveal>
+          <Reveal className="lg:col-span-5 lg:justify-self-end" index={1}><Button href="/contact/">{ab.team.button}</Button></Reveal>
         </div>
       </Tone>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "About", href: "/about/" }]} />

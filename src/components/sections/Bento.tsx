@@ -3,6 +3,7 @@ import { ArrowUpRight, Bot, CalendarCheck, Check, Heart, Mail, MessageCircle, Pl
 import { services, type ServiceId } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { Reveal } from "./Reveal";
+import { home } from "@/content/copy";
 
 /* Illustrative interface previews — one per service. Pure HTML/CSS, transform/opacity motion only.
    Sample content only: no real clients, results or figures. */
@@ -183,14 +184,6 @@ export function ServiceStage({ id, scale = 1, className }: { id: ServiceId; scal
   );
 }
 
-const cardCopy: Record<ServiceId, { title: string; desc: string }> = {
-  websites: { title: "Website Design & Development", desc: "Business websites, landing pages and redesigns — fast, responsive and built to turn visitors into enquiries." },
-  social: { title: "Social Media Management", desc: "Planned content, visual creatives, reels and captions — scheduled and managed for you." },
-  ads: { title: "Digital Advertising", desc: "Meta and Google campaigns set up, managed and optimised, with clear reporting." },
-  automation: { title: "AI Agents & Automation", desc: "AI agents that answer enquiries, qualify leads and follow up — plus automation for repetitive work." },
-  dashboards: { title: "Business Dashboards & Systems", desc: "Custom dashboards, management tools and reporting built on your own numbers." },
-};
-
 /** Home services — structured bento: 3 equal cards, then 2 equal wider cards. */
 export function ServicesBento() {
   return (
@@ -201,8 +194,8 @@ export function ServicesBento() {
             <ServiceStage id={s.id} />
             <div className="bento-body">
               <span className="num">0{i + 1}</span>
-              <h3 className="mt-3 !text-[clamp(1.25rem,1.1rem+0.5vw,1.55rem)] !leading-[1.15]">{cardCopy[s.id].title}</h3>
-              <p className="mt-2.5 text-text-2 text-[0.95rem] leading-relaxed">{cardCopy[s.id].desc}</p>
+              <h3 className="mt-3 !text-[clamp(1.25rem,1.1rem+0.5vw,1.55rem)] !leading-[1.15]">{home.services.cards[i]?.title ?? s.name}</h3>
+              <p className="mt-2.5 text-text-2 text-[0.95rem] leading-relaxed">{home.services.cards[i]?.description ?? s.short}</p>
               <span className="bento-cta">Explore service <span className="arrow-pill" aria-hidden><ArrowUpRight size={15} /></span></span>
             </div>
           </Link>

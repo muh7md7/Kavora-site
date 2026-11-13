@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { pages } from "@/content/copy";
 import Link from "next/link";
 import { ArrowUpRight, Check, MessageCircleQuestion } from "lucide-react";
 import { ServiceStage } from "@/components/sections/Bento";
 import { PageHero } from "@/components/sections/PageHero";
 import { Reveal } from "@/components/sections/Reveal";
-import { SectionHead, Tone } from "@/components/sections/Tone";
+import { HeadText, SectionHead, Tone } from "@/components/sections/Tone";
 import { LazyWorkflow } from "@/components/sections/Lazy";
 import { Faq } from "@/components/sections/Faq";
 import { Button } from "@/components/glass/Button";
@@ -18,19 +19,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ai-solutions/" },
 };
 
-const faq = [
-  { q: "What's the difference between ready-made and custom?", a: "Ready-made solutions are proven agents or workflows we configure for your business — faster to launch. Custom agents are designed and built from scratch around your specific process." },
-  { q: "Can I request an AI agent that isn't listed?", a: "Yes. The examples are not limits. Describe what you need and we'll tell you honestly whether it's feasible and how we'd build it." },
-  { q: "Which tools can it connect to?", a: "It depends on the tools you use and whether they offer integrations. We confirm compatibility during scoping — we don't promise it upfront." },
-  { q: "How is it priced?", a: "Every solution gets a custom quote. Some have a one-time setup cost, some also have ongoing costs for hosting, AI usage, messaging or support. Third-party costs are paid by you directly and listed in the proposal before you commit. Ready-made solutions with a confirmed price are shared on request." },
-  { q: "Can I buy online?", a: "Not yet. Send an enquiry and we'll reply with availability, options and a quote." },
-];
+const faq = pages.aiSolutions.faq;
 
 export default function AiSolutionsPage() {
   const ai = serviceById("automation");
+  const ai2 = pages.aiSolutions;
   return (
     <>
-      <PageHero eyebrow="AI Solutions" aside={<Reveal className="device"><ServiceStage id="automation" scale={1.3} className="!h-[300px] sm:!h-[360px] lg:!h-[400px]" /><p className="px-2 pt-2.5 text-[0.75rem] text-text-2 font-mono tracking-[.04em]">Illustrative workflow · sample content</p></Reveal>} title="Tell us what you want to automate." accent="We build it." lead="Custom AI agents and automation designed around your business — plus ready-made solutions where a built one genuinely fits. Answer customers instantly, follow up every lead, book appointments and remove repetitive work.">
+      <PageHero eyebrow="AI Solutions" aside={<Reveal className="device"><ServiceStage id="automation" scale={1.3} className="!h-[300px] sm:!h-[360px] lg:!h-[400px]" /><p className="px-2 pt-2.5 text-[0.75rem] text-text-2 font-mono tracking-[.04em]">Illustrative workflow · sample content</p></Reveal>} title={ai2.hero.title} accent={ai2.hero.accent} lead={ai2.hero.lead}>
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
           <Button href="/contact/?type=ai-custom&services=automation">Discuss Your AI Project</Button>
           <Button href="#options" variant="ghost">See your options</Button>
@@ -39,7 +35,7 @@ export default function AiSolutionsPage() {
 
       <Tone tone="mist" className="section" id="options" aria-labelledby="opt-h">
         <div className="container border-t border-line pt-16">
-          <Reveal><SectionHead eyebrow="Three ways to work with us" title="Pick the path that" accent="fits." /></Reveal>
+          <Reveal><SectionHead eyebrow={ai2.options.eyebrow} title={ai2.options.title} accent={ai2.options.accent} after={ai2.options.after} /></Reveal>
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             {aiOffer.paths.map((p, i) => (
               <Reveal key={p.id} index={i}>
@@ -59,8 +55,8 @@ export default function AiSolutionsPage() {
       <Tone tone="dark" grad grid className="section" aria-labelledby="ex-h">
         <div className="container">
           <div className="grid gap-10 lg:grid-cols-12 items-end">
-            <Reveal className="lg:col-span-7"><SectionHead eyebrow="What an AI agent can do" title="Examples, not" accent="limits." /></Reveal>
-            <Reveal className="lg:col-span-5" index={1}><p className="lead">Each of these can be ready-made or custom-built, depending on your tools and process. Need something else? Ask.</p></Reveal>
+            <Reveal className="lg:col-span-7"><SectionHead eyebrow={ai2.examples.eyebrow} title={ai2.examples.title} accent={ai2.examples.accent} after={ai2.examples.after} /></Reveal>
+            <Reveal className="lg:col-span-5" index={1}><p className="lead">{ai2.examples.lead}</p></Reveal>
           </div>
           <ul className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {aiOffer.examples.map((e, i) => (
@@ -87,11 +83,11 @@ export default function AiSolutionsPage() {
       <Tone tone="light" className="section" aria-labelledby="how-h">
         <div className="container grid gap-14 lg:grid-cols-12 items-center">
           <Reveal className="lg:col-span-5">
-            <p className="eyebrow">How it works</p>
-            <h2 id="how-h" className="mt-5">From enquiry to <span className="accent">booked</span> call.</h2>
-            <p className="lead mt-6">An example of one workflow. Hover or focus each step.</p>
+            <p className="eyebrow">{ai2.how.eyebrow}</p>
+            <h2 id="how-h" className="mt-5"><HeadText h={ai2.how} /></h2>
+            <p className="lead mt-6">{ai2.how.lead}</p>
             <ol className="mt-8 grid gap-4">
-              {["Tell us the task and the tools you use", "We propose a solution with a clear quote", "We build, test and connect it", "It runs — and we monitor it"].map((t, i) => (
+              {ai2.how.steps.map((t, i) => (
                 <li key={t} className="flex gap-4 items-baseline"><span className="num">0{i + 1}</span><span>{t}</span></li>
               ))}
             </ol>
