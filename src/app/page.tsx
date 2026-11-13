@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/Hero";
-import { HomeFaq, Process, SeeItInAction, Services, WhyUs } from "@/components/sections/HomeSections";
-import { AiOffer, FlexibleSolutions } from "@/components/sections/Offer";
+import { HomeHero } from "@/components/home/HomeHero";
+import { AiHome, HomeCta, HomeFaqSection, HomeServices, ProcessTimeline, ProofStrip, SelectedWork, Testimonials, WhyBento } from "@/components/home/sections";
+import { SeeItInAction } from "@/components/sections/HomeSections";
 import { FaqJsonLd } from "@/components/seo/JsonLd";
 import { homeFaq } from "@/content/site";
 
@@ -11,18 +11,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-// Rhythm: light hero → light services → dark showcase → light why → dark flexible → light-alt process → dark AI → light-alt FAQ → dark CTA/footer
+/**
+ * Rhythm: light hero → strip → light services → dark showcase → dark work (pinned) →
+ * light process → dark AI → mist why → light testimonials → mist FAQ → dark CTA.
+ * No two adjacent sections share a tone or a section order used elsewhere on the site.
+ */
 export default function Home() {
   return (
     <>
-      <Hero />
-      <Services />
+      <HomeHero />
+      <ProofStrip />
+      <HomeServices />
       <SeeItInAction />
-      <WhyUs />
-      <FlexibleSolutions />
-      <Process />
-      <AiOffer />
-      <HomeFaq />
+      <SelectedWork />
+      <ProcessTimeline />
+      <AiHome />
+      <WhyBento />
+      <Testimonials />
+      <HomeFaqSection />
+      <HomeCta />
       <FaqJsonLd faq={homeFaq} />
     </>
   );
