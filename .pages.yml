@@ -1,5 +1,5 @@
 # Keelbiz admin panel (Pages CMS). Open https://app.pagescms.org, sign in with GitHub and pick muh7md7/Kavora-site.
-# Saving an edit commits to main; the "Publish website" GitHub Action rebuilds and deploys automatically.
+# Saving an edit commits to main; the "Publish website" GitHub Action rebuilds and publishes automatically.
 content:
 - name: settings
   label: ⚙️ Business details & footer

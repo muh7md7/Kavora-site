@@ -1,5 +1,5 @@
 # Publishes the website whenever content or code changes on main (including edits saved in the Pages CMS admin panel).
-# Builds the static site and pushes it to the `deploy` branch; Hostinger's Git deployment pulls that branch into public_html.
+# Builds the static site, pushes it to the `deploy` branch, then calls /api/publish.php so the server installs it.
 name: Publish website
 on:
   push:
@@ -34,3 +34,14 @@ jobs:
           if git diff --cached --quiet; then echo "No changes to publish"; exit 0; fi
           git commit -q -m "Publish website (main ${GITHUB_SHA::7})"
           git push -q origin deploy
+      - name: Tell the server to install the new build
+        env:
+          PUBLISH_HOOK: ${{ vars.PUBLISH_HOOK_URL || 'https://paleturquoise-dogfish-291071.hostingersite.com/api/publish.php' }}
+        run: |
+          for i in 1 2 3 4; do
+            sleep 10
+            res=$(curl -sS -X POST "$PUBLISH_HOOK" -w ' HTTP%{http_code}' || true)
+            echo "$res"
+            case "$res" in *'"ok":true'*) exit 0;; esac
+          done
+          echo "::error::Publish hook did not confirm. Check $PUBLISH_HOOK"; exit 1

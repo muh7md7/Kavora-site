@@ -12,4 +12,4 @@ Tips
 - Keep exactly five services; their order sets which visual each one uses.
 - Layout or design changes still need a developer.
 
-How it works: Pages CMS commits to `content/*.json` on `main` → `.github/workflows/publish.yml` builds the static site and pushes it to the `deploy` branch → Hostinger Git deployment pulls `deploy` into `public_html` (auto-deploy webhook).
+How it works: Pages CMS commits to `content/*.json` on `main` → `.github/workflows/publish.yml` builds the static site, pushes it to the `deploy` branch, then calls `/api/publish.php` on the server, which downloads that build from GitHub and installs it into `public_html` (server-only files like `api/config.php` are never touched). When the domain changes, set the repository variable `PUBLISH_HOOK_URL` to `https://<new-domain>/api/publish.php`.
