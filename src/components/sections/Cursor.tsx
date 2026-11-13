@@ -11,21 +11,24 @@ import { useEffect, useRef } from "react";
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
+  const glow = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine) and (hover: hover)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!fine.matches || reduce.matches) return;
     const root = document.documentElement;
-    const d = dot.current!, r = ring.current!;
+    const d = dot.current!, r = ring.current!, g = glow.current!;
     root.classList.add("has-cursor", "cursor-hidden");
 
-    let x = -100, y = -100, rx = -100, ry = -100, raf = 0;
+    let x = -100, y = -100, rx = -100, ry = -100, gx = -100, gy = -100, raf = 0;
     const loop = () => {
       rx += (x - rx) * 0.32; ry += (y - ry) * 0.32;
       d.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      gx += (x - gx) * 0.14; gy += (y - gy) * 0.14;
       r.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.1 ? requestAnimationFrame(loop) : 0;
+      g.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
+      raf = Math.abs(x - gx) + Math.abs(y - gy) > 0.1 ? requestAnimationFrame(loop) : 0;
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
 
@@ -41,6 +44,7 @@ export function Cursor() {
       const field = t?.closest("input, textarea, select, [contenteditable]");
       r.classList.toggle("is-label", !!labelEl);
       r.classList.toggle("is-hover", !!interactive && !labelEl);
+      g.classList.toggle("is-hover", !!interactive);
       r.textContent = labelEl?.dataset.cursor ?? "";
       root.classList.toggle("cursor-hidden", !!field);
       root.classList.toggle("cursor-on-dark", t?.closest("[data-theme]")?.getAttribute("data-theme") === "dark");
@@ -76,6 +80,7 @@ export function Cursor() {
 
   return (
     <div aria-hidden>
+      <div ref={glow} className="cursor-glow" />
       <div ref={ring} className="cursor-ring" />
       <div ref={dot} className="cursor-dot" />
     </div>

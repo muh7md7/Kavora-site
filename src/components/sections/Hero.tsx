@@ -59,7 +59,7 @@ export function Hero() {
             <div data-theme="dark" className="tone tone-grad rounded-[26px] p-3 sm:p-4 border border-[rgba(17,25,30,.2)] shadow-[0_50px_90px_-45px_rgba(17,25,30,.6)]">
               <div className="flex items-center justify-between gap-3 px-2 pt-1 pb-3">
                 <span className="flex items-center gap-2"><span className="flex gap-1.5" aria-hidden><i className="size-2.5 rounded-full bg-[rgba(184,201,210,.25)]" /><i className="size-2.5 rounded-full bg-[rgba(184,201,210,.25)]" /><i className="size-2.5 rounded-full bg-[rgba(184,201,210,.25)]" /></span><span className="num ml-2">website assistant</span></span>
-                <span className="chip chip-slate">Interface demo</span>
+                <span className="chip chip-slate whitespace-nowrap shrink-0">Interface demo</span>
               </div>
               <div className="grid sm:grid-cols-[1.2fr_1fr] lg:grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-3">
                 {/* chat */}

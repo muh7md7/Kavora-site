@@ -262,7 +262,14 @@ html.has-cursor input, html.has-cursor textarea, html.has-cursor select, html.ha
 .cursor-on-dark .cursor-dot { background: #f7f8f6; }
 .cursor-on-dark .cursor-ring { border-color: rgba(247,248,246,.4); }
 .cursor-on-dark .cursor-ring.is-label { background: var(--steel-blue); color: var(--deep-charcoal); }
-.cursor-hidden .cursor-dot, .cursor-hidden .cursor-ring { opacity: 0; }
+/* Soft halo trailing the pointer — a little light where you aim. */
+.cursor-glow { position: fixed; left: 0; top: 0; width: 220px; height: 220px; margin: -110px 0 0 -110px; pointer-events: none; z-index: 9998; border-radius: 999px; will-change: transform;
+  background: radial-gradient(closest-side, rgba(110,140,158,.26), rgba(150,175,190,.10) 55%, transparent); mix-blend-mode: multiply; transition: opacity .3s, scale .4s var(--ease-out); }
+.cursor-glow.is-hover { scale: 1.25; }
+.cursor-on-dark .cursor-glow { background: radial-gradient(closest-side, rgba(184,201,210,.24), rgba(184,201,210,.07) 55%, transparent); mix-blend-mode: screen; }
+.cursor-ring { box-shadow: 0 0 14px rgba(184,201,210,.35); }
+.cursor-on-dark .cursor-ring { box-shadow: 0 0 16px rgba(184,201,210,.30); }
+.cursor-hidden .cursor-dot, .cursor-hidden .cursor-ring, .cursor-hidden .cursor-glow { opacity: 0; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -288,12 +295,16 @@ html.has-cursor input, html.has-cursor textarea, html.has-cursor select, html.ha
 :root { --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.157 0 0 0 0 0.208 0 0 0 0 0.239 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E"); }
 section.tone, footer.tone { --gx: 88%; --gy: 0%; --grid-c: rgba(40,53,61,.035); --glow-a: rgba(184,201,210,.42); --glow-b: rgba(233,237,240,.95); }
 section.tone:nth-of-type(even) { --gx: 10%; }
+/* Light following light: no fresh top glow, so stacked sections read as one surface (no seam). */
+section.tone[data-theme="light"] + section.tone[data-theme="light"] { --glow-a: transparent; }
+.tone-grad::before { border-radius: inherit; }
+section.tone-grad[data-theme="light"]::before { -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
 section.tone[data-theme="dark"], footer.tone { --grid-c: rgba(184,201,210,.055); --glow-a: rgba(184,201,210,.13); --glow-b: rgba(40,53,61,.55); }
 section.tone::after, footer.tone::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
     var(--noise),
-    linear-gradient(var(--grid-c) 1px, transparent 1px) 50% 0 / 72px 72px,
-    linear-gradient(90deg, var(--grid-c) 1px, transparent 1px) 50% 0 / 72px 72px,
+    linear-gradient(var(--grid-c) 1px, transparent 1px) 50% 36px / 72px 72px,
+    linear-gradient(90deg, var(--grid-c) 1px, transparent 1px) 50% 36px / 72px 72px,
     radial-gradient(55% 60% at var(--gx) var(--gy), var(--glow-a), transparent 72%),
     radial-gradient(45% 45% at calc(100% - var(--gx)) 100%, var(--glow-b), transparent 70%);
   -webkit-mask-image: radial-gradient(130% 100% at 50% 30%, #000 45%, transparent 100%); mask-image: radial-gradient(130% 100% at 50% 30%, #000 45%, transparent 100%); }

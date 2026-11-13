@@ -5,7 +5,6 @@ export function PageHero({ eyebrow, title, accent, lead, children, className, to
   { eyebrow?: string; title: string; accent?: string; lead?: string; bg?: string; children?: React.ReactNode; className?: string; tone?: "light" | "dark" }) {
   return (
     <section data-theme={tone} className={cn("tone tone-grad relative overflow-hidden pt-[150px] md:pt-[190px] pb-20 md:pb-28", className)}>
-      <div className="grid-lines absolute inset-0 -z-10" aria-hidden />
       <div className="container">
         {eyebrow && <p className="eyebrow reveal-fade">{eyebrow}</p>}
         <h1 className="mt-6 max-w-[18ch]">{title} {accent && <span className="accent">{accent}</span>}</h1>
