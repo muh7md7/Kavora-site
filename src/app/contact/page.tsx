@@ -1,55 +1,83 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
-import { PageHero } from "@/components/sections/PageHero";
-import { EnquiryForm } from "@/components/sections/EnquiryForm";
+import { CalendarDays, Clock, Mail, MessageCircle } from "lucide-react";
 import { Tone } from "@/components/sections/Tone";
+import { Wizard } from "@/components/contact/Wizard";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { isConfirmed, site, thirdPartyNote } from "@/content/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: "Contact — start a project",
-  description: "Tell Keelbiz what you need — one service, several, a complete solution or a custom AI agent. We reply with questions and a custom quote.",
+  description: "Tell Keelbiz what you need — one service, several, a complete solution or a custom AI agent. Five quick steps; we reply with questions and a custom quote.",
   alternates: { canonical: "/contact/" },
 };
+
+const next = [
+  { t: "We read it", d: "A real person reviews your answers — no auto-sales sequence." },
+  { t: "We reply", d: "Questions, ideas or a suggested starting point." },
+  { t: "Short call", d: "Fifteen to thirty minutes to understand the goal." },
+  { t: "Proposal", d: "A clear scope and custom quote. No obligation." },
+];
+
+function Direct({ icon: Icon, label, href, value }: { icon: typeof Mail; label: string; href?: string; value: string }) {
+  const ok = isConfirmed(value);
+  const inner = (
+    <>
+      <span className="size-10 rounded-full border border-line-strong grid place-items-center shrink-0"><Icon size={17} aria-hidden /></span>
+      <span className="min-w-0"><span className="block text-sm font-[550]">{label}</span>
+        <span className="block text-xs text-text-2 truncate">{ok ? value : "[PLACEHOLDER] add when confirmed"}</span></span>
+    </>
+  );
+  return ok && href
+    ? <a href={href} rel="noopener" className="flex items-center gap-3 rounded-[14px] p-2.5 -mx-2.5 hover:bg-surface-strong transition-colors min-h-11">{inner}</a>
+    : <div className="flex items-center gap-3 p-2.5 -mx-2.5 opacity-70" aria-disabled>{inner}</div>;
+}
 
 export default function ContactPage() {
   const { email, whatsapp } = site.contact;
   return (
     <>
-      <PageHero eyebrow="Contact" title="Tell us what you're" accent="building." lead="One service, several, or a complete solution — a few lines is enough. We reply with questions, options and a custom quote." />
-      <Tone tone="light" className="section !pt-0">
-        <div className="container grid gap-10 lg:gap-14 lg:grid-cols-12 border-t border-line pt-14">
-          <div className="lg:col-span-8 rounded-[28px] border border-line bg-surface-strong p-6 sm:p-8 md:p-10 shadow-[0_30px_60px_-40px_rgba(17,25,30,.35)]">
-            <EnquiryForm />
+      <Tone grad className="pt-[clamp(120px,12vw,170px)] pb-[clamp(64px,8vw,120px)] overflow-hidden">
+        <div className="container">
+          <div className="max-w-[56rem]">
+            <p className="eyebrow rv-auto">Contact · five quick steps</p>
+            <SplitHeading as="h1" auto underline text="Tell us what you're" accent="building." className="mt-6" />
+            <p className="lead mt-6 rv-auto" style={{ ["--rv-delay" as string]: "260ms" }}>One service, several, or a complete solution. Pick a few options, add a few lines — we reply with questions and a custom quote.</p>
           </div>
-          <aside className="lg:col-span-4 flex flex-col gap-4 lg:sticky lg:top-28 self-start">
-            <div data-theme="dark" className="tone tone-grad rounded-[24px] p-7">
-              <p className="eyebrow">What happens next</p>
-              <ol className="mt-6 grid gap-5">
-                {["We read your enquiry and reply within two working days.", "A short call to understand what you need.", "A clear proposal and custom quote — no obligation."].map((t, i) => (
-                  <li key={t} className="flex gap-4"><span className="num shrink-0">0{i + 1}</span><span className="text-[0.95rem]">{t}</span></li>
-                ))}
-              </ol>
-            </div>
-            {(isConfirmed(email) || isConfirmed(whatsapp)) && (
-              <div className="rounded-[24px] border border-line bg-surface p-7">
-                <p className="eyebrow">Direct</p>
-                <ul className="mt-5 grid gap-3 text-[0.95rem]">
-                  {isConfirmed(email) && <li className="flex items-center gap-3"><Mail size={17} className="text-text-2" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="email_click">{email}</a></li>}
-                  {isConfirmed(whatsapp) && <li className="flex items-center gap-3"><MessageCircle size={17} className="text-text-2" aria-hidden /><a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} className="inline-flex items-center gap-1 underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="whatsapp_click" rel="noopener">WhatsApp <ArrowUpRight size={14} aria-hidden /></a></li>}
-                </ul>
+
+          <div className="mt-14 grid gap-8 lg:grid-cols-12 items-start">
+            <div className="lg:col-span-8 rv-auto" style={{ ["--rv-delay" as string]: "320ms" }}><Wizard /></div>
+
+            <aside className="lg:col-span-4 lg:sticky lg:top-24 grid gap-4" aria-label="What happens next">
+              <div data-theme="dark" className="tone grain rounded-[24px] p-7 overflow-hidden">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="eyebrow">What happens next</p>
+                  <span className="tag !min-h-7 !text-[11px] !bg-transparent"><Clock size={12} aria-hidden />Reply in 2 working days</span>
+                </div>
+                <ol className="mt-7 relative grid gap-6 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-line-strong">
+                  {next.map((n, i) => (
+                    <li key={n.t} className="relative flex gap-4">
+                      <span className="relative z-10 size-6 rounded-full border border-line-strong bg-bg grid place-items-center font-mono text-[10px] shrink-0">{i + 1}</span>
+                      <span><span className="block font-[550] text-[.95rem]">{n.t}</span><span className="block text-sm text-text-2 mt-0.5">{n.d}</span></span>
+                    </li>
+                  ))}
+                </ol>
               </div>
-            )}
-            <div className="rounded-[24px] border border-line bg-surface p-7">
-              <p className="eyebrow">Good to know</p>
-              <ul className="mt-5 grid gap-3 text-[0.92rem] text-text-2">
-                <li>No budget required to enquire.</li>
-                <li>Custom quote — no public price list.</li>
-                <li>{thirdPartyNote}</li>
+              <div className="card p-6">
+                <p className="eyebrow">Prefer to talk?</p>
+                <div className="mt-4 grid gap-1">
+                  <Direct icon={MessageCircle} label="WhatsApp" value={whatsapp} href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} />
+                  <Direct icon={Mail} label="Email" value={email} href={`mailto:${email}`} />
+                  <Direct icon={CalendarDays} label="Book a call" value={site.features.bookingEmbed ? "Pick a time" : ""} href="#book" />
+                </div>
+              </div>
+              <ul className="px-2 grid gap-2 text-[.85rem] text-text-2">
+                <li>· No budget required to enquire.</li>
+                <li>· Custom quote — no public price list.</li>
+                <li>· {thirdPartyNote}</li>
               </ul>
-            </div>
-            {site.features.bookingEmbed && <div className="rounded-[24px] border border-line p-6 text-sm text-text-2">Booking embed goes here once configured.</div>}
-          </aside>
+            </aside>
+          </div>
         </div>
       </Tone>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact/" }]} />
