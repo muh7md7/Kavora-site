@@ -67,32 +67,32 @@ export function Hero() {
               </div>
               <div className="grid sm:grid-cols-[1.2fr_1fr] lg:grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-2.5">
                 {/* chat */}
-                <div className="device-screen p-4 flex flex-col gap-3 min-h-[300px] bg-[linear-gradient(180deg,#fbfaf7,#f3f0eb)]">
+                <div className="device-screen p-4 flex flex-col gap-3 min-h-[300px] bg-[linear-gradient(180deg,var(--c-paper),var(--c-stone))]">
                   <div className="flex items-center gap-2.5 pb-3 border-b border-line">
-                    <span className="size-8 rounded-[10px] bg-[linear-gradient(150deg,#2f4a59,#233845)] text-[#f3f0eb] inline-flex items-center justify-center" aria-hidden><Sparkles size={15} /></span>
+                    <span className="size-8 rounded-[10px] bg-[linear-gradient(150deg,var(--c-deep-3),var(--c-deep))] text-[var(--c-stone)] inline-flex items-center justify-center" aria-hidden><Sparkles size={15} /></span>
                     <span className="leading-tight"><span className="block text-[0.82rem] font-[600]">Keelbiz Assistant</span><span className="flex items-center gap-1.5 text-[0.7rem] text-text-2"><i className="size-1.5 rounded-full bg-[#5e9c80]" aria-hidden />Replies instantly</span></span>
                   </div>
-                  <p className="self-end max-w-[85%] rounded-[14px] rounded-br-[4px] bg-[#233845] text-[#f3f0eb] px-3.5 py-2.5 text-[0.8rem] leading-snug hero-msg" style={{ animationDelay: "900ms" }}>Hi — we need a new website and someone to run our ads.</p>
-                  <p className="max-w-[88%] rounded-[14px] rounded-bl-[4px] bg-white border border-line px-3.5 py-2.5 text-[0.8rem] leading-snug shadow-[0_6px_14px_-10px_rgba(23,38,47,.3)] hero-msg" style={{ animationDelay: "1500ms" }}>Happy to help. Is that Meta, Google, or both? I can book a short call to scope it.</p>
-                  <p className="self-end max-w-[85%] rounded-[14px] rounded-br-[4px] bg-[#233845] text-[#f3f0eb] px-3.5 py-2.5 text-[0.8rem] leading-snug hero-msg" style={{ animationDelay: "2100ms" }}>Both. Thursday works.</p>
+                  <p className="self-end max-w-[85%] rounded-[14px] rounded-br-[4px] bg-[var(--c-deep)] text-[var(--c-stone)] px-3.5 py-2.5 text-[0.8rem] leading-snug hero-msg" style={{ animationDelay: "900ms" }}>Hi — we need a new website and someone to run our ads.</p>
+                  <p className="max-w-[88%] rounded-[14px] rounded-bl-[4px] bg-white border border-line px-3.5 py-2.5 text-[0.8rem] leading-snug shadow-[0_6px_14px_-10px_color-mix(in_srgb,var(--c-ink)_30%,transparent)] hero-msg" style={{ animationDelay: "1500ms" }}>Happy to help. Is that Meta, Google, or both? I can book a short call to scope it.</p>
+                  <p className="self-end max-w-[85%] rounded-[14px] rounded-br-[4px] bg-[var(--c-deep)] text-[var(--c-stone)] px-3.5 py-2.5 text-[0.8rem] leading-snug hero-msg" style={{ animationDelay: "2100ms" }}>Both. Thursday works.</p>
                   <div className="mt-auto flex items-center gap-2 rounded-full border border-line bg-white/70 px-3 py-2 text-[0.75rem] text-text-2"><MessageSquare size={13} aria-hidden />Type a message…</div>
                 </div>
                 {/* lead card */}
                 <div className="flex flex-col gap-2.5">
-                  <div className="device-screen p-4 bg-[linear-gradient(180deg,#eef2f2,#e5ebec)] hero-msg" style={{ animationDelay: "2600ms" }}>
-                    <div className="flex items-center justify-between"><span className="num">New lead</span><span className="chip bg-[#233845] text-[#f3f0eb]">Qualified</span></div>
+                  <div className="device-screen p-4 bg-[linear-gradient(180deg,var(--c-mist-hi),var(--c-mist))] hero-msg" style={{ animationDelay: "2600ms" }}>
+                    <div className="flex items-center justify-between"><span className="num">New lead</span><span className="chip bg-[var(--c-deep)] text-[var(--c-stone)]">Qualified</span></div>
                     <dl className="mt-3 grid gap-2 text-[0.78rem]">
                       <div className="flex justify-between gap-3"><dt className="text-text-2">Interest</dt><dd className="font-[550]">Website + Ads</dd></div>
                       <div className="flex justify-between gap-3"><dt className="text-text-2">Platforms</dt><dd className="font-[550]">Meta, Google</dd></div>
                       <div className="flex justify-between gap-3"><dt className="text-text-2">Next step</dt><dd className="font-[550]">Scoping call</dd></div>
                     </dl>
                   </div>
-                  <div className="device-screen p-4 bg-[linear-gradient(180deg,#eef2f2,#e5ebec)] hero-msg" style={{ animationDelay: "3000ms" }}>
+                  <div className="device-screen p-4 bg-[linear-gradient(180deg,var(--c-mist-hi),var(--c-mist))] hero-msg" style={{ animationDelay: "3000ms" }}>
                     <span className="num">Pipeline</span>
                     <ol className="mt-3 grid gap-2 text-[0.78rem]">
                       {[["Enquiry received", true], ["Qualified by AI", true], ["Call booked", true], ["Proposal", false]].map(([t, done]) => (
                         <li key={t as string} className="flex items-center gap-2.5">
-                          <span className={done ? "size-4 rounded-full bg-[#233845] text-[#f3f0eb] inline-flex items-center justify-center" : "size-4 rounded-full border border-line-strong"} aria-hidden>{done ? <Check size={10} strokeWidth={3} /> : null}</span>
+                          <span className={done ? "size-4 rounded-full bg-[var(--c-deep)] text-[var(--c-stone)] inline-flex items-center justify-center" : "size-4 rounded-full border border-line-strong"} aria-hidden>{done ? <Check size={10} strokeWidth={3} /> : null}</span>
                           <span className={done ? "" : "text-text-2"}>{t as string}</span>
                         </li>
                       ))}
@@ -104,11 +104,11 @@ export function Hero() {
 
             {/* Floating glass chips */}
             <div data-theme="light" className="hidden md:flex glass absolute -left-6 xl:-left-10 -bottom-6 rounded-[16px] px-3.5 py-2.5 items-center gap-3 drift" style={at(-12)}>
-              <span className="size-8 rounded-[10px] bg-[#233845] text-[#f3f0eb] inline-flex items-center justify-center" aria-hidden><Bot size={18} /></span>
+              <span className="size-8 rounded-[10px] bg-[var(--c-deep)] text-[var(--c-stone)] inline-flex items-center justify-center" aria-hidden><Bot size={18} /></span>
               <span className="text-[0.8rem] leading-tight"><span className="block font-[600]">Lead qualified</span><span className="text-text-2">AI agent · instantly</span></span>
             </div>
             <div data-theme="light" className="hidden md:flex glass absolute right-[30%] -top-7 rounded-[16px] px-3.5 py-2.5 items-center gap-3 drift" style={at(10)}>
-              <span className="size-8 rounded-[10px] bg-[#233845] text-[#f3f0eb] inline-flex items-center justify-center" aria-hidden><CalendarCheck size={18} /></span>
+              <span className="size-8 rounded-[10px] bg-[var(--c-deep)] text-[var(--c-stone)] inline-flex items-center justify-center" aria-hidden><CalendarCheck size={18} /></span>
               <span className="text-[0.8rem] leading-tight"><span className="block font-[600]">Call booked</span><span className="text-text-2">Added to calendar</span></span>
             </div>
             <figcaption className="sr-only">Illustrative interface. Not real customer data.</figcaption>

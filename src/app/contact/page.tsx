@@ -21,11 +21,11 @@ export default function ContactPage() {
       <PageHero eyebrow={c.hero.eyebrow} title={c.hero.title} accent={c.hero.accent} lead={c.hero.lead} compact />
       <Tone tone="mist" className="section !pt-12 md:!pt-16">
         <div className="container grid gap-6 lg:gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-8 card !bg-[linear-gradient(180deg,rgba(255,253,250,.9),rgba(255,253,250,.7))] p-6 sm:p-8 md:p-10">
+          <div className="lg:col-span-8 card !bg-[linear-gradient(180deg,color-mix(in_srgb,var(--c-paper)_90%,transparent),color-mix(in_srgb,var(--c-paper)_70%,transparent))] p-6 sm:p-8 md:p-10">
             <EnquiryForm />
           </div>
           <aside className="lg:col-span-4 flex flex-col gap-4 lg:sticky lg:top-28 self-start">
-            <div data-theme="dark" className="card p-7 !bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.32),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] !border-transparent text-text">
+            <div data-theme="dark" className="card p-7 !bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_32%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] !border-transparent text-text">
               <p className="eyebrow">What happens next</p>
               <ol className="mt-6 grid gap-5">
                 {c.nextSteps.map((t, i) => (

@@ -69,8 +69,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <Reveal><div className="card h-full p-7 md:p-9"><p className="eyebrow">What we offer</p>
               <ul className="mt-6 grid gap-3">{s.capabilities.map((c) => <li key={c} className="flex gap-3 text-[0.98rem]"><span className="mt-[3px] size-[18px] shrink-0 rounded-full bg-steel-soft text-accent inline-flex items-center justify-center" aria-hidden><Check size={11} strokeWidth={3} /></span>{c}</li>)}</ul></div></Reveal>
-            <Reveal index={1}><div data-theme="dark" className="card h-full p-7 md:p-9 !bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.32),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] !border-transparent text-text"><p className="eyebrow">What you get</p>
-              <ul className="mt-6 grid gap-3">{s.deliverables.map((c) => <li key={c} className="flex gap-3 text-[0.98rem]"><span className="mt-[3px] size-[18px] shrink-0 rounded-full bg-[rgba(213,224,228,.14)] text-[#b9cdd5] inline-flex items-center justify-center" aria-hidden><Check size={11} strokeWidth={3} /></span>{c}</li>)}</ul>
+            <Reveal index={1}><div data-theme="dark" className="card h-full p-7 md:p-9 !bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_32%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] !border-transparent text-text"><p className="eyebrow">What you get</p>
+              <ul className="mt-6 grid gap-3">{s.deliverables.map((c) => <li key={c} className="flex gap-3 text-[0.98rem]"><span className="mt-[3px] size-[18px] shrink-0 rounded-full bg-[color-mix(in_srgb,var(--c-blue-grey)_14%,transparent)] text-[var(--c-steel-light)] inline-flex items-center justify-center" aria-hidden><Check size={11} strokeWidth={3} /></span>{c}</li>)}</ul>
               <p className="text-text-2 mt-8 text-[0.9rem]">Available on its own. No other service required.</p></div></Reveal>
           </div>
           {s.id === "automation" && (

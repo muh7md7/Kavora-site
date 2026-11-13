@@ -43,7 +43,7 @@ export function MobileSheet({ open, onClose, ctaHref = "/contact/", ctaLabel = "
     <div ref={ref} role="dialog" aria-modal="true" aria-label="Menu" data-theme="dark"
       className="sheet-enter fixed inset-0 z-[60] lg:hidden flex flex-col tone tone-grad safe-bottom">
       <div className="flex items-center justify-between h-[88px] px-5">
-        <Link href="/" onClick={onClose} aria-label="Keelbiz — home"><Logo markClassName="[--logo-ink:#11191E] text-[#F7F8F6]" /></Link>
+        <Link href="/" onClick={onClose} aria-label="Keelbiz — home"><Logo markClassName="[--logo-ink:var(--c-ink)] text-[var(--c-paper)]" /></Link>
         <button type="button" onClick={onClose} className="size-11 inline-flex items-center justify-center rounded-pill border border-line" aria-label="Close menu"><X size={20} aria-hidden /></button>
       </div>
       <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5">

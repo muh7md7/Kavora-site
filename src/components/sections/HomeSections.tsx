@@ -155,7 +155,7 @@ export function WhyUs() {
               <p className="text-text-2 mt-2 text-[0.95rem]">{w.d}</p>
             </Reveal>
           ))}
-          <Reveal as="li" index={whyUs.length} className="card p-6 md:p-7 flex flex-col justify-between !bg-[linear-gradient(160deg,#dfe7ea,#d5e0e4)]">
+          <Reveal as="li" index={whyUs.length} className="card p-6 md:p-7 flex flex-col justify-between !bg-[linear-gradient(160deg,var(--c-mist-2),var(--c-blue-grey))]">
             <p className="text-text-2 text-[0.95rem]">{home.why.note}</p>
             <Link href="/work/" className="btn btn-ghost !justify-start mt-4">{home.why.link} <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
           </Reveal>

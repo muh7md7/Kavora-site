@@ -42,8 +42,8 @@ export function FlexibleSolutions() {
             </article>
           </Reveal>
           <Reveal index={1}>
-            <article data-theme="dark" className="card h-full p-8 md:p-10 flex flex-col relative overflow-hidden !bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.35),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] text-text !border-transparent shadow-[0_50px_90px_-50px_rgba(23,38,47,.7)]">
-              <span className="size-11 rounded-[12px] bg-[var(--steel-blue)] text-[#17262f] inline-flex items-center justify-center" aria-hidden><Layers size={20} /></span>
+            <article data-theme="dark" className="card h-full p-8 md:p-10 flex flex-col relative overflow-hidden !bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_35%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] text-text !border-transparent shadow-[0_50px_90px_-50px_color-mix(in_srgb,var(--c-ink)_70%,transparent)]">
+              <span className="size-11 rounded-[12px] bg-[var(--steel-blue)] text-[var(--c-ink)] inline-flex items-center justify-center" aria-hidden><Layers size={20} /></span>
               <h3 className="mt-8 !text-[clamp(1.6rem,1.3rem+1vw,2.2rem)]">{f.completeTitle}</h3>
               <p className="text-text-2 mt-3 text-[1.02rem]">{f.completeText}</p>
               <ul className="mt-8 grid sm:grid-cols-2 gap-2.5">
@@ -79,7 +79,7 @@ export function AiOffer({ tone = "light" }: { tone?: "light" | "dark" }) {
         <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {aiOffer.paths.map((p, i) => (
             <Reveal key={p.id} index={i}>
-              <article data-spot data-theme={i === 1 ? "dark" : undefined} className={cn("card card-hover h-full p-7 flex flex-col", i === 1 && "!bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.35),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] !border-transparent text-text")}>
+              <article data-spot data-theme={i === 1 ? "dark" : undefined} className={cn("card card-hover h-full p-7 flex flex-col", i === 1 && "!bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_35%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] !border-transparent text-text")}>
                 <span className="num">0{i + 1}</span>
                 <h3 className="mt-5 !text-[1.45rem]">{p.title}</h3>
                 <p className="text-text-2 mt-2">{p.lead}</p>

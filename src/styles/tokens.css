@@ -4,19 +4,32 @@
    flips automatically. Legacy v1 names (ivory, navy, sage, champagne…) are kept as aliases. */
 
 :root {
-  /* Core palette — the five approved brand colours */
-  /* v5 "Stone & Steel": warm stone, mist, blue-grey, steel accent, slate, deep blue, ink */
-  --c-stone: #f3f0eb;         /* main light background (warm, never pure white) */
+  /* Core palette. These defaults = "Stone & Steel". The admin panel (content/theme.json) overrides every
+     --c-* value through src/styles/theme.generated.css, so components must use these variables, never raw hex. */
+  --c-stone: #f3f0eb;         /* page background */
   --c-stone-2: #ebe7e0;       /* warm secondary */
+  --c-stone-3: #e6e0d6;
+  --c-stone-4: #cfc6b8;
+  --c-paper: #fbfaf7;         /* lightest surface */
   --c-mist: #e5ebec;          /* cool secondary surface */
+  --c-mist-hi: #eef1f1;
+  --c-mist-2: #dfe7ea;
   --c-blue-grey: #d5e0e4;     /* mid-tone sections, previews */
-  --c-steel: #7899a6;  /* decorative accent (lines, glows, data) */
-  --c-slate: #617783;       /* secondary decorative tone */
-  --c-deep: #233845;     /* dark accent sections */
+  --c-steel-light: #b9cdd5;   /* light accent (text/decor on dark) */
+  --c-steel: #7899a6;         /* decorative accent (lines, glows, data) */
+  --c-steel-text: #4a6875;    /* accent for text on light — >= 4.5:1 */
+  --c-slate: #617783;         /* secondary decorative tone */
+  --c-text-2: #50636e;        /* secondary text on light */
+  --c-text-2-mist: #4c606b;   /* secondary text on mist */
+  --c-muted: #8e9aa1;
+  --c-deep: #233845;          /* dark sections */
+  --c-deep-2: #1e3240;
+  --c-deep-3: #2a4352;
   --c-ink: #17262f;           /* typography */
+  --c-on-dark-2: #b2c2c9;     /* secondary text on dark */
   --offwhite: var(--c-stone);
   --mist-grey: var(--c-mist);
-  --steel-blue: #b9cdd5;    /* light steel (text/decor on deep blue) */
+  --steel-blue: var(--c-steel-light);
   --graphite: var(--c-deep);
   --deep-charcoal: var(--c-ink);
 
@@ -25,45 +38,45 @@
   --paper-2: var(--mist-grey);
   --paper-3: var(--c-blue-grey);
   --charcoal: var(--c-deep);
-  --charcoal-2: #1e3240;
-  --charcoal-3: #2b4352;
-  --steel: #4a6875;         /* steel deepened for text accents on light — 5.6:1 on stone */
+  --charcoal-2: var(--c-deep-2);
+  --charcoal-3: var(--c-deep-3);
+  --steel: var(--c-steel-text);         /* steel deepened for text accents on light — 5.6:1 on stone */
   --steel-deep: var(--graphite);
-  --steel-soft: #dde6e9;    /* steel-blue tint surface */
+  --steel-soft: var(--c-mist-2);    /* steel-blue tint surface */
   --steel-light: var(--steel-blue);
-  --stone-c: #8e9aa1;
-  --moss: #4a6875;          /* data "up" — steel, not a new hue */
-  --moss-soft: #dde6e9;
+  --stone-c: var(--c-muted);
+  --moss: var(--c-steel-text);          /* data "up" — steel, not a new hue */
+  --moss-soft: var(--c-mist-2);
   --rust: #9b4a42;          /* errors only (WCAG legibility) */
 
   /* Semantic (light) */
   --bg: var(--offwhite);
   --bg-2: var(--mist-grey);
-  --text: #17262f;          /* 14.2:1 on stone */
-  --text-2: #50636e;        /* 5.6:1 on stone, 5.4:1 on mist */
-  --line: rgba(35, 56, 69, 0.11);
-  --line-strong: rgba(35, 56, 69, 0.2);
-  --surface: rgba(255, 253, 250, 0.5);
-  --surface-strong: rgba(255, 253, 250, 0.8);
+  --text: var(--c-ink);          /* 14.2:1 on stone */
+  --text-2: var(--c-text-2);        /* 5.6:1 on stone, 5.4:1 on mist */
+  --line: color-mix(in srgb, var(--c-deep) 11%, transparent);
+  --line-strong: color-mix(in srgb, var(--c-deep) 20%, transparent);
+  --surface: color-mix(in srgb, var(--c-paper) 50%, transparent);
+  --surface-strong: color-mix(in srgb, var(--c-paper) 80%, transparent);
   --accent: var(--steel);
   --accent-text: var(--steel);
   --on-accent: #ffffff;
 
   /* Glass */
-  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 248, 246, 0.56));
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), color-mix(in srgb, var(--c-stone) 56%, transparent));
   --glass-border: rgba(255, 255, 255, 0.8);
-  --glass-edge: rgba(40, 53, 61, 0.09);
+  --glass-edge: color-mix(in srgb, var(--c-ink) 9%, transparent);
   --glass-blur: 22px;
   --glass-saturate: 135%;
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  --glass-shadow: 0 24px 48px -28px rgba(17, 25, 30, 0.28), 0 6px 16px -10px rgba(17, 25, 30, 0.10);
+  --glass-shadow: 0 24px 48px -28px color-mix(in srgb, var(--c-ink) 28%, transparent), 0 6px 16px -10px color-mix(in srgb, var(--c-ink) 10%, transparent);
 
   /* Gradients (subtle) */
-  --grad-light: radial-gradient(70% 60% at 88% -5%, rgba(181, 203, 211, 0.55), transparent 62%),
-                radial-gradient(55% 45% at -5% 105%, rgba(229, 235, 236, 0.95), transparent 60%);
-  --grad-dark: radial-gradient(70% 60% at 85% -10%, rgba(120, 153, 166, 0.32), transparent 62%),
-               radial-gradient(55% 55% at 0% 110%, rgba(23, 38, 47, 0.75), transparent 62%),
-               linear-gradient(180deg, #27404e, #1f3341);
+  --grad-light: radial-gradient(70% 60% at 88% -5%, color-mix(in srgb, var(--c-steel-light) 55%, transparent), transparent 62%),
+                radial-gradient(55% 45% at -5% 105%, color-mix(in srgb, var(--c-mist) 95%, transparent), transparent 60%);
+  --grad-dark: radial-gradient(70% 60% at 85% -10%, color-mix(in srgb, var(--c-steel) 32%, transparent), transparent 62%),
+               radial-gradient(55% 55% at 0% 110%, color-mix(in srgb, var(--c-ink) 75%, transparent), transparent 62%),
+               linear-gradient(180deg, var(--c-deep-3), var(--c-deep-2));
 
   /* Radius */
   --r-xs: 6px;
@@ -87,8 +100,8 @@
   --section-y: clamp(72px, 8.5vw, 128px);
   --card-r: 24px;
   --card-pad: clamp(22px, 2.2vw, 32px);
-  --shadow-card: 0 1px 0 rgba(255,255,255,.7) inset, 0 1px 2px rgba(23,38,47,.04), 0 18px 40px -28px rgba(23,38,47,.28);
-  --shadow-lift: 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 4px rgba(23,38,47,.05), 0 36px 70px -40px rgba(23,38,47,.42);
+  --shadow-card: 0 1px 0 rgba(255,255,255,.7) inset, 0 1px 2px color-mix(in srgb, var(--c-ink) 4%, transparent), 0 18px 40px -28px color-mix(in srgb, var(--c-ink) 28%, transparent);
+  --shadow-lift: 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 4px color-mix(in srgb, var(--c-ink) 5%, transparent), 0 36px 70px -40px color-mix(in srgb, var(--c-ink) 42%, transparent);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
@@ -124,8 +137,8 @@
   --data-down: var(--rust);
   --data-neutral: var(--text-2);
   --data-series-2: var(--steel-light);
-  --bloom: rgba(184, 201, 210, 0.35);
-  --glass-smoke-bg: rgba(17, 25, 30, 0.62);
+  --bloom: color-mix(in srgb, var(--c-steel-light) 35%, transparent);
+  --glass-smoke-bg: color-mix(in srgb, var(--c-ink) 62%, transparent);
   --glass-smoke-border: rgba(255, 255, 255, 0.1);
 
   --bg-grad: var(--grad-light);
@@ -135,27 +148,27 @@
   /* Explicit light scope so a light block can sit inside a dark section (e.g. previews). */
   --bg: var(--offwhite);
   --bg-2: var(--mist-grey);
-  --text: #17262f;
-  --text-2: #50636e;
-  --line: rgba(35, 56, 69, 0.11);
-  --line-strong: rgba(35, 56, 69, 0.2);
-  --surface: rgba(255, 253, 250, 0.5);
-  --surface-strong: rgba(255, 253, 250, 0.8);
+  --text: var(--c-ink);
+  --text-2: var(--c-text-2);
+  --line: color-mix(in srgb, var(--c-deep) 11%, transparent);
+  --line-strong: color-mix(in srgb, var(--c-deep) 20%, transparent);
+  --surface: color-mix(in srgb, var(--c-paper) 50%, transparent);
+  --surface-strong: color-mix(in srgb, var(--c-paper) 80%, transparent);
   --accent: var(--steel);
   --accent-text: var(--steel);
   --on-accent: #ffffff;
-  --steel-soft: #dde6e9;
-  --moss: #4a6875;
-  --moss-soft: #dde6e9;
+  --steel-soft: var(--c-mist-2);
+  --moss: var(--c-steel-text);
+  --moss-soft: var(--c-mist-2);
   --rust: #9b4a42;
-  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 248, 246, 0.56));
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), color-mix(in srgb, var(--c-stone) 56%, transparent));
   --glass-border: rgba(255, 255, 255, 0.8);
-  --glass-edge: rgba(40, 53, 61, 0.09);
+  --glass-edge: color-mix(in srgb, var(--c-ink) 9%, transparent);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  --glass-shadow: 0 24px 48px -28px rgba(17, 25, 30, 0.28), 0 6px 16px -10px rgba(17, 25, 30, 0.10);
-  --bloom: rgba(184, 201, 210, 0.35);
-  --logo-ink: #f7f8f6;
-  --logo-keel: #4f6673;
+  --glass-shadow: 0 24px 48px -28px color-mix(in srgb, var(--c-ink) 28%, transparent), 0 6px 16px -10px color-mix(in srgb, var(--c-ink) 10%, transparent);
+  --bloom: color-mix(in srgb, var(--c-steel-light) 35%, transparent);
+  --logo-ink: var(--c-paper);
+  --logo-keel: var(--c-steel-text);
   --logo-fill: var(--graphite);
   --bg-grad: var(--grad-light);
   color: var(--text);
@@ -164,28 +177,28 @@
 [data-theme="dark"] {
   --bg: var(--c-deep);
   --bg-2: var(--charcoal-2);
-  --text: #f3f0eb;          /* 11.6:1 on deep blue */
-  --text-2: #b2c2c9;        /* 7.0:1 */
-  --line: rgba(213, 224, 228, 0.13);
-  --line-strong: rgba(213, 224, 228, 0.26);
-  --surface: rgba(213, 224, 228, 0.06);
-  --surface-strong: rgba(213, 224, 228, 0.11);
+  --text: var(--c-stone);          /* 11.6:1 on deep blue */
+  --text-2: var(--c-on-dark-2);        /* 7.0:1 */
+  --line: color-mix(in srgb, var(--c-blue-grey) 13%, transparent);
+  --line-strong: color-mix(in srgb, var(--c-blue-grey) 26%, transparent);
+  --surface: color-mix(in srgb, var(--c-blue-grey) 6%, transparent);
+  --surface-strong: color-mix(in srgb, var(--c-blue-grey) 11%, transparent);
   --accent: var(--steel-blue);
   --accent-text: var(--steel-blue);
   --on-accent: var(--deep-charcoal);
-  --steel-soft: rgba(184, 201, 210, 0.12);
+  --steel-soft: color-mix(in srgb, var(--c-steel-light) 12%, transparent);
   --moss: var(--steel-blue);
-  --moss-soft: rgba(184, 201, 210, 0.12);
+  --moss-soft: color-mix(in srgb, var(--c-steel-light) 12%, transparent);
   --rust: #e3b2ab;
-  --glass-bg: linear-gradient(180deg, rgba(52, 77, 92, 0.6), rgba(30, 50, 64, 0.5));
-  --glass-border: rgba(213, 224, 228, 0.14);
+  --glass-bg: linear-gradient(180deg, color-mix(in srgb, var(--c-deep-3) 60%, transparent), color-mix(in srgb, var(--c-deep-2) 50%, transparent));
+  --glass-border: color-mix(in srgb, var(--c-blue-grey) 14%, transparent);
   --glass-edge: rgba(0, 0, 0, 0.35);
-  --glass-highlight: inset 0 1px 0 rgba(247, 248, 246, 0.07);
+  --glass-highlight: inset 0 1px 0 color-mix(in srgb, var(--c-stone) 7%, transparent);
   --glass-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
-  --bloom: rgba(184, 201, 210, 0.14);
-  --logo-ink: #11191e;
-  --logo-keel: #4f6673;
-  --logo-fill: #f7f8f6;
+  --bloom: color-mix(in srgb, var(--c-steel-light) 14%, transparent);
+  --logo-ink: var(--c-ink);
+  --logo-keel: var(--c-steel-text);
+  --logo-fill: var(--c-paper);
   --bg-grad: var(--grad-dark);
   color: var(--text);
   background-color: var(--bg);

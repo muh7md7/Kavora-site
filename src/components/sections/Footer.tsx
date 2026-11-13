@@ -26,7 +26,7 @@ export function Footer() {
       <div className="container">
         <div className="grid gap-12 md:grid-cols-12 py-16 border-t border-line">
           <div className="md:col-span-4">
-            <LogoMark className="size-10 text-[#F7F8F6] [--logo-ink:#11191E] [--logo-keel:#4F6673]" />
+            <LogoMark className="size-10 text-[var(--c-paper)] [--logo-ink:var(--c-ink)] [--logo-keel:var(--c-steel-text)]" />
             <p className="text-[0.95rem] text-text-2 mt-6 max-w-xs">{site.positioning}</p>
             <p className="num mt-4">{ft.tagline}</p>
           </div>
@@ -56,7 +56,7 @@ export function Footer() {
 
       {/* Oversized wordmark */}
       <div className="container select-none" aria-hidden>
-        <div className="font-[620] tracking-[-0.07em] leading-[0.8] text-[clamp(5rem,22vw,20rem)] text-transparent [-webkit-text-stroke:1px_rgba(238,240,242,.14)] translate-y-[18%]">keelbiz</div>
+        <div className="font-[620] tracking-[-0.07em] leading-[0.8] text-[clamp(5rem,22vw,20rem)] text-transparent [-webkit-text-stroke:1px_color-mix(in_srgb,var(--c-stone)_14%,transparent)] translate-y-[18%]">keelbiz</div>
       </div>
 
       <div className="border-t border-line relative bg-bg">
