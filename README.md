@@ -22,10 +22,10 @@ npm run build                # static export -> /out
 5. Enable HSTS in `.htaccess` only after HTTPS is verified on all hosts.
 
 ## Structure
-`src/app` pages · `src/components/glass` Glass Kit (10) · `src/components/sections` page sections · `src/content` typed content · `src/lab` Lab registry + cursor timelines · `src/styles/tokens.css` · `server/` PHP endpoint · `docs/`.
+`src/app` pages · `src/components/glass` Glass Kit (10) · `src/components/sections` page sections · `src/content` typed content · `src/styles/tokens.css` · `server/` PHP endpoint · `docs/`.
 
-## Lab
-`/lab` is a separate website section (not a service, not in the Services menu): interactive experiments and interface demonstrations with their real source. Internal recording frames remain at `/lab/capture/<slug>/` (noindex, unlinked).
+## Lab (retired)
+The public Lab was removed in v4; its components now live inside the site (home "See it in action" showcase, service examples, cursor, spotlight cards). `/lab/*` 301-redirects to `/` via `.htaccess`. Previous Lab source: tag/commit `b834867` or branch history.
 
 ## Previous Kavora site
 Preserved on branch `kavora-archive`.

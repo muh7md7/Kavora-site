@@ -9,6 +9,7 @@ const capabilities = ["Business websites", "Landing pages", "Social media manage
 /** Hero — editorial headline + a dark product stage with floating light-glass chips (pointer parallax on desktop). */
 export function Hero() {
   const stage = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLElement>(null);
   const [p, setP] = useState({ x: 0, y: 0 });
   const [enabled, setEnabled] = useState(false);
 
@@ -19,19 +20,23 @@ export function Hero() {
   }, []);
 
   const onMove = (e: React.PointerEvent) => {
-    if (!enabled || !stage.current) return;
+    if (!enabled || !stage.current || !root.current) return;
+    const rb = root.current.getBoundingClientRect();
+    root.current.style.setProperty("--sx", `${e.clientX - rb.left}px`); root.current.style.setProperty("--sy", `${e.clientY - rb.top}px`);
+    root.current.classList.add("spot-on");
     const r = stage.current.getBoundingClientRect();
     setP({ x: ((e.clientX - r.left) / r.width - 0.5) * 2, y: ((e.clientY - r.top) / r.height - 0.5) * 2 });
   };
   const at = (depth: number) => ({ transform: `translate3d(${p.x * depth}px, ${p.y * depth}px, 0)` });
 
   return (
-    <section data-theme="light" className="tone tone-grad relative overflow-hidden pt-[128px] md:pt-[150px] lg:pt-[168px]" onPointerMove={onMove} onPointerLeave={() => setP({ x: 0, y: 0 })}>
-      <div className="grid-lines absolute inset-0 -z-10" aria-hidden />
+    <section ref={root} data-theme="light" className="tone tone-grad relative overflow-hidden pt-[128px] md:pt-[150px] lg:pt-[176px]" onPointerMove={onMove} onPointerLeave={() => { setP({ x: 0, y: 0 }); root.current?.classList.remove("spot-on"); }}>
+      <div className="aurora" aria-hidden><i /><i /><i /></div>
+      <div className="spotlight" aria-hidden />
       <div className="container grid gap-14 lg:gap-12 lg:grid-cols-12 items-center">
         <div className="lg:col-span-7">
           <p className="eyebrow reveal-fade" style={{ animationDelay: "120ms" }}>Websites · Social · Advertising · AI · Dashboards</p>
-          <h1 className="mt-7 !text-[clamp(2.5rem,1.5rem+3.3vw,4.35rem)] !leading-[1.02] !tracking-[-0.045em]">
+          <h1 className="mt-7 !text-[clamp(2.6rem,1.4rem+3.4vw,4.6rem)] !leading-[1] !tracking-[-0.05em]">
             <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "180ms" }}>Build your presence.</span></span>
             <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "260ms" }}>Grow your business.</span></span>
             <span className="split-line is-in"><span className="reveal-line" style={{ animationDelay: "340ms" }}><span className="accent pr-[.04em]">Automate</span> what comes next.</span></span>
@@ -108,7 +113,7 @@ export function Hero() {
       </div>
 
       {/* Capability marquee */}
-      <div className="mt-24 md:mt-28 border-y border-line py-5 overflow-hidden bg-[rgba(233,237,240,.45)]" aria-label="What we do">
+      <div className="mt-24 md:mt-28 border-y border-line py-5 overflow-hidden bg-[rgba(247,248,246,.5)] backdrop-blur-sm" aria-label="What we do">
         <ul className="marquee flex w-max gap-12 whitespace-nowrap">
           {[...capabilities, ...capabilities].map((c, i) => (
             <li key={i} className="flex items-center gap-12 text-[0.92rem] text-text-2" aria-hidden={i >= capabilities.length}>

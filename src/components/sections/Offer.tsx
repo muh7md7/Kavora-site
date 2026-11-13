@@ -21,7 +21,7 @@ export function FlexibleSolutions() {
 
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
           <Reveal>
-            <article className="h-full rounded-[28px] border border-line bg-surface p-8 md:p-10 flex flex-col">
+            <article data-spot className="h-full rounded-[28px] border border-line bg-surface p-8 md:p-10 flex flex-col">
               <span className="size-11 rounded-[12px] bg-steel-soft text-accent inline-flex items-center justify-center" aria-hidden><Square size={20} /></span>
               <h3 className="mt-8 !text-[clamp(1.6rem,1.3rem+1vw,2.2rem)]">Individual services</h3>
               <p className="text-text-2 mt-3 text-[1.02rem]">Choose exactly what your business needs. Every service stands on its own.</p>
@@ -76,7 +76,7 @@ export function AiOffer({ tone = "dark" }: { tone?: "light" | "dark" }) {
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {aiOffer.paths.map((p, i) => (
             <Reveal key={p.id} index={i}>
-              <article className={cn("h-full rounded-[24px] border border-line p-7 flex flex-col transition-colors hover:border-line-strong", i === 1 ? "bg-surface-strong" : "bg-surface")}>
+              <article data-spot className={cn("lift h-full rounded-[24px] border border-line p-7 flex flex-col", i === 1 ? "bg-surface-strong" : "bg-surface")}>
                 <span className="num">0{i + 1}</span>
                 <h3 className="mt-5 !text-[1.45rem]">{p.title}</h3>
                 <p className="text-text-2 mt-2">{p.lead}</p>

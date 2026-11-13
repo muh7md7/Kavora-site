@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/sections/PageHero";
 import { Reveal } from "@/components/sections/Reveal";
 import { Tone } from "@/components/sections/Tone";
@@ -50,10 +51,12 @@ export default function AboutPage() {
           <Reveal className="lg:col-span-4"><p className="eyebrow">What we do</p><h2 className="mt-5">Five services. <span className="accent">Your</span> choice.</h2></Reveal>
           <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3">
             {services.map((s, i) => (
-              <Reveal as="li" key={s.id} index={i} className="rounded-[20px] border border-line bg-surface p-6">
-                <ServiceGlyph id={s.id} />
-                <h3 className="mt-5 !text-lg">{s.name}</h3>
-                <p className="text-text-2 text-[0.92rem] mt-1.5">{s.short}</p>
+              <Reveal as="li" key={s.id} index={i}>
+                <Link href={`/services/${s.slug}/`} data-spot className="lift block h-full rounded-[20px] border border-line bg-surface p-6">
+                  <ServiceGlyph id={s.id} />
+                  <h3 className="mt-5 !text-lg">{s.name}</h3>
+                  <p className="text-text-2 text-[0.92rem] mt-1.5">{s.short}</p>
+                </Link>
               </Reveal>
             ))}
           </ul>

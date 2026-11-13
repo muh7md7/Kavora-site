@@ -33,6 +33,9 @@ export function Cursor() {
       if (e.pointerType !== "mouse") return;
       x = e.clientX; y = e.clientY; root.classList.remove("cursor-hidden"); kick();
       const t = e.target as Element | null;
+      // Pointer spotlight on cards marked data-spot (CSS reads --mx/--my).
+      const spot = t?.closest<HTMLElement>("[data-spot]");
+      if (spot) { const b = spot.getBoundingClientRect(); spot.style.setProperty("--mx", `${e.clientX - b.left}px`); spot.style.setProperty("--my", `${e.clientY - b.top}px`); }
       const labelEl = t?.closest<HTMLElement>("[data-cursor]");
       const interactive = t?.closest("a, button, [role=tab], summary, label, select, [data-cursor]");
       const field = t?.closest("input, textarea, select, [contenteditable]");

@@ -65,7 +65,7 @@ export default function WorkPage() {
           <div className="mt-14 grid gap-4 md:grid-cols-2">
             {demos.map((d, i) => (
               <Reveal key={d.title} index={i % 2}>
-                <Link href={d.href} data-cursor="View" className="group block rounded-[26px] border border-line bg-bg-2 overflow-hidden hover:border-line-strong transition-colors">
+                <Link href={d.href} data-cursor="View" data-spot className="lift group block rounded-[26px] border border-line bg-bg-2 overflow-hidden">
                   <div className={cn("relative h-[280px] flex items-center justify-center overflow-hidden tone-grad")}>
                     <div className="transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.04] w-full flex items-center justify-center"><DemoVisual v={d.visual} /></div>
                     <span className="chip chip-slate absolute top-5 left-5">Demo · Sample data</span>

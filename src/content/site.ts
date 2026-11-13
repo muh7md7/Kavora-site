@@ -34,9 +34,7 @@ export const nav: readonly { label: string; href: string; mega?: "services" }[] 
   { label: "Home", href: "/" },
   { label: "Services", href: "/services/", mega: "services" },
   { label: "Work", href: "/work/" },
-  { label: "Lab", href: "/lab/" }, // separate section — not a service, no mega menu
   { label: "About", href: "/about/" },
-  { label: "Insights", href: "/insights/" },
   { label: "Contact", href: "/contact/" },
 ];
 

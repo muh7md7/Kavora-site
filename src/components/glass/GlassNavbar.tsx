@@ -15,13 +15,13 @@ type Props = {
   ctaLabel?: string;
   ctaHref?: string;
   onOpenMobile?: () => void;
-  /** Lab/capture: render in-flow instead of fixed */
+  /** Render in-flow instead of fixed (embedded previews) */
   inline?: boolean;
 };
 
 /**
  * Floating full-glass header (v2).
- * — All primary links visible on desktop; Services opens a mega panel (hover-intent + click + keyboard). Lab is a plain link (separate section, not a service).
+ * — All primary links visible on desktop; Services opens a mega panel (hover-intent + click + keyboard).
  * — Adapts its tone to the section beneath it (reads [data-theme] under the header line).
  * — Hides on scroll down, returns on scroll up; hairline scroll-progress along the bottom edge.
  */
@@ -62,7 +62,8 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
   }, [inline]);
 
   // Close on route change, Esc, outside click.
-  useEffect(() => { setOpen(null); }, [pathname]);
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) { setLastPath(pathname); setOpen(null); }
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(null); (wrapRef.current?.querySelector(`[data-mega="${open}"]`) as HTMLElement | null)?.focus(); } };

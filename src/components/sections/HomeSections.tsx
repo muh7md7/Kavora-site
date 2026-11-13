@@ -2,12 +2,13 @@ import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { flywheel, homeFaq, steps, services, whyUs } from "@/content/site";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
-import { LazyLabGauge, LazyLabStat, LazyLabTabs, LazyWorkflow } from "./Lazy";
+import { LazyWorkflow } from "./Lazy";
+import { Showcase } from "./Showcase";
 import { ServiceRow } from "./ServiceTile";
 import { Faq } from "./Faq";
 import { Reveal } from "./Reveal";
 import { ProcessSteps } from "./ProcessSteps";
-import { SectionHead, Tone } from "./Tone";
+import { Tone } from "./Tone";
 import { cn } from "@/lib/cn";
 
 /** The loop diagram — four stations on a slow orbit with one travelling light. */
@@ -119,32 +120,15 @@ export function Process() {
   );
 }
 
-export function FromTheLab() {
-  const cards = [
-    { href: "/lab/tabs/", title: "Navigation Tabs", node: <LazyLabTabs /> },
-    { href: "/lab/stat-card/", title: "Stat Card", node: <LazyLabStat /> },
-    { href: "/lab/gauge/", title: "Goal Gauge", node: <LazyLabGauge /> },
-  ];
+export function SeeItInAction() {
   return (
-    <Tone tone="dark" className="section" aria-labelledby="lab-h">
+    <Tone tone="dark" grad className="section overflow-hidden" aria-labelledby="see-h">
       <div className="container">
-        <div className="flex items-end justify-between gap-6 flex-wrap">
-          <Reveal><SectionHead eyebrow="Keelbiz Lab" title="Experiments," accent="in the open." lead="A separate space for interactive experiments and interface demonstrations — working examples, not products." /></Reveal>
-          <Reveal index={1}><Link href="/lab/" className="btn btn-glass">Enter the Lab <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link></Reveal>
+        <div className="grid gap-8 lg:grid-cols-12 items-end">
+          <Reveal className="lg:col-span-7"><p className="eyebrow">See it in action</p><h2 id="see-h" className="mt-5">What we build, <span className="accent">working.</span></h2></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">Pick a service to try a live illustration of the kind of work we deliver. Sample data, real interactions.</p></Reveal>
         </div>
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
-          {cards.map((c, i) => (
-            <Reveal key={c.href} index={i}>
-              <Link href={c.href} data-cursor="Open" className="group block rounded-[24px] border border-line bg-bg-2 overflow-hidden transition-colors hover:border-line-strong">
-                <div className="h-[260px] flex items-center justify-center p-6 tone-grad relative">{c.node}</div>
-                <div className="flex items-center justify-between px-6 py-5 border-t border-line">
-                  <span className="font-[550] tracking-[-0.015em]">{c.title}</span>
-                  <span className="num inline-flex items-center gap-1 group-hover:text-text transition-colors">Open <ArrowUpRight size={14} aria-hidden /></span>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mt-14 bloom" index={2}><Showcase /></Reveal>
       </div>
     </Tone>
   );

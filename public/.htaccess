@@ -5,6 +5,9 @@ RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Serve trailing-slash folders; custom 404
 ErrorDocument 404 /404.html
+# Retired sections
+RewriteRule ^lab(/.*)?$ / [L,R=301]
+RewriteRule ^insights(/.*)?$ / [L,R=302]
 
 <IfModule mod_headers.c>
   # Enable HSTS only after HTTPS verified on all subdomains:

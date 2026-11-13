@@ -48,14 +48,14 @@ function CampaignStructure() {
 
 function ReportingMock() {
   return (
-    <div className="w-full max-w-2xl flex flex-col gap-3">
+    <div className="w-full max-w-lg flex flex-col gap-3">
       <div className="flex items-center justify-between"><span className="font-semibold text-sm">Weekly report</span><Label t="Illustrative" /></div>
       <KpiRow stats={[
         { label: "Reach · Illustrative", value: "48k", delta: 9, icon: Users, tone: "sage" },
         { label: "Leads · Illustrative", value: "63", delta: 14, icon: Inbox, tone: "sage" },
-        { label: "Cost / lead · Illustrative", value: "—", icon: BarChart3, tone: "navy" },
+        { label: "Click-through · Illustrative", value: "2.4%", delta: 6, icon: BarChart3, tone: "navy" },
         { label: "Frequency · Illustrative", value: "1.8", delta: -4, icon: BarChart3, tone: "navy" },
-      ]} />
+      ]} className="!grid-cols-2" />
     </div>
   );
 }

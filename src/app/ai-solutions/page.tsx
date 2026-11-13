@@ -65,7 +65,7 @@ export default function AiSolutionsPage() {
             {aiOffer.examples.map((e, i) => (
               <Reveal as="li" key={e.title} index={i % 4}>
                 <Link href={`/contact/?type=ai-custom&services=automation&topic=${encodeURIComponent(e.title)}`} data-cursor="Enquire"
-                  className="group h-full flex flex-col rounded-[22px] border border-line bg-surface p-6 transition-colors hover:border-line-strong hover:bg-surface-strong">
+                  data-spot className="lift group h-full flex flex-col rounded-[22px] border border-line bg-surface p-6">
                   <h3 className="!text-[1.12rem] !leading-snug">{e.title}</h3>
                   <p className="text-text-2 text-[0.9rem] mt-2">{e.does}</p>
                   <p className="mt-5 pt-4 border-t border-line text-[0.82rem]"><span className="text-text-2">Solves: </span>{e.solves}</p>
@@ -112,7 +112,7 @@ export default function AiSolutionsPage() {
               { t: "With a dashboard", d: "See every automated lead and task in one view.", href: "/services/business-dashboards-systems/" },
             ].map((c, i) => (
               <Reveal as="li" key={c.t} index={i}>
-                <Link href={c.href} className="group block h-full rounded-[20px] border border-line bg-surface p-6 hover:bg-surface-strong transition-colors">
+                <Link href={c.href} data-spot className="lift group block h-full rounded-[20px] border border-line bg-surface p-6">
                   <span className="font-[550]">{c.t}</span><p className="text-text-2 text-[0.9rem] mt-2">{c.d}</p>
                   <ArrowUpRight size={16} className="mt-5 text-text-2 group-hover:text-text transition-colors" aria-hidden />
                 </Link>

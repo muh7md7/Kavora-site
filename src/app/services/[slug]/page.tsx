@@ -49,9 +49,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="container border-t border-line pt-16">
           <ul className="grid sm:grid-cols-3 gap-3">
             {s.benefits.map((b, i) => (
-              <Reveal as="li" key={b} index={i} className="rounded-[20px] border border-line bg-surface p-6">
-                <span className="num">0{i + 1}</span>
-                <p className="mt-4 text-[1.2rem] leading-snug tracking-[-0.02em] font-[550]">{b}</p>
+              <Reveal as="li" key={b} index={i}>
+                <div data-spot className="lift h-full rounded-[20px] border border-line bg-surface p-6">
+                  <span className="num">0{i + 1}</span>
+                  <p className="mt-4 text-[1.2rem] leading-snug tracking-[-0.02em] font-[550]">{b}</p>
+                </div>
               </Reveal>
             ))}
           </ul>
@@ -93,7 +95,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3">
             {s.pairsWith.map((p, i) => { const o = services.find((x) => x.id === p.id)!; return (
               <Reveal as="li" key={p.id} index={i}>
-                <Link href={`/services/${o.slug}/`} className="group flex h-full gap-4 rounded-[20px] border border-line bg-surface p-6 hover:bg-surface-strong transition-colors">
+                <Link href={`/services/${o.slug}/`} data-spot className="lift group flex h-full gap-4 rounded-[20px] border border-line bg-surface p-6">
                   <ServiceGlyph id={o.id} />
                   <span><span className="block font-[550]">{s.name} + {o.name}</span><span className="block text-text-2 text-[0.92rem] mt-1.5">{p.why}</span></span>
                   <ArrowUpRight size={16} className="ml-auto shrink-0 text-text-2 group-hover:text-text transition-colors" aria-hidden />
