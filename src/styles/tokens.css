@@ -5,37 +5,46 @@
 
 :root {
   /* Core palette — the five approved brand colours */
-  --offwhite: #f7f8f6;      /* main light backgrounds */
-  --mist-grey: #e9edf0;     /* secondary surfaces */
-  --steel-blue: #b8c9d2;    /* muted accents, gradients (decoration on light; text on dark) */
-  --graphite: #28353d;      /* typography, buttons, dark components */
-  --deep-charcoal: #11191e; /* dark sections */
+  /* v5 "Stone & Steel": warm stone, mist, blue-grey, steel accent, slate, deep blue, ink */
+  --c-stone: #f3f0eb;         /* main light background (warm, never pure white) */
+  --c-stone-2: #ebe7e0;       /* warm secondary */
+  --c-mist: #e5ebec;          /* cool secondary surface */
+  --c-blue-grey: #d5e0e4;     /* mid-tone sections, previews */
+  --c-steel: #7899a6;  /* decorative accent (lines, glows, data) */
+  --c-slate: #617783;       /* secondary decorative tone */
+  --c-deep: #233845;     /* dark accent sections */
+  --c-ink: #17262f;           /* typography */
+  --offwhite: var(--c-stone);
+  --mist-grey: var(--c-mist);
+  --steel-blue: #b9cdd5;    /* light steel (text/decor on deep blue) */
+  --graphite: var(--c-deep);
+  --deep-charcoal: var(--c-ink);
 
   /* Derived tones (all built from the five above) */
   --paper: var(--offwhite);
   --paper-2: var(--mist-grey);
-  --paper-3: #dde3e7;
-  --charcoal: var(--deep-charcoal);
-  --charcoal-2: #18232a;
-  --charcoal-3: #22303a;
-  --steel: #4f6673;         /* steel deepened for text accents on light — 5.7:1 on off-white */
+  --paper-3: var(--c-blue-grey);
+  --charcoal: var(--c-deep);
+  --charcoal-2: #1e3240;
+  --charcoal-3: #2b4352;
+  --steel: #4a6875;         /* steel deepened for text accents on light — 5.6:1 on stone */
   --steel-deep: var(--graphite);
-  --steel-soft: #dfe7ec;    /* steel-blue tint surface */
+  --steel-soft: #dde6e9;    /* steel-blue tint surface */
   --steel-light: var(--steel-blue);
-  --stone: #8e9aa1;
-  --moss: #4f6673;          /* data "up" — steel, not a new hue */
-  --moss-soft: #dfe7ec;
+  --stone-c: #8e9aa1;
+  --moss: #4a6875;          /* data "up" — steel, not a new hue */
+  --moss-soft: #dde6e9;
   --rust: #9b4a42;          /* errors only (WCAG legibility) */
 
   /* Semantic (light) */
   --bg: var(--offwhite);
   --bg-2: var(--mist-grey);
-  --text: #1b252c;          /* 14.6:1 on off-white */
-  --text-2: #5a6a73;        /* 5.3:1 off-white, 4.8:1 mist */
-  --line: #dbe1e5;
-  --line-strong: #c5cfd5;
-  --surface: rgba(255, 255, 255, 0.55);
-  --surface-strong: rgba(255, 255, 255, 0.82);
+  --text: #17262f;          /* 14.2:1 on stone */
+  --text-2: #50636e;        /* 5.6:1 on stone, 5.4:1 on mist */
+  --line: rgba(35, 56, 69, 0.11);
+  --line-strong: rgba(35, 56, 69, 0.2);
+  --surface: rgba(255, 253, 250, 0.5);
+  --surface-strong: rgba(255, 253, 250, 0.8);
   --accent: var(--steel);
   --accent-text: var(--steel);
   --on-accent: #ffffff;
@@ -50,10 +59,11 @@
   --glass-shadow: 0 24px 48px -28px rgba(17, 25, 30, 0.28), 0 6px 16px -10px rgba(17, 25, 30, 0.10);
 
   /* Gradients (subtle) */
-  --grad-light: radial-gradient(70% 60% at 88% -5%, rgba(184, 201, 210, 0.55), transparent 62%),
-                radial-gradient(55% 45% at -5% 105%, rgba(233, 237, 240, 0.9), transparent 60%);
-  --grad-dark: radial-gradient(65% 55% at 85% -10%, rgba(184, 201, 210, 0.16), transparent 60%),
-               radial-gradient(50% 50% at 0% 110%, rgba(40, 53, 61, 0.55), transparent 60%);
+  --grad-light: radial-gradient(70% 60% at 88% -5%, rgba(181, 203, 211, 0.55), transparent 62%),
+                radial-gradient(55% 45% at -5% 105%, rgba(229, 235, 236, 0.95), transparent 60%);
+  --grad-dark: radial-gradient(70% 60% at 85% -10%, rgba(120, 153, 166, 0.32), transparent 62%),
+               radial-gradient(55% 55% at 0% 110%, rgba(23, 38, 47, 0.75), transparent 62%),
+               linear-gradient(180deg, #27404e, #1f3341);
 
   /* Radius */
   --r-xs: 6px;
@@ -64,7 +74,7 @@
   --r-pill: 999px;
 
   /* Layout */
-  --content-max: 1320px;
+  --content-max: 1280px;
   --text-max: 680px;
   --gutter: clamp(20px, 4vw, 48px);
   --header-h: 64px;
@@ -72,7 +82,13 @@
   /* Motion */
   --dur-micro: 160ms;
   --dur-comp: 320ms;
-  --dur-section: 900ms;
+  --dur-section: 800ms;
+  --stagger: 70ms;
+  --section-y: clamp(72px, 8.5vw, 128px);
+  --card-r: 24px;
+  --card-pad: clamp(22px, 2.2vw, 32px);
+  --shadow-card: 0 1px 0 rgba(255,255,255,.7) inset, 0 1px 2px rgba(23,38,47,.04), 0 18px 40px -28px rgba(23,38,47,.28);
+  --shadow-lift: 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 4px rgba(23,38,47,.05), 0 36px 70px -40px rgba(23,38,47,.42);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
@@ -119,18 +135,18 @@
   /* Explicit light scope so a light block can sit inside a dark section (e.g. previews). */
   --bg: var(--offwhite);
   --bg-2: var(--mist-grey);
-  --text: #1b252c;
-  --text-2: #5a6a73;
-  --line: #dbe1e5;
-  --line-strong: #c5cfd5;
-  --surface: rgba(255, 255, 255, 0.55);
-  --surface-strong: rgba(255, 255, 255, 0.82);
+  --text: #17262f;
+  --text-2: #50636e;
+  --line: rgba(35, 56, 69, 0.11);
+  --line-strong: rgba(35, 56, 69, 0.2);
+  --surface: rgba(255, 253, 250, 0.5);
+  --surface-strong: rgba(255, 253, 250, 0.8);
   --accent: var(--steel);
   --accent-text: var(--steel);
   --on-accent: #ffffff;
-  --steel-soft: #dfe7ec;
-  --moss: #4f6673;
-  --moss-soft: #dfe7ec;
+  --steel-soft: #dde6e9;
+  --moss: #4a6875;
+  --moss-soft: #dde6e9;
   --rust: #9b4a42;
   --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 248, 246, 0.56));
   --glass-border: rgba(255, 255, 255, 0.8);
@@ -146,23 +162,23 @@
   background-color: var(--bg);
 }
 [data-theme="dark"] {
-  --bg: var(--deep-charcoal);
+  --bg: var(--c-deep);
   --bg-2: var(--charcoal-2);
-  --text: #f7f8f6;          /* 16.7:1 */
-  --text-2: #9aa8b0;        /* 7.3:1 */
-  --line: rgba(184, 201, 210, 0.12);
-  --line-strong: rgba(184, 201, 210, 0.24);
-  --surface: rgba(184, 201, 210, 0.05);
-  --surface-strong: rgba(184, 201, 210, 0.09);
+  --text: #f3f0eb;          /* 11.6:1 on deep blue */
+  --text-2: #b2c2c9;        /* 7.0:1 */
+  --line: rgba(213, 224, 228, 0.13);
+  --line-strong: rgba(213, 224, 228, 0.26);
+  --surface: rgba(213, 224, 228, 0.06);
+  --surface-strong: rgba(213, 224, 228, 0.11);
   --accent: var(--steel-blue);
   --accent-text: var(--steel-blue);
   --on-accent: var(--deep-charcoal);
   --steel-soft: rgba(184, 201, 210, 0.12);
   --moss: var(--steel-blue);
   --moss-soft: rgba(184, 201, 210, 0.12);
-  --rust: #d9a39c;
-  --glass-bg: linear-gradient(180deg, rgba(40, 53, 61, 0.62), rgba(24, 35, 42, 0.5));
-  --glass-border: rgba(184, 201, 210, 0.12);
+  --rust: #e3b2ab;
+  --glass-bg: linear-gradient(180deg, rgba(52, 77, 92, 0.6), rgba(30, 50, 64, 0.5));
+  --glass-border: rgba(213, 224, 228, 0.14);
   --glass-edge: rgba(0, 0, 0, 0.35);
   --glass-highlight: inset 0 1px 0 rgba(247, 248, 246, 0.07);
   --glass-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);

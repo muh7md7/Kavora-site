@@ -7,6 +7,8 @@ import { Tone } from "@/components/sections/Tone";
 import { caseStudies } from "@/content/work";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
+import { ServiceStage } from "@/components/sections/Bento";
+import type { ServiceId } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -14,35 +16,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work/" },
 };
 
-// Clearly labelled demonstrations of the kind of interfaces we build (not client work).
-const demos = [
-  { title: "AI website assistant", kind: "AI Agents & Automation", href: "/ai-solutions/", visual: "chat" },
-  { title: "Business dashboard", kind: "Business Dashboards & Systems", href: "/services/business-dashboards-systems/#example", visual: "dash" },
-  { title: "Enquiry-to-CRM workflow", kind: "AI Agents & Automation", href: "/services/ai-agents-automation/#example", visual: "flow" },
-  { title: "Responsive business website", kind: "Website Design & Development", href: "/services/website-design-development/#example", visual: "site" },
+// Clearly labelled concept demonstrations of the kind of interfaces we build (not client work).
+const demos: { id: ServiceId; title: string; kind: string; desc: string; href: string }[] = [
+  { id: "websites", title: "Responsive business website", kind: "Website Design & Development", desc: "A business site that adapts from desktop to phone, with a clear enquiry path.", href: "/services/website-design-development/#example" },
+  { id: "automation", title: "Enquiry-to-CRM workflow", kind: "AI Agents & Automation", desc: "An AI agent replies to a new enquiry, qualifies it and books the call.", href: "/services/ai-agents-automation/#example" },
+  { id: "social", title: "Monthly content plan", kind: "Social Media Management", desc: "A planned grid of posts, reels and stories with a weekly publishing schedule.", href: "/services/social-media-management/#example" },
+  { id: "ads", title: "Campaign reporting view", kind: "Digital Advertising", desc: "Meta and Google campaigns organised into one clear reporting layout.", href: "/services/digital-advertising/#example" },
+  { id: "dashboards", title: "Business management dashboard", kind: "Business Dashboards & Systems", desc: "Leads, bookings and open tasks in one view, built on your own numbers.", href: "/services/business-dashboards-systems/#example" },
 ];
-
-function DemoVisual({ v }: { v: string }) {
-  if (v === "chat") return (
-    <div className="w-[78%] grid gap-2">
-      <span className="self-end ml-auto w-2/3 h-7 rounded-[10px] bg-[#f7f8f6]/90" /><span className="w-3/4 h-9 rounded-[10px] bg-[rgba(184,201,210,.18)] border border-[rgba(184,201,210,.2)]" /><span className="ml-auto w-1/2 h-7 rounded-[10px] bg-[#f7f8f6]/90" />
-    </div>);
-  if (v === "dash") return (
-    <div className="w-[80%] grid grid-cols-3 gap-2">{[0, 1, 2].map((i) => <span key={i} className="h-14 rounded-[10px] bg-[rgba(184,201,210,.12)] border border-[rgba(184,201,210,.18)]" />)}
-      <span className="col-span-3 h-20 rounded-[10px] bg-[linear-gradient(180deg,rgba(184,201,210,.25),transparent)] border border-[rgba(184,201,210,.18)]" /></div>);
-  if (v === "flow") return (
-    <div className="w-[80%] flex items-center justify-between">{[0, 1, 2, 3].map((i) => <span key={i} className="size-12 rounded-[12px] bg-[rgba(184,201,210,.12)] border border-[rgba(184,201,210,.22)]" />)}</div>);
-  return (
-    <div className="w-[80%] flex items-end gap-3 justify-center">
-      <span className="flex-1 h-28 rounded-[10px] border border-[rgba(184,201,210,.2)] bg-[rgba(184,201,210,.08)] p-2 grid content-start gap-1.5"><i className="h-1.5 w-1/3 rounded bg-[rgba(184,201,210,.5)]" /><i className="h-1 w-2/3 rounded bg-[rgba(184,201,210,.2)]" /><i className="mt-auto grid grid-cols-3 gap-1">{[0,1,2].map((i)=><b key={i} className="h-6 rounded bg-[rgba(184,201,210,.12)]" />)}</i></span>
-      <span className="w-14 h-24 rounded-[10px] border border-[rgba(184,201,210,.2)] bg-[rgba(184,201,210,.08)] p-1.5 grid content-start gap-1"><i className="h-1 w-1/2 rounded bg-[rgba(184,201,210,.5)]" /><i className="h-1 w-full rounded bg-[rgba(184,201,210,.2)]" /><i className="mt-auto h-3 rounded-full bg-[rgba(184,201,210,.35)]" /></span>
-    </div>);
-}
 
 export default function WorkPage() {
   return (
     <>
-      <PageHero eyebrow="Work" title="Selected" accent="work." lead="Client case studies are published only with permission and verified results. Meanwhile, explore live demonstrations of what we build." />
+      <PageHero eyebrow="Work" title="Selected" accent="work." lead="Concept demonstrations of the websites, content, campaigns, automation and dashboards we build. Client case studies are added only with permission." />
 
       {caseStudies.length > 0 && (
       <Tone tone="light" className="section !pt-0">
@@ -54,25 +40,32 @@ export default function WorkPage() {
       </Tone>
       )}
 
-      <Tone tone="dark" grad className="section">
+      <Tone tone="mist" className="section">
         <div className="container">
-          <Reveal><p className="eyebrow">Interface demonstrations</p><h2 className="mt-5 max-w-2xl">What we build, <span className="accent">live.</span></h2><p className="lead mt-5">Interactive demos with sample data — clearly not client work.</p></Reveal>
-          <div className="mt-14 grid gap-4 md:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-12 items-end">
+            <Reveal className="lg:col-span-7"><p className="eyebrow">Concept demonstrations</p><h2 className="mt-5 max-w-[16ch]">What we build, <span className="accent">shown.</span></h2></Reveal>
+            <Reveal className="lg:col-span-5" index={1}><p className="lead">Each one is an illustrative concept with sample content — clearly not client work. Open one to try the interactive version.</p></Reveal>
+          </div>
+          <ul className="mt-12 grid gap-4 md:grid-cols-2">
             {demos.map((d, i) => (
-              <Reveal key={d.title} index={i % 2}>
-                <Link href={d.href} data-cursor="View" data-spot className="lift group block rounded-[26px] border border-line bg-bg-2 overflow-hidden">
-                  <div className={cn("relative h-[280px] flex items-center justify-center overflow-hidden tone-grad")}>
-                    <div className="transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.04] w-full flex items-center justify-center"><DemoVisual v={d.visual} /></div>
-                    <span className="chip chip-slate absolute top-5 left-5">Demo · Sample data</span>
+              <Reveal as="li" key={d.title} index={i % 2} className={cn(i === demos.length - 1 && "md:col-span-2")}>
+                <Link href={d.href} data-cursor="View" className="card card-hover bento-card group">
+                  <div className="relative">
+                    <ServiceStage id={d.id} scale={i === demos.length - 1 ? 1.15 : 1.08} className={cn("!h-[260px] sm:!h-[300px]", i === demos.length - 1 && "md:!h-[340px]")} />
+                    <span className="chip chip-slate absolute top-4 left-4 z-[4] !bg-[rgba(243,240,235,.85)]">Concept · Sample content</span>
                   </div>
-                  <div className="flex items-center justify-between gap-4 px-7 py-6 border-t border-line">
-                    <span><span className="num">{d.kind}</span><span className="block mt-1.5 text-[1.25rem] font-[560] tracking-[-0.025em]">{d.title}</span></span>
-                    <span className="size-11 shrink-0 rounded-full border border-line-strong inline-flex items-center justify-center transition-all duration-500 group-hover:bg-text group-hover:text-bg group-hover:rotate-45"><ArrowUpRight size={17} aria-hidden /></span>
+                  <div className="flex items-end justify-between gap-4 px-3.5 pt-6 pb-3">
+                    <span><span className="num">{d.kind}</span><span className="block mt-2 text-[1.3rem] font-[560] tracking-[-0.025em]">{d.title}</span><span className="block mt-1.5 text-text-2 text-[0.93rem] max-w-[46ch]">{d.desc}</span></span>
+                    <span className="arrow-pill shrink-0" aria-hidden><ArrowUpRight size={15} /></span>
                   </div>
                 </Link>
               </Reveal>
             ))}
-          </div>
+          </ul>
+          <Reveal className="mt-10 card p-7 md:p-9 flex flex-wrap items-center justify-between gap-6">
+            <p className="max-w-[58ch]"><span className="font-[560]">About case studies.</span> <span className="text-text-2">Client projects are published here only with the client&apos;s permission and verified results.</span></p>
+            <Link href="/contact/" className="btn btn-primary">Discuss your project <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
+          </Reveal>
         </div>
       </Tone>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Work", href: "/work/" }]} />

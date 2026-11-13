@@ -52,7 +52,7 @@ export function WebsitePreview({ className }: { className?: string }) {
         <div role="radiogroup" aria-label="Preview width" className="inline-flex rounded-full border border-line bg-surface p-1 gap-0.5" onKeyDown={onKey}>
           {devices.map((x) => (
             <button key={x.id} type="button" role="radio" aria-checked={device === x.id} tabIndex={device === x.id ? 0 : -1} onClick={() => setDevice(x.id)}
-              className={cn("inline-flex items-center gap-2 h-9 px-3.5 rounded-full text-[0.82rem] font-[550] transition-colors", device === x.id ? "bg-[var(--steel-blue)] text-[#11191e]" : "text-text-2 hover:text-text")}>
+              className={cn("inline-flex items-center gap-2 h-9 px-3.5 rounded-full text-[0.82rem] font-[550] transition-colors", device === x.id ? "bg-[var(--steel-blue)] text-[#17262f]" : "text-text-2 hover:text-text")}>
               <x.icon size={15} aria-hidden /><span className="hidden sm:inline">{x.label}</span>
             </button>
           ))}
@@ -70,11 +70,11 @@ export function WebsitePreview({ className }: { className?: string }) {
       <div ref={stage} className="w-full flex justify-center overflow-hidden" style={{ height: Math.round((device === "phone" ? 640 : 560) * scale) + 28 }}>
         <div className="origin-top transition-[width] duration-700 ease-[cubic-bezier(.22,1,.36,1)]" style={{ width: d.width, transform: `scale(${scale})` }}>
           {/* Device chrome */}
-          <div className={cn("rounded-[22px] border border-[rgba(184,201,210,.22)] bg-[#18232a] p-2 shadow-[0_40px_80px_-40px_rgba(0,0,0,.7)]", device === "phone" && "rounded-[34px] p-2.5")}>
+          <div className={cn("rounded-[22px] border border-[rgba(184,201,210,.22)] bg-[#1e3240] p-2 shadow-[0_40px_80px_-40px_rgba(0,0,0,.7)]", device === "phone" && "rounded-[34px] p-2.5")}>
             {device !== "phone" && (
               <div className="flex items-center gap-2 px-2 pb-2">
                 <span className="flex gap-1.5" aria-hidden><i className="size-2.5 rounded-full bg-[rgba(184,201,210,.25)]" /><i className="size-2.5 rounded-full bg-[rgba(184,201,210,.25)]" /><i className="size-2.5 rounded-full bg-[rgba(184,201,210,.25)]" /></span>
-                <span className="mx-auto h-6 px-4 rounded-full bg-[rgba(247,248,246,.06)] text-[0.68rem] text-[#9aa8b0] inline-flex items-center font-mono">example-business.site</span>
+                <span className="mx-auto h-6 px-4 rounded-full bg-[rgba(243,240,235,.06)] text-[0.68rem] text-[#b2c2c9] inline-flex items-center font-mono">example-business.site</span>
               </div>
             )}
             {/* Site */}
@@ -85,7 +85,7 @@ export function WebsitePreview({ className }: { className?: string }) {
                   <div className="glass rounded-[12px] h-11 px-3 flex items-center justify-between">
                     <span className="flex items-center gap-2"><span className="size-5 rounded-[6px] bg-[var(--graphite)]" aria-hidden /><span className="text-[0.8rem] font-[620] tracking-[-0.02em]">Northwind Studio</span></span>
                     <span className="hidden @[560px]:flex items-center gap-4 text-[0.74rem] text-text-2">{["Work", "Services", "Studio", "Journal"].map((t) => <span key={t}>{t}</span>)}</span>
-                    <span className="h-7 px-3 rounded-full bg-[var(--graphite)] text-[#f7f8f6] text-[0.7rem] font-[550] inline-flex items-center">Enquire</span>
+                    <span className="h-7 px-3 rounded-full bg-[var(--graphite)] text-[#f3f0eb] text-[0.7rem] font-[550] inline-flex items-center">Enquire</span>
                   </div>
                 </div>
                 {/* hero */}
@@ -95,7 +95,7 @@ export function WebsitePreview({ className }: { className?: string }) {
                     <p className="mt-3 font-[560] tracking-[-0.04em] leading-[1.02] text-[clamp(1.6rem,8cqw,3rem)]">Spaces that feel <span className="accent">considered.</span></p>
                     <p className="mt-3 text-text-2 text-[0.85rem] max-w-[42ch]">Residential and hospitality interiors — from concept to handover, with one team throughout.</p>
                     <div className="mt-5 flex flex-wrap gap-2">
-                      <span className="h-9 px-4 rounded-full bg-[var(--graphite)] text-[#f7f8f6] text-[0.76rem] font-[550] inline-flex items-center gap-1.5">Start a project <ArrowUpRight size={12} aria-hidden /></span>
+                      <span className="h-9 px-4 rounded-full bg-[var(--graphite)] text-[#f3f0eb] text-[0.76rem] font-[550] inline-flex items-center gap-1.5">Start a project <ArrowUpRight size={12} aria-hidden /></span>
                       <span className="h-9 px-4 rounded-full border border-line-strong bg-surface text-[0.76rem] font-[550] inline-flex items-center">View work</span>
                     </div>
                   </div>
@@ -130,7 +130,7 @@ export function WebsitePreview({ className }: { className?: string }) {
                     <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); setSent(true); }} aria-label="Sample enquiry (demo — nothing is sent)">
                       <label className="sr-only" htmlFor={`${id}-mail`}>Email (demo)</label>
                       <input id={`${id}-mail`} type="email" placeholder="you@company.com" className="h-9 min-w-0 flex-1 rounded-full border border-line-strong bg-bg px-3 text-[0.76rem] text-text placeholder:text-text-2 focus:outline-2 focus:outline-[var(--accent)]" />
-                      <button type="submit" className="h-9 px-3.5 rounded-full bg-[var(--graphite)] text-[#f7f8f6] text-[0.74rem] font-[550] shrink-0">{sent ? "Demo only ✓" : "Send"}</button>
+                      <button type="submit" className="h-9 px-3.5 rounded-full bg-[var(--graphite)] text-[#f3f0eb] text-[0.74rem] font-[550] shrink-0">{sent ? "Demo only ✓" : "Send"}</button>
                     </form>
                   </div>
                   <p className="mt-6 text-center text-[0.68rem] text-text-2">© Northwind Studio · Privacy · Terms</p>

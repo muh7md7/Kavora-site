@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Check, MessageCircleQuestion } from "lucide-react";
+import { ServiceStage } from "@/components/sections/Bento";
 import { PageHero } from "@/components/sections/PageHero";
 import { Reveal } from "@/components/sections/Reveal";
 import { SectionHead, Tone } from "@/components/sections/Tone";
@@ -29,20 +30,20 @@ export default function AiSolutionsPage() {
   const ai = serviceById("automation");
   return (
     <>
-      <PageHero eyebrow="AI Solutions" title="Tell us what you want to automate." accent="We build it." lead="Custom AI agents and automation designed around your business — plus ready-made solutions where a built one genuinely fits. Answer customers instantly, follow up every lead, book appointments and remove repetitive work.">
+      <PageHero eyebrow="AI Solutions" aside={<Reveal className="device"><ServiceStage id="automation" scale={1.3} className="!h-[300px] sm:!h-[360px] lg:!h-[400px]" /><p className="px-2 pt-2.5 text-[0.75rem] text-text-2 font-mono tracking-[.04em]">Illustrative workflow · sample content</p></Reveal>} title="Tell us what you want to automate." accent="We build it." lead="Custom AI agents and automation designed around your business — plus ready-made solutions where a built one genuinely fits. Answer customers instantly, follow up every lead, book appointments and remove repetitive work.">
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
           <Button href="/contact/?type=ai-custom&services=automation">Discuss Your AI Project</Button>
           <Button href="#options" variant="ghost">See your options</Button>
         </div>
       </PageHero>
 
-      <Tone tone="light" className="section !pt-0" id="options" aria-labelledby="opt-h">
+      <Tone tone="mist" className="section" id="options" aria-labelledby="opt-h">
         <div className="container border-t border-line pt-16">
           <Reveal><SectionHead eyebrow="Three ways to work with us" title="Pick the path that" accent="fits." /></Reveal>
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             {aiOffer.paths.map((p, i) => (
               <Reveal key={p.id} index={i}>
-                <article className={cn("h-full rounded-[26px] border p-8 flex flex-col", i === 1 ? "border-line-strong bg-[linear-gradient(170deg,var(--steel-soft),transparent_70%)]" : "border-line bg-surface")}>
+                <article className={cn("card h-full p-8 flex flex-col", i === 1 ? "!bg-[linear-gradient(170deg,#dfe7ea,rgba(255,253,250,.6)_70%)] !border-line-strong" : "border-line bg-surface")}>
                   <div className="flex items-center justify-between"><span className="num">0{i + 1}</span>{i === 0 && <span className="chip chip-slate">Availability on request</span>}{i === 1 && <span className="chip chip-navy">Most flexible</span>}</div>
                   <h2 className="mt-6 !text-[1.6rem] !leading-tight">{p.title}</h2>
                   <p className="text-text-2 mt-3">{p.lead}</p>
@@ -55,7 +56,7 @@ export default function AiSolutionsPage() {
         </div>
       </Tone>
 
-      <Tone tone="dark" grad className="section" aria-labelledby="ex-h">
+      <Tone tone="dark" grad grid className="section" aria-labelledby="ex-h">
         <div className="container">
           <div className="grid gap-10 lg:grid-cols-12 items-end">
             <Reveal className="lg:col-span-7"><SectionHead eyebrow="What an AI agent can do" title="Examples, not" accent="limits." /></Reveal>
@@ -65,7 +66,7 @@ export default function AiSolutionsPage() {
             {aiOffer.examples.map((e, i) => (
               <Reveal as="li" key={e.title} index={i % 4}>
                 <Link href={`/contact/?type=ai-custom&services=automation&topic=${encodeURIComponent(e.title)}`} data-cursor="Enquire"
-                  data-spot className="lift group h-full flex flex-col rounded-[22px] border border-line bg-surface p-6">
+                  data-spot className="card card-hover group h-full flex flex-col p-6">
                   <h3 className="!text-[1.12rem] !leading-snug">{e.title}</h3>
                   <p className="text-text-2 text-[0.9rem] mt-2">{e.does}</p>
                   <p className="mt-5 pt-4 border-t border-line text-[0.82rem]"><span className="text-text-2">Solves: </span>{e.solves}</p>
@@ -99,7 +100,7 @@ export default function AiSolutionsPage() {
         </div>
       </Tone>
 
-      <Tone tone="light" alt className="section">
+      <Tone tone="warm" className="section">
         <div className="container grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
             <p className="eyebrow">Combine it</p>
@@ -112,7 +113,7 @@ export default function AiSolutionsPage() {
               { t: "With a dashboard", d: "See every automated lead and task in one view.", href: "/services/business-dashboards-systems/" },
             ].map((c, i) => (
               <Reveal as="li" key={c.t} index={i}>
-                <Link href={c.href} data-spot className="lift group block h-full rounded-[20px] border border-line bg-surface p-6">
+                <Link href={c.href} data-spot className="card card-hover group block h-full p-6">
                   <span className="font-[550]">{c.t}</span><p className="text-text-2 text-[0.9rem] mt-2">{c.d}</p>
                   <ArrowUpRight size={16} className="mt-5 text-text-2 group-hover:text-text transition-colors" aria-hidden />
                 </Link>

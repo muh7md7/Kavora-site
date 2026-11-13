@@ -16,14 +16,14 @@ export default function ContactPage() {
   const { email, whatsapp } = site.contact;
   return (
     <>
-      <PageHero eyebrow="Contact" title="Tell us what you're" accent="building." lead="One service, several, or a complete solution — a few lines is enough. We reply with questions, options and a custom quote." />
-      <Tone tone="light" className="section !pt-0">
-        <div className="container grid gap-10 lg:gap-14 lg:grid-cols-12 border-t border-line pt-14">
-          <div className="lg:col-span-8 rounded-[28px] border border-line bg-surface-strong p-6 sm:p-8 md:p-10 shadow-[0_30px_60px_-40px_rgba(17,25,30,.35)]">
+      <PageHero eyebrow="Contact" title="Tell us what you're" accent="building." lead="One service, several, or a complete solution — a few lines is enough. We reply with questions, options and a custom quote." compact />
+      <Tone tone="mist" className="section !pt-12 md:!pt-16">
+        <div className="container grid gap-6 lg:gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-8 card !bg-[linear-gradient(180deg,rgba(255,253,250,.9),rgba(255,253,250,.7))] p-6 sm:p-8 md:p-10">
             <EnquiryForm />
           </div>
           <aside className="lg:col-span-4 flex flex-col gap-4 lg:sticky lg:top-28 self-start">
-            <div data-theme="dark" className="tone tone-grad rounded-[24px] p-7">
+            <div data-theme="dark" className="card p-7 !bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.32),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] !border-transparent text-text">
               <p className="eyebrow">What happens next</p>
               <ol className="mt-6 grid gap-5">
                 {["We read your enquiry and reply within two working days.", "A short call to understand what you need.", "A clear proposal and custom quote — no obligation."].map((t, i) => (
@@ -32,7 +32,7 @@ export default function ContactPage() {
               </ol>
             </div>
             {(isConfirmed(email) || isConfirmed(whatsapp)) && (
-              <div className="rounded-[24px] border border-line bg-surface p-7">
+              <div className="card p-7">
                 <p className="eyebrow">Direct</p>
                 <ul className="mt-5 grid gap-3 text-[0.95rem]">
                   {isConfirmed(email) && <li className="flex items-center gap-3"><Mail size={17} className="text-text-2" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="email_click">{email}</a></li>}
@@ -40,7 +40,7 @@ export default function ContactPage() {
                 </ul>
               </div>
             )}
-            <div className="rounded-[24px] border border-line bg-surface p-7">
+            <div className="card p-7">
               <p className="eyebrow">Good to know</p>
               <ul className="mt-5 grid gap-3 text-[0.92rem] text-text-2">
                 <li>No budget required to enquire.</li>

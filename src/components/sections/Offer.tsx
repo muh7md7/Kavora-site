@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 /** "One service or a complete solution" — both options presented as equals. */
 export function FlexibleSolutions() {
   return (
-    <Tone tone="dark" grad className="section overflow-hidden" aria-labelledby="flex-h">
+    <Tone tone="mist" className="section overflow-hidden" aria-labelledby="flex-h">
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7">
@@ -21,7 +21,7 @@ export function FlexibleSolutions() {
 
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
           <Reveal>
-            <article data-spot className="h-full rounded-[28px] border border-line bg-surface p-8 md:p-10 flex flex-col">
+            <article data-spot className="card h-full p-8 md:p-10 flex flex-col">
               <span className="size-11 rounded-[12px] bg-steel-soft text-accent inline-flex items-center justify-center" aria-hidden><Square size={20} /></span>
               <h3 className="mt-8 !text-[clamp(1.6rem,1.3rem+1vw,2.2rem)]">Individual services</h3>
               <p className="text-text-2 mt-3 text-[1.02rem]">Choose exactly what your business needs. Every service stands on its own.</p>
@@ -40,8 +40,8 @@ export function FlexibleSolutions() {
             </article>
           </Reveal>
           <Reveal index={1}>
-            <article className="h-full rounded-[28px] border border-line-strong p-8 md:p-10 flex flex-col relative overflow-hidden bg-[linear-gradient(160deg,rgba(184,201,210,.14),rgba(184,201,210,.03)_60%)]">
-              <span className="size-11 rounded-[12px] bg-[var(--steel-blue)] text-[#11191e] inline-flex items-center justify-center" aria-hidden><Layers size={20} /></span>
+            <article data-theme="dark" className="card h-full p-8 md:p-10 flex flex-col relative overflow-hidden !bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.35),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] text-text !border-transparent shadow-[0_50px_90px_-50px_rgba(23,38,47,.7)]">
+              <span className="size-11 rounded-[12px] bg-[var(--steel-blue)] text-[#17262f] inline-flex items-center justify-center" aria-hidden><Layers size={20} /></span>
               <h3 className="mt-8 !text-[clamp(1.6rem,1.3rem+1vw,2.2rem)]">Complete solutions</h3>
               <p className="text-text-2 mt-3 text-[1.02rem]">Combine services to support your business goals. Examples — not fixed packages:</p>
               <ul className="mt-8 grid sm:grid-cols-2 gap-2.5">
@@ -62,21 +62,21 @@ export function FlexibleSolutions() {
 }
 
 /** Home AI section — AI as a sellable offering with three clear ways to buy. */
-export function AiOffer({ tone = "dark" }: { tone?: "light" | "dark" }) {
+export function AiOffer({ tone = "light" }: { tone?: "light" | "dark" }) {
   return (
     <Tone tone={tone} grad={tone === "dark"} className="section overflow-hidden" aria-labelledby="ai-h">
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7">
             <p className="eyebrow">AI agents &amp; automation</p>
-            <h2 id="ai-h" className="mt-5">Tell us what you want to automate. We design a solution <span className="accent">around</span> your business.</h2>
+            <h2 id="ai-h" className="mt-5 max-w-[17ch]">Tell us what to automate. We design it <span className="accent">around</span> you.</h2>
           </Reveal>
           <Reveal className="lg:col-span-5" index={1}><p className="lead">Custom AI agents, custom automation — and ready-made solutions where a built one fits. Plain language, clear quotes, no checkout.</p></Reveal>
         </div>
-        <div className="mt-14 grid gap-4 md:grid-cols-3">
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {aiOffer.paths.map((p, i) => (
             <Reveal key={p.id} index={i}>
-              <article data-spot className={cn("lift h-full rounded-[24px] border border-line p-7 flex flex-col", i === 1 ? "bg-surface-strong" : "bg-surface")}>
+              <article data-spot data-theme={i === 1 ? "dark" : undefined} className={cn("card card-hover h-full p-7 flex flex-col", i === 1 && "!bg-[radial-gradient(80%_70%_at_90%_0%,rgba(120,153,166,.35),transparent_60%),linear-gradient(165deg,#2a4352,#1e3240)] !border-transparent text-text")}>
                 <span className="num">0{i + 1}</span>
                 <h3 className="mt-5 !text-[1.45rem]">{p.title}</h3>
                 <p className="text-text-2 mt-2">{p.lead}</p>

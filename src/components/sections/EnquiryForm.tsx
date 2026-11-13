@@ -89,7 +89,7 @@ function Form() {
 
   if (status === "ok") return (
     <div className="rounded-[20px] border border-line bg-surface p-8" role="status">
-      <span className="size-11 rounded-full bg-[var(--graphite)] text-[#f7f8f6] inline-flex items-center justify-center" aria-hidden><Check size={20} /></span>
+      <span className="size-11 rounded-full bg-[var(--graphite)] text-[#f3f0eb] inline-flex items-center justify-center" aria-hidden><Check size={20} /></span>
       <p className="mt-5 text-[1.3rem] font-[560] tracking-[-0.02em]">Thank you — we&apos;ve received your enquiry.</p>
       <p className="text-text-2 mt-2">We&apos;ll reply with questions and next steps within two working days.</p>
     </div>
@@ -105,7 +105,7 @@ function Form() {
     </div>
   );
   const pill = (on: boolean) => cn("relative inline-flex items-center gap-2 min-h-11 px-4 rounded-full border text-[0.9rem] font-[500] cursor-pointer select-none transition-colors duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--accent)]",
-    on ? "bg-[var(--graphite)] text-[#f7f8f6] border-[var(--graphite)]" : "bg-surface-strong border-line-strong text-text hover:border-text-2");
+    on ? "bg-[var(--graphite)] text-[#f3f0eb] border-[var(--graphite)]" : "bg-surface-strong border-line-strong text-text hover:border-text-2");
 
   return (
     <form ref={formRef} onSubmit={onSubmit} onBlur={onBlur} noValidate className="grid gap-8" aria-describedby="form-note">

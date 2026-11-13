@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
-import { flywheel, homeFaq, steps, services, whyUs } from "@/content/site";
+import { flywheel, homeFaq, steps, whyUs } from "@/content/site";
 import { ServiceGlyph } from "@/components/glass/ServiceGlyph";
 import { LazyWorkflow } from "./Lazy";
 import { Showcase } from "./Showcase";
-import { ServiceRow } from "./ServiceTile";
+import { ServicesBento } from "./Bento";
 import { Faq } from "./Faq";
 import { Reveal } from "./Reveal";
 import { ProcessSteps } from "./ProcessSteps";
@@ -71,13 +71,17 @@ export function Intro() {
 
 export function Services() {
   return (
-    <Tone tone="light" className="section" id="services" aria-labelledby="svc-h">
+    <Tone tone="mist" className="section" id="services" aria-labelledby="svc-h">
       <div className="container">
-        <div className="grid gap-10 lg:grid-cols-12 items-end">
-          <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5">Five services. Hire <span className="accent">one,</span> or combine them.</h2></Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">We design websites, manage social media, run Meta and Google ads, and build AI automation and business systems. Each service stands on its own — add others only if they help.</p></Reveal>
+        <div className="grid gap-8 lg:grid-cols-12 items-end">
+          <Reveal className="lg:col-span-7"><p className="eyebrow">Services</p><h2 id="svc-h" className="mt-5 max-w-[16ch]">Five services. Hire <span className="accent">one,</span> or combine them.</h2></Reveal>
+          <Reveal className="lg:col-span-5" index={1}><p className="lead">Each service stands on its own. Combine them only when it helps — every project is scoped and quoted around your business.</p></Reveal>
         </div>
-        <ul className="mt-16">{services.map((s, i) => <ServiceRow key={s.id} s={s} index={i} />)}</ul>
+        <div className="mt-14"><ServicesBento /></div>
+        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-line pt-7">
+          <p className="text-text-2 text-[0.92rem]">Previews are illustrative interface demonstrations, not client work.</p>
+          <Link href="/contact/" className="btn btn-ghost">Not sure which you need? Ask us <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
+        </Reveal>
       </div>
     </Tone>
   );
@@ -105,7 +109,7 @@ export function AutomationShowcase() {
 
 export function Process() {
   return (
-    <Tone tone="light" alt className="section" aria-labelledby="proc-h">
+    <Tone tone="warm" className="section" aria-labelledby="proc-h">
       <div className="container grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
           <Reveal>
@@ -122,7 +126,7 @@ export function Process() {
 
 export function SeeItInAction() {
   return (
-    <Tone tone="dark" grad className="section overflow-hidden" aria-labelledby="see-h">
+    <Tone tone="dark" grad grid className="section overflow-hidden" aria-labelledby="see-h">
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7"><p className="eyebrow">See it in action</p><h2 id="see-h" className="mt-5">What we build, <span className="accent">working.</span></h2></Reveal>
@@ -142,15 +146,15 @@ export function WhyUs() {
           <p className="eyebrow">Why Keelbiz</p>
           <h2 id="why-h" className="mt-5">Only claims we can <span className="accent">stand</span> behind.</h2>
         </Reveal>
-        <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-x-10">
+        <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-4">
           {whyUs.map((w, i) => (
-            <Reveal as="li" key={w.t} index={i} className="py-7 border-t border-line">
+            <Reveal as="li" key={w.t} index={i} className="card card-hover p-6 md:p-7">
               <span className="num">0{i + 1}</span>
-              <h3 className="mt-3 !text-xl">{w.t}</h3>
+              <h3 className="mt-5 !text-xl">{w.t}</h3>
               <p className="text-text-2 mt-2 text-[0.95rem]">{w.d}</p>
             </Reveal>
           ))}
-          <Reveal as="li" index={whyUs.length} className="py-7 border-t border-line flex flex-col justify-between">
+          <Reveal as="li" index={whyUs.length} className="card p-6 md:p-7 flex flex-col justify-between !bg-[linear-gradient(160deg,#dfe7ea,#d5e0e4)]">
             <p className="text-text-2 text-[0.95rem]">Selected case studies are published only with client permission and verified results.</p>
             <Link href="/work/" className="btn btn-ghost !justify-start mt-4">See our work <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
           </Reveal>
