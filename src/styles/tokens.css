@@ -178,3 +178,75 @@
 @media (max-width: 767px) {
   :root { --glass-blur: 14px; }
 }
+
+/* ==========================================================================
+   v5 system tokens — type, spacing, elevation, surfaces.
+   Overrides the v2 scale above; all v2 names still resolve.
+   ========================================================================== */
+:root {
+  /* Type (clamp) */
+  --fs-display: clamp(56px, 8vw, 128px);
+  --fs-h1: clamp(44px, 6.5vw, 96px);
+  --fs-h2: clamp(36px, 4.6vw, 68px);
+  --fs-h3: clamp(22px, 2vw, 30px);
+  --fs-lead: clamp(20px, 1.15rem + 0.3vw, 22px);
+  --fs-body: 17px;
+  --fs-eyebrow: 12px;
+
+  /* 8-pt spacing */
+  --s-1: 8px; --s-2: 16px; --s-3: 24px; --s-4: 32px; --s-5: 40px; --s-6: 48px;
+  --s-8: 64px; --s-10: 80px; --s-12: 96px; --s-16: 128px; --s-20: 160px;
+
+  /* Section padding by role */
+  --pad-hero: clamp(140px, 16vw, 220px);
+  --pad-major: clamp(96px, 10vw, 160px);
+  --pad-strip: clamp(48px, 5vw, 64px);
+
+  /* Grid */
+  --content-max: 1320px;
+  --gutter-lg: 24px;
+  --gutter-sm: 16px;
+
+  /* Radius */
+  --r-card: 24px;
+  --r-inner: 14px;
+
+  /* Borders — graphite 8% (light), white 8% (dark) */
+  --border: rgba(40, 53, 61, 0.08);
+  --border-strong: rgba(40, 53, 61, 0.16);
+  --line: var(--border);
+  --line-strong: var(--border-strong);
+
+  /* Elevation — soft, wide, charcoal-tinted */
+  --elev-1: 0 1px 2px rgba(17, 25, 30, 0.04), 0 10px 24px -14px rgba(17, 25, 30, 0.14);
+  --elev-2: 0 2px 6px rgba(17, 25, 30, 0.04), 0 28px 56px -28px rgba(17, 25, 30, 0.24);
+  --elev-3: 0 4px 10px rgba(17, 25, 30, 0.05), 0 60px 120px -48px rgba(17, 25, 30, 0.36);
+
+  /* Glass panels */
+  --panel-bg: rgba(255, 255, 255, 0.6);
+  --panel-blur: 20px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-micro: 350ms;
+  --t-reveal: 700ms;
+  --t-hero: 1100ms;
+  --stagger: 70ms;
+}
+[data-theme="light"] {
+  --line: rgba(40, 53, 61, 0.08);
+  --line-strong: rgba(40, 53, 61, 0.16);
+  --border: rgba(40, 53, 61, 0.08);
+  --border-strong: rgba(40, 53, 61, 0.16);
+  --panel-bg: rgba(255, 255, 255, 0.6);
+}
+[data-theme="dark"] {
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --panel-bg: rgba(17, 25, 30, 0.6);
+  --elev-1: 0 1px 2px rgba(6, 10, 12, 0.3), 0 10px 24px -14px rgba(6, 10, 12, 0.6);
+  --elev-2: 0 2px 6px rgba(6, 10, 12, 0.3), 0 28px 56px -28px rgba(6, 10, 12, 0.7);
+  --elev-3: 0 4px 10px rgba(6, 10, 12, 0.35), 0 60px 120px -48px rgba(6, 10, 12, 0.8);
+}

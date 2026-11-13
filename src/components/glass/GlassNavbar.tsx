@@ -6,6 +6,8 @@ import { ArrowUpRight, ChevronDown, Menu } from "lucide-react";
 import { menuName, nav, services } from "@/content/site";
 import { Logo } from "@/components/brand/Logo";
 import { ServiceGlyph } from "./ServiceGlyph";
+import { MiniPreview } from "@/components/demos/MiniPreview";
+import type { ServiceId } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 export type NavLink = { label: string; href: string; mega?: "services" | boolean };
@@ -32,6 +34,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
   const [tone, setTone] = useState<"light" | "dark">("light");
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [peek, setPeek] = useState<ServiceId>("websites");
   const [ind, setInd] = useState<{ left: number; width: number } | null>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -46,7 +49,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
     const tick = () => {
       raf = 0;
       const y = window.scrollY;
-      setScrolled(y > 12);
+      setScrolled(y > 40);
       setHidden((prev) => (y > 240 && y > last + 2 ? true : y < last - 2 ? false : prev));
       last = y;
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -105,6 +108,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
           className={cn(
             "header-glass pointer-events-auto relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center px-2 rounded-[18px] transition-[height,box-shadow,background] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
             scrolled && !inline ? "h-[58px] is-scrolled" : "h-16",
+            !scrolled && !inline && !open && "is-top",
           )}
         >
           <Link href="/" className="justify-self-start shrink-0 rounded-sm pl-2.5 sm:pl-3" aria-label="Keelbiz — home">
@@ -163,7 +167,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
             <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-1">
               {services.map((s, i) => (
                 <li key={s.id}>
-                  <Link href={`/services/${s.slug}/`} className="group flex gap-4 rounded-[14px] p-4 hover:bg-surface-strong transition-colors h-full">
+                  <Link href={`/services/${s.slug}/`} onMouseEnter={() => setPeek(s.id)} onFocus={() => setPeek(s.id)} className={cn("group flex gap-4 rounded-[14px] p-4 hover:bg-surface-strong transition-colors h-full", peek === s.id && "bg-surface-strong")}>
                     <ServiceGlyph id={s.id} />
                     <span className="min-w-0">
                       <span className="flex items-center gap-2"><span className="num">0{i + 1}</span><span className="font-[550] text-[0.95rem] tracking-[-0.015em] text-text">{menuName[s.id]}</span></span>
@@ -179,16 +183,17 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
                 </Link>
               </li>
             </ul>
-            <div data-theme="dark" className="lg:col-span-4 rounded-[14px] p-6 flex flex-col justify-between overflow-hidden relative tone-grad min-h-[260px]">
-              <div>
-                <span className="eyebrow">AI Solutions</span>
-                <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">Custom AI agents, automation — or <span className="accent">ready-made</span> where available.</p>
-                <p className="text-sm text-text-2 mt-3">Tell us what you want to automate. We design a solution around your business.</p>
+            <div data-theme="dark" className="hidden lg:flex lg:col-span-4 rounded-[14px] p-5 flex-col gap-4 overflow-hidden relative tone-grad grain min-h-[300px]">
+              <div className="flex items-center justify-between">
+                <span className="eyebrow">Preview</span>
+                <span className="font-mono text-[10px] tracking-[.12em] uppercase text-text-2">Sample</span>
               </div>
-              <div className="mt-6 flex flex-col gap-2">
-                <Link href="/ai-solutions/" className="btn btn-primary !min-h-10 !text-sm !justify-between">Explore AI solutions <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
-                <Link href="/contact/?type=solution" className="btn btn-glass !min-h-10 !text-sm !justify-between">Build your solution <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
-              </div>
+              <div key={peek} className="panel-enter flex-1 min-h-[150px]"><MiniPreview id={peek} /></div>
+              <p className="text-sm text-text-2 leading-snug">{services.find((x) => x.id === peek)?.definition}</p>
+              <Link href="/ai-solutions/" className="group flex items-center justify-between text-sm font-[550] text-text border-t border-line pt-3">
+                <span>AI Solutions <span className="text-text-2 font-normal">· ready-made or custom</span></span>
+                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+              </Link>
             </div>
           </div>
         )}

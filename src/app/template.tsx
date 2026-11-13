@@ -1,4 +1,6 @@
-/** Re-mounts on every route change: a short opacity fade between pages (reduced-motion safe via global rule). */
+import { PageTransition } from "@/components/motion/PageTransition";
+
+/** Re-mounts on every route change → overlay slide on client navigations. */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="page-enter">{children}</div>;
+  return <PageTransition>{children}</PageTransition>;
 }

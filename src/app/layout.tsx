@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { site } from "@/content/site";
 import { Header } from "@/components/sections/Header";
@@ -14,10 +13,12 @@ const serif = localFont({
     { path: "../fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
     { path: "../fonts/instrument-serif-latin-400-normal.woff2", weight: "400", style: "normal" },
   ],
-  variable: "--font-serif-accent", display: "swap", preload: true, adjustFontFallback: "Times New Roman",
+  variable: "--font-serif-accent", display: "swap", preload: false, adjustFontFallback: "Times New Roman",
 });
 const geist = GeistSans; // --font-geist-sans
-const geistMono = GeistMono; // --font-geist-mono
+// Mono is decorative (eyebrows, numbers): not preloaded, so it never competes with the LCP headline.
+const geistMono = localFont({ src: "../fonts/GeistMono-Variable.woff2", variable: "--font-geist-mono", weight: "100 900", display: "swap", preload: false,
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"], adjustFontFallback: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -32,7 +33,11 @@ export const viewport: Viewport = { themeColor: "#F7F8F6", width: "device-width"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${serif.variable} ${geist.variable} ${geistMono.variable}`}>
+      <head>
+        {/* Marks JS-capable clients so reveal start-states only apply when JS can finish them. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <Header />
