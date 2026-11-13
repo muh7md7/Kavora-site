@@ -8,6 +8,7 @@ ErrorDocument 404 /404.html
 # Retired sections
 RewriteRule ^lab(/.*)?$ / [L,R=301]
 RewriteRule ^insights(/.*)?$ / [L,R=302]
+RewriteRule ^design-system(/.*)?$ / [L,R=301]
 
 <IfModule mod_headers.c>
   # Enable HSTS only after HTTPS verified on all subdomains:
