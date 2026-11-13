@@ -224,15 +224,16 @@ export const aiOffer = {
       cta: { label: "Explore Automation", href: "/contact/?type=automation&services=automation" },
     },
   ],
-  examples: [
-    { title: "Customer support agent", does: "Answers common questions on your website or chat, day and night.", solves: "Slow replies and repeated questions." },
-    { title: "Sales & lead follow-up agent", does: "Qualifies new leads and follows up until they respond.", solves: "Leads that go cold." },
-    { title: "Appointment booking agent", does: "Offers available times and books meetings for you.", solves: "Back-and-forth scheduling." },
-    { title: "Website & messaging assistant", does: "Chats with visitors on your site or messaging channels and passes hot leads to your team.", solves: "Missed enquiries out of hours." },
-    { title: "Email & message automation", does: "Sends the right message at the right time, automatically.", solves: "Manual reminders and updates." },
-    { title: "Social media workflows", does: "Moves content from idea to scheduled post with fewer steps.", solves: "Time lost to posting admin." },
-    { title: "CRM & process automation", does: "Keeps your CRM and apps in sync without copy-paste.", solves: "Data entry and missed updates." },
-    { title: "Reporting automation", does: "Builds and sends your regular reports automatically.", solves: "Hours spent on weekly reports." },
+  examples: [ // each has a flow: the four steps it runs through
+
+    { title: "Customer support agent", does: "Answers common questions on your website or chat, day and night.", solves: "Slow replies and repeated questions.", flow: ["Visitor asks a question", "Agent answers from your information", "Unclear? Handed to a human", "Conversation logged"] },
+    { title: "Sales & lead follow-up agent", does: "Qualifies new leads and follows up until they respond.", solves: "Leads that go cold.", flow: ["New lead arrives", "Agent qualifies against your rules", "Follow-ups sent until they reply", "Hot leads flagged to you"] },
+    { title: "Appointment booking agent", does: "Offers available times and books meetings for you.", solves: "Back-and-forth scheduling.", flow: ["Visitor asks for a time", "Agent checks your calendar", "Slot offered and confirmed", "Both sides get a reminder"] },
+    { title: "Website & messaging assistant", does: "Chats with visitors on your site or messaging channels and passes hot leads to your team.", solves: "Missed enquiries out of hours.", flow: ["Message on site or WhatsApp", "Agent answers and qualifies", "Hot ones routed to your team", "Rest answered and closed"] },
+    { title: "Email & message automation", does: "Sends the right message at the right time, automatically.", solves: "Manual reminders and updates.", flow: ["Trigger fires (signup, job, date)", "The right message is chosen", "Sent at the right time", "Replies routed back to you"] },
+    { title: "Social media workflows", does: "Moves content from idea to scheduled post with fewer steps.", solves: "Time lost to posting admin.", flow: ["Idea captured in one place", "Draft and asset prepared", "Sent for your approval", "Scheduled to the platforms"] },
+    { title: "CRM & process automation", does: "Keeps your CRM and apps in sync without copy-paste.", solves: "Data entry and missed updates.", flow: ["Record changes in one tool", "Mapped to your other tools", "Everything stays in sync", "Conflicts flagged, not guessed"] },
+    { title: "Reporting automation", does: "Builds and sends your regular reports automatically.", solves: "Hours spent on weekly reports.", flow: ["Data pulled on a schedule", "Figures checked and compiled", "Report built in your format", "Delivered to your inbox"] },
   ],
 };
 

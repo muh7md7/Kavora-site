@@ -587,3 +587,17 @@ html:not(.js) .rv-clip { clip-path: none; }
 .chart-line.is-in { stroke-dashoffset: 0; }
 .chart-area { animation: fade-in 700ms var(--ease) both; }
 @media (prefers-reduced-motion: reduce) { .chart-line { stroke-dashoffset: 0 !important; transition: none; } .chart-area { animation: none; } }
+/* 404 keel illustration */
+@keyframes wave-drift { from { transform: translateX(0); } to { transform: translateX(-200px); } }
+@keyframes hull-bob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-7px) rotate(1deg); } }
+.wave { will-change: transform; }
+.wave-1 { animation: wave-drift 14s linear infinite; }
+.wave-2 { animation: wave-drift 20s linear infinite reverse; }
+.wave-3 { animation: wave-drift 26s linear infinite; }
+.keel-hull { transform-origin: 716px 230px; animation: hull-bob 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .wave, .keel-hull { animation: none !important; } }
+/* Footer wordmark — a slow light sweep across the outline */
+.wordmark { position: relative; background: linear-gradient(100deg, transparent 38%, rgba(184,201,210,.5) 50%, transparent 62%) 0 0 / 300% 100% no-repeat;
+  -webkit-background-clip: text; background-clip: text; animation: wordmark-sweep 9s var(--ease-in-out, ease-in-out) infinite; }
+@keyframes wordmark-sweep { 0%, 12% { background-position: 120% 0; } 58%, 100% { background-position: -40% 0; } }
+@media (prefers-reduced-motion: reduce) { .wordmark { animation: none; } }

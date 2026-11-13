@@ -7,7 +7,8 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 ErrorDocument 404 /404.html
 # Retired sections
 RewriteRule ^lab(/.*)?$ / [L,R=301]
-RewriteRule ^insights(/.*)?$ / [L,R=302]
+# /insights/ now renders a real "nothing published yet" page (noindex) — no redirect.
+RewriteRule ^insights/[^/]+/?$ /insights/ [L,R=302]
 
 <IfModule mod_headers.c>
   # Enable HSTS only after HTTPS verified on all subdomains:

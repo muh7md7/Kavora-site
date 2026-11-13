@@ -42,6 +42,16 @@ $hits = is_file($rf) ? array_values(array_filter(array_map('intval', file($rf, F
 if (count($hits) >= $max) fail(429, 'rate');
 $hits[] = $now; @file_put_contents($rf, implode("\n", $hits), LOCK_EX);
 
+// Newsletter subscribe — a separate, much smaller contract: email + consent only.
+// Kept here so the footer field needs no second endpoint, and stored in its own file.
+if (($_POST['intent'] ?? '') === 'subscribe') {
+  $semail = mb_substr(trim((string)($_POST['email'] ?? '')), 0, 200);
+  if (!filter_var($semail, FILTER_VALIDATE_EMAIL) || empty($_POST['consent'])) fail(400);
+  if (preg_match('/[\r\n]/', $semail)) fail(400);
+  @file_put_contents("$dir/subscribers.jsonl", json_encode(['at' => gmdate('c'), 'email' => $semail], JSON_UNESCAPED_SLASHES) . "\n", FILE_APPEND | LOCK_EX);
+  echo json_encode(['ok' => true, 'subscribed' => true]); exit;
+}
+
 // Validation (mirrors the client; the server is the authority)
 $v = fn(string $k, int $max) => mb_substr(trim((string)($_POST[$k] ?? '')), 0, $max);
 $name = $v('name', 120); $email = $v('email', 200); $company = $v('company', 160); $website = $v('website', 300);

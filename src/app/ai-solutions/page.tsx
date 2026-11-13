@@ -8,6 +8,7 @@ import { LazyWorkflow } from "@/components/sections/Lazy";
 import { Faq } from "@/components/sections/Faq";
 import { Button } from "@/components/glass/Button";
 import { aiOffer, serviceById } from "@/content/site";
+import { FlipExamples } from "@/components/ai/FlipExamples";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
 
@@ -61,25 +62,13 @@ export default function AiSolutionsPage() {
             <Reveal className="lg:col-span-7"><SectionHead eyebrow="What an AI agent can do" title="Examples, not" accent="limits." /></Reveal>
             <Reveal className="lg:col-span-5" index={1}><p className="lead">Each of these can be ready-made or custom-built, depending on your tools and process. Need something else? Ask.</p></Reveal>
           </div>
-          <ul className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {aiOffer.examples.map((e, i) => (
-              <Reveal as="li" key={e.title} index={i % 4}>
-                <Link href={`/contact/?type=ai-custom&services=automation&topic=${encodeURIComponent(e.title)}`} data-cursor="Enquire"
-                  data-spot className="lift group h-full flex flex-col rounded-[22px] border border-line bg-surface p-6">
-                  <h3 className="!text-[1.12rem] !leading-snug">{e.title}</h3>
-                  <p className="text-text-2 text-[0.9rem] mt-2">{e.does}</p>
-                  <p className="mt-5 pt-4 border-t border-line text-[0.82rem]"><span className="text-text-2">Solves: </span>{e.solves}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[0.85rem] font-[550] text-accent">Enquire <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden /></span>
-                </Link>
-              </Reveal>
-            ))}
-            <Reveal as="li" index={0} className="sm:col-span-2 lg:col-span-4">
-              <Link href="/contact/?type=ai-custom&services=automation" className="group flex flex-wrap items-center justify-between gap-6 rounded-[22px] border border-dashed border-line-strong p-6 md:p-8 hover:border-text-2 transition-colors">
-                <span className="flex items-center gap-4"><MessageCircleQuestion size={22} className="text-accent shrink-0" aria-hidden /><span><span className="block font-[550] text-[1.1rem]">Something else in mind?</span><span className="text-text-2 text-[0.95rem]">Describe the task. We&apos;ll propose a solution if it&apos;s technically feasible.</span></span></span>
-                <span className="btn btn-primary">Describe your idea <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></span>
-              </Link>
-            </Reveal>
-          </ul>
+          <FlipExamples />
+          <Reveal className="mt-4">
+            <Link href="/contact/?type=ai-custom&services=automation" className="group flex flex-wrap items-center justify-between gap-6 rounded-[22px] border border-dashed border-line-strong p-6 md:p-8 hover:border-text-2 transition-colors">
+              <span className="flex items-center gap-4"><MessageCircleQuestion size={22} className="text-accent-text shrink-0" aria-hidden /><span><span className="block font-[550] text-[1.1rem]">Something else in mind?</span><span className="text-text-2 text-[0.95rem]">Describe the task. We&apos;ll propose a solution if it&apos;s technically feasible.</span></span></span>
+              <span className="b b-primary">Describe your idea<ArrowUpRight size={16} className="b-arrow" aria-hidden /></span>
+            </Link>
+          </Reveal>
         </div>
       </Tone>
 
