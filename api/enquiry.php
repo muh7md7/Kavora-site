@@ -34,7 +34,7 @@ if (!empty($_POST['website_url'])) { echo json_encode(['ok' => true]); exit; } /
 if ((int)($_POST['elapsed'] ?? 0) < 3000) fail(400, 'too_fast');
 
 // Rate limit (file-backed, hashed IP)
-$dir = rtrim((string)($cfg['data_dir'] ?? (__DIR__ . '/_data')), '/');
+$dir = rtrim((string)(($cfg['data_dir'] ?? '') ?: (__DIR__ . '/_data')), '/'); // empty string = default
 if (!is_dir($dir)) { @mkdir($dir, 0700, true); @file_put_contents("$dir/.htaccess", "Require all denied\n"); @file_put_contents("$dir/index.html", ''); }
 $ipHash = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . ($cfg['rate_salt'] ?? 'keelbiz'));
 $rf = "$dir/rate-$ipHash"; $now = time(); $win = (int)($cfg['rate_window'] ?? 3600); $max = (int)($cfg['rate_max'] ?? 5);

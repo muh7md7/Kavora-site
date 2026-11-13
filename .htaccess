@@ -35,7 +35,8 @@ RewriteRule ^design-system(/.*)?$ / [L,R=301]
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-# Block access to source maps / dotfiles
+# Block the deployment repository folder and source maps / dotfiles
+RedirectMatch 404 /\.git
 <FilesMatch "\.(map|env|md)$">
   Require all denied
 </FilesMatch>
