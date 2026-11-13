@@ -5,4 +5,4 @@
 :HL["/_next/static/media/instrument_serif_latin_400_normal-s.p.3_vslfxq_--4i.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"about","h":64,"c":"$Q2"}]]
-0:{"b":"PmL0Rln-BKe4OP0lVZW6a","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"FRseHE_S-zFzmpxf3AjL3","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
