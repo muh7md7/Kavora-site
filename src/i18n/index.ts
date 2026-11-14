@@ -1,4 +1,6 @@
-import { ar } from "./ar";
+import { ar as arDict } from "./ar";
+// The comparison is inlined at build time, so the English build drops the Arabic dictionary from its bundles.
+const ar: Record<string, string> = process.env.NEXT_PUBLIC_LANG === "ar" ? arDict : {};
 
 /** Build-time language. English build → site root; Arabic build (NEXT_PUBLIC_LANG=ar) → /ar/ with RTL. */
 export const LANG: "en" | "ar" = process.env.NEXT_PUBLIC_LANG === "ar" ? "ar" : "en";

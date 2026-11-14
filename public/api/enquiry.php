@@ -37,11 +37,29 @@ if ((int)($_POST['elapsed'] ?? 0) < 3000) fail(400, 'too_fast');
 // Rate limit (file-backed, hashed IP)
 $dir = rtrim((string)(($cfg['data_dir'] ?? '') ?: (__DIR__ . '/_data')), '/'); // empty string = default
 if (!is_dir($dir)) { @mkdir($dir, 0700, true); @file_put_contents("$dir/.htaccess", "Require all denied\n"); @file_put_contents("$dir/index.html", ''); }
-$ipHash = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . ($cfg['rate_salt'] ?? 'keelbiz'));
-$rf = "$dir/rate-$ipHash"; $now = time(); $win = (int)($cfg['rate_window'] ?? 3600); $max = (int)($cfg['rate_max'] ?? 5);
-$hits = is_file($rf) ? array_values(array_filter(array_map('intval', file($rf, FILE_IGNORE_NEW_LINES) ?: []), fn($t) => $t > $now - $win)) : [];
-if (count($hits) >= $max) fail(429, 'rate');
-$hits[] = $now; @file_put_contents($rf, implode("\n", $hits), LOCK_EX);
+// Behind the CDN every request arrives from a CDN address, so the visitor's own address is read from the forwarding
+// headers the CDN adds. Those headers can be faked by someone who bypasses the CDN, so two limits apply:
+//   1) per visitor  — rate_max per window (default 5 an hour)
+//   2) per connecting address (CDN node or direct caller) — rate_max_edge per window (default 10× the visitor limit)
+$remote = (string)($_SERVER['REMOTE_ADDR'] ?? '');
+$client = $remote;
+foreach (['HTTP_CF_CONNECTING_IP', 'HTTP_X_REAL_IP', 'HTTP_X_FORWARDED_FOR'] as $h) {
+  $cand = trim(explode(',', (string)($_SERVER[$h] ?? ''))[0]);
+  if ($cand !== '' && filter_var($cand, FILTER_VALIDATE_IP)) { $client = $cand; break; }
+}
+$now = time(); $win = (int)($cfg['rate_window'] ?? 3600); $max = (int)($cfg['rate_max'] ?? 5);
+$edgeMax = (int)($cfg['rate_max_edge'] ?? $max * 10); $salt = (string)($cfg['rate_salt'] ?? 'keelbiz');
+$limit = function (string $key, int $cap) use ($dir, $now, $win, $salt): bool {
+  $rf = "$dir/rate-" . hash('sha256', $key . $salt);
+  $hits = is_file($rf) ? array_values(array_filter(array_map('intval', file($rf, FILE_IGNORE_NEW_LINES) ?: []), fn($t) => $t > $now - $win)) : [];
+  if (count($hits) >= $cap) return false;
+  $hits[] = $now; @file_put_contents($rf, implode("\n", $hits), LOCK_EX);
+  return true;
+};
+if (!$limit("edge:$remote", $edgeMax)) fail(429, 'rate');
+if (!$limit("ip:$client", $max)) fail(429, 'rate');
+// Tidy rate files that have not been touched for a day (roughly 1 request in 50).
+if (random_int(1, 50) === 1) foreach (glob("$dir/rate-*") ?: [] as $old) { if (@filemtime($old) < $now - 86400) @unlink($old); }
 
 // Validation (mirrors the client; the server is the authority)
 $v = fn(string $k, int $max) => mb_substr(trim((string)($_POST[$k] ?? '')), 0, $max);
@@ -62,7 +80,7 @@ if (!empty($cfg['turnstile_secret'])) {
   $token = (string)($_POST['cf-turnstile-response'] ?? '');
   $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
   curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 5,
-    CURLOPT_POSTFIELDS => http_build_query(['secret' => $cfg['turnstile_secret'], 'response' => $token, 'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''])]);
+    CURLOPT_POSTFIELDS => http_build_query(['secret' => $cfg['turnstile_secret'], 'response' => $token, 'remoteip' => $client])]);
   $r = json_decode((string)curl_exec($ch), true); curl_close($ch);
   if (empty($r['success'])) fail(400, 'captcha');
 }

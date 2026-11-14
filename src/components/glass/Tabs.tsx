@@ -1,8 +1,6 @@
 "use client";
-import { useId, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { spring } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 export type TabItem = { id: string; label: string; icon?: LucideIcon; badge?: number };
@@ -39,19 +37,28 @@ export function Tabs({ items, value, onChange, variant = "segmented", ariaLabel,
     e.preventDefault(); set(items[next].id); refs.current[next]?.focus();
   };
 
-  const layoutId = `tab-pill-${id}`;
+  // Sliding pill: measured from the active tab, animated with a CSS transition (no animation library).
+  const [pill, setPill] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  const activeIndex = items.findIndex((t) => t.id === active);
+  useEffect(() => {
+    const measure = () => { const el = refs.current[activeIndex]; if (el) setPill({ x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight }); };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [activeIndex, items.length]);
   return (
     <div className={className}>
       <div
         role="tablist"
         aria-label={ariaLabel}
         className={cn(
-          "glass inline-flex items-center gap-1 p-1 max-w-full overflow-x-auto",
+          "glass relative inline-flex items-center gap-1 p-1 max-w-full overflow-x-auto",
           variant === "segmented" && "rounded-pill",
           variant === "top" && "rounded-md",
           variant === "dock" && "rounded-lg px-2 py-2 gap-2",
         )}
       >
+        {pill && <span aria-hidden className={cn("tab-pill absolute left-0 top-0 bg-surface-strong shadow-sm", variant === "dock" ? "rounded-md" : "rounded-pill")} style={{ width: pill.w, height: pill.h, transform: `translate(${pill.x}px, ${pill.y}px)` }} />}
         {items.map((t, i) => {
           const on = t.id === active; const Icon = t.icon;
           return (
@@ -72,7 +79,7 @@ export function Tabs({ items, value, onChange, variant = "segmented", ariaLabel,
               )}
               aria-label={variant === "dock" ? t.label : undefined}
             >
-              {on && <motion.span layoutId={layoutId} transition={spring} className={cn("absolute inset-0 -z-10 bg-surface-strong shadow-sm", variant === "dock" ? "rounded-md" : "rounded-pill")} aria-hidden />}
+              {on && !pill && <span className={cn("absolute inset-0 -z-10 bg-surface-strong shadow-sm", variant === "dock" ? "rounded-md" : "rounded-pill")} aria-hidden />}
               {Icon && <Icon size={16} aria-hidden />}
               {variant !== "dock" && t.label}
               {t.badge && <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-pill bg-sage text-white text-[10px] leading-4 text-center">{t.badge}</span>}

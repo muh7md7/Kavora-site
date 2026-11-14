@@ -1,0 +1,173 @@
+{
+  "title": "Digital Marketing Agency in the UK",
+  "slug": "digital-marketing-agency-uk",
+  "published": true,
+  "areaServed": "United Kingdom",
+  "menu": {
+    "showInHeader": false,
+    "showInFooter": false,
+    "label": ""
+  },
+  "seo": {
+    "title": "Digital Marketing Agency in the UK — Web, Ads & AI",
+    "description": "Keelbiz helps businesses in the UK grow with websites, social media, Meta & Google Ads, AI agents and dashboards. One service or a complete solution.",
+    "hideFromSearch": false
+  },
+  "blocks": [
+    {
+      "type": "hero",
+      "eyebrow": "United Kingdom",
+      "title": "Digital marketing and AI automation for businesses in the",
+      "accent": "UK.",
+      "lead": "Websites, social media, Meta & Google Ads, AI agents and business dashboards for businesses in the United Kingdom — choose a single service or a complete solution, quoted for your business.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "See all services",
+        "link": "/services/"
+      },
+      "layout": "centered",
+      "style": {
+        "background": "auto",
+        "align": "center",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Local focus",
+      "title": "What matters for businesses in the",
+      "accent": "UK.",
+      "columns": "3",
+      "items": [
+        {
+          "icon": "search",
+          "title": "Found by local customers",
+          "text": "Service and trade businesses rely on being found nearby. Websites and Google campaigns are structured around the areas you actually serve."
+        },
+        {
+          "icon": "shield",
+          "title": "Clear on cookies and data",
+          "text": "Sites are built with UK data-protection and cookie-consent expectations in mind, and without tracking you do not need."
+        },
+        {
+          "icon": "workflow",
+          "title": "Less admin, faster replies",
+          "text": "Enquiry forms, AI agents and dashboards are connected so every lead is answered, logged and followed up without manual copying."
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "services",
+      "eyebrow": "Services",
+      "title": "Five services. Take one, or",
+      "accent": "combine them.",
+      "lead": "Every service is available on its own, with a custom quote. No forced bundles.",
+      "layout": "list",
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "faq",
+      "eyebrow": "FAQ",
+      "title": "Good",
+      "accent": "questions.",
+      "layout": "side",
+      "items": [
+        {
+          "q": "Do you work with businesses across the UK?",
+          "a": "Yes. Keelbiz works remotely with businesses in London and across England, Scotland, Wales and Northern Ireland, by video call and email."
+        },
+        {
+          "q": "Can you help a local service business get more enquiries?",
+          "a": "Yes. A clear website, well-structured Google and Meta campaigns and fast replies to every enquiry are the usual starting points. We recommend a plan after a short discovery call."
+        },
+        {
+          "q": "Do I have to take more than one service?",
+          "a": "No. Each service is available on its own. You can add others later if they would help."
+        },
+        {
+          "q": "How is pricing worked out?",
+          "a": "Every project gets a custom quote after a short discovery call. Third-party costs such as ad spend, domains or software subscriptions are paid by you directly and are always shown separately."
+        }
+      ],
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Other markets",
+      "title": "We also work with businesses in",
+      "accent": "",
+      "columns": "4",
+      "items": [
+        {
+          "icon": "globe",
+          "title": "United Arab Emirates",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-uae/"
+        },
+        {
+          "icon": "globe",
+          "title": "Saudi Arabia",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-saudi-arabia/"
+        },
+        {
+          "icon": "globe",
+          "title": "United States",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-usa/"
+        },
+        {
+          "icon": "globe",
+          "title": "Pakistan",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-pakistan/"
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Next step",
+      "title": "Tell us what you want to",
+      "accent": "build.",
+      "lead": "A short discovery call, then a clear quote. No obligation.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "Explore AI Solutions",
+        "link": "/ai-solutions/"
+      },
+      "style": {
+        "background": "dark",
+        "align": "center",
+        "width": "normal"
+      }
+    }
+  ]
+}

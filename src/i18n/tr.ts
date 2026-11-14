@@ -1,4 +1,5 @@
-import { ar } from "./ar";
+import { ar as arDict } from "./ar";
+const ar: Record<string, string> = process.env.NEXT_PUBLIC_LANG === "ar" ? arDict : {};
 export const isArBuild = process.env.NEXT_PUBLIC_LANG === "ar";
 /** Translate one string by exact (trimmed) match, keeping surrounding spaces. */
 export function tr(s: string): string {

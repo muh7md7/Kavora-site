@@ -17,6 +17,14 @@ function out(int $code, array $body): never { http_response_code($code); echo js
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') out(405, ['ok' => false, 'error' => 'method']);
 if (!class_exists('ZipArchive')) out(500, ['ok' => false, 'error' => 'zip_unavailable']);
 
+// Optional shared key. Set 'publish_key' in the server config (or put it in /home/USER/keelbiz-publish-key.txt) and add the
+// same value as the GitHub secret PUBLISH_KEY. Until a key exists on the server the hook stays open (it can only ever
+// install the official deploy branch, and is rate-limited).
+$cfg = @include dirname(__DIR__, 2) . '/keelbiz-config.php';
+if (!$cfg) $cfg = @include __DIR__ . '/config.php';
+$key = is_array($cfg) && !empty($cfg['publish_key']) ? (string)$cfg['publish_key'] : trim((string)@file_get_contents(dirname(__DIR__, 2) . '/keelbiz-publish-key.txt'));
+if ($key !== '' && !hash_equals($key, (string)($_SERVER['HTTP_X_PUBLISH_KEY'] ?? ''))) out(403, ['ok' => false, 'error' => 'key']);
+
 $root = dirname(__DIR__);                         // public_html
 $data = __DIR__ . '/_data';
 if (!is_dir($data)) { @mkdir($data, 0700, true); @file_put_contents("$data/.htaccess", "Require all denied\n"); @file_put_contents("$data/index.html", ''); }

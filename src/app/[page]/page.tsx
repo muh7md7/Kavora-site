@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Blocks } from "@/components/blocks/Blocks";
 import { PageHero } from "@/components/sections/PageHero";
-import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, MarketJsonLd } from "@/components/seo/JsonLd";
 import { customPages, isHeroBlock } from "@/content/builder";
 
 // Pages created in the admin panel (📄 Pages → content/custom-pages/*.json). One static page per published entry.
@@ -38,6 +38,7 @@ export default async function CustomPage({ params }: { params: Promise<{ page: s
       {!hasHero && <PageHero title={p.title} compact />}
       <Blocks blocks={p.blocks} spacer={false} />
       {faqs.length > 0 && <FaqJsonLd faq={faqs} />}
+      {p.areaServed && <MarketJsonLd name={p.seo.title} description={p.seo.description} country={p.areaServed} path={p.path} />}
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: p.title, href: p.path }]} />
     </>
   );

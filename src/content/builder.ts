@@ -3,6 +3,7 @@
 import themeJson from "./generated/theme.json";
 import homeJson from "./generated/home-layout.json";
 import pagesJson from "./generated/custom-pages.json";
+import pagesArJson from "./generated/custom-pages.ar.json";
 import navJson from "./generated/navigation.json";
 import { t } from "@/i18n";
 
@@ -34,6 +35,8 @@ export type Block = Base & (
 
 export type CustomPage = {
   slug: string; title: string; path: string;
+  /** Market landing pages only: the country the page is written for (used in structured data). */
+  areaServed: string;
   seo: { title: string; description: string; image: Img | null; hideFromSearch: boolean };
   menu: { header: boolean; footer: boolean; label: string };
   blocks: Block[];
@@ -58,7 +61,8 @@ export type Navigation = {
 
 export const theme = themeJson as unknown as Theme;
 export const homeBlocks = (homeJson as unknown as { blocks: Block[] }).blocks;
-export const customPages = (pagesJson as unknown as { pages: CustomPage[] }).pages;
+// Arabic build: pages with a translation in content/ar/custom-pages/ use it; the rest stay English.
+export const customPages = ((process.env.NEXT_PUBLIC_LANG === "ar" ? pagesArJson : pagesJson) as unknown as { pages: CustomPage[] }).pages;
 // Menu/footer labels are translated through the UI dictionary in the Arabic build.
 const trNav = (o: unknown): unknown => Array.isArray(o) ? o.map(trNav)
   : o && typeof o === "object" ? Object.fromEntries(Object.entries(o).map(([k, v]) => [k, (k === "label" || k.endsWith("Title")) && typeof v === "string" ? t(v) : trNav(v)]))

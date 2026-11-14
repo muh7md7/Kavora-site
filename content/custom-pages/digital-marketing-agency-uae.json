@@ -1,0 +1,173 @@
+{
+  "title": "Digital Marketing Agency in the UAE",
+  "slug": "digital-marketing-agency-uae",
+  "published": true,
+  "areaServed": "United Arab Emirates",
+  "menu": {
+    "showInHeader": false,
+    "showInFooter": false,
+    "label": ""
+  },
+  "seo": {
+    "title": "Digital Marketing Agency in the UAE — Web, Ads & AI",
+    "description": "Keelbiz helps businesses in the UAE grow with websites, social media, Meta & Google Ads, AI agents and dashboards. One service or a complete solution.",
+    "hideFromSearch": false
+  },
+  "blocks": [
+    {
+      "type": "hero",
+      "eyebrow": "United Arab Emirates",
+      "title": "Digital marketing and AI automation for businesses in the",
+      "accent": "UAE.",
+      "lead": "Keelbiz builds websites, runs social media and Meta & Google Ads, and sets up AI agents and dashboards for businesses in the UAE — in English and Arabic, as one service or a complete solution.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "See all services",
+        "link": "/services/"
+      },
+      "layout": "centered",
+      "style": {
+        "background": "auto",
+        "align": "center",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Local focus",
+      "title": "What matters for businesses in the",
+      "accent": "UAE.",
+      "columns": "3",
+      "items": [
+        {
+          "icon": "globe",
+          "title": "Arabic and English, done properly",
+          "text": "Websites and campaigns are written for both audiences, with a full right-to-left Arabic version rather than a machine translation."
+        },
+        {
+          "icon": "message",
+          "title": "Built around WhatsApp enquiries",
+          "text": "Many UAE customers prefer to message before they call. Pages, ads and AI agents are set up to capture and answer those enquiries quickly."
+        },
+        {
+          "icon": "calendar",
+          "title": "Planned around the local calendar",
+          "text": "Content and ad plans take Ramadan, Eid, National Day and the summer and winter seasons into account, so campaigns land at the right time."
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "services",
+      "eyebrow": "Services",
+      "title": "Five services. Take one, or",
+      "accent": "combine them.",
+      "lead": "Every service is available on its own, with a custom quote. No forced bundles.",
+      "layout": "list",
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "faq",
+      "eyebrow": "FAQ",
+      "title": "Good",
+      "accent": "questions.",
+      "layout": "side",
+      "items": [
+        {
+          "q": "Do you work with businesses across all the Emirates?",
+          "a": "Yes. Keelbiz works remotely, so we support businesses in Dubai, Abu Dhabi, Sharjah, Ajman and the other Emirates in the same way — by video call, email and WhatsApp."
+        },
+        {
+          "q": "Can you build my website and ads in both Arabic and English?",
+          "a": "Yes. We design websites with a complete Arabic right-to-left version alongside English, and write ad and social content for both audiences."
+        },
+        {
+          "q": "Which advertising platforms do you manage?",
+          "a": "Meta (Facebook and Instagram) and Google Ads. We recommend the mix after a short discovery call, based on where your customers actually are."
+        },
+        {
+          "q": "How is pricing worked out?",
+          "a": "Every project gets a custom quote after a short discovery call. Third-party costs such as ad spend, domains or software subscriptions are paid by you directly and are always shown separately."
+        }
+      ],
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Other markets",
+      "title": "We also work with businesses in",
+      "accent": "",
+      "columns": "4",
+      "items": [
+        {
+          "icon": "globe",
+          "title": "Saudi Arabia",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-saudi-arabia/"
+        },
+        {
+          "icon": "globe",
+          "title": "United States",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-usa/"
+        },
+        {
+          "icon": "globe",
+          "title": "United Kingdom",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-uk/"
+        },
+        {
+          "icon": "globe",
+          "title": "Pakistan",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-pakistan/"
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Next step",
+      "title": "Tell us what you want to",
+      "accent": "build.",
+      "lead": "A short discovery call, then a clear quote. No obligation.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "Explore AI Solutions",
+        "link": "/ai-solutions/"
+      },
+      "style": {
+        "background": "dark",
+        "align": "center",
+        "width": "normal"
+      }
+    }
+  ]
+}

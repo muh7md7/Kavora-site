@@ -1226,6 +1226,139 @@ content:
     type: boolean
     default: true
     description: Off = draft (not on the website)
+  - name: areaServed
+    label: Country (market pages only)
+    type: string
+    description: Only for pages written for one country, e.g. United Arab Emirates. Leave empty on normal pages. Used by Google, not shown on the page.
+  - name: menu
+    label: Menu & footer
+    type: object
+    fields:
+    - name: showInHeader
+      label: Add to the top menu
+      type: boolean
+      default: false
+    - name: showInFooter
+      label: Add to the footer (Company column)
+      type: boolean
+      default: false
+    - name: label
+      label: Menu text
+      type: string
+      description: 'Default: the page title'
+  - name: seo
+    label: Google & sharing
+    type: object
+    fields:
+    - name: title
+      label: Google title
+      type: string
+      description: 'Default: the page title'
+    - name: description
+      label: Google description
+      type: text
+      description: About 150 characters
+    - name: image
+      label: Social share image (optional)
+      type: image
+      description: 1200×630
+    - name: hideFromSearch
+      label: Hide from Google
+      type: boolean
+      default: false
+  - name: blocks
+    label: Page sections
+    description: Add blocks and drag to reorder. If the first block isn't a Hero, the page title is shown at the top.
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero (page top)
+      component: block_hero
+    - name: text
+      label: Text
+      component: block_text
+    - name: cards
+      label: Cards grid
+      component: block_cards
+    - name: imageText
+      label: Image + text
+      component: block_imageText
+    - name: services
+      label: Services (bento or list)
+      component: block_services
+    - name: faq
+      label: FAQ
+      component: block_faq
+    - name: cta
+      label: Call to action
+      component: block_cta
+    - name: highlights
+      label: Highlights (facts, no fake numbers)
+      component: block_highlights
+    - name: gallery
+      label: Gallery
+      component: block_gallery
+    - name: contact
+      label: Contact form
+      component: block_contact
+    - name: spacer
+      label: Spacer / divider
+      component: block_spacer
+    - name: homeHero
+      label: ★ Home hero (animated demo)
+      component: block_homeHero
+    - name: homeServices
+      label: ★ Services (5 services)
+      component: block_homeServices
+    - name: homeShowcase
+      label: ★ See it in action
+      component: block_homeShowcase
+    - name: homeWhy
+      label: ★ Why us
+      component: block_homeWhy
+    - name: homeFlexible
+      label: ★ One service or a complete solution
+      component: block_homeFlexible
+    - name: homeProcess
+      label: ★ Process steps
+      component: block_homeProcess
+    - name: homeAi
+      label: ★ AI offer
+      component: block_homeAi
+    - name: homeFaq
+      label: ★ Main FAQ
+      component: block_homeFaq
+- name: customPagesAr
+  label: 📄 Pages — Arabic text
+  description: Arabic wording for pages made in the page builder. Use the SAME file name / page address as the English page and keep the sections in the same order. Only the text is used — links, images, icons and layout always come from the English page.
+  type: collection
+  path: content/ar/custom-pages
+  format: json
+  filename: '{fields.slug}.json'
+  view:
+    fields:
+    - title
+    - slug
+    - published
+    primary: title
+  fields:
+  - name: title
+    label: Page title
+    type: string
+    description: Main heading and browser tab title
+    required: true
+  - name: slug
+    label: Page address
+    type: string
+    description: Lowercase words with dashes, e.g. pricing → yoursite.com/pricing/
+    required: true
+  - name: published
+    label: Published
+    type: boolean
+    default: true
+    description: Off = draft (not on the website)
   - name: menu
     label: Menu & footer
     type: object

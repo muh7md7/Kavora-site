@@ -1,0 +1,173 @@
+{
+  "title": "Digital Marketing Agency in the USA",
+  "slug": "digital-marketing-agency-usa",
+  "published": true,
+  "areaServed": "United States",
+  "menu": {
+    "showInHeader": false,
+    "showInFooter": false,
+    "label": ""
+  },
+  "seo": {
+    "title": "Digital Marketing Agency in the USA — Web, Ads & AI",
+    "description": "Keelbiz helps businesses in the USA grow with websites, social media, Meta & Google Ads, AI agents and dashboards. One service or a complete solution.",
+    "hideFromSearch": false
+  },
+  "blocks": [
+    {
+      "type": "hero",
+      "eyebrow": "United States",
+      "title": "Digital marketing and AI automation for businesses in the",
+      "accent": "USA.",
+      "lead": "Websites, social media, Meta & Google Ads, AI agents and business dashboards for small and mid-sized businesses in the United States — hire one service or a complete solution, with a custom quote.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "See all services",
+        "link": "/services/"
+      },
+      "layout": "centered",
+      "style": {
+        "background": "auto",
+        "align": "center",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Local focus",
+      "title": "What matters for businesses in the",
+      "accent": "USA.",
+      "columns": "3",
+      "items": [
+        {
+          "icon": "target",
+          "title": "Built for competitive ad markets",
+          "text": "Search and social advertising in the US is crowded. Campaigns are structured tightly, with clear tracking, so budget goes to what brings enquiries."
+        },
+        {
+          "icon": "shield",
+          "title": "Accessibility and privacy in mind",
+          "text": "Websites are built to recognised accessibility standards and with a clear, honest approach to cookies and customer data."
+        },
+        {
+          "icon": "zap",
+          "title": "Fast answers for every enquiry",
+          "text": "AI agents and automations reply to new leads straight away, qualify them and book the call — including outside office hours."
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "services",
+      "eyebrow": "Services",
+      "title": "Five services. Take one, or",
+      "accent": "combine them.",
+      "lead": "Every service is available on its own, with a custom quote. No forced bundles.",
+      "layout": "list",
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "faq",
+      "eyebrow": "FAQ",
+      "title": "Good",
+      "accent": "questions.",
+      "layout": "side",
+      "items": [
+        {
+          "q": "Do you work with businesses in every US state?",
+          "a": "Yes. Keelbiz works remotely, so we support businesses anywhere in the United States by video call and email, at a time that suits your working day."
+        },
+        {
+          "q": "Which services can I hire on their own?",
+          "a": "Any of them. Website design and development, social media management, Meta and Google Ads, AI agents and automation, and business dashboards are each available separately or combined."
+        },
+        {
+          "q": "Do you manage both Google Ads and Meta Ads?",
+          "a": "Yes. We manage Google Ads and Meta (Facebook and Instagram) campaigns, and recommend the mix after a short discovery call."
+        },
+        {
+          "q": "How is pricing worked out?",
+          "a": "Every project gets a custom quote after a short discovery call. Third-party costs such as ad spend, domains or software subscriptions are paid by you directly and are always shown separately."
+        }
+      ],
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Other markets",
+      "title": "We also work with businesses in",
+      "accent": "",
+      "columns": "4",
+      "items": [
+        {
+          "icon": "globe",
+          "title": "United Arab Emirates",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-uae/"
+        },
+        {
+          "icon": "globe",
+          "title": "Saudi Arabia",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-saudi-arabia/"
+        },
+        {
+          "icon": "globe",
+          "title": "United Kingdom",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-uk/"
+        },
+        {
+          "icon": "globe",
+          "title": "Pakistan",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-pakistan/"
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Next step",
+      "title": "Tell us what you want to",
+      "accent": "build.",
+      "lead": "A short discovery call, then a clear quote. No obligation.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "Explore AI Solutions",
+        "link": "/ai-solutions/"
+      },
+      "style": {
+        "background": "dark",
+        "align": "center",
+        "width": "normal"
+      }
+    }
+  ]
+}

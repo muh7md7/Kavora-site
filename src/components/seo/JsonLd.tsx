@@ -53,3 +53,13 @@ export function FaqJsonLd({ faq }: { faq: { q: string; a: string }[] }) {
     }} />
   );
 }
+
+/** Market landing pages: the same agency services, offered to businesses in one country. */
+export function MarketJsonLd({ name, description, country, path }: { name: string; description: string; country: string; path: string }) {
+  return (
+    <Script data={{
+      "@context": "https://schema.org", "@type": "Service", name, ...(description ? { description } : {}), serviceType: "Digital marketing agency",
+      provider: { "@id": `${site.url}/#organization` }, areaServed: { "@type": "Country", name: country }, url: `${site.url}${isAr ? "/ar" : ""}${path}`,
+    }} />
+  );
+}

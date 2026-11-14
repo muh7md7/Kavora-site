@@ -6,7 +6,9 @@ return [
   'allowed_origins' => [],                    // e.g. ['https://keelbiz.example', 'https://www.keelbiz.example']
   'allow_same_host' => true,                  // accept posts from the same host the endpoint is served on (temp domains)
   'data_dir' => '',                           // private folder for the JSONL log + rate files; default api/_data (denied by .htaccess)
-  'rate_window' => 3600, 'rate_max' => 5, 'rate_salt' => 'change-me-random',
+  'rate_window' => 3600, 'rate_max' => 5, 'rate_salt' => 'change-me-random', // per visitor
+  'rate_max_edge' => 50,                      // per connecting address (CDN node); default 10 x rate_max
+  'publish_key' => '',                        // optional: long random text. When set, /api/publish.php only runs when GitHub sends the same key (repo secret PUBLISH_KEY)
   'smtp_from' => '',                          // sender address; default no-reply@HOST
   'mail_envelope_from' => '',                 // optional -f for mail()
   // Optional SMTP via PHPMailer (composer require phpmailer/phpmailer outside web root); otherwise PHP mail() is used

@@ -10,10 +10,12 @@ import aiAr from "../../content/ar/ai.json";
 import sharedAr from "../../content/ar/shared.json";
 import { overlay, t } from "@/i18n";
 // Arabic build (/ar/): translated text from content/ar/*.json is laid over the English files; anything missing stays English.
-const settings = overlay(settingsEn, settingsAr);
-const servicesData = overlay(servicesEn, servicesAr);
-const aiData = overlay(aiEn, aiAr);
-const shared = overlay(sharedEn, sharedAr);
+// Inlined at build time: the English build drops the Arabic files from its bundles.
+const AR = process.env.NEXT_PUBLIC_LANG === "ar";
+const settings = overlay(settingsEn, AR ? settingsAr : undefined);
+const servicesData = overlay(servicesEn, AR ? servicesAr : undefined);
+const aiData = overlay(aiEn, AR ? aiAr : undefined);
+const shared = overlay(sharedEn, AR ? sharedAr : undefined);
 import { navigation } from "./builder";
 
 // Editable content lives in /content/*.json (edited through the Pages CMS admin panel — see .pages.yml).

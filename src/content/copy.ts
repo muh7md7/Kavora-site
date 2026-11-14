@@ -6,9 +6,11 @@ import pagesAr from "../../content/ar/pages.json";
 import legalAr from "../../content/ar/legal.json";
 import { overlay } from "@/i18n";
 
-const home = overlay(homeEn, homeAr);
-const pages = overlay(pagesEn, pagesAr);
-const legal = overlay(legalEn, legalAr);
+// Inlined at build time: the English build drops the Arabic files from its bundles.
+const AR = process.env.NEXT_PUBLIC_LANG === "ar";
+const home = overlay(homeEn, AR ? homeAr : undefined);
+const pages = overlay(pagesEn, AR ? pagesAr : undefined);
+const legal = overlay(legalEn, AR ? legalAr : undefined);
 
 /** Page copy edited through the admin panel (content/*.json). */
 export { home, pages, legal };
