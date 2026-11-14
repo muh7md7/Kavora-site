@@ -9,8 +9,8 @@ import { Tabs } from "@/components/glass/Tabs";
 // Interactive service illustrations, code-split and mounted only near the viewport.
 const ServiceDemo = dynamic(() => import("./ServiceDemos").then((m) => m.ServiceDemo), { ssr: false });
 
-const items: { id: ServiceId; label: string; icon: typeof Workflow; note: string }[] = [
-  { id: "websites", label: "Websites", icon: MonitorSmartphone, note: "Switch between desktop, tablet and phone. Every site we build is responsive by default." },
+const items: { id: ServiceId; label: string; icon: typeof Workflow; note: string; mobile?: string }[] = [
+  { id: "websites", label: "Websites", icon: MonitorSmartphone, note: "Switch between desktop, tablet and phone. Every site we build is responsive by default.", mobile: "Every site we build is responsive — this is how it looks on a phone." },
   { id: "social", label: "Social", icon: Share2, note: "A planned month of posts, reels and stories — built around your audience." },
   { id: "ads", label: "Advertising", icon: Megaphone, note: "Structured Meta and Google campaigns with clear weekly reporting." },
   { id: "automation", label: "AI & Automation", icon: Workflow, note: "Hover or focus each step: an enquiry is qualified, logged and followed up automatically." },
@@ -39,7 +39,7 @@ export function Showcase() {
               <div className="w-full panel-enter flex justify-center">{near ? <ServiceDemo id={cur.id} /> : null}</div>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-4 pt-5 pb-1">
-              <p className="text-text-2 text-[0.95rem] max-w-[60ch]">{cur.note} <span className="text-text-2/70">Illustrative, sample data.</span></p>
+              <p className="text-text-2 text-[0.95rem] max-w-[60ch]">{cur.mobile ? <><span className="sm:hidden">{cur.mobile}</span><span className="hidden sm:inline">{cur.note}</span></> : cur.note} <span className="text-text-2/70">Illustrative, sample data.</span></p>
               <Link href={`/services/${svc.slug}/`} className="btn btn-ghost">{svc.name} <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
             </div>
           </>

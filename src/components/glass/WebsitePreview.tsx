@@ -48,8 +48,8 @@ export function WebsitePreview({ className }: { className?: string }) {
 
   return (
     <figure className={cn("w-full", className)} aria-label="Interactive preview of an illustrative business website at desktop, tablet and phone widths">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div role="radiogroup" aria-label="Preview width" className="inline-flex rounded-full border border-line bg-surface p-1 gap-0.5" onKeyDown={onKey}>
+      <div className="flex flex-wrap items-center justify-center sm:justify-between gap-3 mb-5">
+        <div role="radiogroup" aria-label="Preview width" className="hidden sm:inline-flex rounded-full border border-line bg-surface p-1 gap-0.5" onKeyDown={onKey}>
           {devices.map((x) => (
             <button key={x.id} type="button" role="radio" aria-checked={device === x.id} tabIndex={device === x.id ? 0 : -1} onClick={() => setDevice(x.id)}
               className={cn("inline-flex items-center gap-2 h-9 px-3.5 rounded-full text-[0.82rem] font-[550] transition-colors", device === x.id ? "bg-[var(--steel-blue)] text-[var(--c-ink)]" : "text-text-2 hover:text-text")}>
@@ -63,7 +63,7 @@ export function WebsitePreview({ className }: { className?: string }) {
             className="h-9 px-3.5 rounded-full border border-line bg-surface text-[0.82rem] font-[550] text-text hover:bg-surface-strong transition-colors">
             {theme === "light" ? "Dark mode" : "Light mode"}
           </button>
-          <span className="chip chip-slate">Illustrative · sample content</span>
+          <span className="chip chip-slate hidden sm:inline-flex">Illustrative · sample content</span>
         </div>
       </div>
 

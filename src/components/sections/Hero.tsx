@@ -37,7 +37,7 @@ export function Hero({ layout = "visual-right", bg = "auto" }: { layout?: "visua
   const at = (depth: number) => ({ transform: `translate3d(${p.x * depth}px, ${p.y * depth}px, 0)` });
 
   return (
-    <section ref={root} data-theme={dark ? "dark" : "light"} className={cn("tone tone-grad has-grid relative overflow-hidden pt-[124px] md:pt-[148px] lg:pt-[164px]", bg === "mist" ? "tone-mist" : bg === "warm" ? "tone-warm" : dark ? "tone-inset !pt-[150px] md:!pt-[170px] lg:!pt-[186px]" : "hero-shell")} onPointerMove={onMove} onPointerLeave={() => { setP({ x: 0, y: 0 }); root.current?.classList.remove("spot-on"); }}>
+    <section ref={root} data-theme={dark ? "dark" : "light"} className={cn("tone tone-grad has-grid relative overflow-hidden pt-[112px] md:pt-[148px] lg:pt-[164px]", bg === "mist" ? "tone-mist" : bg === "warm" ? "tone-warm" : dark ? "tone-inset !pt-[150px] md:!pt-[170px] lg:!pt-[186px]" : "hero-shell")} onPointerMove={onMove} onPointerLeave={() => { setP({ x: 0, y: 0 }); root.current?.classList.remove("spot-on"); }}>
       <div className="aurora" aria-hidden><i /><i /><i /></div>
       {(bg === "auto" || bg === "light") && <div className="hero-fade" aria-hidden />}
       <div className="spotlight" aria-hidden />
@@ -62,7 +62,7 @@ export function Hero({ layout = "visual-right", bg = "auto" }: { layout?: "visua
         </div>
 
         {/* Product stage — interface demonstration (AI assistant → qualified lead → CRM) */}
-        {!centered && <div ref={stage} data-theme="light" className={cn("lg:col-span-5 relative reveal-fade !bg-transparent", layout === "visual-left" && "lg:order-1")} style={{ animationDelay: "520ms" }}>
+        {!centered && <div ref={stage} data-theme="light" className={cn("hidden md:block lg:col-span-5 relative reveal-fade !bg-transparent", layout === "visual-left" && "lg:order-1")} style={{ animationDelay: "520ms" }}>
           <figure aria-label="Interface demonstration: an AI website assistant qualifying an enquiry and booking a call" className="relative">
             <div className="device">
               <div className="device-bar">
@@ -122,7 +122,7 @@ export function Hero({ layout = "visual-right", bg = "auto" }: { layout?: "visua
       </div>
 
       {/* Capability marquee */}
-      <div className="mt-20 md:mt-24 border-y border-line py-5 overflow-hidden marquee-mask" aria-label="What we do">
+      <div className="mt-14 md:mt-24 border-y border-line py-5 overflow-hidden marquee-mask" aria-label="What we do">
         <ul className="marquee flex w-max gap-12 whitespace-nowrap">
           {[...capabilities, ...capabilities].map((c, i) => (
             <li key={i} className="flex items-center gap-12 text-[0.92rem] text-text-2" aria-hidden={i >= capabilities.length}>

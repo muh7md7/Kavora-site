@@ -10,7 +10,7 @@ export function Header() {
   const close = useCallback(() => setOpen(false), []);
   return (
     <header>
-      <GlassNavbar onOpenMobile={() => setOpen(true)} />
+      <GlassNavbar mobileOpen={open} onOpenMobile={() => setOpen((o) => !o)} />
       <MobileSheet open={open} onClose={close} />
       {theme.cursor && <Cursor />}
     </header>

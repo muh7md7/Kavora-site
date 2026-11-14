@@ -1,30 +1,45 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ArrowUpRight, X } from "lucide-react";
-import { headerButton, nav, services, site } from "@/content/site";
-import { Logo } from "@/components/brand/Logo";
+import { ArrowUpRight, ChevronDown, ChevronRight, Mail, MessageCircle, Phone } from "lucide-react";
+import { headerButton, isConfirmed, nav, services, site } from "@/content/site";
+import { ServiceGlyph } from "./ServiceGlyph";
+import { cn } from "@/lib/cn";
 
 type Props = { open: boolean; onClose: () => void; ctaHref?: string; ctaLabel?: string };
 
 /**
- * Mobile menu (v2) — full-screen charcoal sheet with staggered links.
- * Dialog pattern: focus trap, Esc closes, body scroll lock, focus restored, CTA pinned with safe-area padding.
+ * Mobile menu — a calm card that drops in under the header (the header stays visible; its button turns into ✕).
+ * Plain rows, Services as an accordion, one primary button. Focus trap, Esc, tap-outside, scroll lock, exit animation.
  */
 export function MobileSheet({ open, onClose, ctaHref = headerButton.link, ctaLabel = headerButton.label }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname() ?? "/";
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
-  const lastFocus = useRef<HTMLElement | null>(null);
+  const [mounted, setMounted] = useState(open);
+  const [svcOpen, setSvcOpen] = useState(false);
+  const { email, phone, whatsapp } = site.contact;
+
+  // Keep mounted through the exit animation.
+  if (open && !mounted) setMounted(true);
+  useEffect(() => {
+    if (open || !mounted) return;
+    const t = window.setTimeout(() => { setMounted(false); setSvcOpen(false); }, 200);
+    return () => window.clearTimeout(t);
+  }, [open, mounted]);
+
+  // Close on route change.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) { setLastPath(pathname); if (open) onClose(); }
 
   useEffect(() => {
     if (!open) return;
-    lastFocus.current = document.activeElement as HTMLElement;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const focusables = () => Array.from(ref.current?.querySelectorAll<HTMLElement>('a,button,[tabindex]:not([tabindex="-1"])') ?? []);
-    focusables()[0]?.focus();
+    const lastFocus = document.activeElement as HTMLElement | null;
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
+    const focusables = () => Array.from(ref.current?.querySelectorAll<HTMLElement>("a,button") ?? []);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "Tab") {
@@ -34,39 +49,66 @@ export function MobileSheet({ open, onClose, ctaHref = headerButton.link, ctaLab
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     };
+    const onResize = () => { if (window.innerWidth >= 1024) onClose(); };
     document.addEventListener("keydown", onKey);
-    return () => { document.body.style.overflow = prev; document.removeEventListener("keydown", onKey); lastFocus.current?.focus(); };
+    window.addEventListener("resize", onResize);
+    return () => { html.style.overflow = prev; document.removeEventListener("keydown", onKey); window.removeEventListener("resize", onResize); lastFocus?.focus?.(); };
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
+  const state = open ? "open" : "closed";
+  const row = "flex items-center justify-between gap-3 min-h-[54px] px-4 rounded-[calc(14px*var(--rs,1))] text-[1.02rem] font-[550] tracking-[-0.015em] transition-colors active:bg-surface-strong";
+
   return (
-    <div ref={ref} role="dialog" aria-modal="true" aria-label="Menu" data-theme="dark"
-      className="sheet-enter fixed inset-0 z-[60] lg:hidden flex flex-col tone tone-grad safe-bottom">
-      <div className="flex items-center justify-between h-[88px] px-5">
-        <Link href="/" onClick={onClose} aria-label={`${site.brand} — home`}><Logo markClassName="[--logo-ink:var(--c-ink)] text-[var(--c-paper)]" /></Link>
-        <button type="button" onClick={onClose} className="size-11 inline-flex items-center justify-center rounded-pill border border-line" aria-label="Close menu"><X size={20} aria-hidden /></button>
-      </div>
-      <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5">
-        <ul>
-          {nav.map((l, i) => (
-            <li key={l.href} className="border-b border-line reveal-fade" style={{ animationDelay: `${60 + i * 45}ms` }}>
-              <Link href={l.href} onClick={onClose} aria-current={isActive(l.href) ? "page" : undefined} className={`flex items-baseline gap-4 py-4 ${isActive(l.href) ? "" : "text-text-2"}`}>
-                <span className="num">{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-[1.9rem] font-[560] tracking-[-0.04em] leading-none">{l.label}</span>
-              </Link>
-              {l.mega === "services" && (
-                <ul className="pb-4 pl-9 grid gap-1">
-                  {services.map((s) => (
-                    <li key={s.id}><Link href={`/services/${s.slug}/`} onClick={onClose} className="block py-2 text-[0.95rem] text-text-2">{s.name}</Link></li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="px-5 pt-4">
-        <Link href={ctaHref} onClick={onClose} className="btn btn-premium w-full !min-h-14">{ctaLabel}<ArrowUpRight size={18} aria-hidden /></Link>
+    <div className="lg:hidden">
+      {/* Backdrop — tap to close */}
+      <button type="button" tabIndex={-1} aria-hidden onClick={onClose} data-state={state}
+        className="m-backdrop fixed inset-0 z-40 bg-[color-mix(in_srgb,var(--c-ink)_28%,transparent)] backdrop-blur-[3px] cursor-default" />
+      <div ref={ref} id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" data-theme="light" data-state={state}
+        className="m-panel fixed z-50 left-3 right-3 sm:left-4 sm:right-4 top-[80px] max-h-[calc(100dvh-96px)] overflow-y-auto overscroll-contain rounded-[calc(20px*var(--rs,1))] glass-menu border border-line shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)] p-2">
+        <nav aria-label="Mobile">
+          <ul className="grid gap-0.5">
+            {nav.map((l) => {
+              const active = isActive(l.href);
+              if (l.mega === "services") return (
+                <li key={l.href}>
+                  <button type="button" className={cn(row, "w-full", active ? "text-text" : "text-text-2")} aria-expanded={svcOpen} aria-controls="m-services" onClick={() => setSvcOpen((v) => !v)}>
+                    {l.label}<ChevronDown size={18} className={cn("text-text-2 transition-transform duration-300", svcOpen && "rotate-180")} aria-hidden />
+                  </button>
+                  <div id="m-services" className={cn("grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.22,1,.36,1)]", svcOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+                    <ul className="overflow-hidden min-h-0">
+                      {services.map((s) => (
+                        <li key={s.id}>
+                          <Link href={`/services/${s.slug}/`} onClick={onClose} tabIndex={svcOpen ? 0 : -1} className="flex items-center gap-3 py-2.5 pl-4 pr-3 rounded-[calc(12px*var(--rs,1))] text-[0.95rem] text-text-2 active:bg-surface-strong">
+                            <span className="scale-[.8] origin-left -mr-1.5"><ServiceGlyph id={s.id} /></span>{s.name}
+                          </Link>
+                        </li>
+                      ))}
+                      <li><Link href={l.href} onClick={onClose} tabIndex={svcOpen ? 0 : -1} className="flex items-center gap-2 py-3 pl-4 text-[0.9rem] font-[550] text-text">All services <ArrowUpRight size={15} aria-hidden /></Link></li>
+                    </ul>
+                  </div>
+                </li>
+              );
+              return (
+                <li key={l.href}>
+                  <Link href={l.href} onClick={onClose} aria-current={active ? "page" : undefined} className={cn(row, active ? "text-text bg-surface-strong" : "text-text-2")}>
+                    {l.label}<ChevronRight size={17} className="text-text-2/70" aria-hidden />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <div className="mt-2 pt-3 px-2 pb-2 border-t border-line">
+          <Link href={ctaHref} onClick={onClose} className="btn btn-primary w-full !min-h-[52px] !justify-between !px-5">{ctaLabel}<ArrowUpRight size={18} aria-hidden /></Link>
+          {(isConfirmed(email) || isConfirmed(phone) || isConfirmed(whatsapp)) && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {isConfirmed(whatsapp) && <a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} rel="noopener" className="chip-btn"><MessageCircle size={15} aria-hidden />WhatsApp</a>}
+              {isConfirmed(phone) && <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="chip-btn"><Phone size={15} aria-hidden />Call</a>}
+              {isConfirmed(email) && <a href={`mailto:${email}`} className="chip-btn"><Mail size={15} aria-hidden />Email</a>}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, ChevronDown, Menu } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { headerButton, menuName, nav, services } from "@/content/site";
 import { Logo } from "@/components/brand/Logo";
 import { ServiceGlyph } from "./ServiceGlyph";
@@ -15,6 +15,8 @@ type Props = {
   ctaLabel?: string;
   ctaHref?: string;
   onOpenMobile?: () => void;
+  /** Mobile menu state — the menu button becomes a close button while open. */
+  mobileOpen?: boolean;
   /** Render in-flow instead of fixed (embedded previews) */
   inline?: boolean;
 };
@@ -25,7 +27,7 @@ type Props = {
  * — Adapts its tone to the section beneath it (reads [data-theme] under the header line).
  * — Hides on scroll down, returns on scroll up; hairline scroll-progress along the bottom edge.
  */
-export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHref = headerButton.link, onOpenMobile, inline }: Props) {
+export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHref = headerButton.link, onOpenMobile, mobileOpen = false, inline }: Props) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState<null | "services">(null);
   const [hover, setHover] = useState<string | null>(null);
@@ -40,17 +42,25 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
   const panelId = useId();
 
   // Scroll: hide/show, tone detection, progress.
+  // Phones/tablets (< 1024px): the header stays put — no hide/show, no tone swapping, no size change.
+  // Those three effects together caused visible flicker on touch scrolling (and iOS rubber-band bounce).
+  // Desktop: hides after a deliberate scroll down (accumulated distance), returns on scroll up.
   useEffect(() => {
     if (inline) return;
-    let last = window.scrollY; let raf = 0;
+    const mq = window.matchMedia("(max-width: 1023px)");
+    let last = Math.max(0, window.scrollY); let acc = 0; let raf = 0;
     const tick = () => {
       raf = 0;
-      const y = window.scrollY;
+      const maxY = document.documentElement.scrollHeight - window.innerHeight;
+      const y = Math.min(Math.max(0, window.scrollY), Math.max(0, maxY)); // clamp elastic overscroll
       setScrolled(y > 12);
-      setHidden((prev) => (y > 240 && y > last + 2 ? true : y < last - 2 ? false : prev));
-      last = y;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (progressRef.current) progressRef.current.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${maxY > 0 ? y / maxY : 0})`;
+      if (mq.matches) { setHidden(false); setTone("light"); last = y; acc = 0; return; }
+      const dy = y - last; last = y;
+      acc = Math.sign(dy) === Math.sign(acc) ? acc + dy : dy;
+      if (y < 240) setHidden(false);
+      else if (acc > 24) setHidden(true);
+      else if (acc < -12) setHidden(false);
       const probe = document.elementsFromPoint(window.innerWidth / 2, 40).find((el) => el.closest("[data-theme]") && !el.closest("[data-site-header]"));
       setTone((probe?.closest("[data-theme]")?.getAttribute("data-theme") as "dark" | "light") ?? "light");
     };
@@ -58,7 +68,8 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
     tick();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(raf); };
+    mq.addEventListener("change", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); mq.removeEventListener("change", onScroll); cancelAnimationFrame(raf); };
   }, [inline]);
 
   // Close on route change, Esc, outside click.
@@ -95,16 +106,16 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
       className={cn(
         inline ? "relative w-full" : "fixed inset-x-0 top-0 z-50",
         "header-enter pointer-events-none px-3 sm:px-4 pt-3 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] !bg-transparent",
-        hidden && !open && !inline && "-translate-y-[130%]",
+        hidden && !open && !mobileOpen && !inline && "-translate-y-[130%]",
       )}
       onMouseLeave={() => intent(null, 180)}
     >
-      <div className={cn("mx-auto relative transition-[max-width] duration-500 ease-[cubic-bezier(.22,1,.36,1)]", scrolled && !inline ? "max-w-[1180px]" : "max-w-[var(--content-max)]")}>
+      <div className={cn("mx-auto relative lg:transition-[max-width] lg:duration-500 lg:ease-[cubic-bezier(.22,1,.36,1)]", scrolled && !inline ? "lg:max-w-[1180px] max-w-[var(--content-max)]" : "max-w-[var(--content-max)]")}>
         <nav
           aria-label="Primary"
           className={cn(
             "header-glass pointer-events-auto relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center px-2 rounded-[calc(18px*var(--rs,1))] transition-[height,box-shadow,background] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
-            scrolled && !inline ? "h-[58px] is-scrolled" : "h-16",
+            "h-[60px]", scrolled && !inline ? "lg:h-[58px] is-scrolled" : "lg:h-16", mobileOpen && "is-scrolled",
           )}
         >
           <Link href="/" className="justify-self-start shrink-0 rounded-sm pl-2.5 sm:pl-3" aria-label="Keelbiz — home">
@@ -148,12 +159,15 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
             <Link href={ctaHref} className="btn btn-primary !min-h-10 !h-10 !pl-4 !pr-3.5 !text-[0.86rem] !gap-2 hidden sm:inline-flex" data-magnetic>
               {ctaLabel}<span className="size-5 -mr-1 rounded-full bg-white/12 inline-flex items-center justify-center"><ArrowUpRight size={13} strokeWidth={2.2} className="btn-arrow" aria-hidden /></span>
             </Link>
-            <button type="button" className="lg:hidden size-11 inline-flex items-center justify-center rounded-pill text-text hover:bg-surface-strong" aria-label="Open menu" onClick={onOpenMobile}>
-              <Menu size={20} aria-hidden />
+            <button type="button" className="lg:hidden size-11 inline-flex items-center justify-center rounded-pill text-text hover:bg-surface-strong active:bg-surface-strong transition-colors" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} aria-controls="mobile-menu" onClick={onOpenMobile}>
+              <span className="relative size-5" aria-hidden>
+                <Menu size={20} className={cn("absolute inset-0 transition-[opacity,transform] duration-200", mobileOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100")} />
+                <X size={20} className={cn("absolute inset-0 transition-[opacity,transform] duration-200", mobileOpen ? "opacity-100" : "opacity-0 -rotate-90 scale-75")} />
+              </span>
             </button>
           </div>
 
-          {!inline && <span ref={progressRef} className="absolute left-6 right-6 bottom-0 h-px origin-left bg-accent/60" style={{ transform: "scaleX(0)" }} aria-hidden />}
+          {!inline && <span ref={progressRef} className="hidden lg:block absolute left-6 right-6 bottom-0 h-px origin-left bg-accent/60" style={{ transform: "scaleX(0)" }} aria-hidden />}
         </nav>
 
         {/* Mega panels */}

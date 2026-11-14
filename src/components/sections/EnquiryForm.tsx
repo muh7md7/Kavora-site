@@ -1,7 +1,7 @@
 "use client";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Check, Loader2 } from "lucide-react";
+import { ArrowUpRight, Check, Loader2 } from "lucide-react";
 import { services, site, isConfirmed, type ServiceId } from "@/content/site";
 import { cn } from "@/lib/cn";
 
@@ -109,6 +109,7 @@ function Form() {
 
   return (
     <form ref={formRef} onSubmit={onSubmit} onBlur={onBlur} noValidate className="grid gap-8" aria-describedby="form-note">
+      <div className="flex items-baseline gap-3 pb-4 border-b border-line"><span className="num">01</span><h2 className="!text-[1.15rem] !leading-tight font-[580] tracking-[-0.02em]">What you need</h2><span className="ml-auto text-[0.78rem] text-text-2 hidden sm:inline">Pick what fits — change it any time</span></div>
       <input type="text" name="website_url" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" /> {/* honeypot */}
       <input type="hidden" name="type" value={type} />
       {topic && <input type="hidden" name="topic" value={topic} />}
@@ -153,17 +154,19 @@ function Form() {
         )}
       </fieldset>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="flex items-baseline gap-3 pb-4 border-b border-line"><span className="num">02</span><h2 className="!text-[1.15rem] !leading-tight font-[580] tracking-[-0.02em]">About you</h2><span className="ml-auto text-[0.78rem] text-text-2 hidden sm:inline">So we know who to reply to</span></div>
+      <div className="grid gap-5 md:grid-cols-2 -mt-2">
         {field("name", "Full name", <input {...a("name")} autoComplete="name" required />)}
         {field("email", "Email", <input {...a("email")} type="email" autoComplete="email" required />)}
         {field("company", "Business name", <input {...a("company")} autoComplete="organization" required />)}
         {field("website", "Website (optional)", <input {...a("website", true)} type="url" inputMode="url" placeholder="https://" />, "Include https://")}
         {field("contact_method", "Preferred contact method (optional)", <select {...a("contact_method")} defaultValue="">{["", ...contactMethods].map((b) => <option key={b} value={b}>{b || "No preference"}</option>)}</select>)}
       </div>
-      {field("description", "Tell us about your project", <textarea {...a("description", true)} rows={5} required defaultValue={topic ? `I'm interested in: ${topic}.\n\n` : ""} />, "What do you need, for whom, and by when? A few lines is enough.")}
+      <div className="flex items-baseline gap-3 pb-4 border-b border-line"><span className="num">03</span><h2 className="!text-[1.15rem] !leading-tight font-[580] tracking-[-0.02em]">Your project</h2><span className="ml-auto text-[0.78rem] text-text-2 hidden sm:inline">A few lines is enough</span></div>
+      <div className="-mt-2">{field("description", "Tell us about your project", <textarea {...a("description", true)} rows={5} required defaultValue={topic ? `I'm interested in: ${topic}.\n\n` : ""} />, "What do you need, for whom, and by when? A few lines is enough.")}</div>
 
       <div className="field">
-        <label className="!flex items-start gap-3 !font-normal text-[0.9rem]"><input type="checkbox" name="consent" id="f-consent" className="mt-1 size-5 accent-[var(--graphite)]" aria-invalid={err("consent") ? true : undefined} aria-describedby={err("consent") ? "e-consent" : undefined} /> <span>I agree to be contacted about this enquiry. See our <a href="/legal/privacy/" className="text-text underline underline-offset-2">privacy policy</a>.</span></label>
+        <label className="!flex items-start gap-3 !font-normal text-[0.9rem] cursor-pointer"><input type="checkbox" name="consent" id="f-consent" className="check mt-0.5" aria-invalid={err("consent") ? true : undefined} aria-describedby={err("consent") ? "e-consent" : undefined} /> <span>I agree to be contacted about this enquiry. See our <a href="/legal/privacy/" className="text-text underline underline-offset-2">privacy policy</a>.</span></label>
         {err("consent") && <p id="e-consent" className="error" role="alert">{errors.consent}</p>}
       </div>
 
@@ -172,9 +175,9 @@ function Form() {
           {status === "unavailable" ? "Online enquiries aren't connected yet, so nothing was sent" : status === "rate" ? "Too many enquiries from this connection in the last hour — nothing was sent. Please try again later" : "Something went wrong and nothing was sent. Please try again"}{isConfirmed(site.contact.email) ? ` — or email ${site.contact.email}` : ""}.
         </p>
       )}
-      <div className="flex items-center gap-5 flex-wrap">
-        <button type="submit" className="btn btn-primary" disabled={status === "sending"} aria-disabled={status === "sending"}>
-          {status === "sending" ? <><Loader2 size={16} className="animate-spin" aria-hidden /> Sending…</> : "Send enquiry"}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 pt-2">
+        <button type="submit" className="btn btn-primary !min-h-[52px] !px-7 w-full sm:w-auto" disabled={status === "sending"} aria-disabled={status === "sending"}>
+          {status === "sending" ? <><Loader2 size={16} className="animate-spin" aria-hidden /> Sending…</> : <>Send enquiry <ArrowUpRight size={17} className="btn-arrow" aria-hidden /></>}
         </button>
         <p id="form-note" className="text-[0.78rem] text-text-2">Custom quote. No obligation. No budget required. Minimal data, kept only as long as needed.</p>
       </div>

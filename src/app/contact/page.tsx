@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
-import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Clock, Mail, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { EnquiryForm } from "@/components/sections/EnquiryForm";
 import { Tone } from "@/components/sections/Tone";
@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const { email, whatsapp } = site.contact;
+  const { email, phone, whatsapp } = site.contact;
+  const anyDirect = isConfirmed(email) || isConfirmed(phone) || isConfirmed(whatsapp);
   const c = pages.contact;
   return (
     <>
@@ -33,15 +34,15 @@ export default function ContactPage() {
                 ))}
               </ol>
             </div>
-            {(isConfirmed(email) || isConfirmed(whatsapp)) && (
-              <div className="card p-7">
-                <p className="eyebrow">Direct</p>
-                <ul className="mt-5 grid gap-3 text-[0.95rem]">
-                  {isConfirmed(email) && <li className="flex items-center gap-3"><Mail size={17} className="text-text-2" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="email_click">{email}</a></li>}
-                  {isConfirmed(whatsapp) && <li className="flex items-center gap-3"><MessageCircle size={17} className="text-text-2" aria-hidden /><a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} className="inline-flex items-center gap-1 underline underline-offset-4 decoration-line-strong hover:decoration-text" data-event="whatsapp_click" rel="noopener">WhatsApp <ArrowUpRight size={14} aria-hidden /></a></li>}
-                </ul>
-              </div>
-            )}
+            <div className="card p-7">
+              <p className="eyebrow">{anyDirect ? "Prefer to talk?" : "Response time"}</p>
+              <ul className="mt-5 grid gap-3.5 text-[0.95rem]">
+                {isConfirmed(whatsapp) && <li><a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} className="flex items-center gap-3 hover:text-text" data-event="whatsapp_click" rel="noopener"><span className="size-9 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><MessageCircle size={16} /></span>WhatsApp <ArrowUpRight size={14} className="text-text-2" aria-hidden /></a></li>}
+                {isConfirmed(phone) && <li><a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="flex items-center gap-3 hover:text-text" data-event="phone_click"><span className="size-9 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><Phone size={16} /></span>{phone}</a></li>}
+                {isConfirmed(email) && <li><a href={`mailto:${email}`} className="flex items-center gap-3 hover:text-text break-all" data-event="email_click"><span className="size-9 shrink-0 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><Mail size={16} /></span>{email}</a></li>}
+                <li className="flex items-center gap-3 text-text-2"><span className="size-9 shrink-0 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><Clock size={16} /></span>Reply within two working days</li>
+              </ul>
+            </div>
             <div className="card p-7">
               <p className="eyebrow">Good to know</p>
               <ul className="mt-5 grid gap-3 text-[0.92rem] text-text-2">
