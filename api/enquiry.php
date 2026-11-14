@@ -99,9 +99,9 @@ if (!empty($cfg['smtp_host']) && !empty($cfg['phpmailer_autoload']) && is_file($
   } catch (Throwable $e) { error_log('enquiry smtp error'); }
 }
 if (!$sent) {
-  // Direct SMTP over SSL (no dependencies). Password lives only in a server file: api/_data/smtp-pass.txt (web-blocked).
+  // Direct SMTP over SSL (no dependencies). Password lives only in a server file: /home/USER/keelbiz-smtp-pass.txt (outside the web folder) or api/_data/smtp-pass.txt (web-blocked).
   $smtpUser = (string)($cfg['smtp_user'] ?? $cfg['notify_to']);
-  $smtpPass = !empty($cfg['smtp_pass']) ? (string)$cfg['smtp_pass'] : trim((string)@file_get_contents("$dir/smtp-pass.txt"));
+  $smtpPass = !empty($cfg['smtp_pass']) ? (string)$cfg['smtp_pass'] : trim((string)(@file_get_contents(dirname(__DIR__, 2) . '/keelbiz-smtp-pass.txt') ?: @file_get_contents("$dir/smtp-pass.txt"))); // preferred: outside the web folder
   if ($smtpPass !== '') {
     try {
       $host = (string)($cfg['smtp_host'] ?? 'smtp.hostinger.com'); $port = (int)($cfg['smtp_port'] ?? 465);

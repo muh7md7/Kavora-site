@@ -1,5 +1,5 @@
-# Enquiry endpoint folder: block config + data, allow only enquiry.php
-<FilesMatch "^(config\.php|site-config\.php|.*\.jsonl|rate-.*)$">
+# API folder: only the two endpoints are reachable; config, data, logs and any other file are blocked.
+<FilesMatch "^(?!(enquiry|publish)\.php$).+$">
   Require all denied
 </FilesMatch>
 Options -Indexes
