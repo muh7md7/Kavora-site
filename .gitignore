@@ -45,3 +45,8 @@ out/
 server/config.php
 public/api/config.php
 public/api/_data/
+
+# generated from /content by scripts/prepare-content.mjs (prebuild/predev)
+src/content/generated/
+src/styles/theme.generated.css
+public/fonts/theme/

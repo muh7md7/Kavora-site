@@ -36,7 +36,7 @@ export default function WorkPage() {
       <Tone tone="light" className="section !pt-0">
         <div className="container border-t border-line pt-16">
             <div className="grid gap-6 md:grid-cols-2">{caseStudies.map((c) => (
-              <article key={c.slug} className="rounded-[24px] border border-line bg-surface p-7"><span className="chip chip-navy">{c.industry}</span><h2 className="!text-2xl mt-4">{c.title}</h2><p className="text-text-2 mt-2">{c.summary}</p><p className="num mt-4">{c.services.join(" · ")}</p></article>
+              <article key={c.slug} className="rounded-[calc(24px*var(--rs,1))] border border-line bg-surface p-7"><span className="chip chip-navy">{c.industry}</span><h2 className="!text-2xl mt-4">{c.title}</h2><p className="text-text-2 mt-2">{c.summary}</p><p className="num mt-4">{c.services.join(" · ")}</p></article>
             ))}</div>
         </div>
       </Tone>

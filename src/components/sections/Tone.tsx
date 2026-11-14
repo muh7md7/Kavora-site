@@ -32,3 +32,12 @@ export function SectionHead({ eyebrow, title, accent, after, lead, className, al
 export function HeadText({ h }: { h: { title: string; accent?: string; after?: string } }) {
   return <>{h.title}{h.accent ? <> <span className="accent">{h.accent}</span></> : null}{h.after ? ` ${h.after}` : ""}</>;
 }
+
+export type ToneProps = { tone?: "light" | "dark" | "mist" | "warm"; alt?: boolean; grad?: boolean; grid?: boolean };
+/** Map an admin-panel background choice onto Tone props; "auto" keeps the section's designed default. */
+export function toneOf(bg: string | undefined, fallback: ToneProps): ToneProps {
+  if (!bg || bg === "auto") return fallback;
+  if (bg === "dark") return { tone: "dark", grad: true, grid: fallback.grid };
+  if (bg === "mist" || bg === "warm" || bg === "light") return { tone: bg, grid: fallback.grid };
+  return fallback;
+}

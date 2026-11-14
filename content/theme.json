@@ -1,0 +1,36 @@
+{
+  "colours": {
+    "preset": "stone-steel",
+    "custom": {
+      "background": "",
+      "surface": "",
+      "surfaceDeep": "",
+      "accent": "",
+      "accentSecondary": "",
+      "dark": "",
+      "text": ""
+    }
+  },
+  "fonts": {
+    "headings": "geist",
+    "body": "geist",
+    "accent": "instrument-serif"
+  },
+  "corners": "rounded",
+  "buttons": {
+    "shape": "pill",
+    "style": "solid"
+  },
+  "spacing": "comfortable",
+  "shadows": "standard",
+  "glass": "standard",
+  "animations": "full",
+  "cursorEffect": true,
+  "brand": {
+    "logo": "",
+    "logoOnDark": "",
+    "logoHeight": 32,
+    "favicon": "",
+    "shareImage": ""
+  }
+}

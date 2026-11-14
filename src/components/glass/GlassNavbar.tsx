@@ -3,7 +3,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, ChevronDown, Menu } from "lucide-react";
-import { menuName, nav, services } from "@/content/site";
+import { headerButton, menuName, nav, services } from "@/content/site";
 import { Logo } from "@/components/brand/Logo";
 import { ServiceGlyph } from "./ServiceGlyph";
 import { cn } from "@/lib/cn";
@@ -25,7 +25,7 @@ type Props = {
  * — Adapts its tone to the section beneath it (reads [data-theme] under the header line).
  * — Hides on scroll down, returns on scroll up; hairline scroll-progress along the bottom edge.
  */
-export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref = "/contact/", onOpenMobile, inline }: Props) {
+export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHref = headerButton.link, onOpenMobile, inline }: Props) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState<null | "services">(null);
   const [hover, setHover] = useState<string | null>(null);
@@ -103,7 +103,7 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
         <nav
           aria-label="Primary"
           className={cn(
-            "header-glass pointer-events-auto relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center px-2 rounded-[18px] transition-[height,box-shadow,background] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
+            "header-glass pointer-events-auto relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center px-2 rounded-[calc(18px*var(--rs,1))] transition-[height,box-shadow,background] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
             scrolled && !inline ? "h-[58px] is-scrolled" : "h-16",
           )}
         >
@@ -159,11 +159,11 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
         {/* Mega panels */}
         {open === "services" && (
           <div id={`${panelId}-services`} role="region" aria-label="Services" onMouseEnter={() => intent("services", 0)}
-            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 top-[calc(100%+10px)] rounded-[18px] p-2.5 grid lg:grid-cols-12 gap-2.5">
+            className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 top-[calc(100%+10px)] rounded-[calc(18px*var(--rs,1))] p-2.5 grid lg:grid-cols-12 gap-2.5">
             <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-1">
               {services.map((s, i) => (
                 <li key={s.id}>
-                  <Link href={`/services/${s.slug}/`} className="group flex gap-4 rounded-[14px] p-4 hover:bg-surface-strong transition-colors h-full">
+                  <Link href={`/services/${s.slug}/`} className="group flex gap-4 rounded-[calc(14px*var(--rs,1))] p-4 hover:bg-surface-strong transition-colors h-full">
                     <ServiceGlyph id={s.id} />
                     <span className="min-w-0">
                       <span className="flex items-center gap-2"><span className="num">0{i + 1}</span><span className="font-[550] text-[0.95rem] tracking-[-0.015em] text-text">{menuName[s.id]}</span></span>
@@ -174,12 +174,12 @@ export function GlassNavbar({ links = nav, ctaLabel = "Start a Project", ctaHref
                 </li>
               ))}
               <li>
-                <Link href="/services/" className="group flex items-center justify-between rounded-[14px] p-4 h-full border border-dashed border-line hover:border-text-2 transition-colors">
+                <Link href="/services/" className="group flex items-center justify-between rounded-[calc(14px*var(--rs,1))] p-4 h-full border border-dashed border-line hover:border-text-2 transition-colors">
                   <span className="text-[0.9rem] font-[550]">All services <span className="text-text-2 font-normal">· one or combined</span></span><ArrowUpRight size={16} aria-hidden />
                 </Link>
               </li>
             </ul>
-            <div data-theme="dark" className="lg:col-span-4 rounded-[14px] p-6 flex flex-col justify-between overflow-hidden relative tone-grad min-h-[260px]">
+            <div data-theme="dark" className="lg:col-span-4 rounded-[calc(14px*var(--rs,1))] p-6 flex flex-col justify-between overflow-hidden relative tone-grad min-h-[260px]">
               <div>
                 <span className="eyebrow">AI Solutions</span>
                 <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">Custom AI agents, automation — or <span className="accent">ready-made</span> where available.</p>

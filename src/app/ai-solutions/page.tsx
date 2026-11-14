@@ -71,7 +71,7 @@ export default function AiSolutionsPage() {
               </Reveal>
             ))}
             <Reveal as="li" index={0} className="sm:col-span-2 lg:col-span-4">
-              <Link href="/contact/?type=ai-custom&services=automation" className="group flex flex-wrap items-center justify-between gap-6 rounded-[22px] border border-dashed border-line-strong p-6 md:p-8 hover:border-text-2 transition-colors">
+              <Link href="/contact/?type=ai-custom&services=automation" className="group flex flex-wrap items-center justify-between gap-6 rounded-[calc(22px*var(--rs,1))] border border-dashed border-line-strong p-6 md:p-8 hover:border-text-2 transition-colors">
                 <span className="flex items-center gap-4"><MessageCircleQuestion size={22} className="text-accent shrink-0" aria-hidden /><span><span className="block font-[550] text-[1.1rem]">Something else in mind?</span><span className="text-text-2 text-[0.95rem]">Describe the task. We&apos;ll propose a solution if it&apos;s technically feasible.</span></span></span>
                 <span className="btn btn-primary">Describe your idea <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></span>
               </Link>

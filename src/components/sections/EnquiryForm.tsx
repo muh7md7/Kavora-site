@@ -88,7 +88,7 @@ function Form() {
   };
 
   if (status === "ok") return (
-    <div className="rounded-[20px] border border-line bg-surface p-8" role="status">
+    <div className="rounded-[calc(20px*var(--rs,1))] border border-line bg-surface p-8" role="status">
       <span className="size-11 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] inline-flex items-center justify-center" aria-hidden><Check size={20} /></span>
       <p className="mt-5 text-[1.3rem] font-[560] tracking-[-0.02em]">Thank you — we&apos;ve received your enquiry.</p>
       <p className="text-text-2 mt-2">We&apos;ll reply with questions and next steps within two working days.</p>

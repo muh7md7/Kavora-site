@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { home } from "@/content/copy";
-import { Hero } from "@/components/sections/Hero";
-import { HomeFaq, Process, SeeItInAction, Services, WhyUs } from "@/components/sections/HomeSections";
-import { AiOffer, FlexibleSolutions } from "@/components/sections/Offer";
+import { Blocks } from "@/components/blocks/Blocks";
 import { FaqJsonLd } from "@/components/seo/JsonLd";
 import { homeFaq } from "@/content/site";
+import { homeBlocks } from "@/content/builder";
 
 export const metadata: Metadata = {
   title: home.seo.title,
@@ -12,19 +11,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-// Rhythm: light hero → light services → dark showcase → light why → dark flexible → light-alt process → dark AI → light-alt FAQ → dark CTA/footer
+// Section order, visibility, backgrounds and layouts come from the admin panel (🧱 Home page layout → content/home-layout.json).
 export default function Home() {
+  const faqs = [
+    ...(homeBlocks.some((b) => b.type === "homeFaq") ? homeFaq : []),
+    ...homeBlocks.flatMap((b) => (b.type === "faq" ? b.items : [])),
+  ];
   return (
     <>
-      <Hero />
-      <Services />
-      <SeeItInAction />
-      <WhyUs />
-      <FlexibleSolutions />
-      <Process />
-      <AiOffer />
-      <HomeFaq />
-      <FaqJsonLd faq={homeFaq} />
+      <Blocks blocks={homeBlocks} />
+      {faqs.length > 0 && <FaqJsonLd faq={faqs} />}
     </>
   );
 }

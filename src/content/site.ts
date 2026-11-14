@@ -4,6 +4,7 @@ import settings from "../../content/settings.json";
 import servicesData from "../../content/services.json";
 import aiData from "../../content/ai.json";
 import shared from "../../content/shared.json";
+import { navigation } from "./builder";
 
 // Editable content lives in /content/*.json (edited through the Pages CMS admin panel — see .pages.yml).
 // Business inputs: empty string = not confirmed yet — never invented, never rendered.
@@ -30,13 +31,9 @@ export const site = {
 
 export const isConfirmed = (v: string) => v.trim() !== "" && !v.startsWith("[TO CONFIRM");
 
-export const nav: readonly { label: string; href: string; mega?: "services" }[] = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services/", mega: "services" },
-  { label: "Work", href: "/work/" },
-  { label: "About", href: "/about/" },
-  { label: "Contact", href: "/contact/" },
-];
+/** Header menu — edited in the admin panel (🧭 Menu & footer → content/navigation.json). */
+export const nav: readonly { label: string; href: string; mega?: "services" }[] = navigation.header;
+export const headerButton = navigation.headerButton;
 
 export type ServiceId = "websites" | "social" | "ads" | "automation" | "dashboards";
 

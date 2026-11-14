@@ -13,7 +13,7 @@ const stageTone: Record<ServiceId, string> = { websites: "is-mist", social: "is-
 function WebsitesPreview() {
   return (
     <>
-      <div className="pv pv-up absolute left-[7%] right-[19%] top-[12%] -bottom-6 rounded-[14px] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)] overflow-hidden">
+      <div className="pv pv-up absolute left-[7%] right-[19%] top-[12%] -bottom-6 rounded-[calc(14px*var(--rs,1))] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)] overflow-hidden">
         <div className="flex items-center gap-2 px-3 h-7 border-b border-[color-mix(in_srgb,var(--c-deep)_8%,transparent)] bg-[var(--c-stone)]">
           <span className="flex gap-1"><i className="size-[7px] rounded-full bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /><i className="size-[7px] rounded-full bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /><i className="size-[7px] rounded-full bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /></span>
           <span className="mx-auto h-4 w-[46%] rounded-full bg-white border border-[color-mix(in_srgb,var(--c-deep)_8%,transparent)] text-[7.5px] leading-4 text-center text-[var(--c-slate)] font-mono">yourbusiness.com</span>
@@ -26,16 +26,16 @@ function WebsitesPreview() {
               <span className="mt-2.5 block h-1.5 w-[88%] rounded bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /><span className="mt-1 block h-1.5 w-[64%] rounded bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" />
               <span className="mt-3 flex gap-1.5"><i className="h-4 w-12 rounded-full bg-[var(--c-deep)]" /><i className="h-4 w-10 rounded-full border border-[color-mix(in_srgb,var(--c-deep)_25%,transparent)]" /></span>
             </div>
-            <div className="aspect-[4/3] rounded-[10px] bg-[radial-gradient(70%_70%_at_70%_20%,var(--c-steel-light),transparent),linear-gradient(150deg,var(--c-blue-grey),var(--c-slate))]" />
+            <div className="aspect-[4/3] rounded-[calc(10px*var(--rs,1))] bg-[radial-gradient(70%_70%_at_70%_20%,var(--c-steel-light),transparent),linear-gradient(150deg,var(--c-blue-grey),var(--c-slate))]" />
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-2">{[0, 1, 2].map((i) => <span key={i} className="h-10 rounded-[8px] bg-[var(--c-mist-hi)] border border-[color-mix(in_srgb,var(--c-deep)_7%,transparent)]" />)}</div>
+          <div className="mt-4 grid grid-cols-3 gap-2">{[0, 1, 2].map((i) => <span key={i} className="h-10 rounded-[calc(8px*var(--rs,1))] bg-[var(--c-mist-hi)] border border-[color-mix(in_srgb,var(--c-deep)_7%,transparent)]" />)}</div>
         </div>
       </div>
-      <div className="pv pv-left absolute right-[6%] bottom-[-10px] w-[22%] min-w-[78px] max-w-[104px] aspect-[9/17] rounded-[16px] bg-[var(--c-ink)] p-[5px] shadow-[0_24px_40px_-18px_color-mix(in_srgb,var(--c-ink)_60%,transparent)]">
-        <div className="h-full rounded-[12px] bg-[var(--c-paper)] px-2 pt-3 overflow-hidden">
+      <div className="pv pv-left absolute right-[6%] bottom-[-10px] w-[22%] min-w-[78px] max-w-[104px] aspect-[9/17] rounded-[calc(16px*var(--rs,1))] bg-[var(--c-ink)] p-[5px] shadow-[0_24px_40px_-18px_color-mix(in_srgb,var(--c-ink)_60%,transparent)]">
+        <div className="h-full rounded-[calc(12px*var(--rs,1))] bg-[var(--c-paper)] px-2 pt-3 overflow-hidden">
           <span className="block h-1.5 w-6 rounded bg-[var(--c-deep)]" />
           <span className="mt-3 block h-1.5 w-full rounded bg-[var(--c-ink)]" /><span className="mt-1 block h-1.5 w-3/4 rounded bg-[var(--c-ink)]" />
-          <span className="mt-2 block aspect-square rounded-[6px] bg-[linear-gradient(150deg,var(--c-blue-grey),var(--c-steel))]" />
+          <span className="mt-2 block aspect-square rounded-[calc(6px*var(--rs,1))] bg-[linear-gradient(150deg,var(--c-blue-grey),var(--c-steel))]" />
           <span className="mt-2 block h-3 w-full rounded-full bg-[var(--c-deep)]" />
         </div>
       </div>
@@ -50,7 +50,7 @@ function SocialPreview() {
   ];
   return (
     <>
-      <div className="pv pv-up absolute left-[7%] top-[12%] w-[54%] rounded-[14px] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-2.5 shadow-[0_26px_50px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)]">
+      <div className="pv pv-up absolute left-[7%] top-[12%] w-[54%] rounded-[calc(14px*var(--rs,1))] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-2.5 shadow-[0_26px_50px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)]">
         <div className="flex items-center gap-2 mb-2.5"><span className="size-6 rounded-full bg-[linear-gradient(150deg,var(--c-steel),var(--c-deep))]" /><span><span className="block h-1.5 w-12 rounded bg-[var(--c-ink)]" /><span className="mt-1 block h-1 w-8 rounded bg-[color-mix(in_srgb,var(--c-deep)_25%,transparent)]" /></span></div>
         <div className="grid grid-cols-3 gap-1">
           {tiles.map((t, i) => (
@@ -62,11 +62,11 @@ function SocialPreview() {
         </div>
         <div className="mt-2 flex items-center gap-2 text-[var(--c-slate)]"><Heart size={10} aria-hidden /><MessageCircle size={10} aria-hidden /><span className="ml-auto h-1 w-10 rounded bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /></div>
       </div>
-      <div className="pv pv-left absolute right-[6%] top-[26%] w-[42%] rounded-[14px] bg-white/85 backdrop-blur border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-3 shadow-[0_26px_50px_-28px_color-mix(in_srgb,var(--c-ink)_50%,transparent)]">
+      <div className="pv pv-left absolute right-[6%] top-[26%] w-[42%] rounded-[calc(14px*var(--rs,1))] bg-white/85 backdrop-blur border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-3 shadow-[0_26px_50px_-28px_color-mix(in_srgb,var(--c-ink)_50%,transparent)]">
         <span className="font-mono text-[8px] tracking-[.12em] uppercase text-[var(--c-slate)]">This week</span>
         <ul className="mt-2 grid gap-1.5 text-[9.5px] text-[var(--c-ink)]">
           {[["Mon", "Carousel", "Scheduled"], ["Wed", "Reel", "Scheduled"], ["Fri", "Story", "Draft"]].map(([d, f, st]) => (
-            <li key={d} className="flex items-center gap-2 rounded-[8px] bg-[var(--c-stone)] px-2 py-1.5">
+            <li key={d} className="flex items-center gap-2 rounded-[calc(8px*var(--rs,1))] bg-[var(--c-stone)] px-2 py-1.5">
               <span className="font-mono text-[8px] text-[var(--c-slate)] w-5">{d}</span><span className="font-[550]">{f}</span>
               <span className={cn("ml-auto rounded-full px-1.5 py-px text-[7.5px]", st === "Draft" ? "border border-[color-mix(in_srgb,var(--c-deep)_20%,transparent)] text-[var(--c-slate)]" : "bg-[var(--c-deep)] text-[var(--c-stone)]")}>{st}</span>
             </li>
@@ -79,7 +79,7 @@ function SocialPreview() {
 
 function AdsPreview() {
   return (
-    <div className="pv pv-up absolute inset-x-[7%] top-[11%] -bottom-4 rounded-[14px] border border-[color-mix(in_srgb,var(--c-blue-grey)_14%,transparent)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--c-blue-grey)_10%,transparent),color-mix(in_srgb,var(--c-blue-grey)_3%,transparent))] p-3.5 text-[var(--c-stone)]">
+    <div className="pv pv-up absolute inset-x-[7%] top-[11%] -bottom-4 rounded-[calc(14px*var(--rs,1))] border border-[color-mix(in_srgb,var(--c-blue-grey)_14%,transparent)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--c-blue-grey)_10%,transparent),color-mix(in_srgb,var(--c-blue-grey)_3%,transparent))] p-3.5 text-[var(--c-stone)]">
       <div className="flex items-center gap-1.5">
         <span className="rounded-full bg-[var(--c-stone)] text-[var(--c-ink)] px-2 py-0.5 text-[8.5px] font-[600]">Meta</span>
         <span className="rounded-full border border-[color-mix(in_srgb,var(--c-blue-grey)_25%,transparent)] px-2 py-0.5 text-[8.5px] text-[var(--c-on-dark-2)]">Google</span>
@@ -87,7 +87,7 @@ function AdsPreview() {
       </div>
       <div className="mt-3 grid grid-cols-3 gap-1.5">
         {[["Reach", "Prospecting"], ["Clicks", "Retargeting"], ["Leads", "Lead form"]].map(([k, v]) => (
-          <span key={k} className="rounded-[8px] bg-[color-mix(in_srgb,var(--c-blue-grey)_7%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] px-2 py-1.5">
+          <span key={k} className="rounded-[calc(8px*var(--rs,1))] bg-[color-mix(in_srgb,var(--c-blue-grey)_7%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] px-2 py-1.5">
             <span className="block text-[7.5px] font-mono uppercase tracking-[.08em] text-[var(--c-on-dark-2)]">{k}</span>
             <span className="mt-1 block h-1.5 w-[70%] rounded bg-[var(--c-steel-light)]" /><span className="mt-1 block text-[7.5px] text-[var(--c-on-dark-2)] truncate">{v}</span>
           </span>
@@ -121,14 +121,14 @@ function AutomationPreview() {
         <span className="traveller absolute left-[16%] top-[19px] size-[7px] rounded-full bg-[var(--c-deep)] shadow-[0_0_0_4px_color-mix(in_srgb,var(--c-steel)_25%,transparent)]" style={{ ["--dist" as string]: "calc(100cqw * .6)" }} aria-hidden />
         {nodes.map(({ icon: I, t, d }, i) => (
           <div key={t} className="relative flex flex-col items-center text-center">
-            <span className={cn("size-11 rounded-[14px] inline-flex items-center justify-center border shadow-[0_14px_26px_-16px_color-mix(in_srgb,var(--c-ink)_50%,transparent)]",
+            <span className={cn("size-11 rounded-[calc(14px*var(--rs,1))] inline-flex items-center justify-center border shadow-[0_14px_26px_-16px_color-mix(in_srgb,var(--c-ink)_50%,transparent)]",
               i === 1 ? "bg-[var(--c-deep)] text-[var(--c-stone)] border-transparent pulse" : "bg-[var(--c-paper)] text-[var(--c-deep)] border-[color-mix(in_srgb,var(--c-deep)_12%,transparent)]")}><I size={18} aria-hidden /></span>
             <span className="mt-2.5 text-[10.5px] font-[600] text-[var(--c-ink)]">{t}</span>
             <span className="text-[9px] text-[var(--c-text-2)]">{d}</span>
           </div>
         ))}
       </div>
-      <div className="pv pv-up mx-auto w-full max-w-[330px] rounded-[12px] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-2.5 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--c-ink)_45%,transparent)]">
+      <div className="pv pv-up mx-auto w-full max-w-[330px] rounded-[calc(12px*var(--rs,1))] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-2.5 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--c-ink)_45%,transparent)]">
         <div className="flex items-center gap-2 text-[9px] text-[var(--c-slate)]"><Sparkles size={10} className="text-[var(--c-steel-text)]" aria-hidden /><span className="font-mono uppercase tracking-[.1em] text-[7.5px]">Auto-reply sent</span><span className="ml-auto inline-flex items-center gap-1 text-[var(--c-steel-text)]"><Check size={10} aria-hidden />CRM updated</span></div>
         <p className="mt-1.5 text-[10px] leading-snug text-[var(--c-ink)]">Thanks for getting in touch — Thursday at 11:00 works. A calendar invite is on its way.</p>
       </div>
@@ -139,7 +139,7 @@ function AutomationPreview() {
 function DashboardsPreview() {
   const bars = [42, 58, 50, 72, 64, 86, 78];
   return (
-    <div className="pv pv-up absolute left-[6%] right-[6%] top-[11%] -bottom-4 rounded-[14px] border border-[color-mix(in_srgb,var(--c-blue-grey)_14%,transparent)] bg-[color-mix(in_srgb,var(--c-blue-grey)_5%,transparent)] flex overflow-hidden text-[var(--c-stone)]">
+    <div className="pv pv-up absolute left-[6%] right-[6%] top-[11%] -bottom-4 rounded-[calc(14px*var(--rs,1))] border border-[color-mix(in_srgb,var(--c-blue-grey)_14%,transparent)] bg-[color-mix(in_srgb,var(--c-blue-grey)_5%,transparent)] flex overflow-hidden text-[var(--c-stone)]">
       <div className="w-[13%] min-w-[34px] border-r border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] py-3 flex flex-col items-center gap-2.5">
         <span className="size-4 rounded-[5px] bg-[var(--c-steel-light)]" />{[0, 1, 2, 3].map((i) => <span key={i} className={cn("h-1.5 w-[50%] rounded", i === 0 ? "bg-[color-mix(in_srgb,var(--c-blue-grey)_60%,transparent)]" : "bg-[color-mix(in_srgb,var(--c-blue-grey)_18%,transparent)]")} />)}
       </div>
@@ -147,17 +147,17 @@ function DashboardsPreview() {
         <div className="flex items-center"><span className="h-1.5 w-16 rounded bg-[color-mix(in_srgb,var(--c-stone)_80%,transparent)]" /><span className="ml-auto font-mono text-[7.5px] tracking-[.1em] uppercase text-[var(--c-on-dark-2)]">Illustrative</span></div>
         <div className="mt-2.5 grid grid-cols-3 gap-1.5">
           {["Leads", "Bookings", "Open tasks"].map((k, i) => (
-            <span key={k} className="rounded-[8px] bg-[color-mix(in_srgb,var(--c-blue-grey)_7%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] px-2 py-1.5">
+            <span key={k} className="rounded-[calc(8px*var(--rs,1))] bg-[color-mix(in_srgb,var(--c-blue-grey)_7%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] px-2 py-1.5">
               <span className="block text-[7.5px] font-mono uppercase tracking-[.08em] text-[var(--c-on-dark-2)] truncate">{k}</span>
               <span className="mt-1.5 flex items-end gap-1"><i className="h-2 rounded bg-[var(--c-stone)]" style={{ width: `${44 - i * 8}%` }} /><i className="h-1 w-3 rounded bg-[#9fd0b8]" /></span>
             </span>
           ))}
         </div>
         <div className="mt-2.5 grid grid-cols-[1.6fr_1fr] gap-2 h-[calc(100%-86px)] min-h-[90px]">
-          <div className="rounded-[8px] bg-[color-mix(in_srgb,var(--c-blue-grey)_5%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_8%,transparent)] p-2 flex items-end gap-1.5">
+          <div className="rounded-[calc(8px*var(--rs,1))] bg-[color-mix(in_srgb,var(--c-blue-grey)_5%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_8%,transparent)] p-2 flex items-end gap-1.5">
             {bars.map((h, i) => <span key={i} className="bar-grow auto flex-1 rounded-[3px] bg-[linear-gradient(180deg,var(--c-steel-light),var(--c-steel))]" style={{ height: `${h}%`, ["--i" as string]: i }} />)}
           </div>
-          <div className="rounded-[8px] bg-[color-mix(in_srgb,var(--c-blue-grey)_5%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_8%,transparent)] p-2 flex items-center justify-center">
+          <div className="rounded-[calc(8px*var(--rs,1))] bg-[color-mix(in_srgb,var(--c-blue-grey)_5%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_8%,transparent)] p-2 flex items-center justify-center">
             <svg viewBox="0 0 36 36" className="w-[72%] max-w-[78px] -rotate-90" aria-hidden>
               <circle cx="18" cy="18" r="14" fill="none" stroke="color-mix(in srgb, var(--c-blue-grey) 14%, transparent)" strokeWidth="5" />
               <circle cx="18" cy="18" r="14" fill="none" stroke="var(--c-steel-light)" strokeWidth="5" strokeDasharray="56 88" strokeLinecap="round" />

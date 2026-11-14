@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare-content": "node scripts/prepare-content.mjs",
+    "predev": "node scripts/prepare-content.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/prepare-content.mjs",
     "build": "next build",
+    "postbuild": "node -e \"require('fs').rmSync('out/__no-custom-pages',{recursive:true,force:true})\"",
     "start": "next start",
     "lint": "eslint"
   },
@@ -17,12 +21,24 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@fontsource-variable/cormorant-garamond": "^5.3.0",
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/outfit": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "@fontsource-variable/sora": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "image-size": "^2.1.0",
+    "sanitize-html": "^2.18.2",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   }

@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element -- uploaded logo files are served as-is */
 import { cn } from "@/lib/cn";
+import { theme } from "@/content/builder";
+import { site } from "@/content/site";
 
 /**
  * Keelbiz mark (v2). A "K" built from a single stem and two strokes: the upper arm is a straight
@@ -19,11 +22,26 @@ export function LogoMark({ className, title }: { className?: string; title?: str
   );
 }
 
+/** Uploaded logo (admin panel → Design & theme → Brand files). "onDark" version swaps in on dark backgrounds. */
+export function UploadedLogo({ className, dark = false }: { className?: string; dark?: boolean }) {
+  const { logo, logoOnDark, logoHeight } = theme.brand;
+  if (!logo) return null;
+  const style = { height: logoHeight, width: "auto" } as const;
+  if (dark) return <img src={(logoOnDark ?? logo).src} alt={site.brand} style={style} className={cn("block", className)} />;
+  return (
+    <span className={cn("inline-flex items-center", className)}>
+      <img src={logo.src} alt={site.brand} style={style} className={cn("block", logoOnDark && "logo-img-light")} />
+      {logoOnDark && <img src={logoOnDark.src} alt={site.brand} style={style} className="logo-img-dark" />}
+    </span>
+  );
+}
+
 export function Logo({ className, markClassName }: { className?: string; markClassName?: string }) {
+  if (theme.brand.logo) return <UploadedLogo className={className} />;
   return (
     <span className={cn("inline-flex items-center gap-2.5 text-text", className)}>
       <LogoMark className={cn("size-8 text-[color:var(--logo-fill)]", markClassName)} />
-      <span className="font-sans text-[1.15rem] font-[620] tracking-[-0.045em] leading-none">keelbiz</span>
+      <span className="font-sans text-[1.15rem] font-[620] tracking-[-0.045em] leading-none">{site.brand.toLowerCase()}</span>
     </span>
   );
 }

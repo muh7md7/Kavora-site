@@ -49,7 +49,7 @@ export default function ContactPage() {
                 <li>{thirdPartyNote}</li>
               </ul>
             </div>
-            {site.features.bookingEmbed && <div className="rounded-[24px] border border-line p-6 text-sm text-text-2">Booking embed goes here once configured.</div>}
+            {site.features.bookingEmbed && <div className="rounded-[calc(24px*var(--rs,1))] border border-line p-6 text-sm text-text-2">Booking embed goes here once configured.</div>}
           </aside>
         </div>
       </Tone>

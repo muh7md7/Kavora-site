@@ -70,7 +70,7 @@ export function WebsitePreview({ className }: { className?: string }) {
       <div ref={stage} className="w-full flex justify-center overflow-hidden" style={{ height: Math.round((device === "phone" ? 640 : 560) * scale) + 28 }}>
         <div className="origin-top transition-[width] duration-700 ease-[cubic-bezier(.22,1,.36,1)]" style={{ width: d.width, transform: `scale(${scale})` }}>
           {/* Device chrome */}
-          <div className={cn("rounded-[22px] border border-[color-mix(in_srgb,var(--c-steel-light)_22%,transparent)] bg-[var(--c-deep-2)] p-2 shadow-[0_40px_80px_-40px_rgba(0,0,0,.7)]", device === "phone" && "rounded-[34px] p-2.5")}>
+          <div className={cn("rounded-[calc(22px*var(--rs,1))] border border-[color-mix(in_srgb,var(--c-steel-light)_22%,transparent)] bg-[var(--c-deep-2)] p-2 shadow-[0_40px_80px_-40px_rgba(0,0,0,.7)]", device === "phone" && "rounded-[calc(34px*var(--rs,1))] p-2.5")}>
             {device !== "phone" && (
               <div className="flex items-center gap-2 px-2 pb-2">
                 <span className="flex gap-1.5" aria-hidden><i className="size-2.5 rounded-full bg-[color-mix(in_srgb,var(--c-steel-light)_25%,transparent)]" /><i className="size-2.5 rounded-full bg-[color-mix(in_srgb,var(--c-steel-light)_25%,transparent)]" /><i className="size-2.5 rounded-full bg-[color-mix(in_srgb,var(--c-steel-light)_25%,transparent)]" /></span>
@@ -78,12 +78,12 @@ export function WebsitePreview({ className }: { className?: string }) {
               </div>
             )}
             {/* Site */}
-            <div data-theme={theme} className={cn("site-preview tone tone-grad overflow-hidden", device === "phone" ? "rounded-[26px]" : "rounded-[14px]")} style={{ height: device === "phone" ? 616 : 522 }}>
+            <div data-theme={theme} className={cn("site-preview tone tone-grad overflow-hidden", device === "phone" ? "rounded-[calc(26px*var(--rs,1))]" : "rounded-[calc(14px*var(--rs,1))]")} style={{ height: device === "phone" ? 616 : 522 }}>
               <div className="@container h-full overflow-y-auto overscroll-contain [scrollbar-width:thin]">
                 {/* nav */}
                 <div className="sticky top-0 z-10 px-4 pt-3">
-                  <div className="glass rounded-[12px] h-11 px-3 flex items-center justify-between">
-                    <span className="flex items-center gap-2"><span className="size-5 rounded-[6px] bg-[var(--graphite)]" aria-hidden /><span className="text-[0.8rem] font-[620] tracking-[-0.02em]">Northwind Studio</span></span>
+                  <div className="glass rounded-[calc(12px*var(--rs,1))] h-11 px-3 flex items-center justify-between">
+                    <span className="flex items-center gap-2"><span className="size-5 rounded-[calc(6px*var(--rs,1))] bg-[var(--graphite)]" aria-hidden /><span className="text-[0.8rem] font-[620] tracking-[-0.02em]">Northwind Studio</span></span>
                     <span className="hidden @[560px]:flex items-center gap-4 text-[0.74rem] text-text-2">{["Work", "Services", "Studio", "Journal"].map((t) => <span key={t}>{t}</span>)}</span>
                     <span className="h-7 px-3 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.7rem] font-[550] inline-flex items-center">Enquire</span>
                   </div>
@@ -100,9 +100,9 @@ export function WebsitePreview({ className }: { className?: string }) {
                     </div>
                   </div>
                   <div className="@[720px]:col-span-5 grid grid-cols-3 gap-2" aria-hidden>
-                    <span className="col-span-2 row-span-2 aspect-[4/3] rounded-[14px] bg-[linear-gradient(135deg,var(--steel-blue),var(--bg-2)_70%)]" />
-                    <span className="aspect-square rounded-[14px] bg-[var(--steel-soft)]" />
-                    <span className="aspect-square rounded-[14px] bg-[var(--graphite)]" />
+                    <span className="col-span-2 row-span-2 aspect-[4/3] rounded-[calc(14px*var(--rs,1))] bg-[linear-gradient(135deg,var(--steel-blue),var(--bg-2)_70%)]" />
+                    <span className="aspect-square rounded-[calc(14px*var(--rs,1))] bg-[var(--steel-soft)]" />
+                    <span className="aspect-square rounded-[calc(14px*var(--rs,1))] bg-[var(--graphite)]" />
                   </div>
                 </div>
                 {/* services */}
@@ -112,7 +112,7 @@ export function WebsitePreview({ className }: { className?: string }) {
                   </div>
                   <ul className="mt-4 grid gap-2 @[560px]:grid-cols-3">
                     {[["Residential", "Apartments, villas and family homes."], ["Hospitality", "Restaurants, cafés and boutique stays."], ["Workplace", "Studios and offices that work."]].map(([t, s], i) => (
-                      <li key={t} className="rounded-[14px] border border-line bg-surface p-4"><span className="num">0{i + 1}</span><span className="block mt-2 font-[550] text-[0.9rem]">{t}</span><span className="block text-[0.76rem] text-text-2 mt-1">{s}</span></li>
+                      <li key={t} className="rounded-[calc(14px*var(--rs,1))] border border-line bg-surface p-4"><span className="num">0{i + 1}</span><span className="block mt-2 font-[550] text-[0.9rem]">{t}</span><span className="block text-[0.76rem] text-text-2 mt-1">{s}</span></li>
                     ))}
                   </ul>
                 </div>
@@ -120,12 +120,12 @@ export function WebsitePreview({ className }: { className?: string }) {
                 <div data-theme={theme === "light" ? "dark" : "light"} className="tone tone-grad px-5 py-8">
                   <div className="grid gap-5 @[640px]:grid-cols-[1fr_1.2fr] @[640px]:items-center">
                     <div><span className="eyebrow">Process</span><p className="mt-2 text-[1.2rem] font-[560] tracking-[-0.03em] leading-tight">Concept, design, build — <span className="accent">one team.</span></p></div>
-                    <ol className="grid gap-2 @[400px]:grid-cols-3">{["Brief & survey", "Design & samples", "Build & handover"].map((t, i) => <li key={t} className="rounded-[12px] border border-line bg-surface p-3 text-[0.76rem]"><span className="num block">0{i + 1}</span><span className="block mt-1 font-[550]">{t}</span></li>)}</ol>
+                    <ol className="grid gap-2 @[400px]:grid-cols-3">{["Brief & survey", "Design & samples", "Build & handover"].map((t, i) => <li key={t} className="rounded-[calc(12px*var(--rs,1))] border border-line bg-surface p-3 text-[0.76rem]"><span className="num block">0{i + 1}</span><span className="block mt-1 font-[550]">{t}</span></li>)}</ol>
                   </div>
                 </div>
                 {/* enquiry */}
                 <div className="px-5 py-8">
-                  <div className="rounded-[16px] border border-line bg-surface p-5 grid gap-3 @[560px]:grid-cols-[1fr_auto] @[560px]:items-center">
+                  <div className="rounded-[calc(16px*var(--rs,1))] border border-line bg-surface p-5 grid gap-3 @[560px]:grid-cols-[1fr_auto] @[560px]:items-center">
                     <div><span className="font-[560] tracking-[-0.02em] text-[1rem]">Tell us about your space</span><span className="block text-[0.78rem] text-text-2 mt-1">We reply within two working days.</span></div>
                     <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); setSent(true); }} aria-label="Sample enquiry (demo — nothing is sent)">
                       <label className="sr-only" htmlFor={`${id}-mail`}>Email (demo)</label>

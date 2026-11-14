@@ -1,0 +1,35 @@
+{
+  "header": {
+    "links": [
+      { "label": "Home", "link": "/", "servicesMenu": false },
+      { "label": "Services", "link": "/services/", "servicesMenu": true },
+      { "label": "Work", "link": "/work/", "servicesMenu": false },
+      { "label": "About", "link": "/about/", "servicesMenu": false },
+      { "label": "Contact", "link": "/contact/", "servicesMenu": false }
+    ],
+    "button": { "label": "Start a Project", "link": "/contact/" }
+  },
+  "footer": {
+    "showCta": true,
+    "servicesTitle": "Services",
+    "showServices": true,
+    "servicesExtra": [
+      { "label": "AI Solutions", "link": "/ai-solutions/" },
+      { "label": "Build your solution", "link": "/contact/?type=solution" }
+    ],
+    "companyTitle": "Company",
+    "companyLinks": [
+      { "label": "Work", "link": "/work/" },
+      { "label": "About", "link": "/about/" },
+      { "label": "Contact", "link": "/contact/" }
+    ],
+    "contactTitle": "Contact",
+    "showContact": true,
+    "legalLinks": [
+      { "label": "Privacy", "link": "/legal/privacy/" },
+      { "label": "Terms", "link": "/legal/terms/" },
+      { "label": "Cookies", "link": "/legal/cookies/" }
+    ],
+    "showWordmark": true
+  }
+}

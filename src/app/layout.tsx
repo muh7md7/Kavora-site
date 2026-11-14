@@ -7,6 +7,7 @@ import { site } from "@/content/site";
 import { Header } from "@/components/sections/Header";
 import { Footer } from "@/components/sections/Footer";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
+import { theme } from "@/content/builder";
 
 // Self-hosted WOFF2 (SIL OFL). Geist = display + UI; Instrument Serif italic = single accent word.
 const serif = localFont({
@@ -23,16 +24,22 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.brand} — Build, grow and automate your business`, template: `%s · ${site.brand}` },
   description: "Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards.",
-  openGraph: { type: "website", siteName: site.brand, images: ["/og/default.png"] },
+  openGraph: { type: "website", siteName: site.brand, images: [theme.brand.shareImage?.src ?? "/og/default.png"] },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
+  // Favicon + share image can be replaced in the admin panel (🎨 Design & theme → Brand files).
+  icons: theme.brand.favicon
+    ? { icon: theme.brand.favicon.src, apple: theme.brand.favicon.src }
+    : { icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/icon.svg", type: "image/svg+xml" }], apple: "/apple-icon.png" },
 };
 
-export const viewport: Viewport = { themeColor: "var(--c-paper)", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: theme.background, width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${serif.variable} ${geist.variable} ${geistMono.variable}`}>
+      <head>
+        {theme.preload.slice(0, 2).map((href) => <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="anonymous" />)}
+      </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <Header />

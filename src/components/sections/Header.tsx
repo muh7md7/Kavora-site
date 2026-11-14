@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import { GlassNavbar } from "@/components/glass/GlassNavbar";
 import { MobileSheet } from "@/components/glass/MobileSheet";
 import { Cursor } from "./Cursor";
+import { theme } from "@/content/builder";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,7 @@ export function Header() {
     <header>
       <GlassNavbar onOpenMobile={() => setOpen(true)} />
       <MobileSheet open={open} onClose={close} />
-      <Cursor />
+      {theme.cursor && <Cursor />}
     </header>
   );
 }

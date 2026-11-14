@@ -1,0 +1,12 @@
+{
+  "sections": [
+    { "type": "homeHero", "hidden": false, "layout": "visual-right", "background": "auto" },
+    { "type": "homeServices", "hidden": false, "layout": "bento", "background": "auto" },
+    { "type": "homeShowcase", "hidden": false, "background": "auto" },
+    { "type": "homeWhy", "hidden": false, "background": "auto" },
+    { "type": "homeFlexible", "hidden": false, "background": "auto" },
+    { "type": "homeProcess", "hidden": false, "layout": "side", "background": "auto" },
+    { "type": "homeAi", "hidden": false, "background": "auto" },
+    { "type": "homeFaq", "hidden": false, "layout": "side", "background": "auto" }
+  ]
+}

@@ -9,7 +9,8 @@ import { ServicesBento } from "./Bento";
 import { Faq } from "./Faq";
 import { Reveal } from "./Reveal";
 import { ProcessSteps } from "./ProcessSteps";
-import { HeadText, Tone } from "./Tone";
+import { HeadText, Tone, toneOf } from "./Tone";
+import { ServiceFeatureList } from "./Bento";
 import { cn } from "@/lib/cn";
 
 /** The loop diagram — four stations on a slow orbit with one travelling light. */
@@ -70,19 +71,20 @@ export function Intro() {
   );
 }
 
-export function Services() {
+export function Services({ bg, layout = "bento", h = home.services }: { bg?: string; layout?: "bento" | "list"; h?: { eyebrow?: string; title: string; accent?: string; after?: string; lead?: string } }) {
+  const isHome = h === home.services;
   return (
-    <Tone tone="mist" className="section" id="services" aria-labelledby="svc-h">
+    <Tone {...toneOf(bg, { tone: "mist" })} className="section" id={isHome ? "services" : undefined} aria-labelledby={isHome ? "svc-h" : undefined}>
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-12 items-end">
-          <Reveal className="lg:col-span-7"><p className="eyebrow">{home.services.eyebrow}</p><h2 id="svc-h" className="mt-5 max-w-[16ch]"><HeadText h={home.services} /></h2></Reveal>
-          <Reveal className="lg:col-span-5" index={1}><p className="lead">{home.services.lead}</p></Reveal>
+          <Reveal className="lg:col-span-7">{h.eyebrow && <p className="eyebrow">{h.eyebrow}</p>}<h2 id={isHome ? "svc-h" : undefined} className="mt-5 max-w-[16ch]"><HeadText h={h} /></h2></Reveal>
+          {h.lead && <Reveal className="lg:col-span-5" index={1}><p className="lead">{h.lead}</p></Reveal>}
         </div>
-        <div className="mt-14"><ServicesBento /></div>
-        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-line pt-7">
+        <div className="mt-14">{layout === "list" ? <ServiceFeatureList /> : <ServicesBento />}</div>
+        {isHome && <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-line pt-7">
           <p className="text-text-2 text-[0.92rem]">{home.services.note}</p>
           <Link href="/contact/" className="btn btn-ghost">{home.services.helpLink} <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
-        </Reveal>
+        </Reveal>}
       </div>
     </Tone>
   );
@@ -108,26 +110,27 @@ export function AutomationShowcase() {
   );
 }
 
-export function Process() {
+export function Process({ bg, layout = "side" }: { bg?: string; layout?: "side" | "stacked" }) {
+  const stacked = layout === "stacked";
   return (
-    <Tone tone="warm" className="section" aria-labelledby="proc-h">
-      <div className="container grid gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
+    <Tone {...toneOf(bg, { tone: "warm" })} className="section" aria-labelledby="proc-h">
+      <div className={cn("container grid gap-14", !stacked && "lg:grid-cols-12")}>
+        <div className={cn(stacked ? "max-w-3xl" : "lg:col-span-5 lg:sticky lg:top-32 self-start")}>
           <Reveal>
             <p className="eyebrow">{home.process.eyebrow}</p>
             <h2 id="proc-h" className="mt-5"><HeadText h={home.process} /></h2>
             <p className="lead mt-6">{home.process.lead}</p>
           </Reveal>
         </div>
-        <div className="lg:col-span-7"><ProcessSteps items={steps} /></div>
+        <div className={cn(!stacked && "lg:col-span-7")}><ProcessSteps items={steps} /></div>
       </div>
     </Tone>
   );
 }
 
-export function SeeItInAction() {
+export function SeeItInAction({ bg }: { bg?: string }) {
   return (
-    <Tone tone="dark" grad grid className="section overflow-hidden" aria-labelledby="see-h">
+    <Tone {...toneOf(bg, { tone: "dark", grad: true, grid: true })} className="section overflow-hidden" aria-labelledby="see-h">
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-12 items-end">
           <Reveal className="lg:col-span-7"><p className="eyebrow">{home.showcase.eyebrow}</p><h2 id="see-h" className="mt-5"><HeadText h={home.showcase} /></h2></Reveal>
@@ -139,9 +142,9 @@ export function SeeItInAction() {
   );
 }
 
-export function WhyUs() {
+export function WhyUs({ bg }: { bg?: string }) {
   return (
-    <Tone tone="light" className="section" aria-labelledby="why-h">
+    <Tone {...toneOf(bg, { tone: "light" })} className="section" aria-labelledby="why-h">
       <div className="container grid gap-14 lg:grid-cols-12">
         <Reveal className="lg:col-span-4">
           <p className="eyebrow">{home.why.eyebrow}</p>
@@ -167,16 +170,17 @@ export function WhyUs() {
 
 export function SelectedWork() { return null; } // merged into WhyUs (no approved case studies yet)
 
-export function HomeFaq() {
+export function HomeFaq({ bg, layout = "side" }: { bg?: string; layout?: "side" | "stacked" }) {
+  const stacked = layout === "stacked";
   return (
-    <Tone tone="light" alt className="section" aria-labelledby="faq-h">
-      <div className="container grid gap-14 lg:grid-cols-12">
-        <Reveal className="lg:col-span-4">
+    <Tone {...toneOf(bg, { tone: "light", alt: true })} className="section" aria-labelledby="faq-h">
+      <div className={cn("container grid gap-14", stacked ? "max-w-[56rem]" : "lg:grid-cols-12")}>
+        <Reveal className={cn(stacked ? "text-center [&_.lead]:mx-auto" : "lg:col-span-4")}>
           <p className="eyebrow">{home.faq.eyebrow}</p>
           <h2 id="faq-h" className="mt-5"><HeadText h={home.faq} /></h2>
           <p className="lead mt-6">{home.faq.lead}</p>
         </Reveal>
-        <Reveal className="lg:col-span-8" index={1}><Faq items={homeFaq} /></Reveal>
+        <Reveal className={cn(!stacked && "lg:col-span-8")} index={1}><Faq items={homeFaq} /></Reveal>
       </div>
     </Tone>
   );

@@ -35,7 +35,7 @@ export function Showcase() {
       <Tabs ariaLabel="Choose a service to preview" variant="top" items={items.map(({ id, label, icon }) => ({ id, label, icon }))} value={active} onChange={setActive} className="px-1 sm:px-2 pt-1">
         {() => (
           <>
-            <div className="relative rounded-[22px] border border-line bg-bg-2/60 p-4 sm:p-8 min-h-[480px] flex items-center justify-center overflow-hidden">
+            <div className="relative rounded-[calc(22px*var(--rs,1))] border border-line bg-bg-2/60 p-4 sm:p-8 min-h-[480px] flex items-center justify-center overflow-hidden">
               <div className="w-full panel-enter flex justify-center">{near ? <ServiceDemo id={cur.id} /> : null}</div>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-4 pt-5 pb-1">
