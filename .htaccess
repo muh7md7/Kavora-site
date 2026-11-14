@@ -3,11 +3,6 @@ RewriteEngine On
 # HTTP -> HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# One address only: www and the temporary Hostinger address go to keelbiz.com (the publish/enquiry API is left reachable)
-RewriteCond %{HTTP_HOST} ^www\.keelbiz\.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} \.hostingersite\.com$ [NC]
-RewriteCond %{REQUEST_URI} !^/api/
-RewriteRule ^ https://keelbiz.com%{REQUEST_URI} [L,R=301]
 # Serve trailing-slash folders; custom 404
 ErrorDocument 404 /404.html
 # Retired sections
