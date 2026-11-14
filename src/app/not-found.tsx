@@ -8,7 +8,7 @@ export default function NotFound() {
       <div className="container relative">
         <p className="eyebrow">{t("Error 404")}</p>
         <h1 className="display mt-6">{t("Lost at")}{" "}<span className="accent">{t("sea.")}</span></h1>
-        <p className="lead mt-6">The page you&apos;re looking for has moved or never existed.</p>
+        <p className="lead mt-6">{t("The page you're looking for has moved or never existed.")}</p>
         <Link href="/" className="btn btn-premium mt-10">{t("Take me home")}{" "}<ArrowUpRight size={17} className="btn-arrow" aria-hidden /></Link>
       </div>
     </section>

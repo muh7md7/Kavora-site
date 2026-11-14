@@ -13,8 +13,8 @@ import { ServiceStage } from "@/components/sections/Bento";
 import type { ServiceId } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Work",
-  description: "Keelbiz case studies — published only with client permission and verified results — plus clearly labelled interface demonstrations with sample data.",
+  title: t("Work"),
+  description: t("Keelbiz case studies \u2014 published only with client permission and verified results \u2014 plus clearly labelled interface demonstrations with sample data."),
   alternates: { canonical: "/work/" },
 };
 

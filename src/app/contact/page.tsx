@@ -8,7 +8,7 @@ import { t } from "@/i18n";
 
 export const metadata: Metadata = {
   title: t("Contact — start a project"),
-  description: "Tell Keelbiz what you need — one service or a complete solution. We reply with options and a custom quote.",
+  description: t("Tell Keelbiz what you need \u2014 one service or a complete solution. We reply with options and a custom quote."),
   alternates: { canonical: "/contact/" },
 };
 

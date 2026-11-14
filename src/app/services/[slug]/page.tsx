@@ -1,4 +1,4 @@
-import { t } from "@/i18n";
+import { t, isAr } from "@/i18n";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { services } from "@/content/site";
@@ -40,7 +40,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const next = services[(idx + 1) % services.length];
   return (
     <>
-      <PageHero eyebrow={`Service 0${idx + 1} of 05`} title={s.name.split(" ").slice(0, -1).join(" ")} accent={s.name.split(" ").slice(-1)[0]} lead={s.definition}
+      <PageHero eyebrow={isAr ? `الخدمة ${idx + 1} من 5` : `Service 0${idx + 1} of 05`} title={isAr ? s.name : s.name.split(" ").slice(0, -1).join(" ")} accent={isAr ? undefined : s.name.split(" ").slice(-1)[0]} lead={s.definition}
         aside={<Reveal className="device"><ServiceStage id={s.id} scale={1.32} className="!h-[300px] sm:!h-[360px] lg:!h-[400px]" /><p className="px-2 pt-2.5 text-[0.75rem] text-text-2 font-mono tracking-[.04em]">{t("Illustrative interface · sample content")}</p></Reveal>}>
         <div className="mt-9 flex flex-wrap items-center gap-3">
           <Button href={`/contact/?services=${s.id}`}>{s.cta}</Button>
@@ -102,7 +102,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <Tone tone="light" alt className="section">
         <div className="container grid gap-14 lg:grid-cols-12 mb-24">
           <Reveal className="lg:col-span-4"><p className="eyebrow">{t("Works well with")}</p><h2 className="mt-5">{t("Optional")}{" "}<span className="accent">{t("extras.")}</span></h2>
-            <p className="text-text-2 mt-5">Only if they help. {s.name} is available on its own.</p></Reveal>
+            <p className="text-text-2 mt-5">{isAr ? <>فقط حين يفيدك ذلك. {s.name} متاحة بمفردها.</> : <>Only if they help. {s.name} is available on its own.</>}</p></Reveal>
           <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-3 self-start">
             {s.pairsWith.map((p, i) => { const o = services.find((x) => x.id === p.id)!; return (
               <Reveal as="li" key={p.id} index={i}>

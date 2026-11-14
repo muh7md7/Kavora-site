@@ -42,7 +42,7 @@ export function FlexibleSolutions({ bg }: { bg?: string }) {
             </article>
           </Reveal>
           <Reveal index={1}>
-            <article data-theme="dark" className="card h-full p-8 md:p-10 flex flex-col relative overflow-hidden !bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_35%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] text-text !border-transparent shadow-[0_50px_90px_-50px_color-mix(in_srgb,var(--c-ink)_70%,transparent)]">
+            <article data-theme="dark" className="card h-full p-8 md:p-10 flex flex-col relative overflow-hidden feature-card text-text !border-transparent shadow-[0_50px_90px_-50px_color-mix(in_srgb,var(--c-ink)_70%,transparent)]">
               <span className="size-11 rounded-[calc(12px*var(--rs,1))] bg-[var(--steel-blue)] text-[var(--c-ink)] inline-flex items-center justify-center" aria-hidden><Layers size={20} /></span>
               <h3 className="mt-8 !text-[clamp(1.6rem,1.3rem+1vw,2.2rem)]">{f.completeTitle}</h3>
               <p className="text-text-2 mt-3 text-[1.02rem]">{f.completeText}</p>
@@ -79,7 +79,7 @@ export function AiOffer({ tone = "light", bg }: { tone?: "light" | "dark"; bg?: 
         <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {aiOffer.paths.map((p, i) => (
             <Reveal key={p.id} index={i}>
-              <article data-spot data-theme={i === 1 ? "dark" : undefined} className={cn("card card-hover h-full p-7 flex flex-col", i === 1 && "!bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_35%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] !border-transparent text-text")}>
+              <article data-spot data-theme={i === 1 ? "dark" : undefined} className={cn("card card-hover h-full p-7 flex flex-col", i === 1 && "feature-card !border-transparent text-text")}>
                 <span className="num">0{i + 1}</span>
                 <h3 className="mt-5 !text-[1.45rem]">{p.title}</h3>
                 <p className="text-text-2 mt-2">{p.lead}</p>

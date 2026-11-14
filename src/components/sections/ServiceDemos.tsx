@@ -14,7 +14,7 @@ function ReelShowcase() {
   return (
     <div className="flex gap-3 justify-center flex-wrap">
       {["Hook", "Value", "CTA"].map((t, i) => (
-        <div key={t} className="glass rounded-lg p-1.5 w-32"><div className="rounded-md bg-[url('/backdrops/abstract-1.svg')] bg-cover aspect-[9/16] flex flex-col justify-end p-2"><span className="chip chip-navy">{t}</span><span className="text-[10px] text-slate mt-1">Reel frame {i + 1} · 9:16</span></div></div>
+        <div key={t} className="glass rounded-lg p-1.5 w-32"><div className="reel-frame rounded-md bg-[url('/backdrops/abstract-1.svg')] bg-cover aspect-[9/16] flex flex-col justify-end p-2"><span className="chip chip-navy">{t}</span><span className="text-[10px] text-slate mt-1">Reel frame {i + 1} · 9:16</span></div></div>
       ))}
     </div>
   );
@@ -26,8 +26,8 @@ function CalendarMock() {
   return (
     <div className="glass rounded-lg p-4 w-full max-w-2xl">
       <div className="flex items-center justify-between mb-3"><span className="font-semibold text-sm">{t("Content calendar · Week 1")}</span><Label t="Illustrative" /></div>
-      <div className="grid grid-cols-7 gap-2">{days.map((d, i) => (
-        <div key={d} className="rounded-sm hairline bg-surface p-2 min-h-16"><div className="text-[10px] text-slate">{d}</div>{kinds[i] && <span className={`chip mt-1 ${i % 2 ? "chip-navy" : "chip-sage"}`}>{kinds[i]}</span>}</div>
+      <div className="grid grid-cols-7 gap-1.5 sm:gap-2">{days.map((d, i) => (
+        <div key={d} className="rounded-sm hairline bg-surface p-1.5 sm:p-2 min-h-16 min-w-0 flex flex-col gap-1.5"><div className="text-[10px] text-slate truncate">{d}</div>{kinds[i] && <span className={`chip !px-1.5 !py-1 !text-[9px] sm:!text-[10px] max-w-full justify-center truncate ${i % 2 ? "chip-navy" : "chip-sage"}`}>{kinds[i]}</span>}</div>
       ))}</div>
     </div>
   );

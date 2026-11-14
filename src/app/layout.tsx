@@ -8,7 +8,7 @@ import { Header } from "@/components/sections/Header";
 import { Footer } from "@/components/sections/Footer";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { theme } from "@/content/builder";
-import { LANG, dir, isAr } from "@/i18n";
+import { LANG, dir, isAr, t } from "@/i18n";
 
 // Self-hosted WOFF2 (SIL OFL). Geist = display + UI; Instrument Serif italic = single accent word.
 const serif = localFont({
@@ -33,9 +33,9 @@ const geistMono = GeistMono; // --font-geist-mono
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.brand} — Build, grow and automate your business`, template: `%s · ${site.brand}` },
+  title: { default: `${site.brand} — ${t("Build, grow and automate your business")}`, template: `%s · ${site.brand}` },
   alternates: { languages: { en: "/", ar: "/ar/" } },
-  description: "Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards.",
+  description: t("Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards."),
   openGraph: { type: "website", siteName: site.brand, images: [theme.brand.shareImage?.src ?? "/og/default.png"] },
   twitter: { card: "summary_large_image" },
   // Favicon + share image can be replaced in the admin panel (🎨 Design & theme → Brand files).

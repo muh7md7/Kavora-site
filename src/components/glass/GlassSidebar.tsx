@@ -82,7 +82,7 @@ export function GlassSidebar({ defaultOpen = true, className }: { defaultOpen?: 
           {open && <span>{dark ? "Light" : "Dark"} theme</span>}
         </button>
         <div className={cn("flex items-center gap-3 rounded-sm px-2 py-2", open && "hairline bg-surface")}>
-          <span className="size-8 rounded-pill bg-navy text-white text-xs font-bold inline-flex items-center justify-center" aria-hidden>MK</span>
+          <span className="size-8 rounded-pill bg-navy text-white text-xs font-bold inline-flex items-center justify-center" aria-hidden>{t("MK")}</span>
           {open && <span className="text-sm leading-tight"><span className="block font-semibold">{t("Sample user")}</span><span className="block text-xs text-slate">{t("Admin · Sample data")}</span></span>}
         </div>
       </div>

@@ -59,7 +59,7 @@ export function WebsitePreview({ className }: { className?: string }) {
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <span className="num hidden sm:inline">{d.width}px · {theme}</span>
+          <span className="num hidden sm:inline">{d.width}px · {t(theme === "light" ? "Light" : "Dark")}</span>
           <button type="button" onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))} aria-pressed={theme === "dark"}
             className="h-9 px-3.5 rounded-full border border-line bg-surface text-[0.82rem] font-[550] text-text hover:bg-surface-strong transition-colors">
             {theme === "light" ? t("Dark mode") : t("Light mode")}
@@ -129,7 +129,7 @@ export function WebsitePreview({ className }: { className?: string }) {
                   <div className="rounded-[calc(16px*var(--rs,1))] border border-line bg-surface p-5 grid gap-3 @[560px]:grid-cols-[1fr_auto] @[560px]:items-center">
                     <div><span className="font-[560] tracking-[-0.02em] text-[1rem]">{t("Tell us about your space")}</span><span className="block text-[0.78rem] text-text-2 mt-1">{t("We reply by email.")}</span></div>
                     <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); setSent(true); }} aria-label={t("Sample enquiry (demo — nothing is sent)")}>
-                      <label className="sr-only" htmlFor={`${id}-mail`}>Email (demo)</label>
+                      <label className="sr-only" htmlFor={`${id}-mail`}>{t("Email (demo)")}</label>
                       <input id={`${id}-mail`} type="email" placeholder={t("you@company.com")} className="h-9 min-w-0 flex-1 rounded-full border border-line-strong bg-bg px-3 text-[0.76rem] text-text placeholder:text-text-2 focus:outline-2 focus:outline-[var(--accent)]" />
                       <button type="submit" className="h-9 px-3.5 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.74rem] font-[550] shrink-0">{sent ? "Demo only ✓" : "Send"}</button>
                     </form>

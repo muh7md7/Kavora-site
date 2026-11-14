@@ -16,7 +16,7 @@ import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: t("AI Solutions — custom agents and automation"),
-  description: "Tell us what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made solutions where available.",
+  description: t("Tell us what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made solutions where available."),
   alternates: { canonical: "/ai-solutions/" },
 };
 
@@ -40,7 +40,7 @@ export default function AiSolutionsPage() {
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             {aiOffer.paths.map((p, i) => (
               <Reveal key={p.id} index={i}>
-                <article className={cn("card h-full p-8 flex flex-col", i === 1 ? "!bg-[linear-gradient(170deg,var(--c-mist-2),color-mix(in_srgb,var(--c-paper)_60%,transparent)_70%)] !border-line-strong" : "border-line bg-surface")}>
+                <article className={cn("card h-full p-8 flex flex-col", i === 1 ? "feature-card-light !border-line-strong" : "border-line bg-surface")}>
                   <div className="flex items-center justify-between"><span className="num">0{i + 1}</span>{i === 0 && <span className="chip chip-slate">{t("Availability on request")}</span>}{i === 1 && <span className="chip chip-navy">{t("Most flexible")}</span>}</div>
                   <h2 className="mt-6 !text-[1.6rem] !leading-tight">{p.title}</h2>
                   <p className="text-text-2 mt-3">{p.lead}</p>

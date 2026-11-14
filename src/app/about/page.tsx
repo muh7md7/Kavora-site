@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
 import Link from "next/link";
@@ -12,8 +13,8 @@ import { Flywheel } from "@/components/sections/HomeSections";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Keelbiz helps businesses build, grow and automate with websites, social media, advertising, AI agents and business dashboards.",
+  title: t("About"),
+  description: t("Keelbiz helps businesses build, grow and automate with websites, social media, advertising, AI agents and business dashboards."),
   alternates: { canonical: "/about/" },
 };
 

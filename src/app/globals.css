@@ -533,7 +533,7 @@ html.dark .header-glass { background: linear-gradient(180deg, color-mix(in srgb,
 [dir="rtl"] .orbit-ring text { font-family: var(--font-arabic); letter-spacing: .04em; font-size: 13px; }
 [dir="rtl"] .input, [dir="rtl"] select.input { font-family: var(--font-arabic); }
 [dir="rtl"] select.input { background-position: left 16px center; padding-right: 16px; padding-left: 44px; }
-[dir="rtl"] .foot-wordmark, [dir="rtl"] .num, [dir="rtl"] .chip { font-family: var(--font-mono); }
+[dir="rtl"] .foot-wordmark, [dir="rtl"] .num { font-family: var(--font-mono); }
 [dir="rtl"] .foot-wordmark { font-family: var(--font-geist-sans); letter-spacing: -.075em !important; direction: ltr; }
 /* Directional icons mirror */
 [dir="rtl"] :is(.lucide-arrow-up-right, .lucide-arrow-right, .lucide-chevron-right, .lucide-arrow-left, .lucide-chevron-left, .lucide-move-right) { transform: scaleX(-1); }
@@ -581,3 +581,18 @@ html.dark .hero-fade { background: linear-gradient(180deg, transparent, var(--ni
 html.dark .bloom::before { opacity: .25; }
 .card.note-card { background: linear-gradient(160deg, var(--c-mist-2), var(--c-blue-grey)); }
 html.dark .card.note-card { background: linear-gradient(160deg, #1d3340, #16262f) !important; }
+
+/* Feature cards (were hard-coded gradients) — theme-aware */
+.card.feature-card { background: radial-gradient(80% 70% at 90% 0%, color-mix(in srgb, var(--c-steel) 35%, transparent), transparent 60%), linear-gradient(165deg, var(--c-deep-3), var(--c-deep-2)); }
+.card.feature-card-light { background: linear-gradient(170deg, var(--c-mist-2), color-mix(in srgb, var(--c-paper) 60%, transparent) 70%); }
+html.dark .card.feature-card { background: radial-gradient(80% 70% at 90% 0%, rgba(120,153,166,.16), transparent 60%), linear-gradient(165deg, #182831, #121e26) !important; border-color: rgba(168,186,196,.16) !important; }
+html.dark .card.feature-card-light { background: linear-gradient(170deg, #16252e, #111d24) !important; }
+/* Dark mode: blue-grey accents → night steel */
+html.dark .bg-navy, html.dark .bg-navy-tint, html.dark .chip-navy, html.dark .chip-sage { background: rgba(169,195,206,.12) !important; color: #c9d7dd !important; }
+html.dark .reel-frame { background-image: linear-gradient(180deg, #1a2b35, #0f1a20) !important; }
+html.dark .glass, html.dark .glass-solid { background: rgba(255,255,255,.04); border-color: rgba(168,186,196,.14); }
+/* Chips in Arabic use the Arabic font */
+[dir="rtl"] .chip { font-family: var(--font-arabic) !important; letter-spacing: 0 !important; text-transform: none; font-size: .72rem; }
+/* Footer wordmark — full-bleed, stretched wide, cropped low so the footer stays short */
+.foot-wordmark { font-size: 26vw !important; line-height: .74 !important; letter-spacing: -.06em !important; text-align: center; width: 100%; margin: clamp(8px,1.5vw,20px) 0 0 !important;
+  height: .5em; overflow: hidden; transform: scaleX(1.22) !important; transform-origin: center; white-space: nowrap; }
