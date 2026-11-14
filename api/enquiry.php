@@ -99,6 +99,30 @@ if (!empty($cfg['smtp_host']) && !empty($cfg['phpmailer_autoload']) && is_file($
   } catch (Throwable $e) { error_log('enquiry smtp error'); }
 }
 if (!$sent) {
+  // Direct SMTP over SSL (no dependencies). Password lives only in a server file: api/_data/smtp-pass.txt (web-blocked).
+  $smtpUser = (string)($cfg['smtp_user'] ?? $cfg['notify_to']);
+  $smtpPass = !empty($cfg['smtp_pass']) ? (string)$cfg['smtp_pass'] : trim((string)@file_get_contents("$dir/smtp-pass.txt"));
+  if ($smtpPass !== '') {
+    try {
+      $host = (string)($cfg['smtp_host'] ?? 'smtp.hostinger.com'); $port = (int)($cfg['smtp_port'] ?? 465);
+      $fp = @stream_socket_client("ssl://$host:$port", $en, $es, 10);
+      if ($fp) {
+        stream_set_timeout($fp, 10);
+        $rd = function () use ($fp) { $r = ''; while (($l = fgets($fp, 515)) !== false) { $r .= $l; if (strlen($l) < 4 || $l[3] === ' ') break; } return $r; };
+        $cmd = function (string $c, string $ok) use ($fp, $rd) { fwrite($fp, $c . "\r\n"); return str_starts_with($rd(), $ok); };
+        $rd();
+        $d = preg_replace('/^www\./', '', $_SERVER['HTTP_HOST'] ?? 'keelbiz.com');
+        $msg = "Date: " . date('r') . "\r\nFrom: Keelbiz website <$from>\r\nTo: {$cfg['notify_to']}\r\nReply-To: $name <$email>\r\nSubject: =?UTF-8?B?" . base64_encode($subject) . "?=\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\nMessage-ID: <" . bin2hex(random_bytes(8)) . "@$d>\r\n\r\n" . chunk_split(base64_encode($body));
+        if ($cmd("EHLO $d", '250') && $cmd('AUTH LOGIN', '334') && $cmd(base64_encode($smtpUser), '334') && $cmd(base64_encode($smtpPass), '235')
+            && $cmd("MAIL FROM:<$smtpUser>", '250') && $cmd("RCPT TO:<{$cfg['notify_to']}>", '250') && $cmd('DATA', '354')) {
+          fwrite($fp, $msg . "\r\n.\r\n"); $sent = str_starts_with($rd(), '250');
+        }
+        @fwrite($fp, "QUIT\r\n"); fclose($fp);
+      }
+    } catch (Throwable $e) { error_log('enquiry direct smtp error'); }
+  }
+}
+if (!$sent) {
   $headers = "From: Keelbiz website <$from>\r\nReply-To: " . $name . " <$email>\r\nContent-Type: text/plain; charset=UTF-8\r\nX-Mailer: keelbiz-enquiry";
   $sent = @mail((string)$cfg['notify_to'], '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers, !empty($cfg['mail_envelope_from']) ? '-f' . $cfg['mail_envelope_from'] : '');
   if (!$sent) error_log('enquiry mail() returned false');

@@ -7,6 +7,6 @@ return [
   'allow_same_host' => true,
   'data_dir' => '',
   'rate_window' => 3600, 'rate_max' => 5, 'rate_salt' => '98d6d5f129e08cc1722073c1',
-  'smtp_from' => 'info@keelbiz.com',
+  'smtp_from' => 'info@keelbiz.com', 'smtp_host' => 'smtp.hostinger.com', 'smtp_port' => 465, 'smtp_user' => 'info@keelbiz.com',
   'mail_envelope_from' => 'info@keelbiz.com',
 ];
