@@ -39,7 +39,7 @@ export function Footer() {
             <Link href="/contact/" className="orbit-btn hidden md:inline-flex shrink-0" aria-label={ft.primaryButton} data-magnetic>
               <svg viewBox="0 0 200 200" className="orbit-ring" aria-hidden>
                 <defs><path id="orbit-path" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
-                <text direction={isAr ? "rtl" : undefined}><textPath href="#orbit-path" textLength={isAr ? undefined : 486} lengthAdjust={isAr ? undefined : "spacingAndGlyphs"}>{ring}</textPath></text>
+                <text direction="ltr"><textPath href="#orbit-path" textLength={isAr ? undefined : 486} lengthAdjust={isAr ? undefined : "spacingAndGlyphs"}>{ring}</textPath></text>
               </svg>
               <span className="orbit-core"><ArrowUpRight size={30} aria-hidden /></span>
             </Link>
