@@ -37,12 +37,14 @@ jobs:
           git push -q origin deploy
       - name: Tell the server to install the new build
         env:
-          PUBLISH_HOOK: ${{ vars.PUBLISH_HOOK_URL || 'https://paleturquoise-dogfish-291071.hostingersite.com/api/publish.php' }}
+          PUBLISH_HOOK: ${{ vars.PUBLISH_HOOK_URL || 'https://keelbiz.com/api/publish.php' }}
+          FALLBACK_HOOK: https://paleturquoise-dogfish-291071.hostingersite.com/api/publish.php
         run: |
           # --max-time: Hostinger sometimes stalls requests from GitHub's runners; fail fast and retry instead of hanging.
           for i in 1 2 3 4 5 6; do
             sleep $((i * 10))
-            res=$(curl -sS --connect-timeout 15 --max-time 60 -X POST -A "Mozilla/5.0 (compatible; KeelbizPublisher/1.0; +https://github.com/${{ github.repository }})" -H "Accept: application/json" "$PUBLISH_HOOK" -w ' HTTP%{http_code}' 2>&1 | head -c 600 || true)
+            hook="$PUBLISH_HOOK"; [ $((i % 2)) -eq 0 ] && hook="$FALLBACK_HOOK"  # alternate with the temporary address while DNS settles
+            res=$(curl -sS --connect-timeout 15 --max-time 60 -X POST -A "Mozilla/5.0 (compatible; KeelbizPublisher/1.0; +https://github.com/${{ github.repository }})" -H "Accept: application/json" "$hook" -w ' HTTP%{http_code}' 2>&1 | head -c 600 || true)
             echo "$res"
             case "$res" in *'"ok":true'*) exit 0;; esac
           done
