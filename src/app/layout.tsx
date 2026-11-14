@@ -34,7 +34,6 @@ const geistMono = GeistMono; // --font-geist-mono
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.brand} — ${t("Build, grow and automate your business")}`, template: `%s · ${site.brand}` },
-  alternates: { languages: { en: "/", ar: "/ar/" } },
   description: t("Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards."),
   openGraph: { type: "website", siteName: site.brand, images: [theme.brand.shareImage?.src ?? "/og/default.png"] },
   twitter: { card: "summary_large_image" },

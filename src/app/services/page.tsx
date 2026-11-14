@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import { t } from "@/i18n";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
@@ -7,7 +8,7 @@ import { Intro } from "@/components/sections/HomeSections";
 import { FlexibleSolutions } from "@/components/sections/Offer";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata: Metadata = { title: t("Services — one service or a complete solution"), description: "Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several.", alternates: { canonical: "/services/" } };
+export const metadata: Metadata = { title: t("Digital Marketing, Web Design & AI Services"), description: t("Website development, social media management, Meta and Google advertising, AI agents and automation, and business dashboards — hire one service or combine several."), ...seo("/services/") };
 
 export default function ServicesPage() {
   return (

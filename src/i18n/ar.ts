@@ -1,6 +1,16 @@
 // Arabic UI strings (English source → Arabic). Page copy lives in content/ar/*.json.
 // Every JSX text node and aria-label/placeholder/title/alt is looked up here in the /ar/ build (see src/i18n/jsx).
 export const ar: Record<string, string> = {
+  "About Keelbiz — Digital Growth & AI Agency": "عن Keelbiz — وكالة النمو الرقمي والذكاء الاصطناعي",
+  "Our Work — Website, Ads & AI Demos": "أعمالنا — نماذج مواقع وإعلانات وذكاء اصطناعي",
+  "Contact Keelbiz — Get a Custom Quote": "تواصل مع Keelbiz — احصل على عرض سعر مخصّص",
+  "AI Solutions — Custom AI Agents & Automation": "حلول الذكاء الاصطناعي — وكلاء مخصّصون وأتمتة الأعمال",
+  "Digital Marketing, Web Design & AI Services": "خدمات التسويق الرقمي وتصميم المواقع والذكاء الاصطناعي",
+  "Website Design & Development Services": "خدمات تصميم وتطوير المواقع الإلكترونية",
+  "Social Media Management Services": "خدمات إدارة وسائل التواصل الاجتماعي",
+  "Meta & Google Ads Management": "إدارة إعلانات Meta وGoogle",
+  "AI Agents & Business Automation": "وكلاء الذكاء الاصطناعي وأتمتة الأعمال",
+  "Custom Business Dashboards & Systems": "لوحات تحكم وأنظمة أعمال مخصّصة",
   "03 services": "3 خدمات",
   "A business site that adapts from desktop to phone, with a clear enquiry path.": "موقع أعمال يتكيّف من الكمبيوتر إلى الهاتف، مع مسار واضح للاستفسار.",
   "A fast, credible website turns attention into enquiries.": "موقع سريع وموثوق يحوّل الاهتمام إلى استفسارات.",

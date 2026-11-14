@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
@@ -7,9 +8,9 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { t } from "@/i18n";
 
 export const metadata: Metadata = {
-  title: t("Contact — start a project"),
+  title: t("Contact Keelbiz — Get a Custom Quote"),
   description: t("Tell Keelbiz what you need \u2014 one service or a complete solution. We reply with options and a custom quote."),
-  alternates: { canonical: "/contact/" },
+  ...seo("/contact/"),
 };
 
 export default function ContactPage() {

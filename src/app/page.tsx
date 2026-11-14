@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import type { Metadata } from "next";
 import { home } from "@/content/copy";
 import { Blocks } from "@/components/blocks/Blocks";
@@ -8,7 +9,7 @@ import { homeBlocks } from "@/content/builder";
 export const metadata: Metadata = {
   title: home.seo.title,
   description: home.seo.description,
-  alternates: { canonical: "/" },
+  ...seo("/"),
 };
 
 // Section order, visibility, backgrounds and layouts come from the admin panel (🧱 Home page layout → content/home-layout.json).

@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import { t } from "@/i18n";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
@@ -15,9 +16,9 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
-  title: t("AI Solutions — custom agents and automation"),
+  title: t("AI Solutions — Custom AI Agents & Automation"),
   description: t("Tell us what you want to automate. Custom AI agents and workflow automation built around your business, plus ready-made solutions where available."),
-  alternates: { canonical: "/ai-solutions/" },
+  ...seo("/ai-solutions/"),
 };
 
 const faq = pages.aiSolutions.faq;

@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import { t } from "@/i18n";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
@@ -13,9 +14,9 @@ import { Flywheel } from "@/components/sections/HomeSections";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
-  title: t("About"),
+  title: t("About Keelbiz — Digital Growth & AI Agency"),
   description: t("Keelbiz helps businesses build, grow and automate with websites, social media, advertising, AI agents and business dashboards."),
-  alternates: { canonical: "/about/" },
+  ...seo("/about/"),
 };
 
 export default function AboutPage() {

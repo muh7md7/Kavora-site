@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import { t } from "@/i18n";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
@@ -13,9 +14,9 @@ import { ServiceStage } from "@/components/sections/Bento";
 import type { ServiceId } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: t("Work"),
+  title: t("Our Work — Website, Ads & AI Demos"),
   description: t("Keelbiz case studies \u2014 published only with client permission and verified results \u2014 plus clearly labelled interface demonstrations with sample data."),
-  alternates: { canonical: "/work/" },
+  ...seo("/work/"),
 };
 
 // Clearly labelled concept demonstrations of the kind of interfaces we build (not client work).

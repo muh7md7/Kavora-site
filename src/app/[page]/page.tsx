@@ -1,3 +1,4 @@
+import { seo } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Blocks } from "@/components/blocks/Blocks";
@@ -22,9 +23,8 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   return {
     title: p.seo.title,
     description: p.seo.description || undefined,
-    alternates: { canonical: p.path },
+    ...seo(p.path, p.seo.image?.src),
     robots: p.seo.hideFromSearch ? { index: false, follow: true } : undefined,
-    openGraph: p.seo.image ? { images: [p.seo.image.src] } : undefined,
   };
 }
 

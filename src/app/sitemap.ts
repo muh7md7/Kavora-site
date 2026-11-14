@@ -2,11 +2,17 @@ import type { MetadataRoute } from "next";
 import { services, site } from "@/content/site";
 import { customPages } from "@/content/builder";
 export const dynamic = "force-static";
+// One sitemap for both languages (the Arabic build's copy is dropped by scripts/build-all.mjs).
 export default function sitemap(): MetadataRoute.Sitemap {
-  const u = (p: string) => ({ url: `${site.url}${p}`, lastModified: new Date() });
-  return [
-    u("/"), u("/services/"), ...services.map((s) => u(`/services/${s.slug}/`)), u("/ai-solutions/"), u("/work/"), u("/about/"), u("/contact/"),
-    ...customPages.filter((p) => !p.seo.hideFromSearch).map((p) => u(p.path)),
-    u("/legal/privacy/"), u("/legal/terms/"), u("/legal/cookies/"),
+  const now = new Date();
+  const paths = [
+    "/", "/services/", ...services.map((s) => `/services/${s.slug}/`), "/ai-solutions/", "/work/", "/about/", "/contact/",
+    ...customPages.filter((p) => !p.seo.hideFromSearch).map((p) => p.path),
+    "/legal/privacy/", "/legal/terms/", "/legal/cookies/",
   ];
+  return paths.flatMap((p) => {
+    const en = `${site.url}${p}`, ar = `${site.url}/ar${p}`;
+    const alternates = { languages: { en, ar, "x-default": en } };
+    return [{ url: en, lastModified: now, alternates }, { url: ar, lastModified: now, alternates }];
+  });
 }
