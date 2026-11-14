@@ -15,6 +15,7 @@ header('Cache-Control: no-store');
 
 $cfg = @include dirname(__DIR__, 2) . '/keelbiz-config.php';
 if (!$cfg) $cfg = @include __DIR__ . '/config.php';
+if (!$cfg) $cfg = @include __DIR__ . '/site-config.php'; // public defaults shipped with the site (no secrets)
 function fail(int $code, string $msg = 'invalid'): never { http_response_code($code); echo json_encode(['ok' => false, 'error' => $msg]); exit; }
 if (!$cfg || empty($cfg['notify_to'])) fail(503, 'unavailable');
 

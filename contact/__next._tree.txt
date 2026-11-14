@@ -6,4 +6,4 @@
 :HL["/_next/static/media/instrument_serif_latin_400_normal-s.p.3_vslfxq_--4i.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"contact","h":64,"c":"$Q2"}]]
-0:{"b":"SFVkV_GZ3ghSgGw0SSS-R","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"eeXzGS3G_yglPYZXRiGh5","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
