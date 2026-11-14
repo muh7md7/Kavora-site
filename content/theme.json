@@ -1,6 +1,6 @@
 {
   "colours": {
-    "preset": "mono"
+    "preset": "stone-steel"
   },
   "fonts": {
     "headings": "geist",
@@ -13,8 +13,8 @@
     "style": "solid"
   },
   "spacing": "comfortable",
-  "shadows": "standard",
-  "glass": "standard",
+  "shadows": "deep",
+  "glass": "strong",
   "animations": "full",
   "cursorEffect": true,
   "brand": {
