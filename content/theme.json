@@ -1,15 +1,6 @@
 {
   "colours": {
-    "preset": "stone-steel",
-    "custom": {
-      "background": "",
-      "surface": "",
-      "surfaceDeep": "",
-      "accent": "",
-      "accentSecondary": "",
-      "dark": "",
-      "text": ""
-    }
+    "preset": "mono"
   },
   "fonts": {
     "headings": "geist",
@@ -27,10 +18,6 @@
   "animations": "full",
   "cursorEffect": true,
   "brand": {
-    "logo": "",
-    "logoOnDark": "",
-    "logoHeight": 32,
-    "favicon": "",
-    "shareImage": ""
+    "logoHeight": 32
   }
 }
