@@ -1,5 +1,5 @@
-:HL["/ar/_next/static/chunks/11ckt1owjun1y.css","style"]
-:HL["/ar/_next/static/chunks/3zid8yzfmtt87.css","style"]
+:HL["/ar/_next/static/chunks/0k8ngb8pqm5hm.css","style"]
+:HL["/ar/_next/static/chunks/1fcezthkfa9_n.css","style"]
 :HL["/ar/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/ar/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/ar/_next/static/media/instrument_serif_latin_400_italic-s.p.1bk2-9tco4m7m.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -7,4 +7,4 @@
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"business-dashboards-systems","s":[]},"h":65632,"c":"$Q3"}]]
 1:[["children",{"s":"services","h":131136,"c":"$Q2"}]]
-0:{"b":"diu0DhjM4wmH1TXmHDDRL","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
+0:{"b":"WCZa6F7dtw-BrvBymAmhY","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
