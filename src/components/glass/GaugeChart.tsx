@@ -1,16 +1,24 @@
 "use client";
 import { t } from "@/i18n";
-import { useMemo, useState } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Tabs } from "./Tabs";
 import { cn } from "@/lib/cn";
+
+/** True once the element has scrolled into view (fires once). */
+function useInViewOnce(ref: React.RefObject<HTMLElement | null>, amount: number) {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } }, { threshold: amount });
+    io.observe(el); return () => io.disconnect();
+  }, [ref, amount]);
+  return inView;
+}
 
 /** Goal Gauge — animated semicircle, draws in once when in view. Custom SVG, no chart library. */
 export function GoalGauge({ value = 72, label = "Goal progress · Sample", className }: { value?: number; label?: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
-  const reduce = useReducedMotion();
+  const inView = useInViewOnce(ref, 0.5);
   const r = 80, cx = 100, cy = 100;
   const arc = Math.PI * r;
   const v = Math.max(0, Math.min(100, value));
@@ -19,15 +27,13 @@ export function GoalGauge({ value = 72, label = "Goal progress · Sample", class
     <div ref={ref} className={cn("glass rounded-md p-4", className)}>
       <svg viewBox="0 0 200 118" className="w-full" role="img" aria-label={`${label}: ${v} percent`}>
         <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`} fill="none" stroke="var(--mist)" strokeWidth="12" strokeLinecap="round" />
-        <motion.path
+        <path
           d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
           fill="none" stroke="var(--sage)" strokeWidth="12" strokeLinecap="round"
           strokeDasharray={arc}
-          initial={{ strokeDashoffset: arc }}
-          animate={{ strokeDashoffset: inView ? arc * (1 - v / 100) : arc }}
-          transition={{ duration: reduce ? 0 : 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="gauge-move" style={{ strokeDashoffset: inView ? arc * (1 - v / 100) : arc }}
         />
-        <g style={{ transformOrigin: `${cx}px ${cy}px`, transformBox: "view-box", transform: `rotate(${inView ? angle : -180}deg)`, transition: reduce ? "none" : "transform 1.2s cubic-bezier(.22,1,.36,1)" }}>
+        <g className="gauge-move" style={{ transformOrigin: `${cx}px ${cy}px`, transformBox: "view-box", transform: `rotate(${inView ? angle : -180}deg)` }}>
           <line x1={cx} y1={cy} x2={cx + r - 18} y2={cy} stroke="var(--navy)" strokeWidth="3" strokeLinecap="round" />
         </g>
         <circle cx={cx} cy={cy} r="6" fill="var(--navy)" />
@@ -48,8 +54,7 @@ const series: Record<string, number[]> = {
 export function AreaChart({ className }: { className?: string }) {
   const [range, setRange] = useState("3M");
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.4 });
-  const reduce = useReducedMotion();
+  const inView = useInViewOnce(ref, 0.4);
   const w = 320, h = 140, pad = 8;
   const { line, area } = useMemo(() => {
     const d = series[range]; const max = Math.max(...d);
@@ -65,8 +70,8 @@ export function AreaChart({ className }: { className?: string }) {
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} className="w-full" role="img" aria-label={`Sample enquiries trend, ${range}`}>
         <defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--sage)" stopOpacity=".28" /><stop offset="1" stopColor="var(--sage)" stopOpacity="0" /></linearGradient></defs>
-        <motion.path key={`a${range}`} d={area} fill="url(#area)" initial={{ opacity: 0 }} animate={{ opacity: inView ? 1 : 0 }} transition={{ duration: reduce ? 0 : 0.8, delay: 0.4 }} />
-        <motion.path key={`l${range}`} d={line} fill="none" stroke="var(--sage)" strokeWidth="2.5" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: inView ? 1 : 0 }} transition={{ duration: reduce ? 0 : 1.1, ease: [0.22, 1, 0.36, 1] }} />
+        <path key={`a${range}`} d={area} fill="url(#area)" className="chart-fade" style={{ opacity: inView ? undefined : 0, animationPlayState: inView ? "running" : "paused" }} />
+        <path key={`l${range}`} d={line} pathLength={1} fill="none" stroke="var(--sage)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray={1} className="chart-draw" style={{ strokeDashoffset: inView ? undefined : 1, animationPlayState: inView ? "running" : "paused" }} />
       </svg>
     </div>
   );

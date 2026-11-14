@@ -1,0 +1,173 @@
+{
+  "title": "Digital Marketing Agency in Pakistan",
+  "slug": "digital-marketing-agency-pakistan",
+  "published": true,
+  "areaServed": "Pakistan",
+  "menu": {
+    "showInHeader": false,
+    "showInFooter": false,
+    "label": ""
+  },
+  "seo": {
+    "title": "Digital Marketing Agency in Pakistan — Web, Ads & AI",
+    "description": "Keelbiz helps businesses in Pakistan grow with websites, social media, Meta & Google Ads, AI agents and dashboards. One service or a complete solution.",
+    "hideFromSearch": false
+  },
+  "blocks": [
+    {
+      "type": "hero",
+      "eyebrow": "Pakistan",
+      "title": "Digital marketing and AI automation for businesses in",
+      "accent": "Pakistan.",
+      "lead": "Websites, social media, Meta & Google Ads, AI agents and business dashboards for businesses in Pakistan — start with one service or build a complete solution, with a custom quote.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "See all services",
+        "link": "/services/"
+      },
+      "layout": "centered",
+      "style": {
+        "background": "auto",
+        "align": "center",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Local focus",
+      "title": "What matters for businesses in",
+      "accent": "Pakistan.",
+      "columns": "3",
+      "items": [
+        {
+          "icon": "phone",
+          "title": "Mobile first, every time",
+          "text": "Most customers will meet your business on a phone. Sites are designed for small screens and slower connections first, then scaled up."
+        },
+        {
+          "icon": "message",
+          "title": "WhatsApp at the centre",
+          "text": "Enquiries, follow-ups and order questions often happen on WhatsApp. AI agents and automations are built to work with it."
+        },
+        {
+          "icon": "chart",
+          "title": "Spend that is measured",
+          "text": "Ad budgets are planned carefully and tracked in a simple dashboard, so you can see what each campaign brings in."
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "services",
+      "eyebrow": "Services",
+      "title": "Five services. Take one, or",
+      "accent": "combine them.",
+      "lead": "Every service is available on its own, with a custom quote. No forced bundles.",
+      "layout": "list",
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "faq",
+      "eyebrow": "FAQ",
+      "title": "Good",
+      "accent": "questions.",
+      "layout": "side",
+      "items": [
+        {
+          "q": "Do you work with businesses in every city?",
+          "a": "Yes. Keelbiz works remotely with businesses in Lahore, Karachi, Islamabad and across Pakistan, by video call, phone and WhatsApp."
+        },
+        {
+          "q": "Can you manage social media and ads for a small business?",
+          "a": "Yes. Services are available one at a time, so a small business can start with what it needs most and add more later."
+        },
+        {
+          "q": "Can an AI agent answer my customers on WhatsApp?",
+          "a": "AI agents can be set up to answer common questions, qualify enquiries and pass the conversation to your team. The exact setup depends on the tools you use, which we review on the discovery call."
+        },
+        {
+          "q": "How is pricing worked out?",
+          "a": "Every project gets a custom quote after a short discovery call. Third-party costs such as ad spend, domains or software subscriptions are paid by you directly and are always shown separately."
+        }
+      ],
+      "style": {
+        "background": "light",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Other markets",
+      "title": "We also work with businesses in",
+      "accent": "",
+      "columns": "4",
+      "items": [
+        {
+          "icon": "globe",
+          "title": "United Arab Emirates",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-uae/"
+        },
+        {
+          "icon": "globe",
+          "title": "Saudi Arabia",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-saudi-arabia/"
+        },
+        {
+          "icon": "globe",
+          "title": "United States",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-usa/"
+        },
+        {
+          "icon": "globe",
+          "title": "United Kingdom",
+          "text": "",
+          "linkLabel": "View page",
+          "link": "/digital-marketing-agency-uk/"
+        }
+      ],
+      "style": {
+        "background": "mist",
+        "align": "left",
+        "width": "normal"
+      }
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Next step",
+      "title": "Tell us what you want to",
+      "accent": "build.",
+      "lead": "A short discovery call, then a clear quote. No obligation.",
+      "primaryButton": {
+        "label": "Start a Project",
+        "link": "/contact/"
+      },
+      "secondaryButton": {
+        "label": "Explore AI Solutions",
+        "link": "/ai-solutions/"
+      },
+      "style": {
+        "background": "dark",
+        "align": "center",
+        "width": "normal"
+      }
+    }
+  ]
+}

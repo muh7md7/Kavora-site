@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { site } from "@/content/site";
 import { Header } from "@/components/sections/Header";
@@ -11,11 +10,9 @@ import { theme } from "@/content/builder";
 import { LANG, dir, isAr, t } from "@/i18n";
 
 // Self-hosted WOFF2 (SIL OFL). Geist = display + UI; Instrument Serif italic = single accent word.
+// Only the italic is used for the accent word, so only that file is shipped and preloaded.
 const serif = localFont({
-  src: [
-    { path: "../fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
-    { path: "../fonts/instrument-serif-latin-400-normal.woff2", weight: "400", style: "normal" },
-  ],
+  src: [{ path: "../fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" }],
   variable: "--font-serif-accent", display: "swap", preload: true, adjustFontFallback: "Times New Roman",
 });
 // Arabic: Readex Pro (SIL OFL) — modern Gulf-style sans, used only by the /ar/ build.
@@ -29,7 +26,8 @@ const arabic = localFont({
   variable: "--font-arabic", display: "swap", preload: false,
 });
 const geist = GeistSans; // --font-geist-sans
-const geistMono = GeistMono; // --font-geist-mono
+// Mono is only used for small labels: loaded on demand (not preloaded) so it never competes with the first paint.
+const geistMono = localFont({ src: "../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2", variable: "--font-geist-mono", weight: "100 900", display: "swap", preload: false, adjustFontFallback: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

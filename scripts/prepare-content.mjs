@@ -213,17 +213,40 @@ for (const { file, data } of rawPages) {
   routes.add(`/${slug}/`);
   pagesOut.push({ file, slug, title, data });
 }
-const customPages = pagesOut.map(({ slug, title, data }) => {
-  const where = `Page "${title}"`;
+// Arabic version of a page: content/ar/custom-pages/<same file name>.json holds only the translated text.
+// It is laid over the English page (lists match by position); addresses, links, icons, images and layout always come from English.
+const AR_LOCKED = new Set(["type", "slug", "published", "hidden", "link", "icon", "image", "layout", "columns", "style", "size", "line", "imageSide", "menu", "areaServed", "market"]);
+function mergeAr(base, tr) {
+  if (tr == null) return base;
+  if (Array.isArray(base)) return base.map((b, i) => mergeAr(b, Array.isArray(tr) ? tr[i] : undefined));
+  if (base && typeof base === "object") {
+    if (typeof tr !== "object" || Array.isArray(tr)) return base;
+    const out = { ...base };
+    for (const k of Object.keys(tr)) { if (AR_LOCKED.has(k)) continue; out[k] = k in base ? mergeAr(base[k], tr[k]) : tr[k]; }
+    return out;
+  }
+  return typeof tr === "string" && tr.trim() ? tr : base;
+}
+const buildPage = ({ slug, title, data }, lang = "") => {
+  const where = `Page "${title}"${lang ? ` (${lang})` : ""}`;
   const blocks = normBlocks(data.blocks, where);
   if (!blocks.length) warn(where, "has no visible blocks yet — it shows only a heading. Add blocks in the admin panel.");
   const seo = data.seo ?? {};
   return {
     slug, title, path: `/${slug}/`,
+    areaServed: str(data.areaServed), // market landing pages: the country this page is written for (structured data only)
     seo: { title: str(seo.title) || title, description: str(seo.description), image: normImage(seo.image, title, `${where} (share image)`, { requireAlt: false }), hideFromSearch: seo.hideFromSearch === true },
     menu: { header: data.menu?.showInHeader === true, footer: data.menu?.showInFooter === true, label: str(data.menu?.label) || title },
     blocks,
   };
+};
+const customPages = pagesOut.map((p) => buildPage(p));
+const customPagesAr = pagesOut.map((p, i) => {
+  const arFile = `content/ar/custom-pages/${p.file}`;
+  if (!fs.existsSync(P(arFile))) return customPages[i];
+  const tr = readJson(arFile, {});
+  const data = mergeAr(p.data, tr);
+  return buildPage({ slug: p.slug, title: str(data.title) || p.title, data }, "Arabic");
 });
 
 // ---------------------------------------------------------------- home layout
@@ -369,6 +392,7 @@ const write = (name, data) => fs.writeFileSync(path.join(OUT_JSON, name), JSON.s
 write("theme.json", theme);
 write("home-layout.json", { blocks: homeBlocks });
 write("custom-pages.json", { pages: customPages });
+write("custom-pages.ar.json", { pages: customPagesAr });
 write("navigation.json", navigation);
 fs.writeFileSync(OUT_CSS, css);
 printReport();
