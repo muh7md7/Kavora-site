@@ -52,7 +52,7 @@ $picked = array_values(array_unique(array_filter((array)($_POST['services'] ?? [
 $type = $v('type', 20); $topic = $v('topic', 120);
 $adPlatforms = in_array($v('ad_platforms', 10), ['', 'meta', 'google', 'both', 'unsure'], true) ? $v('ad_platforms', 10) : '';
 $service = implode(', ', $picked);
-if (mb_strlen($name) < 2 || !filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($company) < 2 || count($picked) === 0 || !in_array($type, $allowedTypes, true) || mb_strlen($desc) < 20 || !$consent) fail(400);
+if (mb_strlen($name) < 2 || !filter_var($email, FILTER_VALIDATE_EMAIL) || count($picked) === 0 || !in_array($type, $allowedTypes, true) || mb_strlen($desc) < 10 || !$consent) fail(400);
 if ($website !== '' && !filter_var($website, FILTER_VALIDATE_URL)) fail(400);
 if (preg_match('/[\r\n]/', $name . $email . $company . $topic . $type . $contactMethod)) fail(400); // header injection
 
@@ -82,7 +82,7 @@ if (!empty($cfg['db_dsn'])) {
 }
 
 // 2) Notify
-$subject = "New enquiry: $company — " . ($service ?: 'unspecified');
+$subject = "New enquiry: " . ($company ?: $name) . " — " . ($service ?: 'unspecified');
 $body = "Name: $name\nEmail: $email\nBusiness: $company\nWebsite: $website\nType: $type\nServices: $service\nAd platforms: $adPlatforms\nTopic: $topic\nPreferred contact: $contactMethod\nReceived: {$record['at']}\n\n$desc\n";
 $from = (string)($cfg['smtp_from'] ?? ('no-reply@' . preg_replace('/^www\./', '', $_SERVER['HTTP_HOST'] ?? 'localhost')));
 $sent = false;

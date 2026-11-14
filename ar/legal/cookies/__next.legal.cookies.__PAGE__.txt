@@ -1,0 +1,29 @@
+2:"$Sreact.fragment"
+3:"/ar/_next/static/chunks/0cxs2jtq5y99g.js"
+4:"/ar/_next/static/chunks/39s7_nxjci4kv.js"
+5:I[39756,["$3","$4"],"default"]
+6:I[37457,["$3","$4"],"default"]
+d:I[22016,["$3","$4"],""]
+e:I[97367,["$3","$4"],"OutletBoundary"]
+f:"$Sreact.suspense"
+12:"ViewportBoundary"
+13:I[97367,["$3","$4"],"$12"]
+14:"MetadataBoundary"
+15:I[97367,["$3","$4"],"$14"]
+16:I[27201,["$3","$4"],"IconMark"]
+8:X
+8:C
+9:X
+c:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[[["$","section",null,{"data-theme":"light","className":"tone tone-grad has-grid hero-shell relative overflow-hidden pt-[128px] md:pt-[160px] pb-14 md:pb-20","children":[["$","div",null,{"className":"aurora","aria-hidden":true,"children":[["$","i",null,{}],["$","i",null,{}],["$","i",null,{}]]}],["$","div",null,{"className":"hero-fade","aria-hidden":true}],["$","div",null,{"className":"container","children":[["$","div",null,{"className":"","children":[["$","p",null,{"className":"eyebrow reveal-fade","children":"Legal"}],["$","h1",null,{"className":"mt-6 reveal-fade !text-[clamp(2.4rem,1.5rem+3vw,4.25rem)] !leading-[1.03] !tracking-[-0.045em] max-w-[18ch]","style":{"animationDelay":"80ms"},"children":["ملفات تعريف الارتباط"," ","$undefined"]}],"$undefined",["$","div",null,{"className":"reveal-fade","style":{"animationDelay":"260ms"},"children":["$","p",null,{"className":"chip chip-slate mt-4","children":["Last updated ","13 نوفمبر 2026"]}]}]]}],"$undefined"]}]]}],["$","section",null,{"data-theme":"light","className":"tone tone-mist section !pt-10","children":["$","div",null,{"className":"container","children":["$","div",null,{"className":"card max-w-[820px] p-7 sm:p-10 md:p-12","children":[["$","p",null,{"className":"text-text-2 text-sm","children":["المشغّل:"," ","Keelbiz",".",[" ","التواصل: عبر"," ",["$","$Ld",null,{"href":"/contact/","className":"underline","children":"نموذج الاستفسار"}],"."]]}],[["$","div","الإعداد الافتراضي",{"className":"mt-8 pt-8 border-t border-line","children":[["$","h2",null,{"className":"!text-xl","children":"الإعداد الافتراضي"}],["$","p",null,{"className":"text-text-2 mt-3 leading-relaxed","children":"لا يضع هذا الموقع افتراضيًا أي ملفات تعريف ارتباط غير ضرورية. وتُحفظ التفضيلات، مثل الوضع الداكن، محليًا في متصفحك فقط."}]]}],["$","div","التحليلات",{"className":"mt-8 pt-8 border-t border-line","children":[["$","h2",null,{"className":"!text-xl","children":"التحليلات"}],["$","p",null,{"className":"text-text-2 mt-3 leading-relaxed","children":"إن فُعّلت التحليلات فستكون دون ملفات تعريف ارتباط (Plausible أو Umami)، ولا تتطلب شريط موافقة."}]]}],["$","div","الإعلانات",{"className":"mt-8 pt-8 border-t border-line","children":[["$","h2",null,{"className":"!text-xl","children":"الإعلانات"}],["$","p",null,{"className":"text-text-2 mt-3 leading-relaxed","children":"لا تُستخدم حاليًا أي بكسلات إعلانية على هذا الموقع. وإن أُضيف أحدها فلن يُحمَّل إلا بعد موافقتك في إعدادات ملفات تعريف الارتباط."}]]}]]]}]}]}]],null,["$","$Le",null,{"children":["$","$f",null,{"name":"Next.MetadataOutlet","children":"$@10"}]}]]}],"p":"$@11","v":null,"s":"$9"}}]]
+a:[["children",{"s":"cookies","h":96,"d":{"r":["$","$2","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@b","v":"$8","s":"$9"},"c":"$Qc"}]]
+1:[["children",{"s":"legal","h":64,"d":{"r":["$","$2","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":"$8","s":"$9"},"c":"$Qa"}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$L13",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#f6f6f3"}]]}],["$","$L15",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$f",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"سياسة ملفات تعريف الارتباط · Keelbiz"}],["$","meta","1",{"name":"description","content":"Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards."}],["$","link","2",{"rel":"canonical","href":"https://keelbiz.com/legal/cookies/"}],["$","meta","3",{"property":"og:title","content":"سياسة ملفات تعريف الارتباط · Keelbiz"}],["$","meta","4",{"property":"og:description","content":"Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards."}],["$","meta","5",{"property":"og:site_name","content":"Keelbiz"}],["$","meta","6",{"property":"og:image","content":"https://keelbiz.com/og/default.png"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"سياسة ملفات تعريف الارتباط · Keelbiz"}],["$","meta","10",{"name":"twitter:description","content":"Keelbiz is a digital growth and AI solutions agency: websites, social media, advertising, AI automation and business dashboards."}],["$","meta","11",{"name":"twitter:image","content":"https://keelbiz.com/og/default.png"}],["$","link","12",{"rel":"icon","href":"/favicon.ico","sizes":"any"}],["$","link","13",{"rel":"icon","href":"/icon.svg","type":"image/svg+xml"}],["$","link","14",{"rel":"apple-touch-icon","href":"/apple-icon.png"}],["$","$L16","15",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@17","v":null,"s":"$9"}},"a":"$@18","u":"$@19","b":"diu0DhjM4wmH1TXmHDDRL"}
+10:null
+19:true
+9:300
+9:C
+18:0
+b:"$undefined"
+7:"$undefined"
+17:"$undefined"
+11:"$undefined"
