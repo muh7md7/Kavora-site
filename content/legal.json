@@ -5,7 +5,7 @@
     "sections": [
       {
         "heading": "What we collect",
-        "text": "The details you submit through the enquiry form (name, email, business name, services of interest, project description, and optionally your website and preferred contact method) and standard server logs. We do not collect payment card data."
+        "text": "The details you submit through the contact form (name, email, business name, the service you need and your project description) and standard server logs. We do not collect payment card data."
       },
       {
         "heading": "Why",
@@ -55,7 +55,7 @@
     "sections": [
       {
         "heading": "Default",
-        "text": "This site sets no non-essential cookies by default. Preferences such as a remembered tab are stored locally in your browser only."
+        "text": "This site sets no non-essential cookies by default. Preferences such as dark mode are stored locally in your browser only."
       },
       {
         "heading": "Analytics",

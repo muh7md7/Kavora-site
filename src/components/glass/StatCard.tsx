@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import type { LucideIcon } from "lucide-react";
 import { ArrowDownRight, ArrowUpRight, Inbox, MousePointerClick, Users, Workflow } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -27,16 +28,16 @@ export function StatCard({ label, value, delta, icon: Icon = Inbox, tone = "navy
 }
 
 export const sampleStats: Stat[] = [
-  { label: "New enquiries · Sample", value: "128", delta: 12, icon: Inbox, tone: "sage" },
-  { label: "Qualified leads · Sample", value: "46", delta: 8, icon: Users, tone: "sage" },
-  { label: "Workflows run · Sample", value: "1,204", delta: 21, icon: Workflow, tone: "navy" },
-  { label: "CTA clicks · Sample", value: "3.2k", delta: -3, icon: MousePointerClick, tone: "navy" },
+  { label: t("New enquiries · Sample"), value: "128", delta: 12, icon: Inbox, tone: "sage" },
+  { label: t("Qualified leads · Sample"), value: "46", delta: 8, icon: Users, tone: "sage" },
+  { label: t("Workflows run · Sample"), value: "1,204", delta: 21, icon: Workflow, tone: "navy" },
+  { label: t("CTA clicks · Sample"), value: "3.2k", delta: -3, icon: MousePointerClick, tone: "navy" },
 ];
 
 /** KPI row — four stat cards; labelled Sample data. */
 export function KpiRow({ stats = sampleStats, className }: { stats?: Stat[]; className?: string }) {
   return (
-    <div className={cn("grid grid-cols-2 lg:grid-cols-4 gap-3", className)} aria-label="Sample KPIs">
+    <div className={cn("grid grid-cols-2 lg:grid-cols-4 gap-3", className)} aria-label={t("Sample KPIs")}>
       {stats.map((s) => <StatCard key={s.label} {...s} />)}
     </div>
   );

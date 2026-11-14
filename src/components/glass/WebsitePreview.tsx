@@ -1,4 +1,5 @@
 "use client";
+import { t } from "@/i18n";
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, Laptop, Smartphone, Tablet } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -47,9 +48,9 @@ export function WebsitePreview({ className }: { className?: string }) {
   };
 
   return (
-    <figure className={cn("w-full", className)} aria-label="Interactive preview of an illustrative business website at desktop, tablet and phone widths">
+    <figure className={cn("w-full", className)} aria-label={t("Interactive preview of an illustrative business website at desktop, tablet and phone widths")}>
       <div className="flex flex-wrap items-center justify-center sm:justify-between gap-3 mb-5">
-        <div role="radiogroup" aria-label="Preview width" className="hidden sm:inline-flex rounded-full border border-line bg-surface p-1 gap-0.5" onKeyDown={onKey}>
+        <div role="radiogroup" aria-label={t("Preview width")} className="hidden sm:inline-flex rounded-full border border-line bg-surface p-1 gap-0.5" onKeyDown={onKey}>
           {devices.map((x) => (
             <button key={x.id} type="button" role="radio" aria-checked={device === x.id} tabIndex={device === x.id ? 0 : -1} onClick={() => setDevice(x.id)}
               className={cn("inline-flex items-center gap-2 h-9 px-3.5 rounded-full text-[0.82rem] font-[550] transition-colors", device === x.id ? "bg-[var(--steel-blue)] text-[var(--c-ink)]" : "text-text-2 hover:text-text")}>
@@ -61,9 +62,9 @@ export function WebsitePreview({ className }: { className?: string }) {
           <span className="num hidden sm:inline">{d.width}px · {theme}</span>
           <button type="button" onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))} aria-pressed={theme === "dark"}
             className="h-9 px-3.5 rounded-full border border-line bg-surface text-[0.82rem] font-[550] text-text hover:bg-surface-strong transition-colors">
-            {theme === "light" ? "Dark mode" : "Light mode"}
+            {theme === "light" ? t("Dark mode") : t("Light mode")}
           </button>
-          <span className="chip chip-slate hidden sm:inline-flex">Illustrative · sample content</span>
+          <span className="chip chip-slate hidden sm:inline-flex">{t("Illustrative · sample content")}</span>
         </div>
       </div>
 
@@ -74,7 +75,7 @@ export function WebsitePreview({ className }: { className?: string }) {
             {device !== "phone" && (
               <div className="flex items-center gap-2 px-2 pb-2">
                 <span className="flex gap-1.5" aria-hidden><i className="size-2.5 rounded-full bg-[color-mix(in_srgb,var(--c-steel-light)_25%,transparent)]" /><i className="size-2.5 rounded-full bg-[color-mix(in_srgb,var(--c-steel-light)_25%,transparent)]" /><i className="size-2.5 rounded-full bg-[color-mix(in_srgb,var(--c-steel-light)_25%,transparent)]" /></span>
-                <span className="mx-auto h-6 px-4 rounded-full bg-[color-mix(in_srgb,var(--c-stone)_6%,transparent)] text-[0.68rem] text-[var(--c-on-dark-2)] inline-flex items-center font-mono">example-business.site</span>
+                <span className="mx-auto h-6 px-4 rounded-full bg-[color-mix(in_srgb,var(--c-stone)_6%,transparent)] text-[0.68rem] text-[var(--c-on-dark-2)] inline-flex items-center font-mono">{t("example-business.site")}</span>
               </div>
             )}
             {/* Site */}
@@ -83,20 +84,20 @@ export function WebsitePreview({ className }: { className?: string }) {
                 {/* nav */}
                 <div className="sticky top-0 z-10 px-4 pt-3">
                   <div className="glass rounded-[calc(12px*var(--rs,1))] h-11 px-3 flex items-center justify-between">
-                    <span className="flex items-center gap-2"><span className="size-5 rounded-[calc(6px*var(--rs,1))] bg-[var(--graphite)]" aria-hidden /><span className="text-[0.8rem] font-[620] tracking-[-0.02em]">Northwind Studio</span></span>
+                    <span className="flex items-center gap-2"><span className="size-5 rounded-[calc(6px*var(--rs,1))] bg-[var(--graphite)]" aria-hidden /><span className="text-[0.8rem] font-[620] tracking-[-0.02em]">{t("Northwind Studio")}</span></span>
                     <span className="hidden @[560px]:flex items-center gap-4 text-[0.74rem] text-text-2">{["Work", "Services", "Studio", "Journal"].map((t) => <span key={t}>{t}</span>)}</span>
-                    <span className="h-7 px-3 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.7rem] font-[550] inline-flex items-center">Enquire</span>
+                    <span className="h-7 px-3 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.7rem] font-[550] inline-flex items-center">{t("Enquire")}</span>
                   </div>
                 </div>
                 {/* hero */}
                 <div className="px-5 pt-10 pb-8 grid gap-6 @[720px]:grid-cols-12 @[720px]:items-center">
                   <div className="@[720px]:col-span-7">
-                    <span className="eyebrow">Interior architecture</span>
-                    <p className="mt-3 font-[560] tracking-[-0.04em] leading-[1.02] text-[clamp(1.6rem,8cqw,3rem)]">Spaces that feel <span className="accent">considered.</span></p>
-                    <p className="mt-3 text-text-2 text-[0.85rem] max-w-[42ch]">Residential and hospitality interiors — from concept to handover, with one team throughout.</p>
+                    <span className="eyebrow">{t("Interior architecture")}</span>
+                    <p className="mt-3 font-[560] tracking-[-0.04em] leading-[1.02] text-[clamp(1.6rem,8cqw,3rem)]">{t("Spaces that feel")}{" "}<span className="accent">{t("considered.")}</span></p>
+                    <p className="mt-3 text-text-2 text-[0.85rem] max-w-[42ch]">{t("Residential and hospitality interiors — from concept to handover, with one team throughout.")}</p>
                     <div className="mt-5 flex flex-wrap gap-2">
-                      <span className="h-9 px-4 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.76rem] font-[550] inline-flex items-center gap-1.5">Start a project <ArrowUpRight size={12} aria-hidden /></span>
-                      <span className="h-9 px-4 rounded-full border border-line-strong bg-surface text-[0.76rem] font-[550] inline-flex items-center">View work</span>
+                      <span className="h-9 px-4 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.76rem] font-[550] inline-flex items-center gap-1.5">{t("Start a project")}{" "}<ArrowUpRight size={12} aria-hidden /></span>
+                      <span className="h-9 px-4 rounded-full border border-line-strong bg-surface text-[0.76rem] font-[550] inline-flex items-center">{t("View work")}</span>
                     </div>
                   </div>
                   <div className="@[720px]:col-span-5 grid grid-cols-3 gap-2" aria-hidden>
@@ -108,7 +109,7 @@ export function WebsitePreview({ className }: { className?: string }) {
                 {/* services */}
                 <div className="px-5 pb-8">
                   <div className="flex items-end justify-between gap-4 border-t border-line pt-6">
-                    <span className="text-[1.05rem] font-[560] tracking-[-0.03em]">What we do</span><span className="num">03 services</span>
+                    <span className="text-[1.05rem] font-[560] tracking-[-0.03em]">{t("What we do")}</span><span className="num">{t("03 services")}</span>
                   </div>
                   <ul className="mt-4 grid gap-2 @[560px]:grid-cols-3">
                     {[["Residential", "Apartments, villas and family homes."], ["Hospitality", "Restaurants, cafés and boutique stays."], ["Workplace", "Studios and offices that work."]].map(([t, s], i) => (
@@ -119,28 +120,28 @@ export function WebsitePreview({ className }: { className?: string }) {
                 {/* testimonial-free proof band → process */}
                 <div data-theme={theme === "light" ? "dark" : "light"} className="tone tone-grad px-5 py-8">
                   <div className="grid gap-5 @[640px]:grid-cols-[1fr_1.2fr] @[640px]:items-center">
-                    <div><span className="eyebrow">Process</span><p className="mt-2 text-[1.2rem] font-[560] tracking-[-0.03em] leading-tight">Concept, design, build — <span className="accent">one team.</span></p></div>
+                    <div><span className="eyebrow">{t("Process")}</span><p className="mt-2 text-[1.2rem] font-[560] tracking-[-0.03em] leading-tight">{t("Concept, design, build —")}{" "}<span className="accent">{t("one team.")}</span></p></div>
                     <ol className="grid gap-2 @[400px]:grid-cols-3">{["Brief & survey", "Design & samples", "Build & handover"].map((t, i) => <li key={t} className="rounded-[calc(12px*var(--rs,1))] border border-line bg-surface p-3 text-[0.76rem]"><span className="num block">0{i + 1}</span><span className="block mt-1 font-[550]">{t}</span></li>)}</ol>
                   </div>
                 </div>
                 {/* enquiry */}
                 <div className="px-5 py-8">
                   <div className="rounded-[calc(16px*var(--rs,1))] border border-line bg-surface p-5 grid gap-3 @[560px]:grid-cols-[1fr_auto] @[560px]:items-center">
-                    <div><span className="font-[560] tracking-[-0.02em] text-[1rem]">Tell us about your space</span><span className="block text-[0.78rem] text-text-2 mt-1">We reply within two working days.</span></div>
-                    <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); setSent(true); }} aria-label="Sample enquiry (demo — nothing is sent)">
+                    <div><span className="font-[560] tracking-[-0.02em] text-[1rem]">{t("Tell us about your space")}</span><span className="block text-[0.78rem] text-text-2 mt-1">{t("We reply by email.")}</span></div>
+                    <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); setSent(true); }} aria-label={t("Sample enquiry (demo — nothing is sent)")}>
                       <label className="sr-only" htmlFor={`${id}-mail`}>Email (demo)</label>
-                      <input id={`${id}-mail`} type="email" placeholder="you@company.com" className="h-9 min-w-0 flex-1 rounded-full border border-line-strong bg-bg px-3 text-[0.76rem] text-text placeholder:text-text-2 focus:outline-2 focus:outline-[var(--accent)]" />
+                      <input id={`${id}-mail`} type="email" placeholder={t("you@company.com")} className="h-9 min-w-0 flex-1 rounded-full border border-line-strong bg-bg px-3 text-[0.76rem] text-text placeholder:text-text-2 focus:outline-2 focus:outline-[var(--accent)]" />
                       <button type="submit" className="h-9 px-3.5 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] text-[0.74rem] font-[550] shrink-0">{sent ? "Demo only ✓" : "Send"}</button>
                     </form>
                   </div>
-                  <p className="mt-6 text-center text-[0.68rem] text-text-2">© Northwind Studio · Privacy · Terms</p>
+                  <p className="mt-6 text-center text-[0.68rem] text-text-2">{t("© Northwind Studio · Privacy · Terms")}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <figcaption className="sr-only">Illustrative layout with sample content. The real build is designed around your business.</figcaption>
+      <figcaption className="sr-only">{t("Illustrative layout with sample content. The real build is designed around your business.")}</figcaption>
     </figure>
   );
 }

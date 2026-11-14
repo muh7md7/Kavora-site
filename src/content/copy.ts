@@ -1,6 +1,14 @@
-import home from "../../content/home.json";
-import pages from "../../content/pages.json";
-import legal from "../../content/legal.json";
+import homeEn from "../../content/home.json";
+import pagesEn from "../../content/pages.json";
+import legalEn from "../../content/legal.json";
+import homeAr from "../../content/ar/home.json";
+import pagesAr from "../../content/ar/pages.json";
+import legalAr from "../../content/ar/legal.json";
+import { overlay } from "@/i18n";
+
+const home = overlay(homeEn, homeAr);
+const pages = overlay(pagesEn, pagesAr);
+const legal = overlay(legalEn, legalAr);
 
 /** Page copy edited through the admin panel (content/*.json). */
 export { home, pages, legal };

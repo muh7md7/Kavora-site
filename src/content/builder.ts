@@ -4,6 +4,7 @@ import themeJson from "./generated/theme.json";
 import homeJson from "./generated/home-layout.json";
 import pagesJson from "./generated/custom-pages.json";
 import navJson from "./generated/navigation.json";
+import { t } from "@/i18n";
 
 export type Bg = "auto" | "light" | "mist" | "warm" | "dark";
 export type Img = { src: string; alt: string; width: number | null; height: number | null };
@@ -58,7 +59,11 @@ export type Navigation = {
 export const theme = themeJson as unknown as Theme;
 export const homeBlocks = (homeJson as unknown as { blocks: Block[] }).blocks;
 export const customPages = (pagesJson as unknown as { pages: CustomPage[] }).pages;
-export const navigation = navJson as unknown as Navigation;
+// Menu/footer labels are translated through the UI dictionary in the Arabic build.
+const trNav = (o: unknown): unknown => Array.isArray(o) ? o.map(trNav)
+  : o && typeof o === "object" ? Object.fromEntries(Object.entries(o).map(([k, v]) => [k, (k === "label" || k.endsWith("Title")) && typeof v === "string" ? t(v) : trNav(v)]))
+  : o;
+export const navigation = trNav(navJson) as unknown as Navigation;
 
 /** True when the block draws its own top-of-page hero (so no header spacer / auto title is needed). */
 export const isHeroBlock = (b?: Block) => b?.type === "hero" || b?.type === "homeHero";

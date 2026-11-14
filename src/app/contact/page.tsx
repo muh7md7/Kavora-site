@@ -1,59 +1,66 @@
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
-import { ArrowUpRight, Clock, Mail, MessageCircle, Phone } from "lucide-react";
-import { PageHero } from "@/components/sections/PageHero";
+import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
 import { EnquiryForm } from "@/components/sections/EnquiryForm";
-import { Tone } from "@/components/sections/Tone";
-import { isConfirmed, site, thirdPartyNote } from "@/content/site";
+import { isConfirmed, site } from "@/content/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { t } from "@/i18n";
 
 export const metadata: Metadata = {
-  title: "Contact — start a project",
-  description: "Tell Keelbiz what you need — one service, several, a complete solution or a custom AI agent. We reply with questions and a custom quote.",
+  title: t("Contact — start a project"),
+  description: "Tell Keelbiz what you need — one service or a complete solution. We reply with options and a custom quote.",
   alternates: { canonical: "/contact/" },
 };
 
 export default function ContactPage() {
   const { email, phone, whatsapp } = site.contact;
-  const anyDirect = isConfirmed(email) || isConfirmed(phone) || isConfirmed(whatsapp);
   const c = pages.contact;
+  const direct = [
+    isConfirmed(whatsapp) && { href: `https://wa.me/${whatsapp.replace(/\D/g, "")}`, label: "WhatsApp", Icon: MessageCircle, ev: "whatsapp_click" },
+    isConfirmed(phone) && { href: `tel:${phone.replace(/[^\d+]/g, "")}`, label: phone, Icon: Phone, ev: "phone_click" },
+    isConfirmed(email) && { href: `mailto:${email}`, label: email, Icon: Mail, ev: "email_click" },
+  ].filter(Boolean) as { href: string; label: string; Icon: typeof Mail; ev: string }[];
   return (
     <>
-      <PageHero eyebrow={c.hero.eyebrow} title={c.hero.title} accent={c.hero.accent} lead={c.hero.lead} compact />
-      <Tone tone="mist" className="section !pt-12 md:!pt-16">
-        <div className="container grid gap-6 lg:gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-8 card !bg-[linear-gradient(180deg,color-mix(in_srgb,var(--c-paper)_90%,transparent),color-mix(in_srgb,var(--c-paper)_70%,transparent))] p-6 sm:p-8 md:p-10">
-            <EnquiryForm />
-          </div>
-          <aside className="lg:col-span-4 flex flex-col gap-4 lg:sticky lg:top-28 self-start">
-            <div data-theme="dark" className="card p-7 !bg-[radial-gradient(80%_70%_at_90%_0%,color-mix(in_srgb,var(--c-steel)_32%,transparent),transparent_60%),linear-gradient(165deg,var(--c-deep-3),var(--c-deep-2))] !border-transparent text-text">
-              <p className="eyebrow">What happens next</p>
-              <ol className="mt-6 grid gap-5">
-                {c.nextSteps.map((t, i) => (
-                  <li key={t} className="flex gap-4"><span className="num shrink-0">0{i + 1}</span><span className="text-[0.95rem]">{t}</span></li>
+      <section data-theme="light" className="tone tone-grad has-grid hero-shell relative overflow-hidden pt-[108px] md:pt-[150px] pb-16 md:pb-28">
+        <div aria-hidden className="pointer-events-none absolute -top-40 end-[-10%] size-[620px] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c-steel-light)_45%,transparent),transparent)] blur-2xl" />
+        <div className="container relative grid gap-10 lg:gap-16 lg:grid-cols-12 items-start">
+          <div className="lg:col-span-5 lg:pt-10">
+            <p className="eyebrow reveal-fade">{c.hero.eyebrow}</p>
+            <h1 className="mt-6 reveal-fade !text-[clamp(2.4rem,1.6rem+3vw,4.4rem)] !leading-[1.02] !tracking-[-0.045em] max-w-[12ch]" style={{ animationDelay: "80ms" }}>
+              {c.hero.title} <span className="accent">{c.hero.accent}</span>
+            </h1>
+            <p className="lead mt-6 reveal-fade max-w-[42ch]" style={{ animationDelay: "160ms" }}>{c.hero.lead}</p>
+            <ol className="mt-10 grid gap-0 reveal-fade border-t border-line" style={{ animationDelay: "240ms" }}>
+              {c.nextSteps.map((s, i) => (
+                <li key={i} className="flex items-baseline gap-4 py-4 border-b border-line text-[0.95rem]">
+                  <span className="num shrink-0">0{i + 1}</span><span>{s}</span>
+                </li>
+              ))}
+            </ol>
+            {direct.length > 0 && (
+              <div className="mt-8 flex flex-wrap gap-2.5">
+                {direct.map(({ href, label, Icon, ev }) => (
+                  <a key={href} href={href} rel="noopener" data-event={ev} className="chip-btn !h-11 !px-4" dir="ltr"><Icon size={16} aria-hidden />{label}<ArrowUpRight size={14} className="text-text-2" aria-hidden /></a>
                 ))}
-              </ol>
+              </div>
+            )}
+          </div>
+          <div className="lg:col-span-7">
+            <div className="contact-card relative rounded-[calc(28px*var(--rs,1))] p-6 sm:p-9 md:p-11">
+              <div className="flex items-center justify-between gap-4 mb-8">
+                <div>
+                  <p className="text-[1.35rem] md:text-[1.6rem] font-[580] tracking-[-0.03em] leading-tight">{t("Start a project")}</p>
+                  <p className="text-text-2 text-[0.92rem] mt-1.5">{t("Takes less than a minute.")}</p>
+                </div>
+                <span className="hidden sm:inline-flex items-center gap-2 h-9 px-3.5 rounded-full border border-line text-[0.78rem] text-text-2"><span className="size-2 rounded-full bg-[#4f9a7a] shadow-[0_0_0_4px_color-mix(in_srgb,#4f9a7a_18%,transparent)]" aria-hidden />{t("Taking new projects")}</span>
+              </div>
+              <EnquiryForm />
             </div>
-            <div className="card p-7">
-              <p className="eyebrow">{anyDirect ? "Prefer to talk?" : "Response time"}</p>
-              <ul className="mt-5 grid gap-3.5 text-[0.95rem]">
-                {isConfirmed(whatsapp) && <li><a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} className="flex items-center gap-3 hover:text-text" data-event="whatsapp_click" rel="noopener"><span className="size-9 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><MessageCircle size={16} /></span>WhatsApp <ArrowUpRight size={14} className="text-text-2" aria-hidden /></a></li>}
-                {isConfirmed(phone) && <li><a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="flex items-center gap-3 hover:text-text" data-event="phone_click"><span className="size-9 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><Phone size={16} /></span>{phone}</a></li>}
-                {isConfirmed(email) && <li><a href={`mailto:${email}`} className="flex items-center gap-3 hover:text-text break-all" data-event="email_click"><span className="size-9 shrink-0 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><Mail size={16} /></span>{email}</a></li>}
-                <li className="flex items-center gap-3 text-text-2"><span className="size-9 shrink-0 rounded-full border border-line inline-flex items-center justify-center" aria-hidden><Clock size={16} /></span>Reply within two working days</li>
-              </ul>
-            </div>
-            <div className="card p-7">
-              <p className="eyebrow">Good to know</p>
-              <ul className="mt-5 grid gap-3 text-[0.92rem] text-text-2">
-                {c.goodToKnow.map((t) => <li key={t}>{t}</li>)}
-                <li>{thirdPartyNote}</li>
-              </ul>
-            </div>
-            {site.features.bookingEmbed && <div className="rounded-[calc(24px*var(--rs,1))] border border-line p-6 text-sm text-text-2">Booking embed goes here once configured.</div>}
-          </aside>
+            <p className="mt-5 text-[0.82rem] text-text-2 px-2">{c.goodToKnow.join(" · ")}</p>
+          </div>
         </div>
-      </Tone>
+      </section>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact/" }]} />
     </>
   );

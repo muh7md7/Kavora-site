@@ -1,14 +1,15 @@
 "use client";
+import { t } from "@/i18n";
 import { useEffect, useRef, useState } from "react";
 import { Bot, Database, Inbox, Send, Users } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const nodes = [
-  { id: "lead", label: "New Lead", icon: Inbox, tone: "sage", what: "An enquiry arrives from the website form, WhatsApp or an ad." },
-  { id: "ai", label: "AI Qualify", icon: Bot, tone: "navy", what: "An AI agent asks the right questions and scores fit against your criteria." },
-  { id: "crm", label: "CRM", icon: Database, tone: "navy", what: "The lead, transcript and score are stored in your CRM or sheet." },
-  { id: "follow", label: "Follow-up", icon: Send, tone: "sage", what: "A tailored reply goes out automatically; reminders are scheduled." },
-  { id: "sales", label: "Sales Team", icon: Users, tone: "navy", what: "Qualified leads are handed to a person with full context." },
+  { id: "lead", label: t("New Lead"), icon: Inbox, tone: "sage", what: t("An enquiry arrives from the website form, WhatsApp or an ad.") },
+  { id: "ai", label: "AI Qualify", icon: Bot, tone: "navy", what: t("An AI agent asks the right questions and scores fit against your criteria.") },
+  { id: "crm", label: "CRM", icon: Database, tone: "navy", what: t("The lead, transcript and score are stored in your CRM or sheet.") },
+  { id: "follow", label: "Follow-up", icon: Send, tone: "sage", what: t("A tailored reply goes out automatically; reminders are scheduled.") },
+  { id: "sales", label: t("Sales Team"), icon: Users, tone: "navy", what: t("Qualified leads are handed to a person with full context.") },
 ] as const;
 
 /**
@@ -27,10 +28,10 @@ export function WorkflowCanvas({ className, compact = false }: { className?: str
   const current = nodes.find((n) => n.id === active);
 
   return (
-    <div ref={ref} className={cn("glass rounded-lg p-4 md:p-6 flex flex-col gap-4", className)} aria-label="Example workflow">
+    <div ref={ref} className={cn("glass rounded-lg p-4 md:p-6 flex flex-col gap-4", className)} aria-label={t("Example workflow")}>
       <div className="flex items-center justify-between gap-2 flex-wrap">
-        <span className="text-sm font-semibold">Enquiry → CRM</span>
-        <span className="chip chip-slate">Example workflow — tailored per client</span>
+        <span className="text-sm font-semibold">{t("Enquiry → CRM")}</span>
+        <span className="chip chip-slate">{t("Example workflow — tailored per client")}</span>
       </div>
 
       <div className="relative">

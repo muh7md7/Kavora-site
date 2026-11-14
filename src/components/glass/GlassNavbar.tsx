@@ -7,6 +7,8 @@ import { headerButton, menuName, nav, services } from "@/content/site";
 import { Logo } from "@/components/brand/Logo";
 import { ServiceGlyph } from "./ServiceGlyph";
 import { cn } from "@/lib/cn";
+import { LangSwitch, ThemeToggle } from "./PrefSwitches";
+import { t } from "@/i18n";
 
 export type NavLink = { label: string; href: string; mega?: "services" | boolean };
 
@@ -112,13 +114,13 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
     >
       <div className={cn("mx-auto relative lg:transition-[max-width] lg:duration-500 lg:ease-[cubic-bezier(.22,1,.36,1)]", scrolled && !inline ? "lg:max-w-[1180px] max-w-[var(--content-max)]" : "max-w-[var(--content-max)]")}>
         <nav
-          aria-label="Primary"
+          aria-label={t("Primary")}
           className={cn(
             "header-glass pointer-events-auto relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center px-2 rounded-[calc(18px*var(--rs,1))] transition-[height,box-shadow,background] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
             "h-[60px]", scrolled && !inline ? "lg:h-[58px] is-scrolled" : "lg:h-16", mobileOpen && "is-scrolled",
           )}
         >
-          <Link href="/" className="justify-self-start shrink-0 rounded-sm pl-2.5 sm:pl-3" aria-label="Keelbiz — home">
+          <Link href="/" className="justify-self-start shrink-0 rounded-sm pl-2.5 sm:pl-3" aria-label={t("Keelbiz — home")}>
             <Logo />
           </Link>
 
@@ -156,10 +158,12 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
           </ul>
 
           <div className="justify-self-end flex items-center gap-1.5">
+            <LangSwitch className="!border-transparent" />
+            <ThemeToggle className="!border-transparent lg:me-1" />
             <Link href={ctaHref} className="btn btn-primary !min-h-10 !h-10 !pl-4 !pr-3.5 !text-[0.86rem] !gap-2 hidden sm:inline-flex" data-magnetic>
               {ctaLabel}<span className="size-5 -mr-1 rounded-full bg-white/12 inline-flex items-center justify-center"><ArrowUpRight size={13} strokeWidth={2.2} className="btn-arrow" aria-hidden /></span>
             </Link>
-            <button type="button" className="lg:hidden size-11 inline-flex items-center justify-center rounded-pill text-text hover:bg-surface-strong active:bg-surface-strong transition-colors" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} aria-controls="mobile-menu" onClick={onOpenMobile}>
+            <button type="button" className="lg:hidden size-11 inline-flex items-center justify-center rounded-pill text-text hover:bg-surface-strong active:bg-surface-strong transition-colors" aria-label={mobileOpen ? t("Close menu") : t("Open menu")} aria-expanded={mobileOpen} aria-controls="mobile-menu" onClick={onOpenMobile}>
               <span className="relative size-5" aria-hidden>
                 <Menu size={20} className={cn("absolute inset-0 transition-[opacity,transform] duration-200", mobileOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100")} />
                 <X size={20} className={cn("absolute inset-0 transition-[opacity,transform] duration-200", mobileOpen ? "opacity-100" : "opacity-0 -rotate-90 scale-75")} />
@@ -172,7 +176,7 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
 
         {/* Mega panels */}
         {open === "services" && (
-          <div id={`${panelId}-services`} role="region" aria-label="Services" onMouseEnter={() => intent("services", 0)}
+          <div id={`${panelId}-services`} role="region" aria-label={t("Services")} onMouseEnter={() => intent("services", 0)}
             className="panel-enter glass glass-menu pointer-events-auto absolute left-0 right-0 top-[calc(100%+10px)] rounded-[calc(18px*var(--rs,1))] p-2.5 grid lg:grid-cols-12 gap-2.5">
             <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-1">
               {services.map((s, i) => (
@@ -189,19 +193,19 @@ export function GlassNavbar({ links = nav, ctaLabel = headerButton.label, ctaHre
               ))}
               <li>
                 <Link href="/services/" className="group flex items-center justify-between rounded-[calc(14px*var(--rs,1))] p-4 h-full border border-dashed border-line hover:border-text-2 transition-colors">
-                  <span className="text-[0.9rem] font-[550]">All services <span className="text-text-2 font-normal">· one or combined</span></span><ArrowUpRight size={16} aria-hidden />
+                  <span className="text-[0.9rem] font-[550]">{t("All services")}{" "}<span className="text-text-2 font-normal">{t("· one or combined")}</span></span><ArrowUpRight size={16} aria-hidden />
                 </Link>
               </li>
             </ul>
             <div data-theme="dark" className="lg:col-span-4 rounded-[calc(14px*var(--rs,1))] p-6 flex flex-col justify-between overflow-hidden relative tone-grad min-h-[260px]">
               <div>
-                <span className="eyebrow">AI Solutions</span>
-                <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">Custom AI agents, automation — or <span className="accent">ready-made</span> where available.</p>
-                <p className="text-sm text-text-2 mt-3">Tell us what you want to automate. We design a solution around your business.</p>
+                <span className="eyebrow">{t("AI Solutions")}</span>
+                <p className="mt-4 text-[1.3rem] leading-tight tracking-[-0.03em] font-[550] text-text">{t("Custom AI agents, automation — or")}{" "}<span className="accent">{t("ready-made")}</span>{" "}{t("where available.")}</p>
+                <p className="text-sm text-text-2 mt-3">{t("Tell us what you want to automate. We design a solution around your business.")}</p>
               </div>
               <div className="mt-6 flex flex-col gap-2">
-                <Link href="/ai-solutions/" className="btn btn-primary !min-h-10 !text-sm !justify-between">Explore AI solutions <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
-                <Link href="/contact/?type=solution" className="btn btn-glass !min-h-10 !text-sm !justify-between">Build your solution <ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
+                <Link href="/ai-solutions/" className="btn btn-primary !min-h-10 !text-sm !justify-between">{t("Explore AI solutions")}{" "}<ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
+                <Link href="/contact/?type=solution" className="btn btn-glass !min-h-10 !text-sm !justify-between">{t("Build your solution")}{" "}<ArrowUpRight size={15} className="btn-arrow" aria-hidden /></Link>
               </div>
             </div>
           </div>

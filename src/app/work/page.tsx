@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import type { Metadata } from "next";
 import { pages } from "@/content/copy";
 import Link from "next/link";
@@ -19,11 +20,11 @@ export const metadata: Metadata = {
 
 // Clearly labelled concept demonstrations of the kind of interfaces we build (not client work).
 const demos: { id: ServiceId; title: string; kind: string; desc: string; href: string }[] = [
-  { id: "websites", title: "Responsive business website", kind: "Website Design & Development", desc: "A business site that adapts from desktop to phone, with a clear enquiry path.", href: "/services/website-design-development/#example" },
-  { id: "automation", title: "Enquiry-to-CRM workflow", kind: "AI Agents & Automation", desc: "An AI agent replies to a new enquiry, qualifies it and books the call.", href: "/services/ai-agents-automation/#example" },
-  { id: "social", title: "Monthly content plan", kind: "Social Media Management", desc: "A planned grid of posts, reels and stories with a weekly publishing schedule.", href: "/services/social-media-management/#example" },
-  { id: "ads", title: "Campaign reporting view", kind: "Digital Advertising", desc: "Meta and Google campaigns organised into one clear reporting layout.", href: "/services/digital-advertising/#example" },
-  { id: "dashboards", title: "Business management dashboard", kind: "Business Dashboards & Systems", desc: "Leads, bookings and open tasks in one view, built on your own numbers.", href: "/services/business-dashboards-systems/#example" },
+  { id: "websites", title: t("Responsive business website"), kind: "Website Design & Development", desc: t("A business site that adapts from desktop to phone, with a clear enquiry path."), href: "/services/website-design-development/#example" },
+  { id: "automation", title: t("Enquiry-to-CRM workflow"), kind: "AI Agents & Automation", desc: t("An AI agent replies to a new enquiry, qualifies it and books the call."), href: "/services/ai-agents-automation/#example" },
+  { id: "social", title: t("Monthly content plan"), kind: "Social Media Management", desc: t("A planned grid of posts, reels and stories with a weekly publishing schedule."), href: "/services/social-media-management/#example" },
+  { id: "ads", title: t("Campaign reporting view"), kind: "Digital Advertising", desc: t("Meta and Google campaigns organised into one clear reporting layout."), href: "/services/digital-advertising/#example" },
+  { id: "dashboards", title: t("Business management dashboard"), kind: "Business Dashboards & Systems", desc: t("Leads, bookings and open tasks in one view, built on your own numbers."), href: "/services/business-dashboards-systems/#example" },
 ];
 
 export default function WorkPage() {
@@ -54,7 +55,7 @@ export default function WorkPage() {
                 <Link href={d.href} data-cursor="View" className="card card-hover bento-card group">
                   <div className="relative">
                     <ServiceStage id={d.id} scale={i === demos.length - 1 ? 1.15 : 1.08} className={cn("!h-[260px] sm:!h-[300px]", i === demos.length - 1 && "md:!h-[340px]")} />
-                    <span className="chip chip-slate absolute top-4 left-4 z-[4] !bg-[color-mix(in_srgb,var(--c-stone)_85%,transparent)]">Concept · Sample content</span>
+                    <span className="chip chip-slate absolute top-4 left-4 z-[4] !bg-[color-mix(in_srgb,var(--c-stone)_85%,transparent)]">{t("Concept · Sample content")}</span>
                   </div>
                   <div className="flex items-end justify-between gap-4 px-3.5 pt-6 pb-3">
                     <span><span className="num">{d.kind}</span><span className="block mt-2 text-[1.3rem] font-[560] tracking-[-0.025em]">{d.title}</span><span className="block mt-1.5 text-text-2 text-[0.93rem] max-w-[46ch]">{d.desc}</span></span>

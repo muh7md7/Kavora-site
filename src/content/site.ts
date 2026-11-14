@@ -1,9 +1,19 @@
 // Business inputs. Empty string = not confirmed yet — never invented, never rendered.
 // Brand rule: location-neutral. No countries, cities, regions or nationalities in promotional copy.
-import settings from "../../content/settings.json";
-import servicesData from "../../content/services.json";
-import aiData from "../../content/ai.json";
-import shared from "../../content/shared.json";
+import settingsEn from "../../content/settings.json";
+import servicesEn from "../../content/services.json";
+import aiEn from "../../content/ai.json";
+import sharedEn from "../../content/shared.json";
+import settingsAr from "../../content/ar/settings.json";
+import servicesAr from "../../content/ar/services.json";
+import aiAr from "../../content/ar/ai.json";
+import sharedAr from "../../content/ar/shared.json";
+import { overlay, t } from "@/i18n";
+// Arabic build (/ar/): translated text from content/ar/*.json is laid over the English files; anything missing stays English.
+const settings = overlay(settingsEn, settingsAr);
+const servicesData = overlay(servicesEn, servicesAr);
+const aiData = overlay(aiEn, aiAr);
+const shared = overlay(sharedEn, sharedAr);
 import { navigation } from "./builder";
 
 // Editable content lives in /content/*.json (edited through the Pages CMS admin panel — see .pages.yml).
@@ -12,7 +22,7 @@ import { navigation } from "./builder";
 export const site = {
   brand: settings.brand,
   domain: "", // not purchased yet
-  url: "https://keelbiz.example", // replace with real domain before launch
+  url: "https://keelbiz.com",
   type: "Digital growth & business technology agency",
   positioning: settings.positioning,
   supporting: settings.supporting,
@@ -66,7 +76,7 @@ const serviceKeys: { id: ServiceId; slug: string; flywheel: Service["flywheel"];
 export const services: Service[] = serviceKeys.map((k, i) => ({ ...(servicesData.services[i] as Omit<Service, "id" | "slug" | "flywheel" | "tone">), ...k }));
 
 export const serviceById = (id: ServiceId) => services.find((s) => s.id === id)!;
-export const shortName: Record<ServiceId, string> = { websites: "Website", social: "Social", ads: "Ads", automation: "AI", dashboards: "Dashboards" };
+export const shortName: Record<ServiceId, string> = { websites: t("Website"), social: t("Social"), ads: t("Ads"), automation: t("AI"), dashboards: t("Dashboards") };
 /** Short label for the services mega menu + footer (full names stay on pages). */
 export const menuName: Record<ServiceId, string> = { websites: "Website Design & Development", social: "Social Media Management", ads: "Digital Advertising — Meta & Google Ads", automation: "AI Agents & Automation", dashboards: "Business Dashboards" };
 

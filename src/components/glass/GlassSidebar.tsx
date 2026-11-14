@@ -1,4 +1,5 @@
 "use client";
+import { t } from "@/i18n";
 import { useState } from "react";
 import { BarChart3, ChevronRight, FolderKanban, Inbox, Moon, PanelLeft, Settings, Sun, Users } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -6,13 +7,13 @@ import { cn } from "@/lib/cn";
 type Item = { icon: React.ElementType; label: string; badge?: number; children?: { label: string; dot: string }[] };
 
 const items: Item[] = [
-  { icon: BarChart3, label: "Overview" },
-  { icon: Inbox, label: "Enquiries", badge: 12 },
-  { icon: FolderKanban, label: "Projects", badge: 4, children: [
-    { label: "Websites", dot: "var(--sage)" }, { label: "Automation", dot: "var(--navy)" }, { label: "Campaigns", dot: "var(--champagne)" },
+  { icon: BarChart3, label: t("Overview") },
+  { icon: Inbox, label: t("Enquiries"), badge: 12 },
+  { icon: FolderKanban, label: t("Projects"), badge: 4, children: [
+    { label: t("Websites"), dot: "var(--sage)" }, { label: t("Automation"), dot: "var(--navy)" }, { label: t("Campaigns"), dot: "var(--champagne)" },
   ] },
-  { icon: Users, label: "Clients" },
-  { icon: Settings, label: "Settings" },
+  { icon: Users, label: t("Clients") },
+  { icon: Settings, label: t("Settings") },
 ];
 
 /**
@@ -27,12 +28,12 @@ export function GlassSidebar({ defaultOpen = true, className }: { defaultOpen?: 
 
   return (
     <aside
-      aria-label="Sample sidebar"
+      aria-label={t("Sample sidebar")}
       className={cn("sidebar-w glass rounded-lg p-2 flex flex-col overflow-hidden select-none", dark && "glass-smoke", open && "is-open", className)}
       style={{ height: 420, width: open ? 280 : 72 }}
     >
       <div className="flex items-center justify-between px-2 py-1">
-        {open && <span className="fade-late font-display font-[560] tracking-[-0.04em] text-base">Keelbiz Desk</span>}
+        {open && <span className="fade-late font-display font-[560] tracking-[-0.04em] text-base">{t("Keelbiz Desk")}</span>}
         <button type="button" onClick={() => setOpen((v) => !v)} aria-label={open ? "Collapse sidebar" : "Expand sidebar"} aria-expanded={open} className="size-11 inline-flex items-center justify-center rounded-sm hover:bg-navy-tint/60">
           <PanelLeft size={18} aria-hidden />
         </button>
@@ -76,13 +77,13 @@ export function GlassSidebar({ defaultOpen = true, className }: { defaultOpen?: 
       </ul>
 
       <div className="mt-auto flex flex-col gap-1">
-        <button type="button" onClick={() => setDark((d) => !d)} className="flex items-center gap-3 rounded-sm px-3 min-h-11 text-sm hover:bg-surface" aria-pressed={dark} aria-label="Toggle theme">
+        <button type="button" onClick={() => setDark((d) => !d)} className="flex items-center gap-3 rounded-sm px-3 min-h-11 text-sm hover:bg-surface" aria-pressed={dark} aria-label={t("Toggle theme")}>
           {dark ? <Sun size={18} aria-hidden /> : <Moon size={18} aria-hidden />}
           {open && <span>{dark ? "Light" : "Dark"} theme</span>}
         </button>
         <div className={cn("flex items-center gap-3 rounded-sm px-2 py-2", open && "hairline bg-surface")}>
           <span className="size-8 rounded-pill bg-navy text-white text-xs font-bold inline-flex items-center justify-center" aria-hidden>MK</span>
-          {open && <span className="text-sm leading-tight"><span className="block font-semibold">Sample user</span><span className="block text-xs text-slate">Admin · Sample data</span></span>}
+          {open && <span className="text-sm leading-tight"><span className="block font-semibold">{t("Sample user")}</span><span className="block text-xs text-slate">{t("Admin · Sample data")}</span></span>}
         </div>
       </div>
     </aside>

@@ -1,84 +1,72 @@
 "use client";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { ArrowUpRight, Check, Loader2 } from "lucide-react";
-import { services, site, isConfirmed, type ServiceId } from "@/content/site";
+import { services, site } from "@/content/site";
+import { t } from "@/i18n";
 import { cn } from "@/lib/cn";
 
 type Errors = Partial<Record<string, string>>;
-const contactMethods = ["Email", "WhatsApp", "Phone call", "Video call"];
-export const enquiryTypes = [
-  { id: "single", label: "One service" },
-  { id: "multiple", label: "Several services" },
-  { id: "solution", label: "Complete solution" },
-  { id: "ai-ready", label: "Ready-made AI solution" },
-  { id: "ai-custom", label: "Custom AI agent" },
-  { id: "automation", label: "Custom automation" },
-  { id: "unsure", label: "Not sure yet" },
-] as const;
 const serviceIds = services.map((s) => s.id) as string[];
+/** Kept for links like /contact/?type=solution — mapped onto the single "service" choice. */
+export const enquiryTypes = [
+  { id: "single", label: t("One service") }, { id: "multiple", label: t("Several services") }, { id: "solution", label: t("Complete solution") },
+  { id: "ai-ready", label: t("Ready-made AI solution") }, { id: "ai-custom", label: t("Custom AI agent") }, { id: "automation", label: t("Custom automation") }, { id: "unsure", label: t("Not sure yet") },
+] as const;
 
 function validate(f: FormData): Errors {
   const e: Errors = {};
   const v = (k: string) => String(f.get(k) ?? "").trim();
-  if (v("name").length < 2) e.name = "Please enter your full name.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"))) e.email = "Enter a valid email address.";
-  if (v("company").length < 2) e.company = "Please enter your business name.";
-  if (v("website") && !/^https?:\/\/.+\..+/.test(v("website"))) e.website = "Include https:// in the address.";
-  if (f.getAll("services[]").length === 0) e.services = "Choose at least one option — or “Not sure yet”.";
-  if (v("description").length < 20) e.description = "Tell us a little more (at least 20 characters).";
-  if (!f.get("consent")) e.consent = "Please confirm you agree to be contacted.";
+  if (v("name").length < 2) e.name = t("Please enter your name.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"))) e.email = t("Enter a valid email address.");
+  if (!v("choice")) e.choice = t("Choose what you need.");
+  if (v("description").length < 10) e.description = t("A few words about your project, please.");
+  if (!f.get("consent")) e.consent = t("Please confirm you agree to be contacted.");
   return e;
 }
 
+/** Short enquiry form — five inputs. One dropdown replaces the long service lists. */
 function Form() {
   const sp = useSearchParams();
-  const presetServices = (sp.get("services") ?? sp.get("service") ?? "").split(",").filter((x) => serviceIds.includes(x));
-  const presetType = enquiryTypes.some((t) => t.id === sp.get("type")) ? (sp.get("type") as string) : presetServices.length > 1 ? "multiple" : presetServices.length === 1 ? "single" : "";
-  const topic = sp.get("topic") ?? "";
-
-  const [type, setType] = useState(presetType);
-  const [picked, setPicked] = useState<string[]>(presetType === "solution" ? [...serviceIds] : presetServices);
+  const preset = (() => {
+    const s = (sp.get("services") ?? sp.get("service") ?? "").split(",").filter((x) => serviceIds.includes(x));
+    const ty = sp.get("type") ?? "";
+    if (ty === "solution" || s.length > 1) return "solution";
+    if (ty.startsWith("ai-") || ty === "automation") return "automation";
+    return s[0] ?? "";
+  })();
+  const [choice, setChoice] = useState(preset);
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "fail" | "unavailable" | "rate">("idle");
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const started = useRef<number>(0);
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "fail" | "unavailable" | "rate">("idle");
+  const started = useRef(0);
   const formRef = useRef<HTMLFormElement>(null);
   useEffect(() => { started.current = Date.now(); }, []);
-
-  const toggle = (id: string) => setPicked((p) => {
-    if (id === "unsure") return p.includes("unsure") ? [] : ["unsure"];
-    const base = p.filter((x) => x !== "unsure");
-    return base.includes(id) ? base.filter((x) => x !== id) : [...base, id];
-  });
-  const chooseType = (id: string) => {
-    setType(id);
-    if (id === "solution") setPicked([...serviceIds]);
-    if (id.startsWith("ai-") || id === "automation") setPicked((p) => (p.includes("automation") ? p : [...p.filter((x) => x !== "unsure"), "automation"]));
-    if (id === "unsure") setPicked(["unsure"]);
-  };
-
-  const endpoint = site.enquiryEndpoint;
   const err = (k: string) => touched[k] && errors[k];
 
   const onBlur = (e: React.FocusEvent<HTMLFormElement>) => {
     const name = (e.target as unknown as HTMLInputElement).name; if (!name) return;
-    setTouched((t) => ({ ...t, [name]: true }));
+    setTouched((x) => ({ ...x, [name]: true }));
     setErrors(validate(new FormData(e.currentTarget)));
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status === "sending") return; // duplicate-submit lock
+    if (status === "sending") return;
     const fd = new FormData(e.currentTarget);
     const errs = validate(fd); setErrors(errs);
-    setTouched({ name: true, email: true, company: true, website: true, services: true, description: true, consent: true });
+    setTouched({ name: true, email: true, choice: true, description: true, consent: true });
     if (Object.keys(errs).length) { requestAnimationFrame(() => (formRef.current?.querySelector("[aria-invalid='true']") as HTMLElement | null)?.focus()); return; }
-    if (!endpoint) { setStatus("fail"); return; }
-    fd.set("elapsed", String(Date.now() - started.current)); // time-trap (server enforces)
+    // Map the single choice onto the server's fields.
+    const c = String(fd.get("choice"));
+    if (c === "solution") { serviceIds.forEach((id) => fd.append("services[]", id)); fd.set("type", "solution"); }
+    else if (c === "unsure") { fd.append("services[]", "unsure"); fd.set("type", "unsure"); }
+    else { fd.append("services[]", c); fd.set("type", "single"); }
+    fd.set("elapsed", String(Date.now() - started.current));
     setStatus("sending");
     try {
-      const r = await fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } });
+      const r = await fetch(site.enquiryEndpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } });
       const j = await r.json().catch(() => ({}));
       if (r.ok && j?.ok) { setStatus("ok"); window.dispatchEvent(new CustomEvent("kb:enquiry-submitted")); }
       else if (r.status === 503 || r.status === 404) setStatus("unavailable");
@@ -88,102 +76,64 @@ function Form() {
   };
 
   if (status === "ok") return (
-    <div className="rounded-[calc(20px*var(--rs,1))] border border-line bg-surface p-8" role="status">
-      <span className="size-11 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] inline-flex items-center justify-center" aria-hidden><Check size={20} /></span>
-      <p className="mt-5 text-[1.3rem] font-[560] tracking-[-0.02em]">Thank you — we&apos;ve received your enquiry.</p>
-      <p className="text-text-2 mt-2">We&apos;ll reply with questions and next steps within two working days.</p>
+    <div className="py-10 text-center" role="status">
+      <span className="size-14 rounded-full bg-[var(--graphite)] text-[var(--c-stone)] inline-flex items-center justify-center" aria-hidden><Check size={24} /></span>
+      <p className="mt-6 text-[1.5rem] font-[580] tracking-[-0.02em]">{t("Thank you — message received.")}</p>
+      <p className="text-text-2 mt-2 mx-auto max-w-[36ch]">{t("We'll be in touch by email with next steps.")}</p>
     </div>
   );
 
-  const a = (k: string, help?: boolean) => ({ id: `f-${k}`, name: k, "aria-invalid": err(k) ? true : undefined, "aria-describedby": err(k) ? `e-${k}` : help ? `h-${k}` : undefined, className: "input" });
-  const field = (k: string, label: string, input: React.ReactNode, help?: string) => (
+  const label = "block text-[0.8rem] font-[600] tracking-[0.01em] text-text-2 mb-2";
+  const field = (name: string, text: string, input: React.ReactNode) => (
     <div className="field">
-      <label htmlFor={`f-${k}`}>{label}</label>
+      <label htmlFor={`f-${name}`} className={label}>{text}</label>
       {input}
-      {help && !err(k) && <p id={`h-${k}`} className="help">{help}</p>}
-      {err(k) && <p id={`e-${k}`} className="error" role="alert">{errors[k]}</p>}
+      {err(name) && <p id={`f-${name}-err`} className="error">{errors[name]}</p>}
     </div>
   );
-  const pill = (on: boolean) => cn("relative inline-flex items-center gap-2 min-h-11 px-4 rounded-full border text-[0.9rem] font-[500] cursor-pointer select-none transition-colors duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--accent)]",
-    on ? "bg-[var(--graphite)] text-[var(--c-stone)] border-[var(--graphite)]" : "bg-surface-strong border-line-strong text-text hover:border-text-2");
+  const aria = (name: string) => ({ id: `f-${name}`, name, "aria-invalid": !!err(name), "aria-describedby": err(name) ? `f-${name}-err` : undefined });
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} onBlur={onBlur} noValidate className="grid gap-8" aria-describedby="form-note">
-      <div className="flex items-baseline gap-3 pb-4 border-b border-line"><span className="num">01</span><h2 className="!text-[1.15rem] !leading-tight font-[580] tracking-[-0.02em]">What you need</h2><span className="ml-auto text-[0.78rem] text-text-2 hidden sm:inline">Pick what fits — change it any time</span></div>
-      <input type="text" name="website_url" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" /> {/* honeypot */}
-      <input type="hidden" name="type" value={type} />
-      {topic && <input type="hidden" name="topic" value={topic} />}
-
-      <fieldset>
-        <legend className="text-[0.875rem] font-[550] mb-3">What are you looking for?</legend>
-        <div className="flex flex-wrap gap-2" role="radiogroup">
-          {enquiryTypes.map((t) => (
-            <label key={t.id} className={pill(type === t.id)}>
-              <input type="radio" name="type_ui" value={t.id} checked={type === t.id} onChange={() => chooseType(t.id)} className="sr-only" />
-              {t.label}
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset aria-describedby={err("services") ? "e-services" : "h-services"}>
-        <legend className="text-[0.875rem] font-[550] mb-3">Which services? <span className="text-text-2 font-normal">Choose one or more</span></legend>
-        <div className="flex flex-wrap gap-2">
-          {services.map((s) => (
-            <label key={s.id} className={pill(picked.includes(s.id))}>
-              <input type="checkbox" name="services[]" value={s.id} checked={picked.includes(s.id)} onChange={() => toggle(s.id)} className="sr-only" aria-invalid={err("services") ? true : undefined} />
-              {picked.includes(s.id) && <Check size={14} aria-hidden />}{s.name}
-            </label>
-          ))}
-          <label className={pill(picked.includes("unsure"))}>
-            <input type="checkbox" name="services[]" value="unsure" checked={picked.includes("unsure")} onChange={() => toggle("unsure")} className="sr-only" />
-            {picked.includes("unsure") && <Check size={14} aria-hidden />}Not sure yet
-          </label>
-        </div>
-        {err("services") ? <p id="e-services" className="error" role="alert">{errors.services}</p> : <p id="h-services" className="help mt-2 text-[0.75rem] text-text-2">We&apos;ll only recommend what you need.</p>}
-        {picked.includes("ads" as ServiceId) && (
-          <div className="mt-4 field">
-            <label htmlFor="f-ad_platforms">Advertising platforms</label>
-            <select id="f-ad_platforms" name="ad_platforms" className="input max-w-xs" defaultValue="both">
-              <option value="meta">Meta (Facebook &amp; Instagram)</option>
-              <option value="google">Google Ads</option>
-              <option value="both">Both</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
-          </div>
-        )}
-      </fieldset>
-
-      <div className="flex items-baseline gap-3 pb-4 border-b border-line"><span className="num">02</span><h2 className="!text-[1.15rem] !leading-tight font-[580] tracking-[-0.02em]">About you</h2><span className="ml-auto text-[0.78rem] text-text-2 hidden sm:inline">So we know who to reply to</span></div>
-      <div className="grid gap-5 md:grid-cols-2 -mt-2">
-        {field("name", "Full name", <input {...a("name")} autoComplete="name" required />)}
-        {field("email", "Email", <input {...a("email")} type="email" autoComplete="email" required />)}
-        {field("company", "Business name", <input {...a("company")} autoComplete="organization" required />)}
-        {field("website", "Website (optional)", <input {...a("website", true)} type="url" inputMode="url" placeholder="https://" />, "Include https://")}
-        {field("contact_method", "Preferred contact method (optional)", <select {...a("contact_method")} defaultValue="">{["", ...contactMethods].map((b) => <option key={b} value={b}>{b || "No preference"}</option>)}</select>)}
+    <form ref={formRef} onSubmit={onSubmit} onBlur={onBlur} noValidate className="grid gap-5">
+      <div className="grid gap-5 sm:grid-cols-2">
+        {field("name", t("Your name"), <input {...aria("name")} className="input" autoComplete="name" required />)}
+        {field("email", t("Email"), <input {...aria("email")} type="email" className="input" autoComplete="email" inputMode="email" required dir="ltr" />)}
       </div>
-      <div className="flex items-baseline gap-3 pb-4 border-b border-line"><span className="num">03</span><h2 className="!text-[1.15rem] !leading-tight font-[580] tracking-[-0.02em]">Your project</h2><span className="ml-auto text-[0.78rem] text-text-2 hidden sm:inline">A few lines is enough</span></div>
-      <div className="-mt-2">{field("description", "Tell us about your project", <textarea {...a("description", true)} rows={5} required defaultValue={topic ? `I'm interested in: ${topic}.\n\n` : ""} />, "What do you need, for whom, and by when? A few lines is enough.")}</div>
-
-      <div className="field">
-        <label className="!flex items-start gap-3 !font-normal text-[0.9rem] cursor-pointer"><input type="checkbox" name="consent" id="f-consent" className="check mt-0.5" aria-invalid={err("consent") ? true : undefined} aria-describedby={err("consent") ? "e-consent" : undefined} /> <span>I agree to be contacted about this enquiry. See our <a href="/legal/privacy/" className="text-text underline underline-offset-2">privacy policy</a>.</span></label>
-        {err("consent") && <p id="e-consent" className="error" role="alert">{errors.consent}</p>}
+      <div className="grid gap-5 sm:grid-cols-2">
+        {field("company", t("Company (optional)"), <input {...aria("company")} className="input" autoComplete="organization" />)}
+        {field("choice", t("What do you need?"),
+          <select {...aria("choice")} className={cn("input", !choice && "text-text-2")} value={choice} onChange={(e) => setChoice(e.target.value)} required>
+            <option value="" disabled>{t("Choose a service")}</option>
+            {services.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+            <option value="solution">Complete solution (several services)</option>
+            <option value="unsure">{t("Not sure yet")}</option>
+          </select>)}
       </div>
-
-      {(status === "fail" || status === "unavailable" || status === "rate") && (
-        <p className="error !text-[0.9rem]" role="alert">
-          {status === "unavailable" ? "Online enquiries aren't connected yet, so nothing was sent" : status === "rate" ? "Too many enquiries from this connection in the last hour — nothing was sent. Please try again later" : "Something went wrong and nothing was sent. Please try again"}{isConfirmed(site.contact.email) ? ` — or email ${site.contact.email}` : ""}.
-        </p>
-      )}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 pt-2">
-        <button type="submit" className="btn btn-primary !min-h-[52px] !px-7 w-full sm:w-auto" disabled={status === "sending"} aria-disabled={status === "sending"}>
-          {status === "sending" ? <><Loader2 size={16} className="animate-spin" aria-hidden /> Sending…</> : <>Send enquiry <ArrowUpRight size={17} className="btn-arrow" aria-hidden /></>}
+      {field("description", t("Project details"), <textarea {...aria("description")} className="input !min-h-[120px] resize-y" rows={4} placeholder={t("What do you want to achieve?")} required />)}
+      {/* Honeypot */}
+      <div className="hidden" aria-hidden><label>{t("Website URL")}<input name="website_url" tabIndex={-1} autoComplete="off" /></label></div>
+      <div>
+        <label className="flex items-start gap-3 text-[0.88rem] text-text-2 cursor-pointer">
+          <input type="checkbox" name="consent" id="f-consent" className="check mt-0.5" aria-invalid={!!err("consent")} />
+          <span>{t("I agree to be contacted about this enquiry.")} <Link href="/legal/privacy/" className="underline underline-offset-2 hover:text-text">{t("Privacy policy")}</Link></span>
+        </label>
+        {err("consent") && <p className="error mt-2">{errors.consent}</p>}
+      </div>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1">
+        <button type="submit" className="btn btn-primary !min-h-[54px] !px-8 w-full sm:w-auto" disabled={status === "sending"} data-magnetic>
+          {status === "sending" ? <><Loader2 size={18} className="animate-spin" aria-hidden />{t("Sending…")}</> : <>{t("Send message")} <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></>}
         </button>
-        <p id="form-note" className="text-[0.78rem] text-text-2">Custom quote. No obligation. No budget required. Minimal data, kept only as long as needed.</p>
+        <p className="text-[0.8rem] text-text-2">{t("Custom quote. No obligation.")}</p>
+      </div>
+      <div aria-live="polite">
+        {status === "fail" && <p className="error">{t("Something went wrong. Please try again in a moment.")}</p>}
+        {status === "rate" && <p className="error">{t("Too many attempts. Please try again later.")}</p>}
+        {status === "unavailable" && <p className="error">{t("The form is being set up. Please try again soon.")}</p>}
       </div>
     </form>
   );
 }
 
-// Fallback reserves the form's measured height so hydration causes no layout shift (CLS).
-export function EnquiryForm() { return <Suspense fallback={<div className="min-h-[1850px] sm:min-h-[1195px] lg:min-h-[1147px]" aria-hidden />}><Form /></Suspense>; }
+export function EnquiryForm() {
+  return <Suspense fallback={<div className="min-h-[460px]" aria-hidden />}><Form /></Suspense>;
+}

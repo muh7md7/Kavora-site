@@ -15,8 +15,8 @@ export function ProcessSteps({ items }: { items: { n: string; name: string; text
   }, []);
   return (
     <ol className="relative">
-      <span className="absolute left-[21px] sm:left-[27px] top-2 bottom-2 w-px bg-line" aria-hidden />
-      <span className="absolute left-[21px] sm:left-[27px] top-2 w-px bg-accent transition-[height] duration-700 ease-[cubic-bezier(.22,1,.36,1)]" style={{ height: `${(active / (items.length - 1)) * 100}%` }} aria-hidden />
+      <span className="absolute start-[21px] sm:start-[27px] top-2 bottom-2 w-px bg-line" aria-hidden />
+      <span className="absolute start-[21px] sm:start-[27px] top-2 w-px bg-accent transition-[height] duration-700 ease-[cubic-bezier(.22,1,.36,1)]" style={{ height: `${(active / (items.length - 1)) * 100}%` }} aria-hidden />
       {items.map((p, i) => (
         <li key={p.n} ref={(el) => { refs.current[i] = el; }} data-i={i} className="relative grid grid-cols-[44px_1fr] sm:grid-cols-[56px_1fr] gap-4 sm:gap-8 py-5 sm:py-10 first:pt-0">
           <span className={cn("relative z-10 size-11 sm:size-14 rounded-full border inline-flex items-center justify-center font-mono text-sm transition-all duration-500",

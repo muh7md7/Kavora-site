@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import Link from "next/link";
 import { ArrowUpRight, Bot, CalendarCheck, Check, Heart, Mail, MessageCircle, Play, Sparkles } from "lucide-react";
 import { services, type ServiceId } from "@/content/site";
@@ -16,7 +17,7 @@ function WebsitesPreview() {
       <div className="pv pv-up absolute left-[7%] right-[19%] top-[12%] -bottom-6 rounded-[calc(14px*var(--rs,1))] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)] overflow-hidden">
         <div className="flex items-center gap-2 px-3 h-7 border-b border-[color-mix(in_srgb,var(--c-deep)_8%,transparent)] bg-[var(--c-stone)]">
           <span className="flex gap-1"><i className="size-[7px] rounded-full bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /><i className="size-[7px] rounded-full bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /><i className="size-[7px] rounded-full bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /></span>
-          <span className="mx-auto h-4 w-[46%] rounded-full bg-white border border-[color-mix(in_srgb,var(--c-deep)_8%,transparent)] text-[7.5px] leading-4 text-center text-[var(--c-slate)] font-mono">yourbusiness.com</span>
+          <span className="mx-auto h-4 w-[46%] rounded-full bg-white border border-[color-mix(in_srgb,var(--c-deep)_8%,transparent)] text-[7.5px] leading-4 text-center text-[var(--c-slate)] font-mono">{t("yourbusiness.com")}</span>
         </div>
         <div className="px-4 pt-3">
           <div className="flex items-center justify-between"><span className="h-2 w-10 rounded-sm bg-[var(--c-deep)]" /><span className="flex gap-2"><i className="h-1 w-5 rounded bg-[color-mix(in_srgb,var(--c-deep)_20%,transparent)]" /><i className="h-1 w-5 rounded bg-[color-mix(in_srgb,var(--c-deep)_20%,transparent)]" /><i className="h-1 w-5 rounded bg-[color-mix(in_srgb,var(--c-deep)_20%,transparent)]" /></span></div>
@@ -63,7 +64,7 @@ function SocialPreview() {
         <div className="mt-2 flex items-center gap-2 text-[var(--c-slate)]"><Heart size={10} aria-hidden /><MessageCircle size={10} aria-hidden /><span className="ml-auto h-1 w-10 rounded bg-[color-mix(in_srgb,var(--c-deep)_18%,transparent)]" /></div>
       </div>
       <div className="pv pv-left absolute right-[6%] top-[26%] w-[42%] rounded-[calc(14px*var(--rs,1))] bg-white/85 backdrop-blur border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-3 shadow-[0_26px_50px_-28px_color-mix(in_srgb,var(--c-ink)_50%,transparent)]">
-        <span className="font-mono text-[8px] tracking-[.12em] uppercase text-[var(--c-slate)]">This week</span>
+        <span className="font-mono text-[8px] tracking-[.12em] uppercase text-[var(--c-slate)]">{t("This week")}</span>
         <ul className="mt-2 grid gap-1.5 text-[9.5px] text-[var(--c-ink)]">
           {[["Mon", "Carousel", "Scheduled"], ["Wed", "Reel", "Scheduled"], ["Fri", "Story", "Draft"]].map(([d, f, st]) => (
             <li key={d} className="flex items-center gap-2 rounded-[calc(8px*var(--rs,1))] bg-[var(--c-stone)] px-2 py-1.5">
@@ -81,9 +82,9 @@ function AdsPreview() {
   return (
     <div className="pv pv-up absolute inset-x-[7%] top-[11%] -bottom-4 rounded-[calc(14px*var(--rs,1))] border border-[color-mix(in_srgb,var(--c-blue-grey)_14%,transparent)] bg-[linear-gradient(180deg,color-mix(in_srgb,var(--c-blue-grey)_10%,transparent),color-mix(in_srgb,var(--c-blue-grey)_3%,transparent))] p-3.5 text-[var(--c-stone)]">
       <div className="flex items-center gap-1.5">
-        <span className="rounded-full bg-[var(--c-stone)] text-[var(--c-ink)] px-2 py-0.5 text-[8.5px] font-[600]">Meta</span>
-        <span className="rounded-full border border-[color-mix(in_srgb,var(--c-blue-grey)_25%,transparent)] px-2 py-0.5 text-[8.5px] text-[var(--c-on-dark-2)]">Google</span>
-        <span className="ml-auto font-mono text-[7.5px] tracking-[.1em] uppercase text-[var(--c-on-dark-2)]">Sample data</span>
+        <span className="rounded-full bg-[var(--c-stone)] text-[var(--c-ink)] px-2 py-0.5 text-[8.5px] font-[600]">{t("Meta")}</span>
+        <span className="rounded-full border border-[color-mix(in_srgb,var(--c-blue-grey)_25%,transparent)] px-2 py-0.5 text-[8.5px] text-[var(--c-on-dark-2)]">{t("Google")}</span>
+        <span className="ml-auto font-mono text-[7.5px] tracking-[.1em] uppercase text-[var(--c-on-dark-2)]">{t("Sample data")}</span>
       </div>
       <div className="mt-3 grid grid-cols-3 gap-1.5">
         {[["Reach", "Prospecting"], ["Clicks", "Retargeting"], ["Leads", "Lead form"]].map(([k, v]) => (
@@ -101,7 +102,7 @@ function AdsPreview() {
       </svg>
       <ul className="mt-2 grid gap-1 text-[8.5px]">
         {["Campaign · Enquiries", "Ad set · Lookalike"].map((r) => (
-          <li key={r} className="flex items-center gap-2 border-t border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] pt-1.5"><span className="size-1.5 rounded-full bg-[#9fd0b8]" /><span className="text-[var(--c-mist-2)]">{r}</span><span className="ml-auto text-[var(--c-on-dark-2)]">Active</span></li>
+          <li key={r} className="flex items-center gap-2 border-t border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] pt-1.5"><span className="size-1.5 rounded-full bg-[#9fd0b8]" /><span className="text-[var(--c-mist-2)]">{r}</span><span className="ml-auto text-[var(--c-on-dark-2)]">{t("Active")}</span></li>
         ))}
       </ul>
     </div>
@@ -110,9 +111,9 @@ function AdsPreview() {
 
 function AutomationPreview() {
   const nodes = [
-    { icon: Mail, t: "New enquiry", d: "Website form" },
-    { icon: Bot, t: "AI agent", d: "Qualifies & replies" },
-    { icon: CalendarCheck, t: "Action", d: "CRM + call booked" },
+    { icon: Mail, t: t("New enquiry"), d: t("Website form") },
+    { icon: Bot, t: "AI agent", d: t("Qualifies & replies") },
+    { icon: CalendarCheck, t: t("Action"), d: t("CRM + call booked") },
   ];
   return (
     <div className="absolute inset-0 flex flex-col justify-center px-[6%] gap-4">
@@ -129,8 +130,8 @@ function AutomationPreview() {
         ))}
       </div>
       <div className="pv pv-up mx-auto w-full max-w-[330px] rounded-[calc(12px*var(--rs,1))] bg-[var(--c-paper)] border border-[color-mix(in_srgb,var(--c-deep)_10%,transparent)] p-2.5 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--c-ink)_45%,transparent)]">
-        <div className="flex items-center gap-2 text-[9px] text-[var(--c-slate)]"><Sparkles size={10} className="text-[var(--c-steel-text)]" aria-hidden /><span className="font-mono uppercase tracking-[.1em] text-[7.5px]">Auto-reply sent</span><span className="ml-auto inline-flex items-center gap-1 text-[var(--c-steel-text)]"><Check size={10} aria-hidden />CRM updated</span></div>
-        <p className="mt-1.5 text-[10px] leading-snug text-[var(--c-ink)]">Thanks for getting in touch — Thursday at 11:00 works. A calendar invite is on its way.</p>
+        <div className="flex items-center gap-2 text-[9px] text-[var(--c-slate)]"><Sparkles size={10} className="text-[var(--c-steel-text)]" aria-hidden /><span className="font-mono uppercase tracking-[.1em] text-[7.5px]">{t("Auto-reply sent")}</span><span className="ml-auto inline-flex items-center gap-1 text-[var(--c-steel-text)]"><Check size={10} aria-hidden />{t("CRM updated")}</span></div>
+        <p className="mt-1.5 text-[10px] leading-snug text-[var(--c-ink)]">{t("Thanks for getting in touch — Thursday at 11:00 works. A calendar invite is on its way.")}</p>
       </div>
     </div>
   );
@@ -144,7 +145,7 @@ function DashboardsPreview() {
         <span className="size-4 rounded-[5px] bg-[var(--c-steel-light)]" />{[0, 1, 2, 3].map((i) => <span key={i} className={cn("h-1.5 w-[50%] rounded", i === 0 ? "bg-[color-mix(in_srgb,var(--c-blue-grey)_60%,transparent)]" : "bg-[color-mix(in_srgb,var(--c-blue-grey)_18%,transparent)]")} />)}
       </div>
       <div className="flex-1 p-3 min-w-0">
-        <div className="flex items-center"><span className="h-1.5 w-16 rounded bg-[color-mix(in_srgb,var(--c-stone)_80%,transparent)]" /><span className="ml-auto font-mono text-[7.5px] tracking-[.1em] uppercase text-[var(--c-on-dark-2)]">Illustrative</span></div>
+        <div className="flex items-center"><span className="h-1.5 w-16 rounded bg-[color-mix(in_srgb,var(--c-stone)_80%,transparent)]" /><span className="ml-auto font-mono text-[7.5px] tracking-[.1em] uppercase text-[var(--c-on-dark-2)]">{t("Illustrative")}</span></div>
         <div className="mt-2.5 grid grid-cols-3 gap-1.5">
           {["Leads", "Bookings", "Open tasks"].map((k, i) => (
             <span key={k} className="rounded-[calc(8px*var(--rs,1))] bg-[color-mix(in_srgb,var(--c-blue-grey)_7%,transparent)] border border-[color-mix(in_srgb,var(--c-blue-grey)_10%,transparent)] px-2 py-1.5">
@@ -196,7 +197,7 @@ export function ServicesBento() {
               <span className="num">0{i + 1}</span>
               <h3 className="mt-3 !text-[clamp(1.25rem,1.1rem+0.5vw,1.55rem)] !leading-[1.15]">{home.services.cards[i]?.title ?? s.name}</h3>
               <p className="mt-2.5 text-text-2 text-[0.95rem] leading-relaxed">{home.services.cards[i]?.description ?? s.short}</p>
-              <span className="bento-cta">Explore service <span className="arrow-pill" aria-hidden><ArrowUpRight size={15} /></span></span>
+              <span className="bento-cta">{t("Explore service")}{" "}<span className="arrow-pill" aria-hidden><ArrowUpRight size={15} /></span></span>
             </div>
           </Link>
         </Reveal>
@@ -221,7 +222,7 @@ export function ServiceFeatureList() {
                 {s.capabilities.slice(0, 6).map((c) => <li key={c} className="flex gap-2.5"><Check size={15} className="mt-[3px] shrink-0 text-accent" aria-hidden />{c}</li>)}
               </ul>
               <div className="mt-auto pt-8 flex flex-wrap gap-3">
-                <Link href={`/services/${s.slug}/`} className="btn btn-primary">Explore service <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
+                <Link href={`/services/${s.slug}/`} className="btn btn-primary">{t("Explore service")}{" "}<ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
                 <Link href={`/contact/?services=${s.id}`} className="btn btn-glass">{s.cta}</Link>
               </div>
             </div>

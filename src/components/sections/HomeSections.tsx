@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import Link from "next/link";
 import { home } from "@/content/copy";
 import { ArrowUpRight, Check } from "lucide-react";
@@ -18,7 +19,7 @@ export function Flywheel({ className }: { className?: string }) {
   const pos = [[200, 40], [360, 200], [200, 360], [40, 200]];
   return (
     <svg viewBox="-24 -8 448 416" className={cn("w-full max-w-[440px]", className)} role="img"
-      aria-label="The Keelbiz loop: Attract (Social and Ads), Convert (Website), Automate (AI agents), Manage (Dashboards), then back to Attract">
+      aria-label={t("The Keelbiz loop: Attract (Social and Ads), Convert (Website), Automate (AI agents), Manage (Dashboards), then back to Attract")}>
       <circle cx="200" cy="200" r="160" fill="none" stroke="var(--line-strong)" strokeWidth="1" />
       <g className="orbit">
         <circle cx="200" cy="200" r="160" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="2 10" opacity=".7" />
@@ -26,7 +27,7 @@ export function Flywheel({ className }: { className?: string }) {
       </g>
       <circle cx="200" cy="200" r="96" fill="none" stroke="var(--line)" strokeWidth="1" />
       <text x="200" y="192" textAnchor="middle" fontSize="13" fill="var(--text-2)" fontFamily="var(--font-mono)" letterSpacing="2">ONE</text>
-      <text x="200" y="216" textAnchor="middle" fontSize="26" fill="var(--text)" fontFamily="var(--font-serif)" fontStyle="italic">system</text>
+      <text x="200" y="216" textAnchor="middle" fontSize="26" fill="var(--text)" fontFamily="var(--font-serif)" fontStyle="italic">{t("system")}</text>
       {flywheel.map((f, i) => (
         <g key={f.step} transform={`translate(${pos[i][0]} ${pos[i][1]})`}>
           <rect x="-58" y="-24" width="116" height="48" rx="24" fill="var(--bg-2)" stroke="var(--line-strong)" />
@@ -50,9 +51,9 @@ export function Intro() {
     <Tone tone="dark" grad className="section overflow-hidden" aria-labelledby="loop-h">
       <div className="container grid gap-16 lg:grid-cols-12 items-center">
         <Reveal className="lg:col-span-6">
-          <p className="eyebrow">How Keelbiz works</p>
-          <h2 id="loop-h" className="mt-5">Not five services. <br className="hidden sm:block" />One <span className="accent">system.</span></h2>
-          <p className="lead mt-6">Most businesses buy marketing, websites and automation from people who never talk to each other. We run them as one loop — each part feeding the next. Every service also works on its own.</p>
+          <p className="eyebrow">{t("How Keelbiz works")}</p>
+          <h2 id="loop-h" className="mt-5">{t("Not five services.")}{" "}<br className="hidden sm:block" />{t("One")}{" "}<span className="accent">{t("system.")}</span></h2>
+          <p className="lead mt-6">{t("Most businesses buy marketing, websites and automation from people who never talk to each other. We run them as one loop — each part feeding the next. Every service also works on its own.")}</p>
         </Reveal>
         <Reveal className="lg:col-span-6 flex justify-center lg:justify-end" index={1}><Flywheel /></Reveal>
       </div>
@@ -97,12 +98,12 @@ export function AutomationShowcase() {
       <div className="container grid gap-14 lg:grid-cols-12 items-center">
         <Reveal className="lg:col-span-5">
           <p className="eyebrow">AI agents &amp; automation</p>
-          <h2 id="auto-h" className="mt-5">Automation you can <span className="accent">see.</span></h2>
-          <p className="lead mt-6">A typical enquiry-to-CRM flow. Hover or focus each step — yours is designed around your process.</p>
+          <h2 id="auto-h" className="mt-5">{t("Automation you can")}{" "}<span className="accent">{t("see.")}</span></h2>
+          <p className="lead mt-6">{t("A typical enquiry-to-CRM flow. Hover or focus each step — yours is designed around your process.")}</p>
           <ul className="mt-8 grid gap-3">
             {points.map((p) => <li key={p} className="flex gap-3 text-[0.98rem]"><Check size={18} className="mt-0.5 shrink-0 text-accent" aria-hidden />{p}</li>)}
           </ul>
-          <Link href="/services/ai-agents-automation/" className="btn btn-glass mt-10">Explore automation <ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
+          <Link href="/services/ai-agents-automation/" className="btn btn-glass mt-10">{t("Explore automation")}{" "}<ArrowUpRight size={16} className="btn-arrow" aria-hidden /></Link>
         </Reveal>
         <Reveal className="lg:col-span-7 bloom" index={1}><LazyWorkflow /></Reveal>
       </div>

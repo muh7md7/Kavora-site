@@ -1,4 +1,5 @@
 "use client";
+import { t } from "@/i18n";
 import { useMemo, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { useRef } from "react";
@@ -59,7 +60,7 @@ export function AreaChart({ className }: { className?: string }) {
   return (
     <div ref={ref} className={cn("glass rounded-md p-4 flex flex-col gap-3", className)}>
       <div className="flex items-center justify-between gap-2 flex-wrap">
-        <span className="text-sm font-semibold">Enquiries over time <span className="text-slate font-normal">· Sample data</span></span>
+        <span className="text-sm font-semibold">{t("Enquiries over time")}{" "}<span className="text-slate font-normal">{t("· Sample data")}</span></span>
         <Tabs ariaLabel="Date range" variant="segmented" items={["3M", "6M", "12M"].map((id) => ({ id, label: id }))} value={range} onChange={setRange} />
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} className="w-full" role="img" aria-label={`Sample enquiries trend, ${range}`}>

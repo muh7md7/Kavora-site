@@ -1,4 +1,5 @@
 "use client";
+import { t } from "@/i18n";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -10,11 +11,11 @@ import { Tabs } from "@/components/glass/Tabs";
 const ServiceDemo = dynamic(() => import("./ServiceDemos").then((m) => m.ServiceDemo), { ssr: false });
 
 const items: { id: ServiceId; label: string; icon: typeof Workflow; note: string; mobile?: string }[] = [
-  { id: "websites", label: "Websites", icon: MonitorSmartphone, note: "Switch between desktop, tablet and phone. Every site we build is responsive by default.", mobile: "Every site we build is responsive — this is how it looks on a phone." },
-  { id: "social", label: "Social", icon: Share2, note: "A planned month of posts, reels and stories — built around your audience." },
-  { id: "ads", label: "Advertising", icon: Megaphone, note: "Structured Meta and Google campaigns with clear weekly reporting." },
-  { id: "automation", label: "AI & Automation", icon: Workflow, note: "Hover or focus each step: an enquiry is qualified, logged and followed up automatically." },
-  { id: "dashboards", label: "Dashboards", icon: BarChart3, note: "One clear view of leads, sales and operations — built on your own numbers." },
+  { id: "websites", label: t("Websites"), icon: MonitorSmartphone, note: t("Switch between desktop, tablet and phone. Every site we build is responsive by default."), mobile: t("Every site we build is responsive — this is how it looks on a phone.") },
+  { id: "social", label: t("Social"), icon: Share2, note: t("A planned month of posts, reels and stories — built around your audience.") },
+  { id: "ads", label: t("Advertising"), icon: Megaphone, note: t("Structured Meta and Google campaigns with clear weekly reporting.") },
+  { id: "automation", label: t("AI & Automation"), icon: Workflow, note: t("Hover or focus each step: an enquiry is qualified, logged and followed up automatically.") },
+  { id: "dashboards", label: t("Dashboards"), icon: BarChart3, note: t("One clear view of leads, sales and operations — built on your own numbers.") },
 ];
 
 /** Home — "See it in action": one tabbed stage that demonstrates each service with a live, labelled illustration. */
@@ -39,7 +40,7 @@ export function Showcase() {
               <div className="w-full panel-enter flex justify-center">{near ? <ServiceDemo id={cur.id} /> : null}</div>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-4 pt-5 pb-1">
-              <p className="text-text-2 text-[0.95rem] max-w-[60ch]">{cur.mobile ? <><span className="sm:hidden">{cur.mobile}</span><span className="hidden sm:inline">{cur.note}</span></> : cur.note} <span className="text-text-2/70">Illustrative, sample data.</span></p>
+              <p className="text-text-2 text-[0.95rem] max-w-[60ch]">{cur.mobile ? <><span className="sm:hidden">{cur.mobile}</span><span className="hidden sm:inline">{cur.note}</span></> : cur.note} <span className="text-text-2/70">{t("Illustrative, sample data.")}</span></p>
               <Link href={`/services/${svc.slug}/`} className="btn btn-ghost">{svc.name} <ArrowUpRight size={16} className="arrow" aria-hidden /></Link>
             </div>
           </>

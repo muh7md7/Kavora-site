@@ -6,9 +6,7 @@
     "prepare-content": "node scripts/prepare-content.mjs",
     "predev": "node scripts/prepare-content.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/prepare-content.mjs",
-    "build": "next build",
-    "postbuild": "node -e \"require('fs').rmSync('out/__no-custom-pages',{recursive:true,force:true})\"",
+    "build": "node scripts/build-all.mjs",
     "start": "next start",
     "lint": "eslint"
   },
@@ -31,6 +29,7 @@
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@fontsource-variable/sora": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",

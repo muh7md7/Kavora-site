@@ -471,3 +471,78 @@ select.input { -webkit-appearance: none; appearance: none; padding-right: 44px; 
 .check[aria-invalid="true"] { border-color: var(--rust); }
 /* Cursor elements only exist visually once the cursor system is active (fine pointers) — never a stray ring on phones. */
 html:not(.has-cursor) .cursor-dot, html:not(.has-cursor) .cursor-ring, html:not(.has-cursor) .cursor-glow { display: none; }
+
+/* Contact card — layered glass with a soft steel edge */
+.contact-card { background: linear-gradient(180deg, color-mix(in srgb, var(--c-paper) 92%, transparent), color-mix(in srgb, var(--c-paper) 74%, transparent));
+  border: 1px solid color-mix(in srgb, #fff 80%, transparent);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px color-mix(in srgb, var(--c-deep) 7%, transparent), 0 40px 80px -40px color-mix(in srgb, var(--c-ink) 40%, transparent);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+html.dark .contact-card { background: linear-gradient(180deg, color-mix(in srgb, var(--c-deep-3) 80%, transparent), color-mix(in srgb, var(--c-deep-2) 70%, transparent)); border-color: color-mix(in srgb, var(--c-blue-grey) 14%, transparent); box-shadow: 0 40px 80px -40px rgba(0,0,0,.7); }
+
+/* ── Footer v7 ─────────────────────────────────────────────────────────── */
+.site-footer { background: linear-gradient(180deg, var(--c-deep) 0%, var(--c-ink) 100%); }
+.foot-glow { position: absolute; inset: -20% -10% auto auto; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c-steel) 30%, transparent), transparent 70%); filter: blur(10px); }
+.foot-grid { position: absolute; inset: 0; pointer-events: none; opacity: .35;
+  background-image: linear-gradient(to right, color-mix(in srgb, var(--c-blue-grey) 7%, transparent) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%; -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 60%, transparent); mask-image: linear-gradient(180deg, transparent, #000 30%, #000 60%, transparent); }
+.foot-panel { border-radius: calc(26px * var(--rs, 1)); border: 1px solid color-mix(in srgb, var(--c-blue-grey) 13%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c-deep-3) 55%, transparent), color-mix(in srgb, var(--c-deep-2) 35%, transparent));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-stone) 7%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-size: .92rem; }
+.foot-h { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--c-steel-light); margin-bottom: 1rem; }
+.foot-link { color: var(--text-2); background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: color .25s, background-size .35s var(--ease-out); padding-bottom: 1px; }
+.foot-link:hover { color: var(--text); background-size: 100% 1px; }
+[dir="rtl"] .foot-link { background-position: 100% 100%; }
+.foot-wordmark { font-weight: 640; letter-spacing: -.075em; line-height: .78; font-size: clamp(5.5rem, 24vw, 19rem); text-align: center; margin-top: clamp(24px, 4vw, 48px);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c-stone) 22%, transparent), transparent 85%); -webkit-background-clip: text; background-clip: text; color: transparent; transform: translateY(14%); }
+.orbit-btn { position: relative; width: 190px; height: 190px; border-radius: 999px; align-items: center; justify-content: center; color: var(--c-stone); }
+.orbit-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin-slow 22s linear infinite; }
+.orbit-ring text { font: 600 11.5px/1 var(--font-mono); letter-spacing: .18em; text-transform: uppercase; fill: color-mix(in srgb, var(--c-stone) 70%, transparent); }
+.orbit-core { position: relative; width: 104px; height: 104px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--steel-blue); color: var(--deep-charcoal); box-shadow: 0 20px 50px -18px color-mix(in srgb, var(--c-steel) 80%, transparent); transition: transform .5s var(--ease-out), background .3s; }
+.orbit-btn:hover .orbit-core { transform: scale(1.08) rotate(45deg); background: var(--c-stone); }
+.orbit-btn:hover .orbit-ring { animation-duration: 9s; }
+@media (prefers-reduced-motion: reduce) { .orbit-ring { animation: none; } }
+
+.pref-btn { width: 40px; height: 40px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); color: var(--text-2); transition: background .2s, color .2s, border-color .2s; }
+.pref-btn:hover { background: var(--surface-strong); color: var(--text); border-color: var(--line-strong); }
+.theme-switching, .theme-switching * { transition: background-color .3s ease, border-color .3s ease, color .3s ease !important; }
+
+/* Dark mode: header keeps its glass look */
+html.dark .header-glass { background: linear-gradient(180deg, color-mix(in srgb, var(--c-deep) 70%, transparent), color-mix(in srgb, var(--c-ink) 62%, transparent)); border-color: color-mix(in srgb, var(--c-steel-light) 12%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-stone) 8%, transparent), 0 22px 44px -26px rgba(0,0,0,.7); }
+
+/* ── Arabic / RTL ──────────────────────────────────────────────────────── */
+.font-arabic { font-family: var(--font-arabic), system-ui, sans-serif; }
+[dir="rtl"] { --font-sans: var(--font-arabic), system-ui, sans-serif; --font-display: var(--font-arabic), system-ui, sans-serif; --font-serif: var(--font-arabic), system-ui, sans-serif; }
+[dir="rtl"] body, [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] .display { font-family: var(--font-arabic), system-ui, sans-serif; }
+/* Arabic letters must join — no negative tracking, no faux italics; slightly looser leading */
+[dir="rtl"] :where(h1, h2, h3, h4, .display, .eyebrow, .num, .chip, .btn, p, a, span, li, label) { letter-spacing: 0 !important; }
+[dir="rtl"] :where(h1, h2, .display) { line-height: 1.25 !important; }
+[dir="rtl"] h3 { line-height: 1.4; }
+[dir="rtl"] .accent { font-style: normal; font-weight: 600; }
+[dir="rtl"] .eyebrow { text-transform: none; font-family: var(--font-arabic); font-size: .82rem; }
+[dir="rtl"] .eyebrow::before { order: 0; }
+/* Directional icons mirror */
+[dir="rtl"] :is(.lucide-arrow-up-right, .lucide-arrow-right, .lucide-chevron-right, .lucide-arrow-left, .lucide-chevron-left, .lucide-move-right) { transform: scaleX(-1); }
+[dir="rtl"] .btn:hover .btn-arrow { transform: scaleX(-1) translateX(3px); }
+[dir="rtl"] .marquee { animation-direction: reverse; }
+html.dark .btn-primary { background: var(--c-stone); color: var(--c-deep); box-shadow: none; }
+html.dark .btn-primary:hover { background: var(--steel-blue); }
+html.dark .btn-premium { background: var(--steel-blue); color: var(--deep-charcoal); }
+html.dark .check:checked { background: var(--steel-blue); border-color: var(--steel-blue); }
+html.dark .check::after { border-color: var(--c-ink); }
+
+/* Dark mode: light sections swap their paper/stone/mist surfaces for deep blues (text uses literal light tones). */
+html.dark body { background: var(--c-ink); }
+html.dark [data-theme="light"] {
+  --c-stone: #1b2c37; --c-stone-2: #1d303c; --c-stone-3: #213646; --c-paper: #263d4b;
+  --c-mist: #1f3442; --c-mist-hi: #243b4a; --c-mist-2: #1c2f3c;
+  --text: #f3f0eb; --logo-ink: #17262f; --logo-fill: #f3f0eb;
+}
+html.dark .btn-primary { background: #f3f0eb; color: #17262f; }
+html.dark .btn-primary:hover { background: #b9cdd5; }
+html.dark .card, html.dark .device, html.dark .stage-frame { border-color: color-mix(in srgb, #9fb6c1 14%, transparent); }
+html.dark [data-theme="light"] { --c-text-2: #b2c2c9; --c-muted: #93a6b0; --text-2: #b2c2c9; }
+/* Dark sections nested in (remapped) light sections get their light primitives back. */
+html.dark [data-theme="dark"] { --c-stone: #f3f0eb; --c-stone-2: #ebe7e0; --c-stone-3: #e6e0d6; --c-paper: #fbfaf7; --c-mist: #e5ebec; --c-mist-hi: #eef1f1; --c-mist-2: #dfe7ea; --text: #f3f0eb; --c-text-2: #50636e; }

@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import type { ServiceId } from "@/content/site";
 import { WebsitePreview } from "@/components/glass/WebsitePreview";
 import { WorkflowCanvas } from "@/components/glass/WorkflowCanvas";
@@ -24,7 +25,7 @@ function CalendarMock() {
   const kinds = ["Reel", "Carousel", "", "Story", "Post", "", "Reel"];
   return (
     <div className="glass rounded-lg p-4 w-full max-w-2xl">
-      <div className="flex items-center justify-between mb-3"><span className="font-semibold text-sm">Content calendar · Week 1</span><Label t="Illustrative" /></div>
+      <div className="flex items-center justify-between mb-3"><span className="font-semibold text-sm">{t("Content calendar · Week 1")}</span><Label t="Illustrative" /></div>
       <div className="grid grid-cols-7 gap-2">{days.map((d, i) => (
         <div key={d} className="rounded-sm hairline bg-surface p-2 min-h-16"><div className="text-[10px] text-slate">{d}</div>{kinds[i] && <span className={`chip mt-1 ${i % 2 ? "chip-navy" : "chip-sage"}`}>{kinds[i]}</span>}</div>
       ))}</div>
@@ -35,12 +36,12 @@ function CalendarMock() {
 function CampaignStructure() {
   return (
     <div className="glass rounded-lg p-4 w-full max-w-md">
-      <div className="flex items-center justify-between mb-3"><span className="font-semibold text-sm">Campaign structure</span><Label t="Illustrative" /></div>
+      <div className="flex items-center justify-between mb-3"><span className="font-semibold text-sm">{t("Campaign structure")}</span><Label t="Illustrative" /></div>
       <ul className="text-sm space-y-2">
-        <li className="rounded-sm bg-navy-tint p-2 font-semibold text-navy">Campaign · Leads</li>
-        <li className="ml-4 rounded-sm bg-surface-strong hairline p-2">Ad set · 25–54, interests</li>
-        <li className="ml-8 rounded-sm bg-surface-strong hairline p-2 flex justify-between"><span>Ad · Video A</span><span className="chip chip-sage">Learning</span></li>
-        <li className="ml-8 rounded-sm bg-surface-strong hairline p-2 flex justify-between"><span>Ad · Static B</span><span className="chip chip-slate">Paused</span></li>
+        <li className="rounded-sm bg-navy-tint p-2 font-semibold text-navy">{t("Campaign · Leads")}</li>
+        <li className="ml-4 rounded-sm bg-surface-strong hairline p-2">{t("Ad set · 25–54, interests")}</li>
+        <li className="ml-8 rounded-sm bg-surface-strong hairline p-2 flex justify-between"><span>{t("Ad · Video A")}</span><span className="chip chip-sage">{t("Learning")}</span></li>
+        <li className="ml-8 rounded-sm bg-surface-strong hairline p-2 flex justify-between"><span>{t("Ad · Static B")}</span><span className="chip chip-slate">{t("Paused")}</span></li>
       </ul>
     </div>
   );
@@ -49,12 +50,12 @@ function CampaignStructure() {
 function ReportingMock() {
   return (
     <div className="w-full max-w-lg flex flex-col gap-3">
-      <div className="flex items-center justify-between"><span className="font-semibold text-sm">Weekly report</span><Label t="Illustrative" /></div>
+      <div className="flex items-center justify-between"><span className="font-semibold text-sm">{t("Weekly report")}</span><Label t="Illustrative" /></div>
       <KpiRow stats={[
-        { label: "Reach · Illustrative", value: "48k", delta: 9, icon: Users, tone: "sage" },
-        { label: "Leads · Illustrative", value: "63", delta: 14, icon: Inbox, tone: "sage" },
-        { label: "Click-through · Illustrative", value: "2.4%", delta: 6, icon: BarChart3, tone: "navy" },
-        { label: "Frequency · Illustrative", value: "1.8", delta: -4, icon: BarChart3, tone: "navy" },
+        { label: t("Reach · Illustrative"), value: "48k", delta: 9, icon: Users, tone: "sage" },
+        { label: t("Leads · Illustrative"), value: "63", delta: 14, icon: Inbox, tone: "sage" },
+        { label: t("Click-through · Illustrative"), value: "2.4%", delta: 6, icon: BarChart3, tone: "navy" },
+        { label: t("Frequency · Illustrative"), value: "1.8", delta: -4, icon: BarChart3, tone: "navy" },
       ]} className="!grid-cols-2" />
     </div>
   );

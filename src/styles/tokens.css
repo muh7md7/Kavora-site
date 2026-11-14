@@ -203,6 +203,40 @@
   color: var(--text);
   background-color: var(--bg);
 }
+/* Site-wide dark mode (html.dark, set by the header toggle) — light scopes take the dark palette. */
+html.dark, html.dark [data-theme="light"] {
+  --bg: var(--c-deep);
+  --bg-2: var(--charcoal-2);
+  --text: var(--c-stone);          /* 11.6:1 on deep blue */
+  --text-2: var(--c-on-dark-2);        /* 7.0:1 */
+  --line: color-mix(in srgb, var(--c-blue-grey) 13%, transparent);
+  --line-strong: color-mix(in srgb, var(--c-blue-grey) 26%, transparent);
+  --surface: color-mix(in srgb, var(--c-blue-grey) 6%, transparent);
+  --surface-strong: color-mix(in srgb, var(--c-blue-grey) 11%, transparent);
+  --accent: var(--steel-blue);
+  --accent-text: var(--steel-blue);
+  --on-accent: var(--deep-charcoal);
+  --steel-soft: color-mix(in srgb, var(--c-steel-light) 12%, transparent);
+  --moss: var(--steel-blue);
+  --moss-soft: color-mix(in srgb, var(--c-steel-light) 12%, transparent);
+  --rust: #e3b2ab;
+  --glass-bg: linear-gradient(180deg, color-mix(in srgb, var(--c-deep-3) 60%, transparent), color-mix(in srgb, var(--c-deep-2) 50%, transparent));
+  --glass-border: color-mix(in srgb, var(--c-blue-grey) 14%, transparent);
+  --glass-edge: rgba(0, 0, 0, 0.35);
+  --glass-highlight: inset 0 1px 0 color-mix(in srgb, var(--c-stone) 7%, transparent);
+  --glass-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  --bloom: color-mix(in srgb, var(--c-steel-light) 14%, transparent);
+  --logo-ink: var(--c-ink);
+  --logo-keel: var(--c-steel-text);
+  --logo-fill: var(--c-paper);
+  --bg-grad: var(--grad-dark);
+  color: var(--text);
+  background-color: var(--bg);
+}
+/* In dark mode, sections that were already dark go one step deeper so the rhythm survives. */
+html.dark [data-theme="dark"] { --bg: var(--c-ink); --bg-2: var(--c-deep); }
+html.dark { color-scheme: dark; }
+
 
 @media (max-width: 767px) {
   :root { --glass-blur: 14px; }

@@ -6,6 +6,7 @@ import { ArrowUpRight, ChevronDown, ChevronRight, Mail, MessageCircle, Phone } f
 import { headerButton, isConfirmed, nav, services, site } from "@/content/site";
 import { ServiceGlyph } from "./ServiceGlyph";
 import { cn } from "@/lib/cn";
+import { t } from "@/i18n";
 
 type Props = { open: boolean; onClose: () => void; ctaHref?: string; ctaLabel?: string };
 
@@ -64,9 +65,9 @@ export function MobileSheet({ open, onClose, ctaHref = headerButton.link, ctaLab
       {/* Backdrop — tap to close */}
       <button type="button" tabIndex={-1} aria-hidden onClick={onClose} data-state={state}
         className="m-backdrop fixed inset-0 z-40 bg-[color-mix(in_srgb,var(--c-ink)_28%,transparent)] backdrop-blur-[3px] cursor-default" />
-      <div ref={ref} id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" data-theme="light" data-state={state}
+      <div ref={ref} id="mobile-menu" role="dialog" aria-modal="true" aria-label={t("Menu")} data-theme="light" data-state={state}
         className="m-panel fixed z-50 left-3 right-3 sm:left-4 sm:right-4 top-[80px] max-h-[calc(100dvh-96px)] overflow-y-auto overscroll-contain rounded-[calc(20px*var(--rs,1))] glass-menu border border-line shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--c-ink)_45%,transparent)] p-2">
-        <nav aria-label="Mobile">
+        <nav aria-label={t("Mobile")}>
           <ul className="grid gap-0.5">
             {nav.map((l) => {
               const active = isActive(l.href);
@@ -84,7 +85,7 @@ export function MobileSheet({ open, onClose, ctaHref = headerButton.link, ctaLab
                           </Link>
                         </li>
                       ))}
-                      <li><Link href={l.href} onClick={onClose} tabIndex={svcOpen ? 0 : -1} className="flex items-center gap-2 py-3 pl-4 text-[0.9rem] font-[550] text-text">All services <ArrowUpRight size={15} aria-hidden /></Link></li>
+                      <li><Link href={l.href} onClick={onClose} tabIndex={svcOpen ? 0 : -1} className="flex items-center gap-2 py-3 pl-4 text-[0.9rem] font-[550] text-text">{t("All services")} <ArrowUpRight size={15} aria-hidden /></Link></li>
                     </ul>
                   </div>
                 </li>
@@ -103,9 +104,9 @@ export function MobileSheet({ open, onClose, ctaHref = headerButton.link, ctaLab
           <Link href={ctaHref} onClick={onClose} className="btn btn-primary w-full !min-h-[52px] !justify-between !px-5">{ctaLabel}<ArrowUpRight size={18} aria-hidden /></Link>
           {(isConfirmed(email) || isConfirmed(phone) || isConfirmed(whatsapp)) && (
             <div className="mt-3 flex flex-wrap gap-2">
-              {isConfirmed(whatsapp) && <a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} rel="noopener" className="chip-btn"><MessageCircle size={15} aria-hidden />WhatsApp</a>}
-              {isConfirmed(phone) && <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="chip-btn"><Phone size={15} aria-hidden />Call</a>}
-              {isConfirmed(email) && <a href={`mailto:${email}`} className="chip-btn"><Mail size={15} aria-hidden />Email</a>}
+              {isConfirmed(whatsapp) && <a href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`} rel="noopener" className="chip-btn"><MessageCircle size={15} aria-hidden />{t("WhatsApp")}</a>}
+              {isConfirmed(phone) && <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="chip-btn"><Phone size={15} aria-hidden />{t("Call")}</a>}
+              {isConfirmed(email) && <a href={`mailto:${email}`} className="chip-btn"><Mail size={15} aria-hidden />{t("Email")}</a>}
             </div>
           )}
         </div>
