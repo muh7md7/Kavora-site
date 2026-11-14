@@ -4,7 +4,7 @@ name: Publish website
 on:
   push:
     branches: [main]
-    paths: ["content/**", "src/**", "public/**", "package.json", "package-lock.json", "next.config.ts", ".github/workflows/publish.yml"]
+    paths: ["content/**", "src/**", "public/**", "scripts/**", "package.json", "package-lock.json", "next.config.ts", ".github/workflows/publish.yml"]
   workflow_dispatch:
 permissions:
   contents: write
@@ -18,7 +18,8 @@ jobs:
         with: { node-version: 22, cache: npm }
       - name: Install
         run: npm ci --no-audit --no-fund
-      - name: Build
+      - name: Check content + build
+        # scripts/prepare-content.mjs runs first (prebuild): it fixes/skips unsafe edits and writes a report to this run's Summary.
         run: npm run build
       - name: Push build to deploy branch
         env:

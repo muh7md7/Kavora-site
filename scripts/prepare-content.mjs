@@ -44,7 +44,7 @@ const slugify = (s) => str(s).toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g
 
 // ---------------------------------------------------------------- core content (must be valid)
 const settings = readJson("content/settings.json");
-const home = readJson("content/home.json");
+readJson("content/home.json");
 const servicesFile = readJson("content/services.json");
 readJson("content/shared.json"); readJson("content/ai.json"); readJson("content/pages.json"); readJson("content/legal.json");
 const serviceSlugs = ["website-design-development", "social-media-management", "digital-advertising", "ai-agents-automation", "business-dashboards-systems"];
@@ -280,7 +280,7 @@ const fAccent = fontPick(fontsRaw.accent, ACCENT_FONTS, "instrument-serif", "acc
 // Copy only the font files in use (latin + latin-ext) and build @font-face rules pointing at /fonts/theme/.
 fs.rmSync(FONT_DIR, { recursive: true, force: true });
 const fontFaces = []; const preload = [];
-function useFont(key, italic) {
+function addFont(key, italic) {
   const def = FONTS[key]; if (!def?.pkg) return;
   const dir = P("node_modules/@fontsource-variable", def.pkg);
   const cssFile = path.join(dir, italic ? "wght-italic.css" : "wght.css");
@@ -295,7 +295,7 @@ function useFont(key, italic) {
     if (/-latin-wght/.test(file) && !preload.includes(`/fonts/theme/${file}`)) preload.push(`/fonts/theme/${file}`);
   }
 }
-useFont(fHead, false); if (fBody !== fHead) useFont(fBody, false); if (fAccent !== "none") useFont(fAccent, true);
+addFont(fHead, false); if (fBody !== fHead) addFont(fBody, false); if (fAccent !== "none") addFont(fAccent, true);
 
 const H = FONTS[fHead];
 const accentStack = fAccent === "none" ? "var(--theme-font-heading)" : stackOf(fAccent);

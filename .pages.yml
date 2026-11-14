@@ -1,6 +1,1436 @@
 # Keelbiz admin panel (Pages CMS). Open https://app.pagescms.org, sign in with GitHub and pick muh7md7/Kavora-site.
 # Saving an edit commits to main; the "Publish website" GitHub Action rebuilds and publishes automatically.
+# Design system + page builder: content/theme.json, home-layout.json, custom-pages/*.json, navigation.json
+# are checked and turned into CSS/routes by scripts/prepare-content.mjs before every build.
+media:
+  input: public/uploads
+  output: /uploads
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+  - avif
+  - gif
+  - svg
+components:
+  blockStyle:
+    label: Look
+    type: object
+    fields:
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+    - name: align
+      label: Text alignment
+      type: select
+      options:
+        values:
+        - name: left
+          label: Left
+        - name: center
+          label: Centre
+      default: left
+    - name: width
+      label: Width
+      type: select
+      options:
+        values:
+        - name: narrow
+          label: Narrow (reading width)
+        - name: normal
+          label: Normal
+        - name: wide
+          label: Wide
+      default: normal
+  button:
+    label: Button
+    type: object
+    fields:
+    - name: label
+      label: Button text
+      type: string
+    - name: link
+      label: Button link
+      type: string
+      description: A page on this site like /contact/ or /services/, or a full link starting with https://
+  block_homeHero:
+    label: ★ Home hero (animated demo)
+    type: object
+    description: 'Text: 🏠 Home page texts → Top section.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: visual-right
+          label: Text left, demo right
+        - name: visual-left
+          label: Demo left, text right
+        - name: centered
+          label: Centred text, no demo
+      default: visual-right
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeServices:
+    label: ★ Services (5 services)
+    type: object
+    description: 'Text: 🏠 Home page texts → Services section.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: bento
+          label: Bento cards
+        - name: list
+          label: Detailed list
+      default: bento
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeShowcase:
+    label: ★ See it in action
+    type: object
+    description: 'Text: 🏠 Home page texts → “See it in action”.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeWhy:
+    label: ★ Why us
+    type: object
+    description: 'Text: 🏠 Home page texts → “Why Keelbiz”.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeFlexible:
+    label: ★ One service or a complete solution
+    type: object
+    description: 'Text: 🏠 Home page texts.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeProcess:
+    label: ★ Process steps
+    type: object
+    description: 'Text: 🔁 Process, reasons & FAQ.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: side
+          label: Heading beside the steps
+        - name: stacked
+          label: Heading above the steps
+      default: side
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeAi:
+    label: ★ AI offer
+    type: object
+    description: 'Text: 🤖 AI offer.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_homeFaq:
+    label: ★ Main FAQ
+    type: object
+    description: 'Questions: 🔁 Process, reasons & FAQ.'
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: side
+          label: Heading beside the questions
+        - name: stacked
+          label: Heading above the questions
+      default: side
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - name: auto
+          label: Automatic (design default)
+        - name: light
+          label: Light stone
+        - name: mist
+          label: Soft mist
+        - name: warm
+          label: Warm stone
+        - name: dark
+          label: Deep blue (dark)
+      default: auto
+  block_hero:
+    label: Hero (page top)
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: primaryButton
+      label: Main button
+      component: button
+    - name: secondaryButton
+      label: Second button
+      component: button
+    - name: image
+      label: Image (optional)
+      type: image
+    - name: imageAlt
+      label: Image description (alt text)
+      type: string
+      description: 'Required when there is an image: describe it for people who can''t see it'
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: image-right
+          label: Text left, image right
+        - name: image-left
+          label: Image left, text right
+        - name: centered
+          label: Centred (image below)
+      default: image-right
+    - name: style
+      label: Look
+      component: blockStyle
+  block_text:
+    label: Text
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: body
+      label: Text
+      type: rich-text
+    - name: style
+      label: Look
+      component: blockStyle
+  block_cards:
+    label: Cards grid
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: columns
+      label: Cards per row (desktop)
+      type: select
+      options:
+        values:
+        - name: '2'
+          label: '2'
+        - name: '3'
+          label: '3'
+        - name: '4'
+          label: '4'
+      default: '3'
+    - name: items
+      label: Cards
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon
+        type: select
+        options:
+          values:
+          - name: ''
+            label: No icon
+          - name: sparkles
+            label: Sparkles
+          - name: check
+            label: Check
+          - name: layers
+            label: Layers
+          - name: bot
+            label: Bot
+          - name: chart
+            label: Chart
+          - name: globe
+            label: Globe
+          - name: megaphone
+            label: Megaphone
+          - name: calendar
+            label: Calendar
+          - name: shield
+            label: Shield
+          - name: zap
+            label: Zap
+          - name: users
+            label: Users
+          - name: message
+            label: Message
+          - name: target
+            label: Target
+          - name: rocket
+            label: Rocket
+          - name: workflow
+            label: Workflow
+          - name: mail
+            label: Mail
+          - name: phone
+            label: Phone
+          - name: clock
+            label: Clock
+          - name: search
+            label: Search
+          - name: pen
+            label: Pen
+          - name: camera
+            label: Camera
+          - name: cart
+            label: Cart
+          - name: heart
+            label: Heart
+          - name: lightbulb
+            label: Lightbulb
+        default: ''
+      - name: title
+        label: Title
+        type: string
+      - name: text
+        label: Text
+        type: text
+      - name: link
+        label: Link (optional)
+        type: string
+        description: A page on this site like /contact/ or /services/, or a full link starting with https://
+      - name: linkLabel
+        label: Link text
+        type: string
+        description: 'Default: Learn more'
+    - name: style
+      label: Look
+      component: blockStyle
+  block_imageText:
+    label: Image + text
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: body
+      label: Text
+      type: rich-text
+    - name: image
+      label: Image
+      type: image
+    - name: imageAlt
+      label: Image description (alt text)
+      type: string
+      description: 'Required: describe the image for people who can''t see it'
+    - name: imageSide
+      label: Image side
+      type: select
+      options:
+        values:
+        - name: right
+          label: Right
+        - name: left
+          label: Left
+      default: right
+    - name: button
+      label: Button (optional)
+      component: button
+    - name: style
+      label: Look
+      component: blockStyle
+  block_services:
+    label: Services (bento or list)
+    type: object
+    description: Shows your 5 services. Leave the heading empty to reuse the home page services heading.
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: bento
+          label: Bento cards
+        - name: list
+          label: Detailed list
+      default: bento
+    - name: style
+      label: Look
+      component: blockStyle
+  block_faq:
+    label: FAQ
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: layout
+      label: Layout
+      type: select
+      options:
+        values:
+        - name: side
+          label: Heading beside the questions
+        - name: stacked
+          label: Heading above the questions
+      default: side
+    - name: items
+      label: Questions
+      type: object
+      list: true
+      fields:
+      - name: q
+        label: Question
+        type: string
+        required: true
+      - name: a
+        label: Answer
+        type: text
+        required: true
+    - name: style
+      label: Look
+      component: blockStyle
+  block_cta:
+    label: Call to action
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: primaryButton
+      label: Main button
+      component: button
+    - name: secondaryButton
+      label: Second button
+      component: button
+    - name: style
+      label: Look
+      component: blockStyle
+  block_highlights:
+    label: Highlights (facts, no fake numbers)
+    type: object
+    description: Short facts. A figure (anything with a number) is only shown when you fill in where it comes from.
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: items
+      label: Highlights
+      type: object
+      list:
+        max: 4
+      fields:
+      - name: value
+        label: Big text
+        type: string
+        description: A word or short phrase (e.g. Bilingual), or a real figure with a source
+      - name: label
+        label: Explanation
+        type: string
+      - name: source
+        label: Source of the figure
+        type: string
+        description: Required for numbers, e.g. Google Analytics, Jan–Jun 2026
+    - name: style
+      label: Look
+      component: blockStyle
+  block_gallery:
+    label: Gallery
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: columns
+      label: Images per row (desktop)
+      type: select
+      options:
+        values:
+        - name: '2'
+          label: '2'
+        - name: '3'
+          label: '3'
+        - name: '4'
+          label: '4'
+      default: '3'
+    - name: images
+      label: Images
+      type: object
+      list: true
+      fields:
+      - name: image
+        label: Image
+        type: image
+      - name: alt
+        label: Image description (alt text)
+        type: string
+        description: Required
+        required: true
+      - name: caption
+        label: Caption (optional)
+        type: string
+    - name: style
+      label: Look
+      component: blockStyle
+  block_contact:
+    label: Contact form
+    type: object
+    description: The same enquiry form as the Contact page.
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: eyebrow
+      label: Small label above the heading
+      type: string
+      description: Optional, e.g. HOW IT WORKS
+    - name: title
+      label: Heading
+      type: string
+    - name: accent
+      label: Accent word(s)
+      type: string
+      description: Shown in the italic accent style right after the heading
+    - name: after
+      label: Text after the accent
+      type: string
+      description: Optional
+    - name: lead
+      label: Intro paragraph
+      type: text
+    - name: style
+      label: Look
+      component: blockStyle
+  block_spacer:
+    label: Spacer / divider
+    type: object
+    fields:
+    - name: hidden
+      label: Hide this section
+      type: boolean
+      default: false
+      description: Turn on to hide it without deleting it
+    - name: size
+      label: Size
+      type: select
+      options:
+        values:
+        - name: small
+          label: Small
+        - name: medium
+          label: Medium
+        - name: large
+          label: Large
+      default: medium
+    - name: line
+      label: Show a thin line
+      type: boolean
+      default: false
+    - name: style
+      label: Look
+      component: blockStyle
 content:
+- name: theme
+  label: 🎨 Design & theme
+  description: Colours, fonts, corners, buttons, spacing, effects and brand files for the whole website. Unsafe colour choices are corrected automatically for readability.
+  type: file
+  path: content/theme.json
+  fields:
+  - name: colours
+    label: Colours
+    type: object
+    fields:
+    - name: preset
+      label: Colour scheme
+      type: select
+      options:
+        values:
+        - name: stone-steel
+          label: Stone & Steel (current)
+        - name: porcelain-navy
+          label: Porcelain & Navy
+        - name: sand-olive
+          label: Sand & Olive
+        - name: linen-clay
+          label: Linen & Clay
+        - name: fog-forest
+          label: Fog & Forest
+        - name: mono
+          label: Monochrome
+        - name: custom
+          label: Custom colours (below)
+      default: stone-steel
+      description: Presets are tested for readability. Choose Custom to use your own colours below.
+    - name: custom
+      label: Custom colours (only used when scheme = Custom)
+      type: object
+      fields:
+      - name: background
+        label: Page background
+        type: string
+        description: 'Light — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+      - name: surface
+        label: Soft surface
+        type: string
+        description: 'Light, for alternating sections — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+      - name: surfaceDeep
+        label: Mid-tone surface
+        type: string
+        description: 'Slightly darker light tone, for cards and previews — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+      - name: accent
+        label: Accent
+        type: string
+        description: 'Lines, glows, highlights — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+      - name: accentSecondary
+        label: Secondary accent
+        type: string
+        description: 'Supporting tone — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+      - name: dark
+        label: Dark sections
+        type: string
+        description: 'Deep colour for dark bands and the footer — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+      - name: text
+        label: Text
+        type: string
+        description: 'Main text colour — hex code like #233845. Leave empty to keep the Stone & Steel colour.'
+  - name: fonts
+    label: Fonts
+    type: object
+    fields:
+    - name: headings
+      label: Headings
+      type: select
+      options:
+        values:
+        - name: geist
+          label: Geist (current)
+        - name: inter
+          label: Inter
+        - name: manrope
+          label: Manrope
+        - name: plus-jakarta-sans
+          label: Plus Jakarta Sans
+        - name: dm-sans
+          label: DM Sans
+        - name: outfit
+          label: Outfit
+        - name: sora
+          label: Sora
+        - name: space-grotesk
+          label: Space Grotesk
+        - name: fraunces
+          label: Fraunces (serif)
+        - name: playfair-display
+          label: Playfair Display (serif)
+        - name: cormorant-garamond
+          label: Cormorant Garamond (serif)
+      default: geist
+    - name: body
+      label: Body text
+      type: select
+      options:
+        values:
+        - name: geist
+          label: Geist (current)
+        - name: inter
+          label: Inter
+        - name: manrope
+          label: Manrope
+        - name: plus-jakarta-sans
+          label: Plus Jakarta Sans
+        - name: dm-sans
+          label: DM Sans
+        - name: outfit
+          label: Outfit
+        - name: sora
+          label: Sora
+      default: geist
+    - name: accent
+      label: Accent word style
+      type: select
+      options:
+        values:
+        - name: instrument-serif
+          label: Instrument Serif italic (current)
+        - name: fraunces
+          label: Fraunces italic
+        - name: playfair-display
+          label: Playfair Display italic
+        - name: cormorant-garamond
+          label: Cormorant Garamond italic
+        - name: none
+          label: No special style (accent colour only)
+      default: instrument-serif
+  - name: corners
+    label: Corner roundness
+    type: select
+    options:
+      values:
+      - name: sharp
+        label: Sharp
+      - name: soft
+        label: Soft
+      - name: rounded
+        label: Rounded (current)
+      - name: round
+        label: Extra round
+    default: rounded
+  - name: buttons
+    label: Buttons
+    type: object
+    fields:
+    - name: shape
+      label: Shape
+      type: select
+      options:
+        values:
+        - name: pill
+          label: Pill (current)
+        - name: rounded
+          label: Rounded rectangle
+        - name: square
+          label: Square
+      default: pill
+    - name: style
+      label: Main button style
+      type: select
+      options:
+        values:
+        - name: solid
+          label: Solid dark (current)
+        - name: accent
+          label: Accent colour
+        - name: outline
+          label: Outline
+      default: solid
+  - name: spacing
+    label: Space between sections
+    type: select
+    options:
+      values:
+      - name: compact
+        label: Compact
+      - name: comfortable
+        label: Comfortable (current)
+      - name: spacious
+        label: Spacious
+    default: comfortable
+  - name: shadows
+    label: Shadows
+    type: select
+    options:
+      values:
+      - name: none
+        label: None
+      - name: soft
+        label: Soft
+      - name: standard
+        label: Standard (current)
+      - name: deep
+        label: Deep
+    default: standard
+  - name: glass
+    label: Glass effect (menu bar, glass panels)
+    type: select
+    options:
+      values:
+      - name: 'off'
+        label: Off (solid)
+      - name: light
+        label: Light
+      - name: standard
+        label: Standard (current)
+      - name: strong
+        label: Strong
+    default: standard
+  - name: animations
+    label: Animations
+    type: select
+    options:
+      values:
+      - name: full
+        label: Full (current)
+      - name: subtle
+        label: Subtle
+      - name: 'off'
+        label: 'Off'
+    default: full
+    description: Visitors who ask their device for reduced motion always get no animation.
+  - name: cursorEffect
+    label: Custom cursor effect (desktop)
+    type: boolean
+    default: true
+    description: Turned off automatically when animations are Off
+  - name: brand
+    label: Brand files
+    type: object
+    fields:
+    - name: logo
+      label: Logo (replaces the built-in logo)
+      type: image
+      description: PNG or SVG with a transparent background. Leave empty to keep the built-in Keelbiz logo.
+    - name: logoOnDark
+      label: Logo for dark backgrounds (optional)
+      type: image
+      description: Light-coloured version used on the dark menu sheet and footer
+    - name: logoHeight
+      label: Logo height in pixels
+      type: number
+      default: 32
+      description: 20–64
+    - name: favicon
+      label: Browser tab icon (favicon)
+      type: image
+      description: Square PNG (512×512) or SVG
+    - name: shareImage
+      label: Social share image
+      type: image
+      description: 1200×630 image shown when the site is shared on WhatsApp, LinkedIn, etc.
+- name: homeLayout
+  label: 🧱 Home page layout
+  description: Order, show/hide, background and layout of the home page sections. Drag to reorder. ★ sections use the texts from 🏠 Home page texts; you can also add your own blocks.
+  type: file
+  path: content/home-layout.json
+  fields:
+  - name: sections
+    label: Sections
+    description: The hero always stays at the top.
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: homeHero
+      label: ★ Home hero (animated demo)
+      component: block_homeHero
+    - name: homeServices
+      label: ★ Services (5 services)
+      component: block_homeServices
+    - name: homeShowcase
+      label: ★ See it in action
+      component: block_homeShowcase
+    - name: homeWhy
+      label: ★ Why us
+      component: block_homeWhy
+    - name: homeFlexible
+      label: ★ One service or a complete solution
+      component: block_homeFlexible
+    - name: homeProcess
+      label: ★ Process steps
+      component: block_homeProcess
+    - name: homeAi
+      label: ★ AI offer
+      component: block_homeAi
+    - name: homeFaq
+      label: ★ Main FAQ
+      component: block_homeFaq
+    - name: hero
+      label: Hero (page top)
+      component: block_hero
+    - name: text
+      label: Text
+      component: block_text
+    - name: cards
+      label: Cards grid
+      component: block_cards
+    - name: imageText
+      label: Image + text
+      component: block_imageText
+    - name: services
+      label: Services (bento or list)
+      component: block_services
+    - name: faq
+      label: FAQ
+      component: block_faq
+    - name: cta
+      label: Call to action
+      component: block_cta
+    - name: highlights
+      label: Highlights (facts, no fake numbers)
+      component: block_highlights
+    - name: gallery
+      label: Gallery
+      component: block_gallery
+    - name: contact
+      label: Contact form
+      component: block_contact
+    - name: spacer
+      label: Spacer / divider
+      component: block_spacer
+- name: customPages
+  label: 📄 Pages (page builder)
+  description: Create new pages from blocks. Each page gets its own address (e.g. /pricing/), is added to the sitemap, and can be linked from the menu or footer.
+  type: collection
+  path: content/custom-pages
+  format: json
+  filename: '{fields.slug}.json'
+  view:
+    fields:
+    - title
+    - slug
+    - published
+    primary: title
+  fields:
+  - name: title
+    label: Page title
+    type: string
+    description: Main heading and browser tab title
+    required: true
+  - name: slug
+    label: Page address
+    type: string
+    description: Lowercase words with dashes, e.g. pricing → yoursite.com/pricing/
+    required: true
+  - name: published
+    label: Published
+    type: boolean
+    default: true
+    description: Off = draft (not on the website)
+  - name: menu
+    label: Menu & footer
+    type: object
+    fields:
+    - name: showInHeader
+      label: Add to the top menu
+      type: boolean
+      default: false
+    - name: showInFooter
+      label: Add to the footer (Company column)
+      type: boolean
+      default: false
+    - name: label
+      label: Menu text
+      type: string
+      description: 'Default: the page title'
+  - name: seo
+    label: Google & sharing
+    type: object
+    fields:
+    - name: title
+      label: Google title
+      type: string
+      description: 'Default: the page title'
+    - name: description
+      label: Google description
+      type: text
+      description: About 150 characters
+    - name: image
+      label: Social share image (optional)
+      type: image
+      description: 1200×630
+    - name: hideFromSearch
+      label: Hide from Google
+      type: boolean
+      default: false
+  - name: blocks
+    label: Page sections
+    description: Add blocks and drag to reorder. If the first block isn't a Hero, the page title is shown at the top.
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero (page top)
+      component: block_hero
+    - name: text
+      label: Text
+      component: block_text
+    - name: cards
+      label: Cards grid
+      component: block_cards
+    - name: imageText
+      label: Image + text
+      component: block_imageText
+    - name: services
+      label: Services (bento or list)
+      component: block_services
+    - name: faq
+      label: FAQ
+      component: block_faq
+    - name: cta
+      label: Call to action
+      component: block_cta
+    - name: highlights
+      label: Highlights (facts, no fake numbers)
+      component: block_highlights
+    - name: gallery
+      label: Gallery
+      component: block_gallery
+    - name: contact
+      label: Contact form
+      component: block_contact
+    - name: spacer
+      label: Spacer / divider
+      component: block_spacer
+    - name: homeHero
+      label: ★ Home hero (animated demo)
+      component: block_homeHero
+    - name: homeServices
+      label: ★ Services (5 services)
+      component: block_homeServices
+    - name: homeShowcase
+      label: ★ See it in action
+      component: block_homeShowcase
+    - name: homeWhy
+      label: ★ Why us
+      component: block_homeWhy
+    - name: homeFlexible
+      label: ★ One service or a complete solution
+      component: block_homeFlexible
+    - name: homeProcess
+      label: ★ Process steps
+      component: block_homeProcess
+    - name: homeAi
+      label: ★ AI offer
+      component: block_homeAi
+    - name: homeFaq
+      label: ★ Main FAQ
+      component: block_homeFaq
+- name: navigation
+  label: 🧭 Menu & footer
+  description: Top menu links and button, and footer columns. Broken links are removed automatically when publishing.
+  type: file
+  path: content/navigation.json
+  fields:
+  - name: header
+    label: Top menu
+    type: object
+    fields:
+    - name: links
+      label: Menu links
+      type: object
+      list:
+        min: 1
+        max: 8
+      fields:
+      - name: label
+        label: Text
+        type: string
+        required: true
+      - name: link
+        label: Link
+        type: string
+        description: A page on this site like /contact/ or /services/, or a full link starting with https://
+        required: true
+      - name: servicesMenu
+        label: Show the services drop-down under this link
+        type: boolean
+        default: false
+    - name: button
+      label: Menu button
+      component: button
+  - name: footer
+    label: Footer
+    type: object
+    fields:
+    - name: showCta
+      label: Show the big closing call-to-action
+      type: boolean
+      default: true
+      description: Its text is in ⚙️ Business details & footer
+    - name: servicesTitle
+      label: Services column title
+      type: string
+    - name: showServices
+      label: List the 5 services
+      type: boolean
+      default: true
+    - name: servicesExtra
+      label: Extra links under services
+      type: object
+      list: true
+      fields:
+      - name: label
+        label: Text
+        type: string
+        required: true
+      - name: link
+        label: Link
+        type: string
+        description: A page on this site like /contact/ or /services/, or a full link starting with https://
+        required: true
+    - name: companyTitle
+      label: Second column title
+      type: string
+    - name: companyLinks
+      label: Second column links
+      type: object
+      list: true
+      fields:
+      - name: label
+        label: Text
+        type: string
+        required: true
+      - name: link
+        label: Link
+        type: string
+        description: A page on this site like /contact/ or /services/, or a full link starting with https://
+        required: true
+    - name: contactTitle
+      label: Contact column title
+      type: string
+    - name: showContact
+      label: Show the contact column
+      type: boolean
+      default: true
+    - name: legalLinks
+      label: Bottom bar links
+      type: object
+      list: true
+      fields:
+      - name: label
+        label: Text
+        type: string
+        required: true
+      - name: link
+        label: Link
+        type: string
+        description: A page on this site like /contact/ or /services/, or a full link starting with https://
+        required: true
+    - name: showWordmark
+      label: Show the large outlined brand name
+      type: boolean
+      default: true
 - name: settings
   label: ⚙️ Business details & footer
   description: Brand name, contact details, social links and the closing call-to-action. Leave a contact field empty to hide it on the website.
@@ -77,7 +1507,7 @@ content:
       label: Footer tagline
       type: string
 - name: home
-  label: 🏠 Home page
+  label: 🏠 Home page texts
   description: Every heading and paragraph on the home page.
   type: file
   path: content/home.json
@@ -508,7 +1938,7 @@ content:
       type: text
     list: true
 - name: pages
-  label: 📄 Other pages
+  label: 📝 Built-in page texts
   description: Services overview, About, Work, Contact and AI Solutions pages.
   type: file
   path: content/pages.json

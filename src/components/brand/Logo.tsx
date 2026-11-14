@@ -27,10 +27,10 @@ export function UploadedLogo({ className, dark = false }: { className?: string; 
   const { logo, logoOnDark, logoHeight } = theme.brand;
   if (!logo) return null;
   const style = { height: logoHeight, width: "auto" } as const;
-  if (dark) return <img src={(logoOnDark ?? logo).src} alt={site.brand} style={style} className={cn("block", className)} />;
+  if (dark) return <img src={(logoOnDark ?? logo).src} alt={site.brand} style={style} className={cn("block", !logoOnDark && "logo-img-auto", className)} />;
   return (
     <span className={cn("inline-flex items-center", className)}>
-      <img src={logo.src} alt={site.brand} style={style} className={cn("block", logoOnDark && "logo-img-light")} />
+      <img src={logo.src} alt={site.brand} style={style} className={cn("block", logoOnDark ? "logo-img-light" : "logo-img-auto")} />
       {logoOnDark && <img src={logoOnDark.src} alt={site.brand} style={style} className="logo-img-dark" />}
     </span>
   );

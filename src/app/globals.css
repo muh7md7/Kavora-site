@@ -381,6 +381,7 @@ footer.tone[data-theme="dark"] { margin: 0 clamp(8px, 1.4vw, 20px) clamp(8px, 1.
 .aurora i:nth-child(1) { width: 62vw; height: 62vw; right: -14vw; top: -26vw; background: radial-gradient(closest-side, color-mix(in srgb, var(--c-steel) 42%, transparent), transparent); animation: aur-a 22s var(--ease-in-out, ease-in-out) infinite alternate; }
 .aurora i:nth-child(2) { width: 44vw; height: 44vw; left: -12vw; top: 18%; background: radial-gradient(closest-side, color-mix(in srgb, var(--c-mist) 100%, transparent), transparent); animation: aur-b 26s ease-in-out infinite alternate; }
 .aurora i:nth-child(3) { width: 36vw; height: 36vw; right: 18%; bottom: -16vw; background: radial-gradient(closest-side, color-mix(in srgb, var(--c-deep) 10%, transparent), transparent); animation: aur-c 30s ease-in-out infinite alternate; }
+[data-theme="dark"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-steel) 24%, transparent), transparent); }
 @keyframes aur-a { to { transform: translate3d(-8vw, 6vw, 0) scale(1.08); } }
 @keyframes aur-b { to { transform: translate3d(10vw, -4vw, 0) scale(.92); } }
 @keyframes aur-c { to { transform: translate3d(-6vw, -6vw, 0) scale(1.12); } }
@@ -431,3 +432,5 @@ footer.tone[data-theme="dark"] { margin: 0 clamp(8px, 1.4vw, 20px) clamp(8px, 1.
 .logo-img-dark { display: none; }
 [data-theme="dark"] .logo-img-dark { display: block; }
 [data-theme="dark"] .logo-img-light { display: none; }
+/* No dark-background logo uploaded: show the main logo as a light silhouette on dark areas. */
+[data-theme="dark"] .logo-img-auto { filter: brightness(0) invert(1); }
