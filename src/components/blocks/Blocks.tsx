@@ -215,7 +215,7 @@ function BlockView({ b, first }: { b: Block; first: boolean }) {
         <Shell b={b} dflt={{ tone: "mist" }}>
           <div className="grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-4"><BlockHead h={b} /></div>
-            <div className="lg:col-span-8 card !bg-[linear-gradient(180deg,color-mix(in_srgb,var(--c-paper)_90%,transparent),color-mix(in_srgb,var(--c-paper)_70%,transparent))] p-6 sm:p-8 md:p-10">
+            <div className="lg:col-span-8 contact-card rounded-[calc(28px*var(--rs,1))] p-6 sm:p-8 md:p-10">
               <EnquiryForm />
             </div>
           </div>

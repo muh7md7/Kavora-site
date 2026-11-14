@@ -18,13 +18,13 @@ const serif = localFont({
   ],
   variable: "--font-serif-accent", display: "swap", preload: true, adjustFontFallback: "Times New Roman",
 });
-// Arabic: IBM Plex Sans Arabic (SIL OFL), used only by the /ar/ build.
+// Arabic: Readex Pro (SIL OFL) — modern Gulf-style sans, used only by the /ar/ build.
 const arabic = localFont({
   src: [
-    { path: "../fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2", weight: "600", style: "normal" },
-    { path: "../fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/readex-pro-arabic-300-normal.woff2", weight: "300", style: "normal" },
+    { path: "../fonts/readex-pro-arabic-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/readex-pro-arabic-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/readex-pro-arabic-600-normal.woff2", weight: "600", style: "normal" },
   ],
   variable: "--font-arabic", display: "swap", preload: false,
 });

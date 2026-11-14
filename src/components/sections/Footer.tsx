@@ -20,18 +20,18 @@ export function Footer() {
   const nf = navigation.footer;
   const showSvc = nf.showServices || nf.servicesExtra.length > 0;
   const socials = Object.entries(site.socials).filter(([, v]) => isConfirmed(v));
-  const ring = `${t("Start a project")} · ${t("Start a project")} · `;
+  const ring = "Start a project · Start a project · ";
   return (
     <footer data-theme="dark" className="site-footer tone relative overflow-hidden">
       <div aria-hidden className="foot-glow" />
       <div aria-hidden className="foot-grid" />
       {nf.showCta && <FooterCtaGate>
-        <section className="container relative pt-[clamp(72px,10vw,150px)] pb-14 md:pb-20" aria-labelledby="cta-h">
+        <section className="container relative pt-[clamp(56px,7vw,104px)] pb-10 md:pb-12" aria-labelledby="cta-h">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
             <div>
               <p className="eyebrow">{ft.eyebrow}</p>
-              <h2 id="cta-h" className="display mt-5 max-w-[13ch]"><HeadText h={ft} /></h2>
-              <p className="lead mt-5 max-w-[44ch]">{ft.lead}</p>
+              <h2 id="cta-h" className="mt-4 max-w-[16ch] !text-[clamp(2.1rem,1.4rem+2.6vw,3.9rem)] !leading-[1.02] !tracking-[-0.045em]"><HeadText h={ft} /></h2>
+              <p className="lead mt-4 max-w-[44ch] !text-[1rem]">{ft.lead}</p>
               <div className="mt-8 flex flex-wrap gap-3 md:hidden">
                 <Link href="/contact/" className="btn btn-premium !min-h-[52px] !px-6">{ft.primaryButton} <ArrowUpRight size={18} className="btn-arrow" aria-hidden /></Link>
               </div>
@@ -48,7 +48,7 @@ export function Footer() {
       </FooterCtaGate>}
 
       <div className="container relative">
-        <div className="foot-panel grid gap-x-8 gap-y-10 grid-cols-2 md:grid-cols-12 p-6 sm:p-8 md:p-10">
+        <div className="foot-panel grid gap-x-8 gap-y-8 grid-cols-2 md:grid-cols-12 p-6 md:p-8">
           <div className="col-span-2 md:col-span-4 flex flex-col gap-5">
             <div className="flex items-center gap-3">
               {theme.brand.logo ? <UploadedLogo dark /> : <LogoMark className="size-10 shrink-0 text-[var(--c-paper)] [--logo-ink:var(--c-ink)] [--logo-keel:var(--c-steel-text)]" />}
@@ -72,7 +72,7 @@ export function Footer() {
             {nf.showContact && <div>
               <h3 className="foot-h">{nf.contactTitle}</h3>
               <ul className="space-y-2.5">
-                {isConfirmed(email) && <li><a href={`mailto:${email}`} className={`${linkCls} break-all`} data-event="email_click" dir="ltr">{email}</a></li>}
+                {isConfirmed(email) && <li><a href={`mailto:${email}`} className={`${linkCls} whitespace-nowrap text-[0.86rem]`} data-event="email_click" dir="ltr">{email}</a></li>}
                 {isConfirmed(phone) && <li><a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className={linkCls} data-event="phone_click" dir="ltr">{phone}</a></li>}
                 {isConfirmed(wa) && <li><a href={`https://wa.me/${wa.replace(/\D/g, "")}`} className={linkCls} data-event="whatsapp_click" rel="noopener">{t("WhatsApp")}</a></li>}
                 <li><Link href="/contact/" className={linkCls}>{t("Send a message")}</Link></li>
