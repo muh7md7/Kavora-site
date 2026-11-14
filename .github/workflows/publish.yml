@@ -39,10 +39,11 @@ jobs:
         env:
           PUBLISH_HOOK: ${{ vars.PUBLISH_HOOK_URL || 'https://paleturquoise-dogfish-291071.hostingersite.com/api/publish.php' }}
         run: |
-          for i in 1 2 3 4; do
-            sleep 10
-            res=$(curl -sS -X POST -A "Mozilla/5.0 (compatible; KeelbizPublisher/1.0; +https://github.com/${{ github.repository }})" -H "Accept: application/json" "$PUBLISH_HOOK" -w ' HTTP%{http_code}' 2>&1 | head -c 600 || true)
+          # --max-time: Hostinger sometimes stalls requests from GitHub's runners; fail fast and retry instead of hanging.
+          for i in 1 2 3 4 5 6; do
+            sleep $((i * 10))
+            res=$(curl -sS --connect-timeout 15 --max-time 60 -X POST -A "Mozilla/5.0 (compatible; KeelbizPublisher/1.0; +https://github.com/${{ github.repository }})" -H "Accept: application/json" "$PUBLISH_HOOK" -w ' HTTP%{http_code}' 2>&1 | head -c 600 || true)
             echo "$res"
             case "$res" in *'"ok":true'*) exit 0;; esac
           done
-          echo "::error::Publish hook did not confirm. Check $PUBLISH_HOOK"; exit 1
+          echo "::error::The server did not confirm the update. The new build is ready on the deploy branch — re-run this job, or open $PUBLISH_HOOK's site and run the publish hook again."; exit 1
