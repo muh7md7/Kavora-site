@@ -83,7 +83,11 @@ $removed = 0;
 if (is_array($prev)) {
   foreach (array_diff($prev, array_keys($files)) as $rel) {
     if (str_contains($rel, '..')) continue;
-    if (is_file("$root/$rel") && @unlink("$root/$rel")) $removed++;
+    if (is_file("$root/$rel") && @unlink("$root/$rel")) {
+      $removed++;
+      // Prune folders left empty (e.g. a deleted page) so they 404 instead of 403.
+      for ($d = dirname("$root/$rel"); $d !== $root && str_starts_with($d, "$root/") && @rmdir($d); $d = dirname($d));
+    }
   }
 }
 if (!$failed) {
